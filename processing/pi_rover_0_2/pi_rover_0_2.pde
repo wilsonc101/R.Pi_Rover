@@ -1,0 +1,351 @@
+import processing.net.*;
+import controlP5.*;
+
+
+// General use vars
+int i, w, c, d, ds, b, ka, REMOTE_PORT;
+String REMOTE_IP, con_test;
+
+// Network client
+Client net_c;
+
+// Servo vars
+int DIR_MIN_ANGLE, DIR_MAX_ANGLE, DIR_NEU_ANGLE, DIR_RAMPING, DIR_RANGE, dir_out_angle;
+int ACC_MIN_ANGLE, ACC_MAX_ANGLE, ACC_NEU_ANGLE, ACC_RAMPING, ACC_RANGE, acc_out_angle;
+int BRK_ON_ANGLE, BRK_OFF_ANGLE, BRK_NEU_ANGLE, BRK_RAMPING, BRK_RANGE, brk_out_angle;
+
+// Interface objects - ControlP5
+ControlP5 obj_cp5;
+Slider2D sld2_cam;
+Slider sld_acc, sld_dir;
+Textarea obj_disc_text;
+Textfield obj_in_remote_ip, obj_in_remote_port;
+Button obj_btn_connect;
+Group grp_cam, grp_ctrl;
+
+
+void setup() {
+  size(600,280);
+  obj_cp5 = new ControlP5(this);
+
+
+  // Define default network connection 
+  REMOTE_IP = "127.0.0.1";  
+  REMOTE_PORT = 5005;
+  
+  net_c = new Client(this, REMOTE_IP, REMOTE_PORT);
+  con_test = "pass";
+
+  // Servo limits - Direction/Steering
+  DIR_MIN_ANGLE = 256;
+  DIR_MAX_ANGLE = 470;
+  DIR_NEU_ANGLE = 352;
+  DIR_RAMPING   = 12;
+  
+
+  // Servo limits - Accel/Throttle
+  ACC_MIN_ANGLE = 150;
+  ACC_MAX_ANGLE = 600;
+  ACC_NEU_ANGLE = 352;
+  ACC_RAMPING   = 16;
+  ACC_RANGE = ACC_MAX_ANGLE - ACC_MIN_ANGLE;
+
+  // Servo limits - Brake
+  BRK_ON_ANGLE = 350;
+  BRK_OFF_ANGLE = 410;
+  BRK_NEU_ANGLE = 410;
+  BRK_RAMPING   = 1;
+
+  // Servo default positions
+  dir_out_angle = DIR_NEU_ANGLE;
+  acc_out_angle = ACC_NEU_ANGLE;
+  brk_out_angle = BRK_NEU_ANGLE;
+  
+  // Reset loop counter
+  i = 0;
+
+  // Build interface
+  //CONNECTED INTERFACE
+  grp_cam = obj_cp5.addGroup("camera")
+     .setPosition(420,40)
+     .setWidth(120)
+     .setBackgroundHeight(200)
+     .setBackgroundColor(color(255,50))
+     ;
+
+  grp_ctrl = obj_cp5.addGroup("controls")
+     .setPosition(60,40)
+     .setWidth(350)
+     .setBackgroundHeight(200)
+     .setBackgroundColor(color(255,50))
+     ;
+
+  sld2_cam = obj_cp5.addSlider2D("sld2_cam")
+     .setPosition(10,30)
+     .setSize(100,100)
+     .setArrayValue(new float[] {50, 50})
+     .setGroup(grp_cam)
+     .setCaptionLabel("gimble")
+     ;
+
+  obj_cp5.addButton("btn_center_cam")
+     .setPosition(10,155)
+     .setSize(100,20)
+     .setValue(0)
+     .setGroup(grp_cam)
+     .setCaptionLabel("center")
+     ;
+
+  sld_acc = obj_cp5.addSlider("sld_accl")
+     .setPosition(40,10)
+     .setSize(30,170)
+     .setRange(ACC_MIN_ANGLE,ACC_MAX_ANGLE)
+     .setValue(acc_out_angle)
+     .setSliderMode(Slider.FLEXIBLE)
+     .setGroup(grp_ctrl)
+     .setCaptionLabel("accl")
+     ;
+      
+  sld_dir = obj_cp5.addSlider("sld_dir")
+     .setPosition(115,40)
+     .setSize(200,30)
+     .setRange(DIR_MAX_ANGLE,DIR_MIN_ANGLE)
+     .setValue(0)
+     .setSliderMode(Slider.FLEXIBLE)
+     .setGroup(grp_ctrl)
+     .setCaptionLabel("dir")
+     ;
+      
+   obj_cp5.addButton("btn_stop")
+     .setPosition(165,115)
+     .setSize(100,40)
+     .setValue(0)
+     .setGroup(grp_ctrl)
+     .setCaptionLabel("STOP")
+     .setColorActive(#FF0000)
+     .setColorForeground(#BB0000)
+     .setColorBackground(#550000)
+     ;
+
+
+   // DISCONNECTED INTERFACE      
+   obj_disc_text = obj_cp5.addTextarea("obj_disc_text")
+     .setPosition(230,120)
+     .setSize(125,20)
+     .setFont(createFont("arial",12))
+     .setLineHeight(14)
+     .setColor(#FFFFFF)
+     .setColorBackground(#990000)
+     .setColorForeground(#990000)
+     .setText(" DISCONNECTED")
+     ;
+     
+   obj_in_remote_ip = obj_cp5.addTextfield("in_remote_ip")
+     .setPosition(140,190)
+     .setSize(130,20)
+     .setFont(createFont("arial",12))
+     .setFocus(true)
+     .setColor(#FFFFFF)
+     .setValue(REMOTE_IP)
+     .setCaptionLabel("remote IP")
+     ;
+     
+   obj_in_remote_port = obj_cp5.addTextfield("in_remote_port")
+     .setPosition(280,190)
+     .setSize(65,20)
+     .setFont(createFont("arial",12))
+     .setFocus(false)
+     .setColor(#FFFFFF)
+     .setValue(str(REMOTE_PORT))
+     .setCaptionLabel("remote port")
+     ;     
+     
+   obj_btn_connect = obj_cp5.addButton("btn_connect")
+     .setPosition(370,190)
+     .setSize(55,20)
+     .setValue(0)
+     .setCaptionLabel("connect")
+     ;
+  
+  smooth();
+  background(140);
+    
+}
+
+
+
+void draw() {
+
+  update_interface();  
+
+  // Check connection
+ try {
+    if(net_c.ip() == "" ){};
+  } catch (NullPointerException e) {
+    con_test = "fail";
+  }
+  
+  if(con_test == "fail"){
+    net_c = new Client(this, REMOTE_IP, REMOTE_PORT);
+    con_test = "pass";
+     try {
+       if(net_c.ip() == "" ){};
+     } catch (NullPointerException e) {
+      con_test = "fail";
+     }
+  }
+    
+  //First run output
+  if(i == 0){
+    i++;
+      if(con_test == "pass"){
+        net_write();
+      }
+  }
+    
+  
+  //Hide controls if disconnected, draw if OK
+  if(con_test == "pass"){
+     grp_cam.setOpen(true); 
+     grp_ctrl.setOpen(true);
+     obj_disc_text.setVisible(false);
+     obj_in_remote_ip.setVisible(false);
+     obj_in_remote_port.setVisible(false);
+     obj_btn_connect.setVisible(false);
+     background(140);
+  } else if(con_test == "fail"){
+     grp_cam.setOpen(false); 
+     grp_ctrl.setOpen(false);
+     obj_disc_text.setVisible(true);
+     obj_in_remote_ip.setVisible(true);
+     obj_in_remote_port.setVisible(true);
+     obj_btn_connect.setVisible(true);
+     background(#990000);
+  }
+
+  
+  
+  /*  Key mappings:
+      z  =  Direction - LEFT   (auto-center)
+      x  =  Direction - RIGHT  (auto-center)
+      q  =  Direction - LEFT   (hold)
+      w  =  Direction - RIGHT  (hold)
+      k  =  Accel     - UP
+      m  =  Accel     - DOWN
+      space = All stop/reset
+  */
+
+  if(keyPressed == true && con_test == "pass"){
+    if(key == 'k' || key == 'm'  || key == 'q'  || key == 'w') delay(90);       // Debounce/Slow keyrepeats
+
+    if(keyPressed == true && key == 'z' && dir_out_angle < DIR_MAX_ANGLE){
+        dir_out_angle = dir_out_angle + DIR_RAMPING;
+        ds = 0;
+        
+    } else if(keyPressed == true && key == 'x' && dir_out_angle > DIR_MIN_ANGLE){
+        dir_out_angle = dir_out_angle - DIR_RAMPING;
+        ds = 0;
+
+    } else if(keyPressed == true && key == 'q' && dir_out_angle < DIR_MAX_ANGLE){
+        dir_out_angle = dir_out_angle + DIR_RAMPING;
+        ds = 1;        
+        
+    } else if(keyPressed == true && key == 'w' && dir_out_angle > DIR_MIN_ANGLE){
+        dir_out_angle = dir_out_angle - DIR_RAMPING;
+        ds = 1;
+        
+    } else if(keyPressed == true && key == 'k' && acc_out_angle < ACC_MAX_ANGLE){
+      if(acc_out_angle == ACC_NEU_ANGLE && i != 0) delay(600);
+      acc_out_angle = acc_out_angle + ACC_RAMPING;
+      b = 0;
+        
+    } else if(keyPressed == true && key == 'm' && acc_out_angle > ACC_MIN_ANGLE){
+      if(acc_out_angle == ACC_NEU_ANGLE && i != 0) delay(600);
+      acc_out_angle = acc_out_angle - ACC_RAMPING;
+      b = 0;
+      
+    } else if(key == ' '){
+      acc_out_angle = ACC_NEU_ANGLE;
+      d = 1;
+      ds = 0;
+      b = 1;
+
+      /* if(b == 1){
+        b = 0;
+      } else {
+        b = 1;
+      } */
+     
+    }
+  
+  
+
+    // Set brake on/off    
+    if(b == 0){
+      brk_out_angle = BRK_OFF_ANGLE;
+    } else if(b == 1){
+      brk_out_angle = BRK_ON_ANGLE;
+    }
+
+    net_write();
+    update_interface();
+      
+  } else {    // Reset to neutral values
+     if(dir_out_angle != DIR_NEU_ANGLE){
+       if(ds == 0){ 
+         dir_out_angle = DIR_NEU_ANGLE;
+         c++;
+       }
+     }
+
+    if(c > 0){    // Only write neutrals if needed
+      net_write();
+      update_interface();
+      c = 0;
+    }
+  }
+
+  if(ka == 100){
+    ka = 0;
+    net_write();
+  }else {
+    ka = ka +1;
+  }
+}
+
+
+void update_interface(){
+        sld_acc.setValue(acc_out_angle);
+        sld_dir.setValue(dir_out_angle);
+}
+
+
+
+void net_write() {
+
+  if(d != 0){
+    d = 0;
+  }
+  
+  // Network Output
+  net_c.write("0." + int(dir_out_angle) + ",8." + int(acc_out_angle) + ",4." + int(brk_out_angle));
+  delay(10);
+ 
+ }
+
+
+
+public void btn_center_cam() {
+ sld2_cam.setArrayValue(new float[] {50, 50});
+}
+
+public void btn_stop() {
+  dir_out_angle = DIR_NEU_ANGLE;
+  acc_out_angle = ACC_NEU_ANGLE;
+  brk_out_angle = BRK_ON_ANGLE;
+}
+
+public void btn_connect() {
+  REMOTE_IP = obj_in_remote_ip.getText();
+  REMOTE_PORT = int(obj_in_remote_port.getText());
+}
