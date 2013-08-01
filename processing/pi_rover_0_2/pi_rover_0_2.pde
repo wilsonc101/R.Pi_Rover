@@ -20,7 +20,7 @@ Slider2D sld2_cam;
 Slider sld_acc, sld_dir;
 Textarea obj_disc_text;
 Textfield obj_in_remote_ip, obj_in_remote_port;
-Button obj_btn_connect;
+Button obj_btn_connect, obj_btn_stop;
 Group grp_cam, grp_ctrl;
 
 
@@ -116,7 +116,7 @@ void setup() {
      .setCaptionLabel("dir")
      ;
       
-   obj_cp5.addButton("btn_stop")
+   obj_btn_stop = obj_cp5.addButton("btn_stop")
      .setPosition(165,115)
      .setSize(100,40)
      .setValue(0)
@@ -176,6 +176,11 @@ void setup() {
 
 void draw() {
 
+  if (d == 1){
+    thread_pause(600);
+    d = 0;
+  }
+  
   update_interface();  
 
   // Check connection
@@ -236,7 +241,7 @@ void draw() {
   */
 
   if(keyPressed == true && con_test == "pass"){
-    if(key == 'k' || key == 'm'  || key == 'q'  || key == 'w') delay(90);       // Debounce/Slow keyrepeats
+    if(key == 'k' || key == 'm'  || key == 'q'  || key == 'w') thread_pause(90);;       // Debounce/Slow keyrepeats
 
     if(keyPressed == true && key == 'z' && dir_out_angle < DIR_MAX_ANGLE){
         dir_out_angle = dir_out_angle + DIR_RAMPING;
@@ -255,36 +260,22 @@ void draw() {
         ds = 1;
         
     } else if(keyPressed == true && key == 'k' && acc_out_angle < ACC_MAX_ANGLE){
-      if(acc_out_angle == ACC_NEU_ANGLE && i != 0) delay(600);
-      acc_out_angle = acc_out_angle + ACC_RAMPING;
-      b = 0;
+        acc_out_angle = acc_out_angle + ACC_RAMPING;  
+        if(acc_out_angle == ACC_NEU_ANGLE) d = 1;
+        brk_out_angle = BRK_OFF_ANGLE;
         
     } else if(keyPressed == true && key == 'm' && acc_out_angle > ACC_MIN_ANGLE){
-      if(acc_out_angle == ACC_NEU_ANGLE && i != 0) delay(600);
-      acc_out_angle = acc_out_angle - ACC_RAMPING;
-      b = 0;
+        acc_out_angle = acc_out_angle - ACC_RAMPING;  
+        if(acc_out_angle == ACC_NEU_ANGLE) d = 1;
+        brk_out_angle = BRK_OFF_ANGLE;
       
-    } else if(key == ' '){
-      acc_out_angle = ACC_NEU_ANGLE;
-      d = 1;
-      ds = 0;
-      b = 1;
-
-      /* if(b == 1){
-        b = 0;
-      } else {
-        b = 1;
-      } */
-     
-    }
-  
-  
-
-    // Set brake on/off    
-    if(b == 0){
-      brk_out_angle = BRK_OFF_ANGLE;
-    } else if(b == 1){
-      brk_out_angle = BRK_ON_ANGLE;
+    } else if(keyPressed == true && key == ' '){
+        acc_out_angle = ACC_NEU_ANGLE;
+        brk_out_angle = BRK_ON_ANGLE;
+        ds = 0;
+        b = 1;     
+    } else if(keyPressed == true && key == 'b'){
+        brk_out_angle = BRK_OFF_ANGLE;
     }
 
     net_write();
@@ -311,28 +302,40 @@ void draw() {
   }else {
     ka = ka +1;
   }
+
+ 
 }
 
 
 void update_interface(){
-        sld_acc.setValue(acc_out_angle);
-        sld_dir.setValue(dir_out_angle);
+  if (brk_out_angle == BRK_ON_ANGLE){
+      obj_btn_stop.setColorActive(#FF0000);
+      obj_btn_stop.setColorForeground(#FF0000);
+      obj_btn_stop.setColorBackground(#FF0000);
+  } else {
+      obj_btn_stop.setColorActive(#FF0000);
+      obj_btn_stop.setColorForeground(#BB0000);
+      obj_btn_stop.setColorBackground(#550000);
+  }
+     
+  
+  sld_acc.setValue(acc_out_angle);
+  sld_dir.setValue(dir_out_angle);
 }
 
-
-
 void net_write() {
-
-  if(d != 0){
-    d = 0;
-  }
-  
   // Network Output
   net_c.write("0." + int(dir_out_angle) + ",8." + int(acc_out_angle) + ",4." + int(brk_out_angle));
-  delay(10);
- 
- }
+  thread_pause(10);
+}
 
+void thread_pause(int ms){
+  try
+  {    
+    Thread.sleep(ms);
+  }
+  catch(Exception e){}
+}
 
 
 public void btn_center_cam() {
