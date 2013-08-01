@@ -238,10 +238,11 @@ void draw() {
       k  =  Accel     - UP
       m  =  Accel     - DOWN
       space = All stop/reset
+      b  =  Release Brake
   */
 
   if(keyPressed == true && con_test == "pass"){
-    if(key == 'k' || key == 'm'  || key == 'q'  || key == 'w') thread_pause(90);;       // Debounce/Slow keyrepeats
+    if(key == 'k' || key == 'm'  || key == 'q'  || key == 'w') thread_pause(90);       // Debounce/Slow keyrepeats
 
     if(keyPressed == true && key == 'z' && dir_out_angle < DIR_MAX_ANGLE){
         dir_out_angle = dir_out_angle + DIR_RAMPING;
@@ -282,28 +283,24 @@ void draw() {
     update_interface();
       
   } else {    // Reset to neutral values
-     if(dir_out_angle != DIR_NEU_ANGLE){
-       if(ds == 0){ 
-         dir_out_angle = DIR_NEU_ANGLE;
-         c++;
-       }
-     }
 
-    if(c > 0){    // Only write neutrals if needed
-      net_write();
-      update_interface();
-      c = 0;
-    }
-  }
+      if(dir_out_angle != DIR_NEU_ANGLE){
+        if(ds == 0){ 
+           dir_out_angle = DIR_NEU_ANGLE;
+           net_write();
+           update_interface();
+        }
+      }
+  }  
 
+  // Repeat last output as keep alive every 100 cycles
   if(ka == 100){
     ka = 0;
     net_write();
-  }else {
+  } else {
     ka = ka +1;
   }
-
- 
+  
 }
 
 
@@ -317,8 +314,7 @@ void update_interface(){
       obj_btn_stop.setColorForeground(#BB0000);
       obj_btn_stop.setColorBackground(#550000);
   }
-     
-  
+
   sld_acc.setValue(acc_out_angle);
   sld_dir.setValue(dir_out_angle);
 }
