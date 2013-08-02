@@ -4,15 +4,18 @@ import controlP5.*;
 
 // General use vars
 int i, w, c, d, ds, b, ka, REMOTE_PORT;
+int gim_x_center, gim_y_center;
 String REMOTE_IP, con_test;
 
 // Network client
 Client net_c;
 
 // Servo vars
-int DIR_MIN_ANGLE, DIR_MAX_ANGLE, DIR_NEU_ANGLE, DIR_RAMPING, DIR_RANGE, dir_out_angle;
-int ACC_MIN_ANGLE, ACC_MAX_ANGLE, ACC_NEU_ANGLE, ACC_RAMPING, ACC_RANGE, acc_out_angle;
-int BRK_ON_ANGLE, BRK_OFF_ANGLE, BRK_NEU_ANGLE, BRK_RAMPING, BRK_RANGE, brk_out_angle;
+int DIR_MIN_ANGLE, DIR_MAX_ANGLE, DIR_NEU_ANGLE, DIR_RAMPING, dir_out_angle;
+int ACC_MIN_ANGLE, ACC_MAX_ANGLE, ACC_NEU_ANGLE, ACC_RAMPING, acc_out_angle;
+int BRK_ON_ANGLE, BRK_OFF_ANGLE, BRK_NEU_ANGLE, BRK_RAMPING, brk_out_angle;
+int GIM_Y_MIN_ANGLE, GIM_Y_MAX_ANGLE, GIM_Y_NEU_ANGLE, GIM_Y_RAMPING, gim_y_out_angle;
+int GIM_X_MIN_ANGLE, GIM_X_MAX_ANGLE, GIM_X_NEU_ANGLE, GIM_X_RAMPING, gim_x_out_angle;
 
 // Interface objects - ControlP5
 ControlP5 obj_cp5;
@@ -22,6 +25,7 @@ Textarea obj_disc_text;
 Textfield obj_in_remote_ip, obj_in_remote_port;
 Button obj_btn_connect, obj_btn_stop;
 Group grp_cam, grp_ctrl;
+
 
 
 void setup() {
@@ -41,14 +45,12 @@ void setup() {
   DIR_MAX_ANGLE = 470;
   DIR_NEU_ANGLE = 352;
   DIR_RAMPING   = 12;
-  
 
   // Servo limits - Accel/Throttle
   ACC_MIN_ANGLE = 150;
   ACC_MAX_ANGLE = 600;
   ACC_NEU_ANGLE = 352;
   ACC_RAMPING   = 16;
-  ACC_RANGE = ACC_MAX_ANGLE - ACC_MIN_ANGLE;
 
   // Servo limits - Brake
   BRK_ON_ANGLE = 350;
@@ -56,10 +58,29 @@ void setup() {
   BRK_NEU_ANGLE = 410;
   BRK_RAMPING   = 1;
 
+  // Servo limits - Gimbal Y-axis
+  GIM_Y_MIN_ANGLE = 150;
+  GIM_Y_MAX_ANGLE = 600;
+  GIM_Y_NEU_ANGLE = 375;
+  GIM_Y_RAMPING = 12;
+
+  // Servo limits - Gimbal X-axis  
+  GIM_X_MIN_ANGLE = 150;
+  GIM_X_MAX_ANGLE = 600;
+  GIM_X_NEU_ANGLE = 375;
+  GIM_X_RAMPING = 12;
+   
+  
   // Servo default positions
   dir_out_angle = DIR_NEU_ANGLE;
   acc_out_angle = ACC_NEU_ANGLE;
   brk_out_angle = BRK_NEU_ANGLE;
+  gim_y_out_angle = GIM_Y_NEU_ANGLE;
+  gim_x_out_angle = GIM_X_NEU_ANGLE;
+  
+  // Slider center position (additional to min value)
+  gim_y_center = (GIM_Y_MAX_ANGLE - GIM_Y_MIN_ANGLE) / 2;
+  gim_x_center = (GIM_X_MAX_ANGLE - GIM_X_MIN_ANGLE) / 2;
   
   // Reset loop counter
   i = 0;
@@ -83,9 +104,16 @@ void setup() {
   sld2_cam = obj_cp5.addSlider2D("sld2_cam")
      .setPosition(10,30)
      .setSize(100,100)
-     .setArrayValue(new float[] {50, 50})
+     
+     //.setArrayValue(new float[] {GIM_Y_NEU_ANGLE, GIM_X_NEU_ANGLE})
+     //.setArrayValue(GIM_Y_NEU_ANGLE, GIM_X_NEU_ANGLE)
      .setGroup(grp_cam)
-     .setCaptionLabel("gimble")
+     .setCaptionLabel("gimbal")
+     .setMinY(GIM_Y_MIN_ANGLE)
+     .setMaxY(GIM_Y_MAX_ANGLE)
+     .setMinX(GIM_X_MIN_ANGLE)
+     .setMaxX(GIM_X_MAX_ANGLE)
+     .setArrayValue(new float[] {gim_y_center,gim_x_center})
      ;
 
   obj_cp5.addButton("btn_center_cam")
@@ -110,7 +138,7 @@ void setup() {
      .setPosition(115,40)
      .setSize(200,30)
      .setRange(DIR_MAX_ANGLE,DIR_MIN_ANGLE)
-     .setValue(0)
+     .setValue(dir_out_angle)
      .setSliderMode(Slider.FLEXIBLE)
      .setGroup(grp_ctrl)
      .setCaptionLabel("dir")
@@ -229,7 +257,7 @@ void draw() {
   }
 
   
-  
+  // KEY STROBING  
   /*  Key mappings:
       z  =  Direction - LEFT   (auto-center)
       x  =  Direction - RIGHT  (auto-center)
@@ -292,7 +320,9 @@ void draw() {
         }
       }
   }  
-
+  // KEY STROBING -- END --
+  
+  // KEEP ALIVE
   // Repeat last output as keep alive every 100 cycles
   if(ka == 100){
     ka = 0;
@@ -300,6 +330,7 @@ void draw() {
   } else {
     ka = ka +1;
   }
+  // KEEP ALIVE -- END --
   
 }
 
@@ -321,7 +352,7 @@ void update_interface(){
 
 void net_write() {
   // Network Output
-  net_c.write("0." + int(dir_out_angle) + ",8." + int(acc_out_angle) + ",4." + int(brk_out_angle));
+  net_c.write("0." + int(dir_out_angle) + ",8." + int(acc_out_angle) + ",4." + int(brk_out_angle) + ",12." + int(gim_y_out_angle)  + ",13." + int(gim_x_out_angle));
   thread_pause(10);
 }
 
@@ -333,15 +364,37 @@ void thread_pause(int ms){
   catch(Exception e){}
 }
 
+public void sld2_cam() {
+  gim_x_out_angle = int(sld2_cam.getArrayValue()[0]);
+  gim_y_out_angle = int(sld2_cam.getArrayValue()[1]);
+  net_write();
+}
+
+/* NOT USED
+public void sld_acc() {
+  acc_out_angle = int(sld_acc.getValue());
+  net_write();
+}
+public void sld_dir() {
+  dir_out_angle = int(sld_dir.getValue());
+  net_write();
+}
+*/
 
 public void btn_center_cam() {
- sld2_cam.setArrayValue(new float[] {50, 50});
+  sld2_cam.setArrayValue(new float[] {gim_y_center,gim_x_center});
 }
 
 public void btn_stop() {
   dir_out_angle = DIR_NEU_ANGLE;
   acc_out_angle = ACC_NEU_ANGLE;
-  brk_out_angle = BRK_ON_ANGLE;
+
+  if (brk_out_angle == BRK_ON_ANGLE){
+    brk_out_angle = BRK_OFF_ANGLE;
+  } else {
+    brk_out_angle = BRK_ON_ANGLE;
+  }
+  net_write();
 }
 
 public void btn_connect() {
