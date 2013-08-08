@@ -34,7 +34,7 @@ void setup() {
 
 
   // Define default network connection 
-  REMOTE_IP = "127.0.0.1";  
+  REMOTE_IP = "192.168.1.50";  
   REMOTE_PORT = 5005;
   
   net_c = new Client(this, REMOTE_IP, REMOTE_PORT);
@@ -59,15 +59,15 @@ void setup() {
   BRK_RAMPING   = 1;
 
   // Servo limits - Gimbal Y-axis
-  GIM_Y_MIN_ANGLE = 150;
-  GIM_Y_MAX_ANGLE = 600;
-  GIM_Y_NEU_ANGLE = 375;
+  GIM_Y_MIN_ANGLE = 290;
+  GIM_Y_MAX_ANGLE = 640;
+  GIM_Y_NEU_ANGLE = 560;
   GIM_Y_RAMPING = 12;
 
   // Servo limits - Gimbal X-axis  
-  GIM_X_MIN_ANGLE = 150;
-  GIM_X_MAX_ANGLE = 600;
-  GIM_X_NEU_ANGLE = 375;
+  GIM_X_MIN_ANGLE = 660;
+  GIM_X_MAX_ANGLE = 130;
+  GIM_X_NEU_ANGLE = 380;
   GIM_X_RAMPING = 12;
    
   
@@ -79,8 +79,12 @@ void setup() {
   gim_x_out_angle = GIM_X_NEU_ANGLE;
   
   // Slider center position (additional to min value)
-  gim_y_center = (GIM_Y_MAX_ANGLE - GIM_Y_MIN_ANGLE) / 2;
-  gim_x_center = (GIM_X_MAX_ANGLE - GIM_X_MIN_ANGLE) / 2;
+  //gim_y_center = (GIM_Y_MAX_ANGLE - GIM_Y_MIN_ANGLE) / 2;
+  //gim_x_center = (GIM_X_MAX_ANGLE - GIM_X_MIN_ANGLE) / 2;
+  //gim_y_center = GIM_Y_NEU_ANGLE - 270;  
+  gim_y_center = GIM_Y_NEU_ANGLE - GIM_Y_MIN_ANGLE;
+  gim_x_center = GIM_X_NEU_ANGLE - GIM_X_MIN_ANGLE;
+  
   
   // Reset loop counter
   i = 0;
@@ -113,7 +117,7 @@ void setup() {
      .setMaxY(GIM_Y_MAX_ANGLE)
      .setMinX(GIM_X_MIN_ANGLE)
      .setMaxX(GIM_X_MAX_ANGLE)
-     .setArrayValue(new float[] {gim_y_center,gim_x_center})
+     .setArrayValue(new float[] {gim_x_center,gim_y_center})
      ;
 
   obj_cp5.addButton("btn_center_cam")
@@ -352,7 +356,7 @@ void update_interface(){
 
 void net_write() {
   // Network Output
-  net_c.write("0." + int(dir_out_angle) + ",8." + int(acc_out_angle) + ",4." + int(brk_out_angle) + ",12." + int(gim_y_out_angle)  + ",13." + int(gim_x_out_angle));
+  net_c.write("0." + int(dir_out_angle) + ",8." + int(acc_out_angle) + ",4." + int(brk_out_angle) + ",12." + int(gim_x_out_angle)  + ",13." + int(gim_y_out_angle));
   thread_pause(10);
 }
 
@@ -382,7 +386,7 @@ public void sld_dir() {
 */
 
 public void btn_center_cam() {
-  sld2_cam.setArrayValue(new float[] {gim_y_center,gim_x_center});
+  sld2_cam.setArrayValue(new float[] {gim_x_center,gim_y_center});
 }
 
 public void btn_stop() {
