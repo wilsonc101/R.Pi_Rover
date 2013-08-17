@@ -59,15 +59,16 @@ void setup() {
   BRK_RAMPING   = 1;
 
   // Servo limits - Gimbal Y-axis
-  GIM_Y_MIN_ANGLE = 290;
+//  GIM_Y_MIN_ANGLE = 290;
+  GIM_Y_MIN_ANGLE = 100;
   GIM_Y_MAX_ANGLE = 640;
-  GIM_Y_NEU_ANGLE = 560;
+  GIM_Y_NEU_ANGLE = 580;
   GIM_Y_RAMPING = 12;
 
   // Servo limits - Gimbal X-axis  
   GIM_X_MIN_ANGLE = 660;
   GIM_X_MAX_ANGLE = 130;
-  GIM_X_NEU_ANGLE = 380;
+  GIM_X_NEU_ANGLE = 377;
   GIM_X_RAMPING = 12;
    
   
