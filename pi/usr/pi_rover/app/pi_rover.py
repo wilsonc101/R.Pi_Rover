@@ -11,7 +11,7 @@ pwm.setPWMFreq(60)                        # Set frequency to 60 Hz
 
 TCP_IP = '192.168.1.50'
 TCP_PORT = 5005
-BUFFER_SIZE = 20  # normal = 1024, fast = 20
+BUFFER_SIZE = 1024  # normal = 1024, fast = 20
 
 # Actual Maximums for HPI Servos
 #servoMin = 100
@@ -59,9 +59,9 @@ while 1:
            if not data: break
 
            data = data.split(",")
-
+	   print data
 	   for packet in data:
-              if len(packet) == 5:
+              if len(packet) >= 5:
         	 pwm.setPWM(int(packet.split(".")[0]), 0, int(packet.split(".")[1]))
  
 	print "Disconnected"
