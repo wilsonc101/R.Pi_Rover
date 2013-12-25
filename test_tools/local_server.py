@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import socket
 
 HOST = '127.0.0.1'       
@@ -8,10 +10,11 @@ s.bind((HOST, PORT))
 s.listen(1)
 conn, addr = s.accept()
 
-print 'Connected by', addr
 while 1:
-    data = conn.recv(4096)
-    if not data: break
-    print data
+#	print 'Connected by', addr
+	while 1:
+		data = conn.recv(4096)
+		if not data: break
+		print data
 
 conn.close()
