@@ -21,7 +21,7 @@ config.read('pi_rover.cfg')
 dir_servo = servo.StandardServo(config.get('direction', 'channel'),config.get('direction', 'left'),config.get('direction', 'right'),config.get('direction', 'center'),config.get('direction', 'name'))
 brk_servo = servo.StandardServo(config.get('brake', 'channel'),config.get('brake', 'on'),config.get('brake', 'off'),config.get('brake', 'neutral'),config.get('brake', 'name'))
 thr_servo = servo.StandardServo(config.get('throttle', 'channel'),config.get('throttle', 'min'),config.get('throttle', 'max'),config.get('throttle', 'neutral'),config.get('throttle', 'name'))
-gim_servo = gimbal.XYGimbal((config.get('gimbal', 'channel_x'),config.get('gimbal', 'min_x'),config.get('gimbal', 'max_x'),config.get('gimbal', 'neutral_x'),config.get('gimbal', 'name_x')),(config.get('gimbal', 'channel_y'),config.get('gimbal', 'min_y'),config.get('gimbal', 'max_y'),config.get('gimbal', 'neutral_y'),config.get('gimbal', 'name_y')),'gim')
+gim_servo = gimbal.XYGimbal((config.get('gimbal', 'channel_x'),config.get('gimbal', 'min_x'),config.get('gimbal', 'max_x'),config.get('gimbal', 'neutral_x'),config.get('gimbal', 'name_x')),(config.get('gimbal', 'channel_y'),config.get('gimbal', 'min_y'),config.get('gimbal', 'max_y'),config.get('gimbal', 'neutral_y'),config.get('gimbal', 'name_y')),config.get('gimbal', 'name'))
 
 # Build dictionary of servos using servo name as key and servo as value (object)
 servo_list = {dir_servo.Name:dir_servo, brk_servo.Name:brk_servo, thr_servo.Name:thr_servo, gim_servo.Name:gim_servo}
