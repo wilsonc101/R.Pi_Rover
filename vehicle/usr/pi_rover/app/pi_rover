@@ -18,20 +18,44 @@ config.read('pi_rover.cfg')
 
 
 # Define servos
-dir_servo = servo.StandardServo(config.get('direction', 'channel'),config.get('direction', 'left'),config.get('direction', 'right'),config.get('direction', 'center'),config.get('direction', 'name'))
-brk_servo = servo.StandardServo(config.get('brake', 'channel'),config.get('brake', 'on'),config.get('brake', 'off'),config.get('brake', 'neutral'),config.get('brake', 'name'))
-thr_servo = servo.StandardServo(config.get('throttle', 'channel'),config.get('throttle', 'min'),config.get('throttle', 'max'),config.get('throttle', 'neutral'),config.get('throttle', 'name'))
-gim_servo = gimbal.XYGimbal((config.get('gimbal', 'channel_x'),config.get('gimbal', 'min_x'),config.get('gimbal', 'max_x'),config.get('gimbal', 'neutral_x'),config.get('gimbal', 'name_x')),(config.get('gimbal', 'channel_y'),config.get('gimbal', 'min_y'),config.get('gimbal', 'max_y'),config.get('gimbal', 'neutral_y'),config.get('gimbal', 'name_y')),config.get('gimbal', 'name'))
+dir_servo = servo.StandardServo(config.get('direction', 'channel'),
+				config.get('direction', 'left'),
+				config.get('direction', 'right'),
+				config.get('direction', 'center'),
+				config.get('direction', 'name'))
+
+brk_servo = servo.StandardServo(config.get('brake', 'channel'),
+				config.get('brake', 'on'),
+				config.get('brake', 'off'),
+				config.get('brake', 'neutral'),
+				config.get('brake', 'name'))
+
+thr_servo = servo.StandardServo(config.get('throttle', 'channel'),
+				config.get('throttle', 'min'),
+				config.get('throttle', 'max'),
+				config.get('throttle', 'neutral'),
+				config.get('throttle', 'name'))
+
+gim_servo = gimbal.XYGimbal((config.get('gimbal', 'channel_x'),
+			     config.get('gimbal', 'min_x'),
+			     config.get('gimbal', 'max_x'),
+			     config.get('gimbal', 'neutral_x'),
+			     config.get('gimbal', 'name_x')),
+			    (config.get('gimbal', 'channel_y'),
+			     config.get('gimbal', 'min_y'),
+			     config.get('gimbal', 'max_y'),
+			     config.get('gimbal', 'neutral_y'),
+			     config.get('gimbal', 'name_y')),
+	                     config.get('gimbal', 'name'))
 
 # Build dictionary of servos using servo name as key and servo as value (object)
 servo_list = {dir_servo.Name:dir_servo, brk_servo.Name:brk_servo, thr_servo.Name:thr_servo, gim_servo.Name:gim_servo}
-#print(servo_list)
 
 net_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 net_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-net_socket.bind((config.get('network', 'client_ip'), int(config.get('network', 'client_port'))))
-BUFFER_SIZE = config.get('network', 'buffer')
+net_socket.bind((config.get('network', 'server_ip'), int(config.get('network', 'server_port'))))
+BUFFER_SIZE = int(config.get('network', 'buffer'))
 
 net_socket.listen(1)
 
@@ -48,9 +72,9 @@ while 1:
 	   for packet in data:
 		if servo_list.has_key(packet.split(",")[0]):
 #			pwm.setPWM(int(servo_list[packet.split(",")[0]].Channel), 0, int(packet.split(",")[1]))
-			print(int(servo_list[packet.split(",")[0]].Channel), 0, int(packet.split(",")[1]))
+			print(int(servo_list[packet.split(",")[0]].Channel), 0, int(servo_list[packet.split(",")[0]].Translate(int(packet.split(",")[1]))))
  
 	print "Disconnected"
-	for servo_name, servo_object in servo_list:
+	for servo_name in servo_list.keys():
 #		pwm.setPWM(servo_object.Channel, 0, servo_object.Translate(0))
 		print(servo_object.Channel, 0, servo_object.Translate(0))

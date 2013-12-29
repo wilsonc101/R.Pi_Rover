@@ -3,15 +3,17 @@ from __future__ import division
 
 class StandardServo():
 	def __init__(self,channelid,min,max,neutral,name):
-		self.Channel = channelid
-		self.RealMin = min
-		self.RealMax = max
-		self.RealNeutral = neutral
+		self.Channel = int(channelid)
+		self.RealMin = int(min)
+		self.RealMax = int(max)
+		self.RealNeutral = int(neutral)
 		self.Name = name
 
 	def Translate(self, input):
 		# Translate percentages to interpolated outputs
 		# Input is expected to be -100 to 100 (full reverse to full forward)
+		
+		input = int(input)
 	
 		output = self.RealNeutral
 
