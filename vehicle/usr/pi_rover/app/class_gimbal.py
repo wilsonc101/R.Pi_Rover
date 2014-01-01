@@ -16,29 +16,32 @@ class XYGimbal():
                 # Translate percentages to interpolated outputs
                 # Input is expected to be -100 to 100 (full reverse to full forward)
 
-                x_output = self.XServo.RealNeutral
-                y_output = self.YServo.RealNeutral
+#                x_output = self.XServo.RealNeutral
+#                y_output = self.YServo.RealNeutral
 
-                if xinput >= -100 and xinput <= 100:
-                        if xinput < 0:
-                                neg_span = abs(self.XServo.RealNeutral-self.XServo.RealMin)
-                                x_output = self.XServo.RealNeutral - ((neg_span / 100)*abs(xinput))
-                        elif xinput > 0:
-                                pos_span = abs(self.XServo.RealNeutral-self.XServo.RealMax)
-                                x_output = self.XServo.RealNeutral + ((pos_span / 100)*abs(xinput))
-                else:
-                        x_output = "x-axis out of range"
+#                if xinput >= -100 and xinput <= 100:
+#                        if xinput < 0:
+#                                neg_span = abs(self.XServo.RealNeutral-self.XServo.RealMin)
+#                                x_output = self.XServo.RealNeutral - ((neg_span / 100)*abs(xinput))
+#                        elif xinput > 0:
+#                                pos_span = abs(self.XServo.RealNeutral-self.XServo.RealMax)
+#                                x_output = self.XServo.RealNeutral + ((pos_span / 100)*abs(xinput))
+#                else:
+#                        x_output = "x-axis out of range"
 
-                if yinput >= -100 and yinput <= 100:
-                        if yinput < 0:
-                                neg_span = abs(self.YServo.RealNeutral-self.YServo.RealMin)
-                                y_output = self.YServo.RealNeutral - ((neg_span / 100)*abs(yinput))
-                        elif yinput > 0:
-                                pos_span = abs(self.YServo.RealNeutral-self.YServo.RealMax)
-                                y_output = self.YServo.RealNeutral + ((pos_span / 100)*abs(yinput))
-                else:
-                        y_output = "y-axis out of range"
+#                if yinput >= -100 and yinput <= 100:
+#                        if yinput < 0:
+#                                neg_span = abs(self.YServo.RealNeutral-self.YServo.RealMin)
+#                                y_output = self.YServo.RealNeutral - ((neg_span / 100)*abs(yinput))
+#                        elif yinput > 0:
+#                                pos_span = abs(self.YServo.RealNeutral-self.YServo.RealMax)
+#                                y_output = self.YServo.RealNeutral + ((pos_span / 100)*abs(yinput))
+#                else:
+#                        y_output = "y-axis out of range"
 
+		x_output = self.XServo.Translate(xinput)
+		y_output = self.YServo.Translate(yinput)
+	
                 return (x_output,y_output)
 
 
