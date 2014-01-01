@@ -14,7 +14,7 @@ import class_gimbal as gimbal
 
 def TranslatePWM_Servo(list,name,data):
 	if list.has_key(name):
-		SendPWM(int(list[name].Channel),0,int(servo_list[packet.split(",")[1]].Translate(int(packet.split(",")[2]))))
+		SendPWM(int(list[name].Channel),0,int(list[name].Translate(data)))
 
 
 def TranslatePWM_Gimbal(list,name,data_x,data_y):
@@ -98,9 +98,11 @@ while 1:
 	   for packet in data:
 		if len(packet) >= 5:
 			if int(packet.split(",")[0]) == 0:
+				# Expected Servo packet = type, name, data
 				TranslatePWM_Servo(servo_list,packet.split(",")[1],packet.split(",")[2])
 				
 			elif int(packet.split(",")[0]) == 1:
+				# Expected Gimbal packet = type, name, x data, y data
 				TranslatePWM_Gimbal(gimbal_list,packet.split(",")[1],packet.split(",")[2],packet.split(",")[3])
  
 	print "Disconnected"
