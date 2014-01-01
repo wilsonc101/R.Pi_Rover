@@ -25,14 +25,18 @@ def TranslatePWM_Gimbal(list,name,data_x,data_y):
 		SendPWM(int(list[name].YServo.Channel),0,int(real_value_y))
 
 
-def EmergencyStop():
+def EmergencyStop(servo):
 #	pwm.setPWM(int(servo_list[packet.split(",")[0]].Channel), 0, int(packet.split(",")[1]))
 	print("stop")
+	SendPWM(servo.Channel,0,servo.RealNeutral)
 
 
-def SendPWM(channel,zero,data):	
-#	pwm.setPWM(data)
-	print(channel,zero,data)
+def SendPWM(channel,start,end):	
+	# PWM output requires channel, start and end. Start and end refer to the start point and length of the pulse.
+	# Typically all pulses start at '0'.
+	
+#	pwm.setPWM(channel,start,end)
+	print(channel,start,end)
 
 
 config = ConfigParser.ConfigParser()
@@ -97,17 +101,18 @@ while 1:
 		
 	   for packet in data:
 		if len(packet) >= 5:
-			if int(packet.split(",")[0]) == 0:
-				# Expected Servo packet = type, name, data
-				TranslatePWM_Servo(servo_list,packet.split(",")[1],packet.split(",")[2])
-				
-			elif int(packet.split(",")[0]) == 1:
-				# Expected Gimbal packet = type, name, x data, y data
-				TranslatePWM_Gimbal(gimbal_list,packet.split(",")[1],packet.split(",")[2],packet.split(",")[3])
+			if packet.find(",") >= 0:			
+				if int(packet.split(",")[0]) == 0:
+					# Expected Servo packet = type, name, data
+					TranslatePWM_Servo(servo_list,packet.split(",")[1],packet.split(",")[2])
+					
+				elif int(packet.split(",")[0]) == 1:
+					# Expected Gimbal packet = type, name, x data, y data
+					TranslatePWM_Gimbal(gimbal_list,packet.split(",")[1],packet.split(",")[2],packet.split(",")[3])
  
 	print "Disconnected"
 	for servo_name in servo_list.keys():
-		EmergencyStop()
+		EmergencyStop(servo_list[servo_name])
 
 
 
