@@ -26,8 +26,6 @@ def TranslatePWM_Gimbal(list,name,data_x,data_y):
 
 
 def EmergencyStop(servo):
-#	pwm.setPWM(int(servo_list[packet.split(",")[0]].Channel), 0, int(packet.split(",")[1]))
-	print("stop")
 	SendPWM(servo.Channel,0,servo.RealNeutral)
 
 
@@ -48,8 +46,8 @@ config.read('pi_rover.cfg')
 
 # Define servos
 dir_servo = servo.StandardServo(config.get('direction', 'channel'),
-				config.get('direction', 'left'),
 				config.get('direction', 'right'),
+				config.get('direction', 'left'),
 				config.get('direction', 'center'),
 				config.get('direction', 'name'))
 

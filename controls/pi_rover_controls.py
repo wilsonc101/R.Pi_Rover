@@ -112,14 +112,13 @@ class MainWindow(wx.Frame):
 	
     def OnKeyUp(self, event):
         key_translate(event.GetKeyCode())
-	net_send("acc",frame.slider_v.GetValue())
-	net_send("dir",frame.slider_h.GetValue())
+	net_send(0,"thr",frame.slider_v.GetValue(),0)
+	net_send(0,"dir",frame.slider_h.GetValue(),0)
         event.Skip()
 
     def MouseTrack_Cam(self, event):
 	if self.cb_mtrack.GetValue() == True:
-	        net_send("cam_x", event.GetX())
-		net_send("cam_y", event.GetY())
+	        net_send(1,"gim",event.GetX(),event.GetY())
 	event.Skip()
 
     def MouseClick_CamCB(self, event):	
@@ -128,18 +127,17 @@ class MainWindow(wx.Frame):
 
     def MouseClick_Brk(self, event):
 	toggle_brake("toggle","na")
-	net_send("acc",frame.slider_v.GetValue())
-	net_send("dir",frame.slider_h.GetValue())
+	net_send(0,"thr",frame.slider_v.GetValue(),0)
+	net_send(0,"dir",frame.slider_h.GetValue(),0)
 
     def FrameUpdate(self):
 	self.Update()
 	self.Refresh()
 
     def TimerEvent(self, event):
-	net_send("ka",0)
+	net_send(3,"ka",0,0)
 
 
-#def net_connect():
 def net_connect():
 	global net_socket, net_socket_state, frame
 
@@ -170,12 +168,12 @@ def net_disconnect():
 	net_socket.close()
 
 
-def net_send(channel, value):
+def net_send(type,channel,value1,value2):
 	global net_socket
 
 	try:
-		net_socket.sendall(channel + "," + str(value) + ";") 
-	        print(channel + "," + str(value) + ";")
+		net_socket.sendall(str(type) + "," + channel + "," + str(value1) + "," + str(value2) + ";") 
+		print(str(type) + "," + channel + "," + str(value1) + "," + str(value2) + ";") 
 	except:
 		print("Network Connection Error - Transmit")	
 		net_connect()
@@ -220,33 +218,31 @@ def toggle_mousetrack():
                 frame.panel_gimble.SetBackgroundColour("white")
         elif frame.cb_mtrack.GetValue() == False:
                 frame.panel_gimble.SetBackgroundColour("light grey")
-                net_send("cam_x", 50)
-                net_send("cam_y", 50)
-
+                net_send(1,"gim",0,0)
 
 def toggle_brake(function, state):
 	global frame
 	if function == "toggle": 
 		if frame.brk_state == False:
 		        frame.panel_brk.SetBackgroundColour("red")
-			net_send("brk", 100)
+			net_send(0,"brk",100,0)
 			frame.brk_state = True
                 	frame.slider_v.SetValue(0)
         	        frame.slider_h.SetValue(0)
 		elif frame.brk_state == True:		
 		        frame.panel_brk.SetBackgroundColour("green")
-			net_send("brk", 0)
+			net_send(0,"brk",0,0)
 			frame.brk_state = False
 	elif function == "set":
 		if state == "on":
 		        frame.panel_brk.SetBackgroundColour("red")
-			net_send("brk", 100)
+			net_send(0,"brk",100,0)
 			frame.brk_state = True
                 	frame.slider_v.SetValue(0)
         	        frame.slider_h.SetValue(0)
 		elif state == "off":
 		        frame.panel_brk.SetBackgroundColour("green")
-			net_send("brk", 0)
+			net_send(0,"brk",0,0)
 			frame.brk_state = False
 
 
