@@ -236,24 +236,24 @@ def toggle_brake(function, state):
 	if function == "toggle": 
 		if frame.brk_state == False:
 		        frame.panel_brk.SetBackgroundColour("red")
-			net_send(0,"brk",100)
+			net_send(0,"brk",0)
 			frame.brk_state = True
                 	frame.slider_v.SetValue(0)
         	        frame.slider_h.SetValue(0)
 		elif frame.brk_state == True:		
 		        frame.panel_brk.SetBackgroundColour("green")
-			net_send(0,"brk",0)
+			net_send(0,"brk",100)
 			frame.brk_state = False
 	elif function == "set":
 		if state == "on":
 		        frame.panel_brk.SetBackgroundColour("red")
-			net_send(0,"brk",100)
+			net_send(0,"brk",0)
 			frame.brk_state = True
                 	frame.slider_v.SetValue(0)
         	        frame.slider_h.SetValue(0)
 		elif state == "off":
 		        frame.panel_brk.SetBackgroundColour("green")
-			net_send(0,"brk",0)
+			net_send(0,"brk",100)
 			frame.brk_state = False
 
 
