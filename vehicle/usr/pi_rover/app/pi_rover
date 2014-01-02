@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#from Adafruit_PWM_Servo_Driver import PWM
+from Adafruit_PWM_Servo_Driver import PWM
 
 import ConfigParser
 import time
@@ -33,15 +33,15 @@ def SendPWM(channel,start,end):
 	# PWM output requires channel, start and end. Start and end refer to the start point and length of the pulse.
 	# Typically all pulses start at '0'.
 	
-#	pwm.setPWM(channel,start,end)
-	print(channel,start,end)
+	pwm.setPWM(channel,start,end)
+#	print(channel,start,end)
 
 
 config = ConfigParser.ConfigParser()
 config.read('pi_rover.cfg')
 
-#pwm = PWM(0x40, debug=True)
-#pwm.setPWMFreq(60)                      
+pwm = PWM(0x40, debug=True)
+pwm.setPWMFreq(60)                      
 
 
 # Define servos
@@ -78,6 +78,10 @@ gim_servo = gimbal.XYGimbal((config.get('gimbal', 'channel_x'),    # X Axis
 # Build dictionary of servos using servo name as key and servo as value (object)
 servo_list = {dir_servo.Name:dir_servo, brk_servo.Name:brk_servo, thr_servo.Name:thr_servo}
 gimbal_list = {gim_servo.Name:gim_servo}
+
+# Set servos to neutral
+for servo_name in servo_list.keys():
+	EmergencyStop(servo_list[servo_name])
 
 net_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 net_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
