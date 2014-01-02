@@ -118,7 +118,7 @@ class MainWindow(wx.Frame):
 
     def MouseTrack_Cam(self, event):
 	if self.cb_mtrack.GetValue() == True:
-	        net_send(1,"gim",event.GetX(),event.GetY())
+	        net_send(1,"gim",((event.GetX()*2)-100),((event.GetY()*2)-100))
 	event.Skip()
 
     def MouseClick_CamCB(self, event):	
@@ -141,7 +141,7 @@ class MainWindow(wx.Frame):
 def net_connect():
 	global net_socket, net_socket_state, frame
 
-	HOST = '127.0.0.1'
+	HOST = '192.168.1.50'
 	PORT = 5005
 	net_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -191,12 +191,23 @@ def key_translate(keycode):
         if keycode == 83:
                 frame.slider_v.SetValue(frame.slider_v.GetValue() - 10)
 		toggle_brake("set", "off")
-        # Dir Right - D
+
+        # Dir Right Step - D
         if keycode == 68:
                 frame.slider_h.SetValue(frame.slider_h.GetValue() + 10)
-        # Dir Left - A
+
+        # Dir Right Full - E
+        if keycode == 69:
+                frame.slider_h.SetValue(100)
+
+        # Dir Left Step  - A
         if keycode == 65:
                 frame.slider_h.SetValue(frame.slider_h.GetValue() - 10)
+
+        # Dir Left Full - E
+        if keycode == 81:
+                frame.slider_h.SetValue(-100)
+
         # STOP - Space
         if keycode == wx.WXK_SPACE:
                 frame.slider_v.SetValue(0)
