@@ -22,7 +22,42 @@ class Frame_KeyPress(wx.EvtHandler):
 		wx.EVT_KEY_UP(self, self.OnKeyUp)
 	
 	def OnKeyUp(self, event):
-		print(int(event.GetKeyCode()))
+		keycode = int(event.GetKeyCode())
+		frame = self.GetNextHandler()
+
+	        # Acc Up - W
+        	if keycode == 87:
+                	frame.slider_v.SetValue(frame.slider_v.GetValue() + 10)
+#	                toggle_brake("set", "off")
+
+	        # Acc Down - S
+	        if keycode == 83:
+	                frame.slider_v.SetValue(frame.slider_v.GetValue() - 10)
+#	                toggle_brake("set", "off")
+	
+	        # Dir Right Step - D
+	        if keycode == 68:
+	                frame.slider_h.SetValue(frame.slider_h.GetValue() + 10)
+	
+	        # Dir Right Full - E
+	        if keycode == 69:
+	                frame.slider_h.SetValue(100)
+
+	        # Dir Left Step  - A
+	        if keycode == 65:
+	                frame.slider_h.SetValue(frame.slider_h.GetValue() - 10)
+	
+	        # Dir Left Full - E
+	        if keycode == 81:
+	                frame.slider_h.SetValue(-100)
+	
+	        # STOP - Space
+	        if keycode == wx.WXK_SPACE:
+	                frame.slider_v.SetValue(0)
+	                frame.slider_h.SetValue(0)
+#	                toggle_brake("toggle", "na")
+
+
 
 
 
