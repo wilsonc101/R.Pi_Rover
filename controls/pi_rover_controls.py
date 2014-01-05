@@ -1,7 +1,5 @@
 #!/usr/bin/python
 
-####### TIMER EVENT FOR KEEP ALIVE!! ##########
-
 import wx
 import socket
 import time
