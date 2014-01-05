@@ -21,6 +21,7 @@ class Frame_KeyPress(wx.EvtHandler):
 		wx.EvtHandler.__init__(self)
 		wx.EVT_KEY_UP(self, self.OnKeyUp)
 	
+
 	def OnKeyUp(self, event):
 		keycode = int(event.GetKeyCode())
 		frame = self.GetNextHandler()
@@ -28,12 +29,12 @@ class Frame_KeyPress(wx.EvtHandler):
 	        # Acc Up - W
         	if keycode == 87:
                 	frame.slider_v.SetValue(frame.slider_v.GetValue() + 10)
-#	                toggle_brake("set", "off")
+	                self.toggle_brake("set", "off")
 
 	        # Acc Down - S
 	        if keycode == 83:
 	                frame.slider_v.SetValue(frame.slider_v.GetValue() - 10)
-#	                toggle_brake("set", "off")
+	                self.toggle_brake("set", "off")
 	
 	        # Dir Right Step - D
 	        if keycode == 68:
@@ -55,10 +56,43 @@ class Frame_KeyPress(wx.EvtHandler):
 	        if keycode == wx.WXK_SPACE:
 	                frame.slider_v.SetValue(0)
 	                frame.slider_h.SetValue(0)
-#	                toggle_brake("toggle", "na")
+	                self.toggle_brake("toggle", "na")
+
+		print(int(servo_thr[0]),servo_thr[1],frame.slider_v.GetValue())
+		print(int(servo_dir[0]),servo_dir[1],frame.slider_h.GetValue())
 
 
+	def toggle_brake(self, function, state):
+		frame = self.GetNextHandler()
 
+	        if function == "toggle":
+	                if frame.brk_state == False:
+	                        frame.panel_brk.SetBackgroundColour("red")
+#	                        net_send(0,"brk",0)
+	                        frame.brk_state = True
+	                        frame.slider_v.SetValue(0)
+	                        frame.slider_h.SetValue(0)
+				brk_value = 0
+	                elif frame.brk_state == True:
+	                        frame.panel_brk.SetBackgroundColour("green")
+#	                        net_send(0,"brk",100)
+	                        frame.brk_state = False
+				brk_value = 100
+	        elif function == "set":
+	                if state == "on":
+	                        frame.panel_brk.SetBackgroundColour("red")
+#	                        net_send(0,"brk",0)
+	                        frame.brk_state = True
+	                        frame.slider_v.SetValue(0)
+	                        frame.slider_h.SetValue(0)
+				brk_value = 0
+	                elif state == "off":
+	                        frame.panel_brk.SetBackgroundColour("green")
+#	                        net_send(0,"brk",100)
+	                        frame.brk_state = False
+				brk_value = 100
+
+                print(int(servo_brk[0]),servo_brk[1],int(brk_value))
 
 
 # 'Gimbal' panel mouse events
