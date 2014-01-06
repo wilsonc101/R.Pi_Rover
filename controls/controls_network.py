@@ -20,28 +20,18 @@ def net_connect():
         PORT = int(config.get('network', 'vehicle_port'))
         net_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-#        net_socket_state = False
-
- #       while net_socket_state == False:
 	try:
 		net_socket.connect((HOST, PORT))
-#                        net_socket_state = True
+		print("Connected to " HOST)
 		return(net_socket)
-                        #frame.panel_connection.SetBackgroundColour("green")
-                        #frame.FrameUpdate()
 
 	except:
+       	        print("Network Connection Failed")
 		return("False")
-#        	        print("Network Connection Failed")
-#                        net_socket_state = False
-#                        frame.panel_connection.SetBackgroundColour("red")
-#                        frame.FrameUpdate()
-#                        time.sleep(2)
 
 
 def net_disconnect():
         global net_socket
-
         net_socket.close()
 
 
@@ -54,4 +44,3 @@ def net_send(socket,type,channel,value1,value2=0):
         except:
                 print("Network Connection Error - Transmit")
                 net_connect()
-#
