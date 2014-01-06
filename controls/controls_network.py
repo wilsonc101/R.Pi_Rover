@@ -22,7 +22,7 @@ def net_connect():
 
 	try:
 		net_socket.connect((HOST, PORT))
-		print("Connected to " HOST)
+		print("Connected to " + HOST)
 		return(net_socket)
 
 	except:
