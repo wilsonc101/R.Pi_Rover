@@ -2,6 +2,7 @@ import sys
 import wx
 import ConfigParser
 
+import func_net as network
 
 config = ConfigParser.ConfigParser()
 config.read('pi_controls.cfg')
@@ -13,6 +14,9 @@ servo_thr = [config.get('servos', 'throttle_type'), config.get('servos', 'thrott
 servo_brk = [config.get('servos', 'brake_type'), config.get('servos', 'brake_name')]
 servo_gim = [config.get('servos', 'gimbal_type'), config.get('servos', 'gimbal_name')]
 
+# Init network connection
+socket = network.net_connect()
+
 
 # Bound Events (push event handler)
 # Frame - Keyboard events
@@ -20,11 +24,20 @@ class Frame_KeyPress(wx.EvtHandler):
 	def __init__(self):
 		wx.EvtHandler.__init__(self)
 		wx.EVT_KEY_UP(self, self.OnKeyUp)
-	
+		wx.EVT_SCROLL_CHANGED(self, self.OnSliderChange)
+
+	def OnSliderChange(self, event):
+		frame = self.GetNextHandler()
+
+		self.toggle_brake("set", "off")
+
+		network.net_send(socket,int(servo_thr[0]),servo_thr[1],frame.slider_v.GetValue())
+		network.net_send(socket,int(servo_dir[0]),servo_dir[1],frame.slider_h.GetValue())
+
 
 	def OnKeyUp(self, event):
-		keycode = int(event.GetKeyCode())
 		frame = self.GetNextHandler()
+		keycode = int(event.GetKeyCode())
 
 	        # Acc Up - W
         	if keycode == 87:
@@ -58,8 +71,8 @@ class Frame_KeyPress(wx.EvtHandler):
 	                frame.slider_h.SetValue(0)
 	                self.toggle_brake("toggle", "na")
 
-		print(int(servo_thr[0]),servo_thr[1],frame.slider_v.GetValue())
-		print(int(servo_dir[0]),servo_dir[1],frame.slider_h.GetValue())
+		network.net_send(socket,int(servo_thr[0]),servo_thr[1],frame.slider_v.GetValue())
+		network.net_send(socket,int(servo_dir[0]),servo_dir[1],frame.slider_h.GetValue())
 
 
 	def toggle_brake(self, function, state):
@@ -68,35 +81,31 @@ class Frame_KeyPress(wx.EvtHandler):
 	        if function == "toggle":
 	                if frame.brk_state == False:
 	                        frame.panel_brk.SetBackgroundColour("red")
-#	                        net_send(0,"brk",0)
 	                        frame.brk_state = True
 	                        frame.slider_v.SetValue(0)
 	                        frame.slider_h.SetValue(0)
 				brk_value = 0
 	                elif frame.brk_state == True:
 	                        frame.panel_brk.SetBackgroundColour("green")
-#	                        net_send(0,"brk",100)
 	                        frame.brk_state = False
 				brk_value = 100
 	        elif function == "set":
 	                if state == "on":
 	                        frame.panel_brk.SetBackgroundColour("red")
-#	                        net_send(0,"brk",0)
 	                        frame.brk_state = True
 	                        frame.slider_v.SetValue(0)
 	                        frame.slider_h.SetValue(0)
 				brk_value = 0
 	                elif state == "off":
 	                        frame.panel_brk.SetBackgroundColour("green")
-#	                        net_send(0,"brk",100)
 	                        frame.brk_state = False
 				brk_value = 100
 
-                print(int(servo_brk[0]),servo_brk[1],int(brk_value))
+                network.net_send(socket,int(servo_brk[0]),servo_brk[1],int(brk_value))
 
 
 # 'Gimbal' panel mouse events
-class Panel_TrackMouse(wx.EvtHandler):
+class Panel_GimbalTrack(wx.EvtHandler):
 	def __init__(self):
         	wx.EvtHandler.__init__(self)
                 wx.EVT_MOTION(self, self.OnMouseMove)
@@ -109,12 +118,24 @@ class Panel_TrackMouse(wx.EvtHandler):
 		if event.LeftIsDown() is True:				# Only send cords when left mouse is held
 			if 0 <= x <= 100 and 0 <= y <= 100:
 				# Convert 0-100 to -100-100 and send
-				print(int(servo_gim[0]),servo_gim[1],(x*2)-100,(y*2)-100)	
+				network.net_send(socket,int(servo_gim[0]),servo_gim[1],(x*2)-100,(y*2)-100)	
 
 	def OnDoubleLClick(self, event):
-			print(int(servo_gim[0]),servo_gim[1],0,0)	# Send neutral
+			network.net_send(socket,int(servo_gim[0]),servo_gim[1],0,0)	# Send neutral
 
 
+
+class Panel_BrakeClick(wx.EvtHandler):
+        def __init__(self):
+                wx.EvtHandler.__init__(self)
+                wx.EVT_LEFT_UP(self, self.OnLClickUp)
+
+        def OnLClickUp(self, event):
+                panel = self.GetNextHandler()
+
+		# Sent brake as 'off' - cannot be used to set as on as no throttle control here
+		panel.SetBackgroundColour("green")
+		network.net_send(socket,int(servo_brk[0]),servo_brk[1],100)
 
 
 
@@ -122,4 +143,6 @@ class Panel_TrackMouse(wx.EvtHandler):
 # Unbound Events (imported functions)
 # Timer triggered keep-alive
 def SendKeepAlive(event):
-	print(99,"ka",0)
+	network.net_send(socket,99,"ka",0)
+
+

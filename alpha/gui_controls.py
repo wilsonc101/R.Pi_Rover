@@ -55,7 +55,7 @@ class MainWindow(wx.Frame):
         panel = wx.Panel(self, -1, (0,0), (140,140))
         grid_box = wx.StaticBox(panel, -1, 'gimble', size=(140, 140))
         self.panel_gimble = wx.Panel(panel, -1, (20,20), (100,100))
-	self.panel_gimble.PushEventHandler(event.Panel_TrackMouse())		# Bind panel events to external handler (push)
+	self.panel_gimble.PushEventHandler(event.Panel_GimbalTrack())		# Bind panel events to external handler (push)
         self.panel_gimble.SetBackgroundColour("light grey")
         sizer.Add(panel, pos=(1,2), flag=wx.EXPAND)
 
@@ -85,7 +85,8 @@ class MainWindow(wx.Frame):
         staticbox_brk = wx.StaticBox(panel, -1, 'brake', size=(140, 52))
         self.panel_brk = wx.Panel(panel, -1, (10,15), (120,30))
         self.panel_brk.SetBackgroundColour("green")
-        self.panel_brk.Bind(wx.EVT_LEFT_UP, self.MouseClick_Brk)
+	self.panel_brk.PushEventHandler(event.Panel_BrakeClick())		# Bind panel events to external handler (push)
+#        self.panel_brk.Bind(wx.EVT_LEFT_UP, self.MouseClick_Brk)
         sizer.Add(panel, pos=(3,2), flag=wx.EXPAND)
 
         panel = wx.Panel(self, -1, (0,0), (50,50))

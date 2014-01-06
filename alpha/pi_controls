@@ -4,6 +4,7 @@ import wx
 import sys
 
 import gui_controls as gui
+import func_net as network
 
 
 def load_window():
@@ -11,7 +12,6 @@ def load_window():
         frame=gui.MainWindow(parent=None,id=-1)
         frame.Show()
         app.MainLoop()
-
 
 
 load_window()

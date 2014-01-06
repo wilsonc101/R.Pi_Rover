@@ -11,9 +11,9 @@ s.listen(1)
 conn, addr = s.accept()
 
 while 1:
-#	print 'Connected by', addr
 	while 1:
-		data = conn.recv(4096)
+		print 'Connected by', addr
+		data = conn.recv(1024)
 		if not data: break
 		print data
 
