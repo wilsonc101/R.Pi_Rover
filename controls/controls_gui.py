@@ -105,12 +105,3 @@ class MainWindow(wx.Frame):
         self.SetSizer(sizer)
         self.Fit()
 
-
-
-    def MouseClick_Brk(self, event):
-#        toggle_brake("toggle","na")
-  #      net_send(0,"thr",frame.slider_v.GetValue())
- #       net_send(0,"dir",frame.slider_h.GetValue())
-	print("brake")
-
-

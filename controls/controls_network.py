@@ -1,7 +1,7 @@
 import socket
 import time
 import ConfigParser
-
+import sys
 
 config = ConfigParser.ConfigParser()
 config.read('pi_controls.cfg')
@@ -30,17 +30,15 @@ def net_connect():
 		return("False")
 
 
-def net_disconnect():
-        global net_socket
-        net_socket.close()
-
 
 def net_send(socket,type,channel,value1,value2=0):
-        global net_socket
 
         try:
-                socket.sendall(str(type) + "," + channel + "," + str(value1) + "," + str(value2) + ";")
+	        socket.sendall(str(type) + "," + channel + "," + str(value1) + "," + str(value2) + ";")
                 print(str(type) + "," + channel + "," + str(value1) + "," + str(value2) + ";")
         except:
                 print("Network Connection Error - Transmit")
-                net_connect()
+		return("False")
+
+
+
