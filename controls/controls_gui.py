@@ -19,7 +19,7 @@ class MainWindow(wx.Frame):
         self.brk_state = False
 
         # Global Events
-	self.PushEventHandler(event.Frame_KeyPress())			# Bind frame events to external hander (push)
+	self.PushEventHandler(event.Frame_AllEvents())			# Bind frame events to external hander (push)
 
         # Grid Builder
         sizer = wx.GridBagSizer(hgap=5, vgap=5)
@@ -37,9 +37,6 @@ class MainWindow(wx.Frame):
 
         # Container for net socket state
         panel = wx.Panel(self, -1, (0,0), (140,52))
-        staticbox_conn = wx.StaticBox(panel, -1, 'connection', size=(140, 52))
-        self.panel_connection = wx.Panel(panel, -1, (10,15), (120,30))
-        self.panel_connection.SetBackgroundColour("grey")
         sizer.Add(panel, pos=(0,2), flag=wx.EXPAND)
 
         panel = wx.Panel(self, -1, (0,0), (50,50))

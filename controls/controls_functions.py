@@ -1,6 +1,7 @@
 import sys
 import wx
 import ConfigParser
+import time
 
 import controls_network as network
 
@@ -15,25 +16,28 @@ servo_brk = [config.get('servos', 'brake_type'), config.get('servos', 'brake_nam
 servo_gim = [config.get('servos', 'gimbal_type'), config.get('servos', 'gimbal_name')]
 
 # Init network connection
+print("Connecting to vehicle...")
 socket = network.net_connect()
-messagebox = 0
+
 # Bound Events (push event handler)
 # Frame - Keyboard events
-class Frame_KeyPress(wx.EvtHandler):
+class Frame_AllEvents(wx.EvtHandler):
 	def __init__(self):
 		wx.EvtHandler.__init__(self)
 		wx.EVT_KEY_UP(self, self.OnKeyUp)
 		wx.EVT_SCROLL_CHANGED(self, self.OnSliderChange)
 
+	# Catch slider changes
 	def OnSliderChange(self, event):
 		frame = self.GetNextHandler()
 
 		self.toggle_brake("set", "off")
 
-		NetCheck(network.net_send(socket,int(servo_thr[0]),servo_thr[1],frame.slider_v.GetValue()))
-		NetCheck(network.net_send(socket,int(servo_dir[0]),servo_dir[1],frame.slider_h.GetValue()))
+		network.net_send(socket,int(servo_thr[0]),servo_thr[1],frame.slider_v.GetValue())
+		network.net_send(socket,int(servo_dir[0]),servo_dir[1],frame.slider_h.GetValue())
+		
 
-
+	# Catch all key presses
 	def OnKeyUp(self, event):
 		frame = self.GetNextHandler()
 		keycode = int(event.GetKeyCode())
@@ -70,10 +74,11 @@ class Frame_KeyPress(wx.EvtHandler):
 	                frame.slider_h.SetValue(0)
 	                self.toggle_brake("toggle", "na")
 
-		NetCheck(network.net_send(socket,int(servo_thr[0]),servo_thr[1],frame.slider_v.GetValue()))
-		NetCheck(network.net_send(socket,int(servo_dir[0]),servo_dir[1],frame.slider_h.GetValue()))
+		network.net_send(socket,int(servo_thr[0]),servo_thr[1],frame.slider_v.GetValue())
+		network.net_send(socket,int(servo_dir[0]),servo_dir[1],frame.slider_h.GetValue())
 
-
+	
+	# Toggle brake on key or slider events
 	def toggle_brake(self, function, state):
 		frame = self.GetNextHandler()
 
@@ -100,7 +105,7 @@ class Frame_KeyPress(wx.EvtHandler):
 	                        frame.brk_state = False
 				brk_value = 100
 
-                NetCheck(network.net_send(socket,int(servo_brk[0]),servo_brk[1],int(brk_value)))
+                network.net_send(socket,int(servo_brk[0]),servo_brk[1],int(brk_value))
 
 
 # 'Gimbal' panel mouse events
@@ -110,6 +115,7 @@ class Panel_GimbalTrack(wx.EvtHandler):
                 wx.EVT_MOTION(self, self.OnMouseMove)
 		wx.EVT_LEFT_DCLICK(self, self.OnDoubleLClick)
 	
+	# Output cords when left-click-drag over panel
 	def OnMouseMove(self, event):
 		x = int(event.GetX())
 		y = int(event.GetY())
@@ -117,13 +123,14 @@ class Panel_GimbalTrack(wx.EvtHandler):
 		if event.LeftIsDown() is True:				# Only send cords when left mouse is held
 			if 0 <= x <= 100 and 0 <= y <= 100:
 				# Convert 0-100 to -100-100 and send
-				NetCheck(network.net_send(socket,int(servo_gim[0]),servo_gim[1],(x*2)-100,(y*2)-100))
+				network.net_send(socket,int(servo_gim[0]),servo_gim[1],(x*2)-100,(y*2)-100)
 
+	# Set to neutral position on double-click
 	def OnDoubleLClick(self, event):
-			NetCheck(network.net_send(socket,int(servo_gim[0]),servo_gim[1],0,0))	# Send neutral
+			network.net_send(socket,int(servo_gim[0]),servo_gim[1],0,0)	# Send neutral
 
 
-
+# Release break on mouse-panel click
 class Panel_BrakeClick(wx.EvtHandler):
         def __init__(self):
                 wx.EvtHandler.__init__(self)
@@ -134,40 +141,34 @@ class Panel_BrakeClick(wx.EvtHandler):
 
 		# Sent brake as 'off' - cannot be used to set as on as no throttle control here
 		panel.SetBackgroundColour("green")
-		NetCheck(network.net_send(socket,int(servo_brk[0]),servo_brk[1],100))
+		network.net_send(socket,int(servo_brk[0]),servo_brk[1],100)
 
 
 
 
 # Unbound Events (imported functions)
-# Timer triggered keep-alive
+# Timer triggered keep-alive (2s)
 def SendKeepAlive(event):
-	 NetCheck(network.net_send(socket,99,"ka",0))
+	NetCheck(network.net_send(socket,99,"ka",0))
 
 
-
-
+# Check result of keep-alive, prompt if connection has failed
 def NetCheck(result):
-	global socket, messagebox
-	answer = 0
+	global socket
 
 	if result == "False":
-		socket = None
-		if messagebox == 0:
-			messagebox = 1
-		        answer = wx.MessageBox('Network connection has failed - reconnect?', 'Info', wx.YES_NO | wx.ICON_EXCLAMATION)
-			while answer == 0: pass
+		socket = None		# Wipe out old socket
+
+		answer = 0
+	        answer = wx.MessageBox('Network connection has failed - reconnect?', 'Connection Failure', wx.YES_NO | wx.ICON_EXCLAMATION)
+		while answer == 0: time.sleep(0.2)
 
 		if answer == 8:
 			raise SystemExit("Pi Rover manually exited after network failure")
        		elif answer == 2:
 			print("Retrying Connection")
 			socket = network.net_connect()
-			messagebox = 0
-		
 	
 
-		
-	
-	
+
 	

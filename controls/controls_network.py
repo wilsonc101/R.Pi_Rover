@@ -3,6 +3,9 @@ import time
 import ConfigParser
 import sys
 
+# Set socket timeout
+socket.setdefaulttimeout(2)
+
 config = ConfigParser.ConfigParser()
 config.read('pi_controls.cfg')
 
@@ -11,11 +14,12 @@ config.read('pi_controls.cfg')
 
 
 def net_test(type,channel,value1,value2=0):
+	# Test harness for net_send
 	print(type,channel,value1,value2)
 
 
-
 def net_connect():
+	# Create network socket and return if successul (false string if not)
         HOST = config.get('network', 'vehicle_ip')
         PORT = int(config.get('network', 'vehicle_port'))
         net_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -32,7 +36,7 @@ def net_connect():
 
 
 def net_send(socket,type,channel,value1,value2=0):
-
+	# Send args to socket and output to stdout, return false string if socket non-functional
         try:
 	        socket.sendall(str(type) + "," + channel + "," + str(value1) + "," + str(value2) + ";")
                 print(str(type) + "," + channel + "," + str(value1) + "," + str(value2) + ";")
