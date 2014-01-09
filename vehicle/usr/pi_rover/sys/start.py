@@ -1,8 +1,6 @@
 DAEMON_1="/usr/pi_rover/app/pi_rover"
 PIDFILE_1="/var/run/pi_rover.pid"
 
-expect fork
-
 case "$1" in
   start)
 
