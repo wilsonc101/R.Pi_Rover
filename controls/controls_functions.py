@@ -41,7 +41,7 @@ class Frame_AllEvents(wx.EvtHandler):
 	def OnKeyUp(self, event):
 		frame = self.GetNextHandler()
 		keycode = int(event.GetKeyCode())
-
+	
 	        # Acc Up - W
         	if keycode == 87:
                 	frame.slider_v.SetValue(frame.slider_v.GetValue() + 5)
@@ -58,7 +58,11 @@ class Frame_AllEvents(wx.EvtHandler):
 	
 	        # Dir Right Full - E
 	        if keycode == 69:
-	                frame.slider_h.SetValue(-100)
+	                if frame.slider_h.GetValue() == -100:
+		                frame.slider_h.SetValue(0)
+			else:
+		                frame.slider_h.SetValue(-100)
+			
 
 	        # Dir Left Step  - A
 	        if keycode == 65:
@@ -66,7 +70,14 @@ class Frame_AllEvents(wx.EvtHandler):
 	
 	        # Dir Left Full - E
 	        if keycode == 81:
-	                frame.slider_h.SetValue(100)
+	                if frame.slider_h.GetValue() == 100:
+		                frame.slider_h.SetValue(0)
+			else:
+		                frame.slider_h.SetValue(100)
+
+	        # Dir Center - 2
+	        if keycode == 50:
+	                frame.slider_h.SetValue(0)
 	
 	        # STOP - Space
 	        if keycode == wx.WXK_SPACE:
