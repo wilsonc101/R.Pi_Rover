@@ -9,9 +9,6 @@ socket.setdefaulttimeout(2)
 config = ConfigParser.ConfigParser()
 config.read('pi_controls.cfg')
 
-# Get servo names from config as arrays
-[config.get('servos', 'direction_type'), config.get('servos', 'direction_name')]
-
 
 def net_test(type,channel,value1,value2=0):
 	# Test harness for net_send
