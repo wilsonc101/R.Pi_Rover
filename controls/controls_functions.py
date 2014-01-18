@@ -117,7 +117,7 @@ class Panel_GimbalTrack(wx.EvtHandler):
 	
 	# Output cords when left-click-drag over panel
 	def OnMouseMove(self, event):
-		x = int(event.GetX())
+		x = 100 - int(event.GetX())
 		y = int(event.GetY())
 
 		if event.LeftIsDown() is True:				# Only send cords when left mouse is held
