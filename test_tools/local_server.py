@@ -17,4 +17,4 @@ while 1:
 		if not data: break
 		print data
 
-conn.close()
+	conn.close()

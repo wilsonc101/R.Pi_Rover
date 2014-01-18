@@ -54,19 +54,19 @@ class Frame_AllEvents(wx.EvtHandler):
 	
 	        # Dir Right Step - D
 	        if keycode == 68:
-	                frame.slider_h.SetValue(frame.slider_h.GetValue() + 10)
+	                frame.slider_h.SetValue(frame.slider_h.GetValue() - 10)
 	
 	        # Dir Right Full - E
 	        if keycode == 69:
-	                frame.slider_h.SetValue(100)
+	                frame.slider_h.SetValue(-100)
 
 	        # Dir Left Step  - A
 	        if keycode == 65:
-	                frame.slider_h.SetValue(frame.slider_h.GetValue() - 10)
+	                frame.slider_h.SetValue(frame.slider_h.GetValue() + 10)
 	
 	        # Dir Left Full - E
 	        if keycode == 81:
-	                frame.slider_h.SetValue(-100)
+	                frame.slider_h.SetValue(100)
 	
 	        # STOP - Space
 	        if keycode == wx.WXK_SPACE:

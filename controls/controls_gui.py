@@ -9,6 +9,9 @@ class MainWindow(wx.Frame):
 
         # Main Window
         wx.Frame.__init__(self,parent,id,'Pi Rover')
+        self.panel = wx.Panel(self, -1, (0,0), (500,500))
+        self.panel.SetBackgroundColour("white")
+
 
         # Keep alive timer
         self.timer_ka = wx.Timer(self)
@@ -32,10 +35,9 @@ class MainWindow(wx.Frame):
         self.slider_v = wx.Slider(panel, -1, 0, -100, 100, (0,20), (70, 275), wx.SL_VERTICAL | wx.SL_INVERSE)
         sizer.Add(panel, pos=(0,0), span=(4,1), flag=wx.EXPAND)
 
-        panel = wx.Panel(self, -1, (0,0), (50,50))
+        panel = wx.Panel(self, -1, (0,0), (20,50))
         sizer.Add(panel, pos=(0,1), flag=wx.EXPAND)
 
-        # Container for net socket state
         panel = wx.Panel(self, -1, (0,0), (140,52))
         sizer.Add(panel, pos=(0,2), flag=wx.EXPAND)
 
@@ -45,7 +47,8 @@ class MainWindow(wx.Frame):
 
         # ROW 2
         # Col 1 spanned from ROW 1
-        panel = wx.Panel(self, -1, (0,0), (50,50))
+
+        panel = wx.Panel(self, -1, (0,0), (20,50))
         sizer.Add(panel, pos=(1,1), flag=wx.EXPAND)
 
         # Mouse Capture panel
@@ -61,8 +64,9 @@ class MainWindow(wx.Frame):
 
 
         # ROW 3
-        # Col 1 + 2 spanned from ROW 1
-        panel = wx.Panel(self, -1, (0,0), (50,50))
+        # Col 1 spanned from ROW 1
+
+        panel = wx.Panel(self, -1, (0,0), (20,50))
         sizer.Add(panel, pos=(2,1), flag=wx.EXPAND)
 
         panel = wx.Panel(self, -1, (0,0), (50,50))
@@ -74,7 +78,7 @@ class MainWindow(wx.Frame):
 
         # ROW 4
         # Col 1 spanned from ROW 1
-        panel = wx.Panel(self, -1, (0,0), (50,50))
+        panel = wx.Panel(self, -1, (0,0), (20,50))
         sizer.Add(panel, pos=(3,1), flag=wx.EXPAND)
 
         # Container for brakes state
@@ -83,7 +87,6 @@ class MainWindow(wx.Frame):
         self.panel_brk = wx.Panel(panel, -1, (10,15), (120,30))
         self.panel_brk.SetBackgroundColour("green")
 	self.panel_brk.PushEventHandler(event.Panel_BrakeClick())		# Bind panel events to external handler (push)
-#        self.panel_brk.Bind(wx.EVT_LEFT_UP, self.MouseClick_Brk)
         sizer.Add(panel, pos=(3,2), flag=wx.EXPAND)
 
         panel = wx.Panel(self, -1, (0,0), (50,50))
@@ -94,7 +97,7 @@ class MainWindow(wx.Frame):
         # Container for Direction slider        
         panel = wx.Panel(self, -1, (0,0), (500,60))
         grid_box = wx.StaticBox(panel, -1, 'direction', size=(500, 60))
-        self.slider_h = wx.Slider(panel, -1, 0, -100, 100, (10,10), (480, 50), wx.SL_HORIZONTAL)
+        self.slider_h = wx.Slider(panel, -1, 0, -100, 100, (10,10), (480, 50), wx.SL_HORIZONTAL | wx.SL_INVERSE)
         sizer.Add(panel, pos=(4,0), span=(1,4), flag=wx.EXPAND)
 
         # End of Grid
