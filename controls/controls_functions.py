@@ -28,6 +28,7 @@ class Frame_AllEvents(wx.EvtHandler):
 		wx.EVT_KEY_UP(self, self.OnKeyUp)
 		wx.EVT_SCROLL_CHANGED(self, self.OnSliderChange)
 
+
 	# Catch slider changes
 	def OnSliderChange(self, event):
 		frame = self.GetNextHandler()
@@ -156,6 +157,15 @@ class Panel_BrakeClick(wx.EvtHandler):
 		network.net_send(socket,int(servo_brk[0]),servo_brk[1],100)
 
 
+# Send 'shutdown' packet to vehicle on button press
+class Button_ShutdownVehicle(wx.EvtHandler):
+        def __init__(self):
+		wx.EvtHandler.__init__(self)
+		wx.EVT_LEFT_UP(self, self.OnClick)
+
+	def OnClick(self, event):
+		network.net_send(socket,98,"sd",0)
+		event.Skip()
 
 
 

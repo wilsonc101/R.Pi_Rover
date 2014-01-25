@@ -113,6 +113,9 @@ class MainWindow(wx.Frame):
         sizer.Add(panel, pos=(3,3), flag=wx.EXPAND)
 
         panel = wx.Panel(self, -1, (0,0), (50,50))
+	self.button_poweroff = wx.Button(panel, -1, 'Shutdown Vehicle', (20, 15))
+#	self.button_poweroff.Bind(wx.EVT_BUTTON, self.Clicked)
+	self.button_poweroff.PushEventHandler(event.Button_ShutdownVehicle())
         sizer.Add(panel, pos=(3,4), flag=wx.EXPAND)
 
 
@@ -138,3 +141,5 @@ class MainWindow(wx.Frame):
         self.gauge_batt_1.SetValue(int(vehicle_metrics[1]))
         self.gauge_batt_2.SetValue(int(vehicle_metrics[2]))
 
+    def Clicked(self, event):
+	print("here")
