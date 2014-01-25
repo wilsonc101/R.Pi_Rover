@@ -14,28 +14,34 @@ import class_gimbal as gimbal
 
 
 def TranslatePWM_Servo(list,name,data):
+	# Translate %age from GUI to real PWM value
 	if list.has_key(name):
 		SendPWM(int(list[name].Channel),0,int(list[name].Translate(data)))
 
 
 def TranslatePWM_Gimbal(list,name,data_x,data_y):
+	# Translate %age from GUI to real PWM value
 	if list.has_key(name):
 		real_value_x, real_value_y = list[name].Translate(int(data_x),int(data_y))
-
 		SendPWM(int(list[name].XServo.Channel),0,int(real_value_x))
 		SendPWM(int(list[name].YServo.Channel),0,int(real_value_y))
 
 
 def EmergencyStop(servo):
+	# Set inputted servo to neutral position
 	SendPWM(servo.Channel,0,servo.RealNeutral)
 
 
 def SendPWM(channel,start,end):	
 	# PWM output requires channel, start and end. Start and end refer to the start point and length of the pulse.
 	# Typically all pulses start at '0'.
-	
 	pwm.setPWM(channel,start,end)
-#	print(channel,start,end)
+
+
+def GetVehicleDate():
+	return(str(randrange(100)) + ',' + str(randrange(100)) + ',' + str(randrange(100)))
+
+
 
 
 config = ConfigParser.ConfigParser()
@@ -94,8 +100,8 @@ net_socket.listen(1)
 
 while 1:
         conn, addr = net_socket.accept()
-#        print "Connected to ", addr
 
+	# Connected
         while 1:
            data = conn.recv(BUFFER_SIZE)
            if not data: break
@@ -112,8 +118,12 @@ while 1:
 				elif int(packet.split(",")[0]) == 1:
 					# Expected Gimbal packet = type, name, x data, y data
 					TranslatePWM_Gimbal(gimbal_list,packet.split(",")[1],packet.split(",")[2],packet.split(",")[3])
+
+				elif int(packet.split(",")[0]) == 99:
+					# Expected keep-alive packet - return vehicle data
+					conn.sendall(GetVehicleDate())				
  
-#	print "Disconnected"
+	# Disconnected
 	for servo_name in servo_list.keys():
 		EmergencyStop(servo_list[servo_name])
 

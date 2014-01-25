@@ -19,7 +19,8 @@ servo_gim = [config.get('servos', 'gimbal_type'), config.get('servos', 'gimbal_n
 print("Connecting to vehicle...")
 socket = network.net_connect()
 
-# Bound Events (push event handler)
+
+### Bound Events (push event handler)
 # Frame - Keyboard events
 class Frame_AllEvents(wx.EvtHandler):
 	def __init__(self):
@@ -157,12 +158,23 @@ class Panel_BrakeClick(wx.EvtHandler):
 
 
 
-# Unbound Events (imported functions)
+
+
+###  Unbound Events (imported functions)
 # Timer triggered keep-alive (2s)
 def SendKeepAlive(event):
+	# Keep alive performs three functions:
+	# 1) Send constant stream of traffic to avoid network session timeout/sleep
+	# 2) Result of sending 'KA' used to check socket is still valid
+	# 3) Triggers vehicle to return status details (e.g battery state) - 'return' value
 	NetCheck(network.net_send(socket,99,"ka",0))
+	return(network.net_listen(socket))
 
 
+
+
+
+### Internal functions - used by events/functions within this file
 # Check result of keep-alive, prompt if connection has failed
 def NetCheck(result):
 	global socket

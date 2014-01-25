@@ -3,6 +3,7 @@ import time
 import ConfigParser
 import sys
 
+
 # Set socket timeout
 socket.setdefaulttimeout(2)
 
@@ -36,10 +37,16 @@ def net_send(socket,type,channel,value1,value2=0):
 	# Send args to socket and output to stdout, return false string if socket non-functional
         try:
 	        socket.sendall(str(type) + "," + channel + "," + str(value1) + "," + str(value2) + ";")
-                print(str(type) + "," + channel + "," + str(value1) + "," + str(value2) + ";")
         except:
                 print("Network Connection Error - Transmit")
 		return("False")
 
 
+def net_listen(socket):
+	# Listen on existing connection for data returned from vehicle
+	while 1:
+		data = socket.recv(1024)
+                if not data: break
+	    	return(data)
 
+  
