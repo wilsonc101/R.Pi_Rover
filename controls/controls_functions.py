@@ -168,9 +168,14 @@ def SendKeepAlive(event):
 	# 2) Result of sending 'KA' used to check socket is still valid
 	# 3) Triggers vehicle to return status details (e.g battery state) - 'return' value
 	NetCheck(network.net_send(socket,99,"ka",0))
-	return(network.net_listen(socket))
-
-
+	
+	
+	# Also use returned data to validate socket
+	vehicle_data = network.net_listen(socket)
+	if vehicle_data != "False":
+		return(vehicle_data)
+	else:
+		NetCheck(vehicle_data)
 
 
 

@@ -44,9 +44,14 @@ def net_send(socket,type,channel,value1,value2=0):
 
 def net_listen(socket):
 	# Listen on existing connection for data returned from vehicle
-	while 1:
-		data = socket.recv(1024)
-                if not data: break
-	    	return(data)
+	try:	
+		while 1:
+			data = socket.recv(1024)
+	                if not data: break
+		    	return(data)
+	        print("Network Connection Error - Receive")
+		return("False")  
 
-  
+	except:
+	        print("Network Connection Error - Receive")
+		return("False")  
