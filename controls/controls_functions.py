@@ -176,6 +176,7 @@ class Button_ShutdownVehicle(wx.EvtHandler):
 	def OnClick(self, event):
 		network.net_send(socket,98,"sd",0)
 		logfile.debug('net send - shutdown - 0')
+		logfile.warning('sent vehicle shutdown')
 		event.Skip()
 
 
