@@ -3,6 +3,7 @@ import time
 import ConfigParser
 import sys
 
+import controls_logging as log
 
 # Set socket timeout
 socket.setdefaulttimeout(2)
@@ -10,11 +11,11 @@ socket.setdefaulttimeout(2)
 config = ConfigParser.ConfigParser()
 config.read('pi_controls.cfg')
 
+logfile = log.CreateLogger(console=1, file=1, filepath='pi_rover.log', level=config.get('logging', 'level'))
 
 def net_test(type,channel,value1,value2=0):
 	# Test harness for net_send
-	print(type,channel,value1,value2)
-
+	logfile.debug(str(type) + "," + str(channel) + ","+ str(value1) + "," + str(value2))
 
 def net_connect():
 	# Create network socket and return if successul (false string if not)
@@ -24,11 +25,11 @@ def net_connect():
 
 	try:
 		net_socket.connect((HOST, PORT))
-		print("Connected to " + HOST)
+		logfile.warning("connected to " + str(HOST))
 		return(net_socket)
 
 	except:
-       	        print("Network Connection Failed")
+       	        logfile.warning("network connection failed")
 		return("False")
 
 
@@ -38,7 +39,7 @@ def net_send(socket,type,channel,value1,value2=0):
         try:
 	        socket.sendall(str(type) + "," + channel + "," + str(value1) + "," + str(value2) + ";")
         except:
-                print("Network Connection Error - Transmit")
+                logfile.warning("network connection error - Transmit")
 		return("False")
 
 
@@ -49,9 +50,9 @@ def net_listen(socket):
 			data = socket.recv(1024)
 	                if not data: break
 		    	return(data)
-	        print("Network Connection Error - Receive")
+                logfile.warning("network connection error - Receive")
 		return("False")  
 
 	except:
-	        print("Network Connection Error - Receive")
+                logfile.warning("network connection error - Receive")
 		return("False")  
