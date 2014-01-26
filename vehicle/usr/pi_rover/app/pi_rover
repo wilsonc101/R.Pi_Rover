@@ -102,7 +102,7 @@ net_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 net_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
 server_ip = config.get('network', 'server_ip')
-server_port = int(config.get('network', 'server_port')
+server_port = int(config.get('network', 'server_port'))
 
 net_socket.bind((server_ip, server_port))
 BUFFER_SIZE = int(config.get('network', 'buffer'))
@@ -144,6 +144,7 @@ while 1:
 
  
 	# Disconnected
+        logfile.warning("network connection failed")
 	for servo_name in servo_list.keys():
 		EmergencyStop(servo_list[servo_name])
 
