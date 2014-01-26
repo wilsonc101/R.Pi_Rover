@@ -14,14 +14,20 @@ from subprocess import *
 import class_servo as servo
 import class_gimbal as gimbal
 
+import func_logging as log
+
+
+config = ConfigParser.ConfigParser()
+config.read('/usr/pi_rover/app/pi_rover.cfg')
+
+logfile = log.CreateLogger(console=0, file=1, filepath=config.get('logging', 'path'), level=config.get('logging', 'level'))
 
 
 def TranslatePWM_Servo(list,name,data):
 	# Translate %age from GUI to real PWM value
 	if list.has_key(name):
 		SendPWM(int(list[name].Channel),0,int(list[name].Translate(data)))
-
-
+		
 def TranslatePWM_Gimbal(list,name,data_x,data_y):
 	# Translate %age from GUI to real PWM value
 	if list.has_key(name):
@@ -34,11 +40,11 @@ def EmergencyStop(servo):
 	# Set inputted servo to neutral position
 	SendPWM(servo.Channel,0,servo.RealNeutral)
 
-
 def SendPWM(channel,start,end):	
 	# PWM output requires channel, start and end. Start and end refer to the start point and length of the pulse.
 	# Typically all pulses start at '0'.
 	pwm.setPWM(channel,start,end)
+        logfile.debug("servo data: " + str(channel) + "," + str(start) + "," + str(end))
 
 
 def GetVehicleDate():
@@ -46,16 +52,12 @@ def GetVehicleDate():
 
 def ShutdownVehicle():
 	shutdown_cmd = "poweroff"
+        logfile.warning("shutdown signal received")
         p = Popen(shutdown_cmd, shell=True, stdout=PIPE)
 
 
-
-config = ConfigParser.ConfigParser()
-config.read('/usr/pi_rover/app/pi_rover.cfg')
-
 pwm = PWM(0x40, debug=True)
 pwm.setPWMFreq(60)                      
-
 
 # Define servos
 dir_servo = servo.StandardServo(config.get('direction', 'channel'),
@@ -99,13 +101,19 @@ for servo_name in servo_list.keys():
 net_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 net_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-net_socket.bind((config.get('network', 'server_ip'), int(config.get('network', 'server_port'))))
+server_ip = config.get('network', 'server_ip')
+server_port = int(config.get('network', 'server_port')
+
+net_socket.bind((server_ip, server_port))
 BUFFER_SIZE = int(config.get('network', 'buffer'))
 
+
 net_socket.listen(1)
+logfile.info("listening on " + server_ip + ":" + str(server_port))
 
 while 1:
         conn, addr = net_socket.accept()
+        logfile.warning("connected to " + str(addr))
 
 	# Connected
         while 1:
@@ -113,6 +121,7 @@ while 1:
            if not data: break
 
            data = data.split(";")
+	   logfile.debug("received: " + str(data))
 		
 	   for packet in data:
 		if len(packet) >= 5:
