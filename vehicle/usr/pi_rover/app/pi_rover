@@ -7,7 +7,6 @@ import time
 import sys
 import socket
 import re
-from random import randrange
 from subprocess import *
 
 
@@ -15,7 +14,7 @@ import class_servo as servo
 import class_gimbal as gimbal
 
 import func_logging as log
-
+import func_vehicledata as vehicledata
 
 config = ConfigParser.ConfigParser()
 config.read('/usr/pi_rover/app/pi_rover.cfg')
@@ -48,7 +47,8 @@ def SendPWM(channel,start,end):
 
 
 def GetVehicleDate():
-	return(str(randrange(100)) + ',' + str(randrange(100)) + ',' + str(randrange(100)))
+	return(vehicledata.GetVehicleData("wifi") + ',' + vehicledata.GetVehicleData("batt1") + ',' + vehicledata.GetVehicleData("batt2"))
+
 
 def ShutdownVehicle():
 	shutdown_cmd = "poweroff"
