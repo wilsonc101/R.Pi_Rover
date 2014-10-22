@@ -140,6 +140,3 @@ class MainWindow(wx.Frame):
         self.gauge_wifi.SetValue(int(vehicle_metrics[0]))
         self.gauge_batt_1.SetValue(int(vehicle_metrics[1]))
         self.gauge_batt_2.SetValue(int(vehicle_metrics[2]))
-
-    def Clicked(self, event):
-	print("here")
