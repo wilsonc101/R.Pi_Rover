@@ -134,9 +134,20 @@ class MainWindow(wx.Frame):
     def TimerEvent(self, evt):
 	vehicle_data = event.SendKeepAlive(evt)
 	self.UpdateGauges(vehicle_data)
+	self.LimitControls(vehicle_data)
 
     def UpdateGauges(self, vehicle_data):
 	vehicle_metrics = vehicle_data.split(',')
         self.gauge_wifi.SetValue(int(vehicle_metrics[0]))
         self.gauge_batt_1.SetValue(int(vehicle_metrics[1]))
         self.gauge_batt_2.SetValue(int(vehicle_metrics[2]))
+        
+
+    def LimitControls(self, vehicle_data):
+
+        wifi_value = vehicle_data.split(',')[0]
+        if int(wifi_value) <= 25:
+             self.slider_v.SetRange(-50,50)
+        else:
+             self.slider_v.SetRange(-100,100)
+
