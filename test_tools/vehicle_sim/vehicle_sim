@@ -1,0 +1,18 @@
+#!/usr/bin/python
+
+import wx
+import sys
+
+import vsim_gui as gui
+
+def load_window():
+        # Setup wx.Python 'app' and apply 'gui' class
+        app=wx.PySimpleApp()
+        frame=gui.MainWindow(parent=None,id=-1)
+        frame.Show()
+        app.MainLoop()
+
+
+load_window()
+
+
