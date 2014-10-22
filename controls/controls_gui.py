@@ -39,6 +39,7 @@ class MainWindow(wx.Frame):
         sizer.Add(panel, pos=(0,1), flag=wx.EXPAND)
 
         panel = wx.Panel(self, -1, (0,0), (140,52))
+        self.thr_limit_text = wx.StaticText(panel, -1, '', (0,10), (0,0), wx.ALIGN_CENTER)
         sizer.Add(panel, pos=(0,2), flag=wx.EXPAND)
 
         panel = wx.Panel(self, -1, (0,0), (20,50))
@@ -148,6 +149,13 @@ class MainWindow(wx.Frame):
         wifi_value = vehicle_data.split(',')[0]
         if int(wifi_value) <= 25:
              self.slider_v.SetRange(-50,50)
+
+	     wx_font = wx.Font(10, wx.DEFAULT, wx.NORMAL, wx.BOLD)
+	     self.thr_limit_text.SetLabel('THROTTLE\nLIMITED')
+	     self.thr_limit_text.SetForegroundColour('red')
+	     self.thr_limit_text.SetFont(wx_font)
+             
         else:
              self.slider_v.SetRange(-100,100)
+	     self.thr_limit_text.SetLabel('')
 
