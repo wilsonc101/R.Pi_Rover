@@ -99,6 +99,8 @@ class MainWindow(wx.Frame):
         sizer.Add(panel, pos=(2,3), flag=wx.EXPAND)
 
         panel = wx.Panel(self, -1, (0,0), (50,50))
+        grid_box = wx.StaticBox(panel, -1, 'vehicle reply (ms)', (0, 0), size=(172, 50))
+        self.response_text = wx.StaticText(panel, -1,  '0', pos=(5,20))
         sizer.Add(panel, pos=(2,4), flag=wx.EXPAND)
 
 
@@ -120,7 +122,6 @@ class MainWindow(wx.Frame):
 
         panel = wx.Panel(self, -1, (0,0), (50,50))
 	self.button_poweroff = wx.Button(panel, -1, 'Shutdown Vehicle', (20, 15))
-#	self.button_poweroff.Bind(wx.EVT_BUTTON, self.Clicked)
 	self.button_poweroff.PushEventHandler(event.Button_ShutdownVehicle())
         sizer.Add(panel, pos=(3,4), flag=wx.EXPAND)
 
@@ -140,16 +141,16 @@ class MainWindow(wx.Frame):
 
     def TimerEvent(self, evt):
 	vehicle_data, response_time = event.SendKeepAlive(evt)
-	self.UpdateGauges(vehicle_data)
+	self.UpdateGauges(vehicle_data, response_time)
 	self.LimitControls(vehicle_data, response_time)
 
 
-    def UpdateGauges(self, vehicle_data):
+    def UpdateGauges(self, vehicle_data, response_time):
 	vehicle_metrics = vehicle_data.split(',')
         self.gauge_wifi.SetValue(int(vehicle_metrics[0]))
         self.gauge_batt_1.SetValue(int(vehicle_metrics[1]))
         self.gauge_batt_2.SetValue(int(vehicle_metrics[2]))
-
+        self.response_text.SetLabel(str(response_time))
 
     def LimitControls(self, vehicle_data, response_time):
         
@@ -173,9 +174,12 @@ class MainWindow(wx.Frame):
 	     self.thr_limit_text.SetForegroundColour('red')
 	     self.thr_limit_text.SetFont(wx_font)
 
+             self.response_text.SetForegroundColour('red')
+
              event.SetThrottleInputLimit(self)
              
         else:
              self.slider_v.SetRange(-100,100)
 	     self.thr_limit_text.SetLabel('')
+             self.response_text.SetForegroundColour('black')
 
