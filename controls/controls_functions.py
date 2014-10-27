@@ -231,4 +231,6 @@ def NetCheck(result):
 	
 
 
-	
+def SetThrottleInputLimit(frame):
+        network.net_send(socket,int(servo_thr[0]),servo_thr[1],frame.slider_v.GetValue())
+        logfile.warning('Input limites applied - poor network')

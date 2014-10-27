@@ -37,7 +37,7 @@ class MainWindow(wx.Frame):
         # Container for Throttle slider
         panel = wx.Panel(self, -1, (0,0), (70,305))
         grid_box = wx.StaticBox(panel, -1, 'throttle', size=(70, 305))
-        self.slider_v = wx.Slider(panel, -1, 0, -100, 100, (0,20), (70, 275), wx.SL_VERTICAL | wx.SL_INVERSE)
+        self.slider_v = wx.Slider(panel, -1, 0, -100, 100, (0,20), (70, 275), wx.SL_LABELS | wx.SL_VERTICAL | wx.SL_INVERSE)
         sizer.Add(panel, pos=(0,0), span=(4,1), flag=wx.EXPAND)
 
         panel = wx.Panel(self, -1, (0,0), (20,50))
@@ -157,13 +157,23 @@ class MainWindow(wx.Frame):
 	min_wifi_value = int(config.get('limits', 'min_wifi_value'))
         max_response_time = int(config.get('limits', 'max_ka_response_time'))
 
+        limited_throttle_value = int(self.slider_v.GetValue())/2
+
+
         # Limit throttle input when network conditions are poor
         if int(wifi_value) <= min_wifi_value or int(response_time) >= max_response_time:
+
+             if self.slider_v.GetMax() != 50:
+               self.slider_v.SetValue(limited_throttle_value)
+
              self.slider_v.SetRange(-50,50)
+
 	     wx_font = wx.Font(10, wx.DEFAULT, wx.NORMAL, wx.BOLD)
 	     self.thr_limit_text.SetLabel('THROTTLE\nLIMITED')
 	     self.thr_limit_text.SetForegroundColour('red')
 	     self.thr_limit_text.SetFont(wx_font)
+
+             event.SetThrottleInputLimit(self)
              
         else:
              self.slider_v.SetRange(-100,100)

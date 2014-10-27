@@ -74,17 +74,17 @@ class MainWindow(wx.Frame):
 
         panel = wx.Panel(self, -1, (0,0), (100,100))
         grid_box = wx.StaticBox(panel, -1, 'WiFi', size=(100, 100))
-        self.slider_wifi = wx.Slider(panel, -1, 0, 0, 100, (10,10), (75, 80), wx.SL_LABELS | wx.SL_HORIZONTAL)
+        self.slider_wifi = wx.Slider(panel, -1, 50, 0, 100, (10,10), (75, 80), wx.SL_LABELS | wx.SL_HORIZONTAL)
         sizer.Add(panel, pos=(2,1), flag=wx.EXPAND)
 
         panel = wx.Panel(self, -1, (0,0), (100,100))
         grid_box = wx.StaticBox(panel, -1, 'Bat.1', size=(100, 100))
-        self.slider_bat1 = wx.Slider(panel, -1, 0, 0, 100, (10,10), (75, 80), wx.SL_LABELS | wx.SL_HORIZONTAL)
+        self.slider_bat1 = wx.Slider(panel, -1, 50, 0, 100, (10,10), (75, 80), wx.SL_LABELS | wx.SL_HORIZONTAL)
         sizer.Add(panel, pos=(2,2), flag=wx.EXPAND)
 
         panel = wx.Panel(self, -1, (0,0), (100,100))
         grid_box = wx.StaticBox(panel, -1, 'Bat.2', size=(100, 100))
-        self.slider_bat2 = wx.Slider(panel, -1, 0, 0, 100, (10,10), (75, 80), wx.SL_LABELS | wx.SL_HORIZONTAL)
+        self.slider_bat2 = wx.Slider(panel, -1, 50, 0, 100, (10,10), (75, 80), wx.SL_LABELS | wx.SL_HORIZONTAL)
         sizer.Add(panel, pos=(2,3), flag=wx.EXPAND)
 
 
