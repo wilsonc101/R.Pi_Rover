@@ -73,7 +73,7 @@ class MainWindow(wx.Frame):
 
 	# Vehicle Guages
         panel = wx.Panel(self, -1, (0,0), (50,50))
-        grid_box = wx.StaticBox(panel, -1, 'wifi', (0, 0), size=(172, 43))
+        self.wifi_grid_box = wx.StaticBox(panel, -1, 'wifi', (0, 0), size=(172, 43))
 	self.gauge_wifi = wx.Gauge(panel, -1, 100, (10, 16), (150, 20), wx.GA_HORIZONTAL, name="WiFi")
         grid_box = wx.StaticBox(panel, -1, 'battery - 1', (0, 46), size=(172, 43))
 	self.gauge_batt_1 = wx.Gauge(panel, -1, 100, (10, 61), (150, 20), wx.GA_HORIZONTAL, name="Battery - 1")
@@ -174,7 +174,15 @@ class MainWindow(wx.Frame):
 	     self.thr_limit_text.SetForegroundColour('red')
 	     self.thr_limit_text.SetFont(wx_font)
 
-             self.response_text.SetForegroundColour('red')
+             if int(response_time) >= max_response_time:
+               self.response_text.SetForegroundColour('red')
+             else:
+               self.response_text.SetForegroundColour('black')
+
+             if int(wifi_value) <= min_wifi_value:
+               self.wifi_grid_box.SetForegroundColour('red')
+             else:
+               self.wifi_grid_box.SetForegroundColour('black')
 
              event.SetThrottleInputLimit(self)
              
@@ -182,4 +190,6 @@ class MainWindow(wx.Frame):
              self.slider_v.SetRange(-100,100)
 	     self.thr_limit_text.SetLabel('')
              self.response_text.SetForegroundColour('black')
+             self.wifi_grid_box.SetForegroundColour('black')
+
 
