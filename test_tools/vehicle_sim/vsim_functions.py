@@ -1,6 +1,8 @@
 import asyncore
 import socket
 from random import randrange
+import time
+
 
 HOST = 'localhost'
 PORT = 5005
@@ -63,6 +65,8 @@ def _GetVehicleData(data, mainwindow):
     bat1_value = str(mainwindow.slider_bat1.GetValue())    
     bat2_value = str(mainwindow.slider_bat2.GetValue())    
     wifi_value = str(mainwindow.slider_wifi.GetValue())    
+    rdelay_value = float(mainwindow.slider_rdelay.GetValue())
+
 
 
     data = str(data).split(";")
@@ -72,6 +76,8 @@ def _GetVehicleData(data, mainwindow):
             type, name, xvalue, yvalue = packet.split(",")
 
             if name == "ka":
+              if rdelay_value != 0:
+                time.sleep(rdelay_value/1000)
+
               return(wifi_value + ',' + bat1_value + ',' + bat2_value)
 
-#    return(str(randrange(100)) + ',' + str(randrange(100)) + ',' + str(randrange(100)))

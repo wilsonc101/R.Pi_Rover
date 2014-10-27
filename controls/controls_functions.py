@@ -189,15 +189,20 @@ def SendKeepAlive(event):
 	# 1) Send constant stream of traffic to avoid network session timeout/sleep
 	# 2) Result of sending 'KA' used to check socket is still valid
 	# 3) Triggers vehicle to return status details (e.g battery state) - 'return' value
+	response_time_start = time.time()
+
 	NetCheck(network.net_send(socket,99,"ka",0))
 	logfile.debug('net send - keepalive - 0')
 	
 	# Also use returned data to validate socket
 	vehicle_data = network.net_listen(socket)
+	response_time_end = time.time()
 	logfile.debug('net listen - vehicle data - ' + str(vehicle_data))
 
+	response_time = int((response_time_end - response_time_start)*1000)
+	
 	if vehicle_data != "False":
-		return(vehicle_data)
+		return(vehicle_data, response_time)
 	else:
 		NetCheck(vehicle_data)
 

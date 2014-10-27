@@ -3,6 +3,11 @@ import socket
 import time
 import controls_functions as event
 
+import ConfigParser
+
+config = ConfigParser.ConfigParser()
+config.read('pi_controls.cfg')
+
 
 class MainWindow(wx.Frame):
     def __init__(self,parent,id):
@@ -132,24 +137,29 @@ class MainWindow(wx.Frame):
         self.SetSizer(sizer)
         self.Fit()
 
+
     def TimerEvent(self, evt):
-	vehicle_data = event.SendKeepAlive(evt)
+	vehicle_data, response_time = event.SendKeepAlive(evt)
 	self.UpdateGauges(vehicle_data)
-	self.LimitControls(vehicle_data)
+	self.LimitControls(vehicle_data, response_time)
+
 
     def UpdateGauges(self, vehicle_data):
 	vehicle_metrics = vehicle_data.split(',')
         self.gauge_wifi.SetValue(int(vehicle_metrics[0]))
         self.gauge_batt_1.SetValue(int(vehicle_metrics[1]))
         self.gauge_batt_2.SetValue(int(vehicle_metrics[2]))
+
+
+    def LimitControls(self, vehicle_data, response_time):
         
-
-    def LimitControls(self, vehicle_data):
-
         wifi_value = vehicle_data.split(',')[0]
-        if int(wifi_value) <= 25:
-             self.slider_v.SetRange(-50,50)
+	min_wifi_value = int(config.get('limits', 'min_wifi_value'))
+        max_response_time = int(config.get('limits', 'max_ka_response_time'))
 
+        # Limit throttle input when network conditions are poor
+        if int(wifi_value) <= min_wifi_value or int(response_time) >= max_response_time:
+             self.slider_v.SetRange(-50,50)
 	     wx_font = wx.Font(10, wx.DEFAULT, wx.NORMAL, wx.BOLD)
 	     self.thr_limit_text.SetLabel('THROTTLE\nLIMITED')
 	     self.thr_limit_text.SetForegroundColour('red')

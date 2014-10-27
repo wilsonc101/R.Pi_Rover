@@ -14,8 +14,14 @@ class MainWindow(wx.Frame):
 
 	# Asyncore poller/timer
 	self.timer_poll = wx.Timer(self)
-	self.Bind(wx.EVT_TIMER, self.TimerEvent, self.timer_poll)
+	self.Bind(wx.EVT_TIMER, self.TimerEvent_asyncore, self.timer_poll)
 	self.timer_poll.Start(20)
+
+	# MQTT reporter/timer
+	self.timer_mqtt = wx.Timer(self)
+	self.Bind(wx.EVT_TIMER, self.TimerEvent_mqtt, self.timer_mqtt)
+	self.timer_mqtt.Start(3000)
+
 
         # Grid Builder
         sizer = wx.GridBagSizer(hgap=5, vgap=5)
@@ -68,18 +74,33 @@ class MainWindow(wx.Frame):
 
         panel = wx.Panel(self, -1, (0,0), (100,100))
         grid_box = wx.StaticBox(panel, -1, 'WiFi', size=(100, 100))
-        self.slider_wifi = wx.Slider(panel, -1, 0, 0, 100, (10,10), (75, 80), wx.SL_HORIZONTAL)
+        self.slider_wifi = wx.Slider(panel, -1, 0, 0, 100, (10,10), (75, 80), wx.SL_LABELS | wx.SL_HORIZONTAL)
         sizer.Add(panel, pos=(2,1), flag=wx.EXPAND)
 
         panel = wx.Panel(self, -1, (0,0), (100,100))
         grid_box = wx.StaticBox(panel, -1, 'Bat.1', size=(100, 100))
-        self.slider_bat1 = wx.Slider(panel, -1, 0, 0, 100, (10,10), (75, 80), wx.SL_HORIZONTAL)
+        self.slider_bat1 = wx.Slider(panel, -1, 0, 0, 100, (10,10), (75, 80), wx.SL_LABELS | wx.SL_HORIZONTAL)
         sizer.Add(panel, pos=(2,2), flag=wx.EXPAND)
 
         panel = wx.Panel(self, -1, (0,0), (100,100))
         grid_box = wx.StaticBox(panel, -1, 'Bat.2', size=(100, 100))
-        self.slider_bat2 = wx.Slider(panel, -1, 0, 0, 100, (10,10), (75, 80), wx.SL_HORIZONTAL)
+        self.slider_bat2 = wx.Slider(panel, -1, 0, 0, 100, (10,10), (75, 80), wx.SL_LABELS | wx.SL_HORIZONTAL)
         sizer.Add(panel, pos=(2,3), flag=wx.EXPAND)
+
+
+	# ROW 4
+        panel = wx.Panel(self, -1, (0,0), (100,100))
+        self.static_text_3 = wx.StaticText(panel, -1, 'Env.Ctrl')
+        self.static_text_3.SetForegroundColour('green')
+        sizer.Add(panel, pos=(3,0), flag=wx.EXPAND)
+
+        panel = wx.Panel(self, -1, (0,0), (100,100))
+        grid_box = wx.StaticBox(panel, -1, 'R.Delay', size=(100, 100))
+        self.slider_rdelay = wx.Slider(panel, -1, 0, 0, 1000, (10,10), (75, 80), wx.SL_LABELS | wx.SL_HORIZONTAL)
+        sizer.Add(panel, pos=(3,1), flag=wx.EXPAND)
+
+
+
 
 
 	dispatchserver = vsim.DispatchServer(self)
@@ -87,5 +108,8 @@ class MainWindow(wx.Frame):
         self.SetSizer(sizer)
         self.Fit()
 
-    def TimerEvent(self, evt):
+    def TimerEvent_asyncore(self, evt):
         asyncore.poll()
+
+    def TimerEvent_mqtt(self, evt):
+        something = None
