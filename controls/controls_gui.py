@@ -12,6 +12,8 @@ config.read('pi_controls.cfg')
 class MainWindow(wx.Frame):
     def __init__(self,parent,id):
 
+	ka_value = int(config.get('network', 'keepalive_ms'))
+
         # Main Window
         wx.Frame.__init__(self,parent,id,'Pi Rover')
 #        self.panel = wx.Panel(self, -1, (0,0), (500,500))
@@ -21,7 +23,7 @@ class MainWindow(wx.Frame):
         # Keep alive timer
         self.timer_ka = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.TimerEvent, self.timer_ka)     # Timer event uses an unbound function
-        self.timer_ka.Start(2000)
+        self.timer_ka.Start(ka_value)
 
         # Global Vars
         self.brk_state = False
