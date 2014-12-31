@@ -15,13 +15,28 @@ VEHICLE_QUEUE = config.get('vehicle_queue', 'name')
 
 class MQReader(QtCore.QThread):
     def __init__(self):
+        self.queue_server = QUEUE_SERVER
+        self.control_queue = CONTROL_QUEUE
+        self.vehicle_queue = VEHICLE_QUEUE
+
         try:   
             QtCore.QThread.__init__(self)
             self.signal = QtCore.SIGNAL("signal")
             self.connection = pika.BlockingConnection(pika.ConnectionParameters(QUEUE_SERVER))
             self.channel = self.connection.channel()
-            self.channel.queue_declare(queue=VEHICLE_QUEUE)
-            self.channel.basic_consume(self._poll_queue, queue=VEHICLE_QUEUE)
+
+            ## EXCHANGE BASED ##
+            self.channel.exchange_declare(exchange=VEHICLE_QUEUE, type='fanout')
+            self.result = self.channel.queue_declare(exclusive=True)
+            self.queue_name = self.result.method.queue
+
+            self.channel.queue_bind(exchange=VEHICLE_QUEUE, queue=self.queue_name)
+            self.channel.basic_consume(self._poll_queue, queue=self.queue_name, no_ack=True)
+
+            ## QUEUE BASED ##
+#            self.channel.queue_declare(queue=VEHICLE_QUEUE)
+#            self.channel.basic_consume(self._poll_queue, queue=VEHICLE_QUEUE)
+ 
         except:
             raise SystemExit("Could not connect to queue server")
 
@@ -29,7 +44,7 @@ class MQReader(QtCore.QThread):
     def _poll_queue(self, ch, method, properties, body):
         try:
             self.emit(self.signal, str(body))
-            ch.basic_ack(delivery_tag = method.delivery_tag)
+#            ch.basic_ack(delivery_tag = method.delivery_tag)
         except:
             raise SystemExit("Error polling vehicle queue")
 
@@ -81,10 +96,19 @@ def MQWriter(qt_window):
         # Establish queue for writing
         connection = pika.BlockingConnection(pika.ConnectionParameters(QUEUE_SERVER))
         channel = connection.channel()
-        channel.queue_declare(queue=CONTROL_QUEUE)
 
+        ## EXCHANGE BASED ##
+        channel.exchange_declare(exchange=CONTROL_QUEUE, type='fanout')
         # Write JSON data to queue
-        channel.basic_publish(exchange='',routing_key=CONTROL_QUEUE, body=json.dumps(data))
+        channel.basic_publish(exchange=CONTROL_QUEUE, routing_key='', body=json.dumps(data))
+
+
+        ## QUEUE BASED ##
+#        channel.queue_declare(queue=CONTROL_QUEUE)
+        # Write JSON data to queue
+#        channel.basic_publish(exchange='',routing_key=CONTROL_QUEUE, body=json.dumps(data))
+
+
         connection.close()
 
     except:

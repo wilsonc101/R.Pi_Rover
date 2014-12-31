@@ -313,7 +313,7 @@ class Ui_MainWindow(object):
         self.MQReadThread = workers.MQReader()
         MainWindow.connect(self.MQReadThread, self.MQReadThread.signal, self.translateQueueData)
         self.MQReadThread.start()
-
+        self.statusbar.showMessage("Control queue: " + self.MQReadThread.control_queue + "@" + self.MQReadThread.queue_server + " - Vechicle queue: " + self.MQReadThread.vehicle_queue + "@" + self.MQReadThread.queue_server)
 
     def translateQueueData(self, queue_data):
         json_data = json.loads(queue_data)
