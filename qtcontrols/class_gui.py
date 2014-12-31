@@ -13,7 +13,6 @@ import json
 import class_workers as workers
 
 
-
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -289,7 +288,7 @@ class Ui_MainWindow(object):
         self.lbl_brake.setText(_translate("MainWindow", "brake", None))
         self.btn_left_full.setText(_translate("MainWindow", "full", None))
         self.btn_right_full.setText(_translate("MainWindow", "full", None))
-        self.lbl_temperature.setText(_translate("MainWindow", "Temperture", None))
+        self.lbl_temperature.setText(_translate("MainWindow", "Temperature", None))
         self.lbl_humidity.setText(_translate("MainWindow", "Humidity", None))
         self.lbl_pressure.setText(_translate("MainWindow", "Pressure", None))
         self.tab_sensors.setTabText(self.tab_sensors.indexOf(self.tab_environment), _translate("MainWindow", "Environment", None))
@@ -311,17 +310,14 @@ class Ui_MainWindow(object):
 
         # Create QThreads for MQ transactions
         # MQ Reader
-        self.MQReadThread = workers.MQReader(queue='test_q', mqhost='localhost')
+        self.MQReadThread = workers.MQReader()
         MainWindow.connect(self.MQReadThread, self.MQReadThread.signal, self.translateQueueData)
         self.MQReadThread.start()
 
 
     def translateQueueData(self, queue_data):
         json_data = json.loads(queue_data)
-
-        if 'environment' in json_data:
-            if 'temperature' in json_data['environment']: self.tb_temperature.setText(str(json_data['environment']['temperature']))
-            if 'humidity' in json_data['environment']: self.tb_humidity.setText(str(json_data['environment']['humidity']))
+        workers.GUIUpdate(self, json_data)
 
 
     def increment_throttle(self):
@@ -335,7 +331,7 @@ class Ui_MainWindow(object):
         else:
              self.bar_reverse.setValue(reverse_value - 10)
 
-        workers.MQWriter(self, queue='test_qw', mqhost='localhost')
+        workers.MQWriter(self)
 
 
     def decrement_throttle(self):
@@ -349,7 +345,7 @@ class Ui_MainWindow(object):
         else:
              self.bar_forward.setValue(forward_value - 10)
 
-        workers.MQWriter(self, queue='test_qw', mqhost='localhost')
+        workers.MQWriter(self)
 
 
 
@@ -369,7 +365,7 @@ class Ui_MainWindow(object):
         else:
             self.rb_brake.toggle()
 
-        workers.MQWriter(self, queue='test_qw', mqhost='localhost')
+        workers.MQWriter(self)
 
 
     def set_brake(self):
@@ -379,7 +375,7 @@ class Ui_MainWindow(object):
             self.bar_forward.setValue(0)
             self.bar_reverse.setValue(0)
         
-        workers.MQWriter(self, queue='test_qw', mqhost='localhost')
+        workers.MQWriter(self)
 
         
     def increment_direction(self):
@@ -391,7 +387,7 @@ class Ui_MainWindow(object):
         else:
              self.bar_left.setValue(left_value - 10)
 
-        workers.MQWriter(self, queue='test_qw', mqhost='localhost')
+        workers.MQWriter(self)
 
 
     def decrement_direction(self):
@@ -403,7 +399,7 @@ class Ui_MainWindow(object):
         else:
              self.bar_right.setValue(right_value - 10)
 
-        workers.MQWriter(self, queue='test_qw', mqhost='localhost')
+        workers.MQWriter(self)
 
 
     def set_full_direction(self):
@@ -415,7 +411,7 @@ class Ui_MainWindow(object):
         else:
              self.bar_right.setValue(0)
 
-        workers.MQWriter(self, queue='test_qw', mqhost='localhost')
+        workers.MQWriter(self)
 
 
 
@@ -428,17 +424,17 @@ class Ui_MainWindow(object):
         else:
              self.bar_left.setValue(0)
 
-        workers.MQWriter(self, queue='test_qw', mqhost='localhost')
+        workers.MQWriter(self)
 
             
     def reset_camera(self):
         self.dial_cam_pan.setValue(50)                        
         self.slider_cam_tilt.setValue(50)                        
-        workers.MQWriter(self, queue='test_qw', mqhost='localhost')
+        workers.MQWriter(self)
             
 
     def tilt_camera(self):
-        workers.MQWriter(self, queue='test_qw', mqhost='localhost')
+        workers.MQWriter(self)
 
     def pan_camera(self):
-        workers.MQWriter(self, queue='test_qw', mqhost='localhost')
+        workers.MQWriter(self)

@@ -3,28 +3,45 @@ from PyQt4 import QtCore
 import time
 import pika
 import json
+import ConfigParser
+
+config = ConfigParser.ConfigParser()
+config.read('pi_controls.cfg')
+
+QUEUE_SERVER = config.get('queue_server', 'server')
+CONTROL_QUEUE = config.get('control_queue', 'name')
+VEHICLE_QUEUE = config.get('vehicle_queue', 'name')
 
 
 class MQReader(QtCore.QThread):
-    def __init__(self, queue, mqhost):
-        QtCore.QThread.__init__(self)
-        self.signal = QtCore.SIGNAL("signal")
-        self.connection = pika.BlockingConnection(pika.ConnectionParameters(mqhost))
-        self.channel = self.connection.channel()
-        self.channel.queue_declare(queue=queue)
-        self.channel.basic_consume(self._poll_queue, queue=queue)
+    def __init__(self):
+        try:   
+            QtCore.QThread.__init__(self)
+            self.signal = QtCore.SIGNAL("signal")
+            self.connection = pika.BlockingConnection(pika.ConnectionParameters(QUEUE_SERVER))
+            self.channel = self.connection.channel()
+            self.channel.queue_declare(queue=VEHICLE_QUEUE)
+            self.channel.basic_consume(self._poll_queue, queue=VEHICLE_QUEUE)
+        except:
+            raise SystemExit("Could not connect to queue server")
 
 
     def _poll_queue(self, ch, method, properties, body):
-        self.emit(self.signal, str(body))
-        ch.basic_ack(delivery_tag = method.delivery_tag)
-
+        try:
+            self.emit(self.signal, str(body))
+            ch.basic_ack(delivery_tag = method.delivery_tag)
+        except:
+            raise SystemExit("Error polling vehicle queue")
 
     def run(self):
-        self.channel.start_consuming()
+        try:
+            self.channel.start_consuming()
+
+        except:
+            raise SystemExit("Lost connection to queue server")
 
 
-def MQWriter(qt_window, queue, mqhost):
+def MQWriter(qt_window):
 
     forward_value = qt_window.bar_forward.value()
     reverse_value = qt_window.bar_reverse.value()
@@ -62,12 +79,12 @@ def MQWriter(qt_window, queue, mqhost):
 
     try:
         # Establish queue for writing
-        connection = pika.BlockingConnection(pika.ConnectionParameters(mqhost))
+        connection = pika.BlockingConnection(pika.ConnectionParameters(QUEUE_SERVER))
         channel = connection.channel()
-        channel.queue_declare(queue=queue)
+        channel.queue_declare(queue=CONTROL_QUEUE)
 
         # Write JSON data to queue
-        channel.basic_publish(exchange='',routing_key=queue, body=json.dumps(data))
+        channel.basic_publish(exchange='',routing_key=CONTROL_QUEUE, body=json.dumps(data))
         connection.close()
 
     except:
@@ -75,5 +92,8 @@ def MQWriter(qt_window, queue, mqhost):
 
 
 
-
+def GUIUpdate(qt_window, json_data):
+    if 'environment' in json_data:
+        if 'temperature' in json_data['environment']: qt_window.tb_temperature.setText(str(json_data['environment']['temperature']))
+        if 'humidity' in json_data['environment']: qt_window.tb_humidity.setText(str(json_data['environment']['humidity']))
 
