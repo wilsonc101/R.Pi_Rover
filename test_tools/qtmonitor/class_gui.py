@@ -2,12 +2,16 @@
 
 # Form implementation generated from reading ui file 'rover_monitor.ui'
 #
-# Created: Wed Dec 31 18:35:27 2014
+# Created: Thu Jan  1 15:55:44 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
+import json
+
+import class_workers as workers
+
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -26,11 +30,11 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(491, 401)
+        MainWindow.resize(493, 462)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.frame_controls = QtGui.QFrame(self.centralwidget)
-        self.frame_controls.setGeometry(QtCore.QRect(10, 90, 331, 131))
+        self.frame_controls.setGeometry(QtCore.QRect(10, 150, 331, 131))
         self.frame_controls.setFrameShape(QtGui.QFrame.StyledPanel)
         self.frame_controls.setFrameShadow(QtGui.QFrame.Raised)
         self.frame_controls.setObjectName(_fromUtf8("frame_controls"))
@@ -40,9 +44,9 @@ class Ui_MainWindow(object):
         self.label = QtGui.QLabel(self.frame_controls)
         self.label.setGeometry(QtCore.QRect(132, 20, 54, 15))
         self.label.setObjectName(_fromUtf8("label"))
-        self.label_2 = QtGui.QLabel(self.frame_controls)
-        self.label_2.setGeometry(QtCore.QRect(129, 60, 54, 15))
-        self.label_2.setObjectName(_fromUtf8("label_2"))
+        self.label_direction = QtGui.QLabel(self.frame_controls)
+        self.label_direction.setGeometry(QtCore.QRect(129, 60, 54, 15))
+        self.label_direction.setObjectName(_fromUtf8("label_direction"))
         self.label_forward = QtGui.QLabel(self.frame_controls)
         self.label_forward.setGeometry(QtCore.QRect(260, 34, 54, 20))
         self.label_forward.setObjectName(_fromUtf8("label_forward"))
@@ -80,7 +84,7 @@ class Ui_MainWindow(object):
         self.rb_brake.setGeometry(QtCore.QRect(30, 100, 100, 21))
         self.rb_brake.setObjectName(_fromUtf8("rb_brake"))
         self.frame_gps = QtGui.QFrame(self.centralwidget)
-        self.frame_gps.setGeometry(QtCore.QRect(350, 230, 131, 141))
+        self.frame_gps.setGeometry(QtCore.QRect(350, 290, 131, 141))
         self.frame_gps.setFrameShape(QtGui.QFrame.StyledPanel)
         self.frame_gps.setFrameShadow(QtGui.QFrame.Raised)
         self.frame_gps.setObjectName(_fromUtf8("frame_gps"))
@@ -117,7 +121,7 @@ class Ui_MainWindow(object):
         self.tb_altitude.setGeometry(QtCore.QRect(60, 98, 51, 25))
         self.tb_altitude.setObjectName(_fromUtf8("tb_altitude"))
         self.frame_environment = QtGui.QFrame(self.centralwidget)
-        self.frame_environment.setGeometry(QtCore.QRect(170, 230, 161, 141))
+        self.frame_environment.setGeometry(QtCore.QRect(170, 290, 161, 141))
         self.frame_environment.setFrameShape(QtGui.QFrame.StyledPanel)
         self.frame_environment.setFrameShadow(QtGui.QFrame.Raised)
         self.frame_environment.setObjectName(_fromUtf8("frame_environment"))
@@ -148,7 +152,7 @@ class Ui_MainWindow(object):
         self.tb_pressure.setGeometry(QtCore.QRect(90, 88, 51, 25))
         self.tb_pressure.setObjectName(_fromUtf8("tb_pressure"))
         self.frame_vehicle = QtGui.QFrame(self.centralwidget)
-        self.frame_vehicle.setGeometry(QtCore.QRect(10, 230, 141, 141))
+        self.frame_vehicle.setGeometry(QtCore.QRect(10, 290, 141, 141))
         self.frame_vehicle.setFrameShape(QtGui.QFrame.StyledPanel)
         self.frame_vehicle.setFrameShadow(QtGui.QFrame.Raised)
         self.frame_vehicle.setObjectName(_fromUtf8("frame_vehicle"))
@@ -179,7 +183,7 @@ class Ui_MainWindow(object):
         self.tb_batt_b.setGeometry(QtCore.QRect(70, 84, 51, 25))
         self.tb_batt_b.setObjectName(_fromUtf8("tb_batt_b"))
         self.frame_camera = QtGui.QFrame(self.centralwidget)
-        self.frame_camera.setGeometry(QtCore.QRect(360, 90, 121, 131))
+        self.frame_camera.setGeometry(QtCore.QRect(360, 150, 121, 131))
         self.frame_camera.setFrameShape(QtGui.QFrame.StyledPanel)
         self.frame_camera.setFrameShadow(QtGui.QFrame.Raised)
         self.frame_camera.setObjectName(_fromUtf8("frame_camera"))
@@ -209,24 +213,12 @@ class Ui_MainWindow(object):
         self.lbl_camera.setFont(font)
         self.lbl_camera.setObjectName(_fromUtf8("lbl_camera"))
         self.frame_queues = QtGui.QFrame(self.centralwidget)
-        self.frame_queues.setGeometry(QtCore.QRect(10, 10, 471, 71))
+        self.frame_queues.setGeometry(QtCore.QRect(10, 10, 471, 131))
         self.frame_queues.setFrameShape(QtGui.QFrame.StyledPanel)
         self.frame_queues.setFrameShadow(QtGui.QFrame.Raised)
         self.frame_queues.setObjectName(_fromUtf8("frame_queues"))
-        self.tb_control = QtGui.QLineEdit(self.frame_queues)
-        self.tb_control.setGeometry(QtCore.QRect(58, 25, 113, 25))
-        self.tb_control.setObjectName(_fromUtf8("tb_control"))
-        self.lbl_control_2 = QtGui.QLabel(self.frame_queues)
-        self.lbl_control_2.setGeometry(QtCore.QRect(10, 30, 41, 16))
-        self.lbl_control_2.setObjectName(_fromUtf8("lbl_control_2"))
-        self.lbl_vehicle_2 = QtGui.QLabel(self.frame_queues)
-        self.lbl_vehicle_2.setGeometry(QtCore.QRect(190, 30, 41, 16))
-        self.lbl_vehicle_2.setObjectName(_fromUtf8("lbl_vehicle_2"))
-        self.tb_vehicle = QtGui.QLineEdit(self.frame_queues)
-        self.tb_vehicle.setGeometry(QtCore.QRect(236, 25, 113, 25))
-        self.tb_vehicle.setObjectName(_fromUtf8("tb_vehicle"))
         self.btn_subscribe = QtGui.QPushButton(self.frame_queues)
-        self.btn_subscribe.setGeometry(QtCore.QRect(370, 24, 85, 27))
+        self.btn_subscribe.setGeometry(QtCore.QRect(390, 20, 71, 27))
         self.btn_subscribe.setObjectName(_fromUtf8("btn_subscribe"))
         self.lbl_queues = QtGui.QLabel(self.frame_queues)
         self.lbl_queues.setGeometry(QtCore.QRect(3, 3, 81, 16))
@@ -236,20 +228,70 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.lbl_queues.setFont(font)
         self.lbl_queues.setObjectName(_fromUtf8("lbl_queues"))
+        self.frame_control = QtGui.QFrame(self.frame_queues)
+        self.frame_control.setGeometry(QtCore.QRect(10, 20, 181, 101))
+        self.frame_control.setFrameShape(QtGui.QFrame.StyledPanel)
+        self.frame_control.setFrameShadow(QtGui.QFrame.Raised)
+        self.frame_control.setObjectName(_fromUtf8("frame_control"))
+        self.lbl_control_name = QtGui.QLabel(self.frame_control)
+        self.lbl_control_name.setGeometry(QtCore.QRect(12, 25, 41, 16))
+        self.lbl_control_name.setObjectName(_fromUtf8("lbl_control_name"))
+        self.tb_control_server = QtGui.QLineEdit(self.frame_control)
+        self.tb_control_server.setGeometry(QtCore.QRect(60, 55, 113, 25))
+        self.tb_control_server.setObjectName(_fromUtf8("tb_control_server"))
+        self.tb_control_name = QtGui.QLineEdit(self.frame_control)
+        self.tb_control_name.setGeometry(QtCore.QRect(60, 20, 113, 25))
+        self.tb_control_name.setObjectName(_fromUtf8("tb_control_name"))
+        self.lbl_control_server = QtGui.QLabel(self.frame_control)
+        self.lbl_control_server.setGeometry(QtCore.QRect(12, 60, 41, 16))
+        self.lbl_control_server.setObjectName(_fromUtf8("lbl_control_server"))
+        self.lbl_queue_control = QtGui.QLabel(self.frame_control)
+        self.lbl_queue_control.setGeometry(QtCore.QRect(3, 3, 81, 16))
+        font = QtGui.QFont()
+        font.setPointSize(8)
+        font.setBold(True)
+        font.setWeight(75)
+        self.lbl_queue_control.setFont(font)
+        self.lbl_queue_control.setObjectName(_fromUtf8("lbl_queue_control"))
+        self.frame_vehicle_2 = QtGui.QFrame(self.frame_queues)
+        self.frame_vehicle_2.setGeometry(QtCore.QRect(200, 20, 181, 101))
+        self.frame_vehicle_2.setFrameShape(QtGui.QFrame.StyledPanel)
+        self.frame_vehicle_2.setFrameShadow(QtGui.QFrame.Raised)
+        self.frame_vehicle_2.setObjectName(_fromUtf8("frame_vehicle_2"))
+        self.lbl_queue_vehicle = QtGui.QLabel(self.frame_vehicle_2)
+        self.lbl_queue_vehicle.setGeometry(QtCore.QRect(3, 3, 81, 16))
+        font = QtGui.QFont()
+        font.setPointSize(8)
+        font.setBold(True)
+        font.setWeight(75)
+        self.lbl_queue_vehicle.setFont(font)
+        self.lbl_queue_vehicle.setObjectName(_fromUtf8("lbl_queue_vehicle"))
+        self.lbl_vehicle_server = QtGui.QLabel(self.frame_vehicle_2)
+        self.lbl_vehicle_server.setGeometry(QtCore.QRect(14, 65, 41, 16))
+        self.lbl_vehicle_server.setObjectName(_fromUtf8("lbl_vehicle_server"))
+        self.lbl_vehicle_name = QtGui.QLabel(self.frame_vehicle_2)
+        self.lbl_vehicle_name.setGeometry(QtCore.QRect(14, 30, 41, 16))
+        self.lbl_vehicle_name.setObjectName(_fromUtf8("lbl_vehicle_name"))
+        self.tb_vehicle_name = QtGui.QLineEdit(self.frame_vehicle_2)
+        self.tb_vehicle_name.setGeometry(QtCore.QRect(60, 25, 113, 25))
+        self.tb_vehicle_name.setObjectName(_fromUtf8("tb_vehicle_name"))
+        self.tb_vehicle_server = QtGui.QLineEdit(self.frame_vehicle_2)
+        self.tb_vehicle_server.setGeometry(QtCore.QRect(60, 60, 113, 25))
+        self.tb_vehicle_server.setObjectName(_fromUtf8("tb_vehicle_server"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        QtCore.QObject.connect(self.btn_subscribe, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.queue_subscribe)
+        QtCore.QObject.connect(self.btn_subscribe, QtCore.SIGNAL(_fromUtf8("clicked()")), self.queue_subscribe)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "Rover Monitor", None))
         self.label_rev.setText(_translate("MainWindow", "Rev", None))
         self.label.setText(_translate("MainWindow", "Throttle", None))
-        self.label_2.setText(_translate("MainWindow", "Direction", None))
+        self.label_direction.setText(_translate("MainWindow", "Direction", None))
         self.label_forward.setText(_translate("MainWindow", "Forward", None))
         self.label_left.setText(_translate("MainWindow", "Left", None))
         self.label_right.setText(_translate("MainWindow", "Right", None))
@@ -271,8 +313,47 @@ class Ui_MainWindow(object):
         self.label_tilt.setText(_translate("MainWindow", "Tilt", None))
         self.label_pan.setText(_translate("MainWindow", "Pan", None))
         self.lbl_camera.setText(_translate("MainWindow", "Camera", None))
-        self.lbl_control_2.setText(_translate("MainWindow", "Control", None))
-        self.lbl_vehicle_2.setText(_translate("MainWindow", "Vehicle", None))
         self.btn_subscribe.setText(_translate("MainWindow", "Subscribe", None))
         self.lbl_queues.setText(_translate("MainWindow", "Data queues", None))
+        self.lbl_control_name.setText(_translate("MainWindow", "Name", None))
+        self.lbl_control_server.setText(_translate("MainWindow", "Server", None))
+        self.lbl_queue_control.setText(_translate("MainWindow", "Control", None))
+        self.lbl_queue_vehicle.setText(_translate("MainWindow", "Vehicle", None))
+        self.lbl_vehicle_server.setText(_translate("MainWindow", "Server", None))
+        self.lbl_vehicle_name.setText(_translate("MainWindow", "Name", None))
+
+
+    def queue_subscribe(self):
+        control_queue_name = str(self.tb_control_name.text())
+        control_queue_server = str(self.tb_control_server.text())
+
+        vehicle_queue_name = str(self.tb_vehicle_name.text())
+        vehicle_queue_server = str(self.tb_vehicle_server.text())
+
+        # Create QThreads for MQ transactions
+        # MQ Reader - Control
+        try:
+            self.MQReadControl.terminate()
+        except:
+            print "Starting QT thread..."
+
+        self.MQReadControl = workers.MQReader(control_queue_name, control_queue_server)
+        QtCore.QObject.connect(self.MQReadControl, self.MQReadControl.signal, self.translateQueueData)
+        self.MQReadControl.start()
+
+        # MQ Reader - Vehicle
+        try:
+            self.MQReadVehicle.terminate()
+        except:
+            print "Starting QT thread..."
+
+        self.MQReadVehicle = workers.MQReader(vehicle_queue_name, vehicle_queue_server)
+        QtCore.QObject.connect(self.MQReadVehicle, self.MQReadVehicle.signal, self.translateQueueData)
+        self.MQReadVehicle.start()
+
+
+    def translateQueueData(self, queue_data):
+        json_data = json.loads(queue_data)
+        workers.GUIUpdate(self, json_data)
+
 
