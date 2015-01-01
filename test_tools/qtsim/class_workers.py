@@ -8,9 +8,11 @@ import ConfigParser
 config = ConfigParser.ConfigParser()
 config.read('pi_controls.cfg')
 
-QUEUE_SERVER = config.get('queue_server', 'server')
 CONTROL_QUEUE = config.get('control_queue', 'name')
+CONTROL_SERVER = config.get('control_queue', 'server')
+
 VEHICLE_QUEUE = config.get('vehicle_queue', 'name')
+VEHICLE_SERVER = config.get('vehicle_queue', 'server')
 
 
 class MQReader(QtCore.QThread):
@@ -18,7 +20,7 @@ class MQReader(QtCore.QThread):
         try:   
             QtCore.QThread.__init__(self)
             self.signal = QtCore.SIGNAL("signal")
-            self.connection = pika.BlockingConnection(pika.ConnectionParameters(QUEUE_SERVER))
+            self.connection = pika.BlockingConnection(pika.ConnectionParameters(CONTROL_SERVER))
             self.channel = self.connection.channel()
 
             ## EXCHANGE BASED ##
@@ -71,7 +73,7 @@ def MQWriter(qt_window):
 
     try:
         # Establish queue for writing
-        connection = pika.BlockingConnection(pika.ConnectionParameters(QUEUE_SERVER))
+        connection = pika.BlockingConnection(pika.ConnectionParameters(VEHICLE_SERVER))
         channel = connection.channel()
 
         ## EXCHANGE BASED ##
