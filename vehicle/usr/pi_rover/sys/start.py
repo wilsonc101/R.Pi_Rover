@@ -3,6 +3,10 @@ PIDFILE_1="/var/run/pi_rover.pid"
 
 case "$1" in
   start)
+    echo "Preparing GPS...."
+    /usr/bin/killall gpsd
+    /usr/sbin/gpsd /dev/ttyAMA0 -F /var/run/gpsd.sock -n
+    echo "....done"
 
     echo "Starting Pi Rover...."
     /sbin/start-stop-daemon --start --pidfile $PIDFILE_1 -b --make-pidfile --exec $DAEMON_1

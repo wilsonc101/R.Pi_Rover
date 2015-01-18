@@ -10,24 +10,23 @@ from Adafruit_PWM_Servo_Driver import PWM
 
 import class_servo as servo
 import func_logging as log
+import func_sensors as sensors
 
-
-pwm = PWM(0x40, debug=True)
-pwm.setPWMFreq(60) 
-
-config = ConfigParser.ConfigParser()
 
 # Get config
 try:
+    config = ConfigParser.ConfigParser()
     config.read('pi_rover.cfg')
 except:
     raise SystemExit("FATAL: Could not open config file")
+
 
 # Setup logging
 try:
     logfile = log.CreateLogger(console=0, file=1, filepath=config.get('logging', 'path'), level=config.get('logging', 'level'))
 except:
     raise SystemExit("FATAL: Could not create log file")
+
 
 try:
     # Queue settings
@@ -212,8 +211,19 @@ class mqWriter():
 
 def _vehicleSensors():
     data = {}
-    data['environment'] = {'temperature': 50, 'humidity': 50}
-    data['GPS'] = {'north': 10, 'east': 2}
+    data['vehicle'] = {'wifi': sensors.getWifi(), 
+                       'batteryA': sensors.getBatteryA(), 
+                       'batteryB': sensors.getBatteryB()}
+
+    data['environment'] = {'temperature': sensors.getEnvironment_temperature(), 
+                           'humidity': sensors.getEnvironment_humidity(),
+                           'pressure': sensors.getEnvironment_pressure()}
+
+    data['GPS'] = {'north': sensors.getGPS_north(), 
+                   'east': sensors.getGPS_east(),
+                   'speed': sensors.getGPS_speed(),
+                   'altitude': sensors.getGPS_altitude()}
+     
     return(data)
 
 
