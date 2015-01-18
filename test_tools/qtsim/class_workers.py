@@ -17,7 +17,7 @@ VEHICLE_SERVER = config.get('vehicle_queue', 'server')
 
 class MQReader(QtCore.QThread):
     def __init__(self):
-        try:   
+#        try:   
             QtCore.QThread.__init__(self)
             self.signal = QtCore.SIGNAL("signal")
             self.connection = pika.BlockingConnection(pika.ConnectionParameters(CONTROL_SERVER))
@@ -36,14 +36,13 @@ class MQReader(QtCore.QThread):
 #            self.channel.queue_declare(queue=CONTROL_QUEUE)
 #            self.channel.basic_consume(self._poll_queue, queue=CONTROL_QUEUE)
 
-        except:
-            raise SystemExit("Could not connect to queue server")
+#        except:
+#            raise SystemExit("Could not connect to queue server")
 
 
     def _poll_queue(self, ch, method, properties, body):
         try:
             self.emit(self.signal, str(body))
-#            ch.basic_ack(delivery_tag = method.delivery_tag)
         except:
             raise SystemExit("Error polling vehicle queue")
 
@@ -97,6 +96,8 @@ def MQWriter(qt_window):
 
 
 def GUIUpdate(qt_window, json_data):
+    print json.dumps(json_data)
+ 
     if 'vehicle' in json_data:
         if 'throttle' in json_data['vehicle']: 
             qt_window.slider_throttle.setValue(int(json_data['vehicle']['throttle']))

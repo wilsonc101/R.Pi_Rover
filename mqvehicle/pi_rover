@@ -1,0 +1,283 @@
+#!/usr/bin/python -B
+
+import multiprocessing
+import pika
+import time
+import ConfigParser
+import json
+
+from Adafruit_PWM_Servo_Driver import PWM
+
+import class_servo as servo
+import func_logging as log
+
+
+pwm = PWM(0x40, debug=True)
+pwm.setPWMFreq(60) 
+
+config = ConfigParser.ConfigParser()
+
+# Get config
+try:
+    config.read('pi_rover.cfg')
+except:
+    raise SystemExit("FATAL: Could not open config file")
+
+# Setup logging
+try:
+    logfile = log.CreateLogger(console=0, file=1, filepath=config.get('logging', 'path'), level=config.get('logging', 'level'))
+except:
+    raise SystemExit("FATAL: Could not create log file")
+
+try:
+    # Queue settings
+    CONTROL_QUEUE = config.get('control_queue', 'name')
+    CONTROL_SERVER = config.get('control_queue', 'server')
+
+    VEHICLE_QUEUE = config.get('vehicle_queue', 'name')
+    VEHICLE_SERVER = config.get('vehicle_queue', 'server')
+
+    # Define servos
+    DIRECTION_SERVO = servo.StandardServo(config.get('direction', 'channel'),
+                                config.get('direction', 'right'),
+                                config.get('direction', 'left'),
+                                config.get('direction', 'center'),
+                                config.get('direction', 'name'))
+
+    DIRECTION_INVERT = config.get('direction', 'invert')
+
+    BRAKE_SERVO = servo.StandardServo(config.get('brake', 'channel'),
+                                config.get('brake', 'on'),
+                                config.get('brake', 'off'),
+                                config.get('brake', 'neutral'),
+                                config.get('brake', 'name'))
+
+    BRAKE_INVERT = config.get('brake', 'invert')
+
+    THROTTLE_SERVO = servo.StandardServo(config.get('throttle', 'channel'),
+                                config.get('throttle', 'min'),
+                                config.get('throttle', 'max'),
+                                config.get('throttle', 'neutral'),
+                                config.get('throttle', 'name'))
+
+    THROTTLE_INVERT = config.get('throttle', 'invert')
+
+    CAMERA_PAN_SERVO = servo.StandardServo(config.get('camera_pan', 'channel'),
+                             config.get('camera_pan', 'min'),
+                             config.get('camera_pan', 'max'),
+                             config.get('camera_pan', 'neutral'),
+                             config.get('camera_pan', 'name'))
+
+    CAMERA_PAN_INVERT = config.get('camera_pan', 'invert')
+
+    CAMERA_TILT_SERVO = servo.StandardServo(config.get('camera_tilt', 'channel'),
+                             config.get('camera_tilt', 'min'),
+                             config.get('camera_tilt', 'max'),
+                             config.get('camera_tilt', 'neutral'),
+                             config.get('camera_tilt', 'name'))
+
+    CAMERA_TILT_INVERT = config.get('camera_tilt', 'invert')
+
+except: 
+    raise SystemExit("FATAL: Error reading sections from config file")
+
+
+# Create PWM object
+try:
+    pwm = PWM(0x40, debug=True)
+    pwm.setPWMFreq(60) 
+except:
+    raise SystemExit("FATAL: Could not init PWM")
+
+
+
+def SendPWM(channel,start,end):
+    # PWM output requires channel, start and end. Start and end refer to the start point and length of the pulse.
+    # Typically all pulses start at '0'.
+    try:
+       pwm.setPWM(int(channel),int(start),int(end))
+       logfile.debug("servo data: " + str(channel) + "," + str(start) + "," + str(end))
+
+    except: 
+       logfile.warning("Could not send data to PWM")
+
+
+def _vehicleControl(ch, method, properties, body):
+    # Callback for queue reader - write queue data to servos
+    try:
+        json_data = json.loads(str(body))
+         
+        if 'vehicle' in json_data:
+            # Set throttle position
+            if 'throttle' in json_data['vehicle']:
+                if THROTTLE_INVERT == "true":
+                    throttle = int(json_data['vehicle']['throttle'])
+                    throttle_inverted = throttle - (throttle * 2)
+                    SendPWM(THROTTLE_SERVO.Channel, 0, THROTTLE_SERVO.Translate(throttle_inverted))
+                else:
+                    SendPWM(THROTTLE_SERVO.Channel, 0, THROTTLE_SERVO.Translate(int(json_data['vehicle']['throttle'])))
+
+            # Set direction position
+            if 'direction' in json_data['vehicle']:
+                if DIRECTION_INVERT == "true":
+                    direction = int(json_data['vehicle']['direction'])
+                    direction_inverted = direction - (direction * 2)
+                    SendPWM(DIRECTION_SERVO.Channel, 0, DIRECTION_SERVO.Translate(direction_inverted))
+                else:
+                    SendPWM(DIRECTION_SERVO.Channel, 0, DIRECTION_SERVO.Translate(json_data['vehicle']['direction']))
+                 
+
+            if 'brake' in json_data['vehicle']:
+               
+                if BRAKE_INVERT == "true":
+                    if json_data['vehicle']['brake'] == True:
+                        SendPWM(BRAKE_SERVO.Channel, 0, BRAKE_SERVO.Translate(100))
+                    else:
+                        SendPWM(BRAKE_SERVO.Channel, 0, BRAKE_SERVO.Translate(0))
+                else:
+                    if json_data['vehicle']['brake'] == True:
+                        SendPWM(BRAKE_SERVO.Channel, 0, BRAKE_SERVO.Translate(0))
+                    else:
+                        SendPWM(BRAKE_SERVO.Channel, 0, BRAKE_SERVO.Translate(100))
+
+        if 'camera' in json_data:
+            if 'tilt' in json_data['camera']:
+                if CAMERA_TILT_INVERT == "true":
+                    camera_tilt = int(json_data['camera']['tilt'])
+                    camera_tilt_inverted = camera_tilt - (camera_tilt * 2)
+                    SendPWM(CAMERA_TILT_SERVO.Channel, 0, CAMERA_TILT_SERVO.Translate(camera_tilt_inverted))
+                else:
+                    SendPWM(CAMERA_TILT_SERVO.Channel, 0, CAMERA_TILT_SERVO.Translate(int(json_data['camera']['tilt'])))
+
+            if 'pan' in json_data['camera']:
+                if CAMERA_PAN_INVERT == "true":
+                    camera_pan = int(json_data['camera']['pan'])
+                    camera_pan_inverted = camera_pan - (camera_pan * 2)
+                    SendPWM(CAMERA_PAN_SERVO.Channel, 0, CAMERA_PAN_SERVO.Translate(camera_pan_inverted))
+                else:
+                    SendPWM(CAMERA_PAN_SERVO.Channel, 0, CAMERA_PAN_SERVO.Translate(int(json_data['camera']['pan'])))
+
+    except:
+        logfile.warning("Could not process control data")
+
+
+class mqReader():
+    def __init__(self, queue_host, queue_port, queue, callback):
+    # Establish connection, queue and begin consuming
+        try:
+            self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=queue_host,port=queue_port,connection_attempts=100,retry_delay=5))
+            self.channel = self.connection.channel()
+            self.channel.exchange_declare(exchange=queue, type='fanout')
+    
+            self.result = self.channel.queue_declare(exclusive=True)
+            self.dynamic_queue_name = self.result.method.queue
+ 
+            self.channel.queue_bind(exchange=queue, queue=self.dynamic_queue_name)
+            self.channel.basic_consume(callback, queue=self.dynamic_queue_name, no_ack=True)
+            self.connected = True
+
+        except:
+            self.connected = False
+
+    def run(self):
+        try:
+            self.channel.start_consuming()
+        except:
+            logfile.error("Connection to control queue server appears to have dropped.")
+
+
+class mqWriter():
+    def __init__(self, queue_host, queue_port, queue):
+    # Establish connection and queue for writing
+        try:
+            self.queue = queue
+            # Establish connection & queue
+            self.connection = pika.BlockingConnection(pika.ConnectionParameters(queue_host, queue_port, heartbeat_interval=1))
+            self.channel = self.connection.channel()
+            self.channel.exchange_declare(exchange=queue, type='fanout')
+            self.connected = True
+        except:
+            self.connected = False
+ 
+
+    def write(self, data):
+        # Write JSON data to queue
+        try:
+            self.channel.basic_publish(exchange=self.queue, routing_key='', body=json.dumps(data))
+            return(True)
+        except:
+            logfile.warning("Connection to vehicle queue server appears to have dropped")
+            return(False)
+
+
+def _vehicleSensors():
+    data = {}
+    data['environment'] = {'temperature': 50, 'humidity': 50}
+    data['GPS'] = {'north': 10, 'east': 2}
+    return(data)
+
+
+
+def main():
+
+    # Main loop
+    while 1:
+
+        # Set control queue reader and start in new thread
+        control_reader = mqReader(CONTROL_SERVER, 5672, CONTROL_QUEUE, _vehicleControl)
+        
+        if control_reader.connected == False:
+            while control_reader.connected == False:
+                logfile.error("Could not connect to control queue server, reconnecting....")
+                control_reader = mqReader(CONTROL_SERVER, 5672, CONTROL_QUEUE, _vehicleControl)
+                time.sleep(1)
+
+   
+        control_worker = multiprocessing.Process(target=control_reader.run)
+        control_worker.start()
+
+
+
+        # Setup writer queue for vehicle data
+        sensor_writer = mqWriter(VEHICLE_SERVER, 5672, VEHICLE_QUEUE)
+  
+        if sensor_writer.connected == False:
+            while sensor_writer.connected == False:
+                logfile.error("Could not connect to vehicle queue server, reconnecting....")
+                sensor_writer = mqWriter(VEHICLE_SERVER, 5672, VEHICLE_QUEUE)
+                time.sleep(1)
+
+         
+        # Transmit/Monitor loop
+        while 1:
+            vehicle_data = _vehicleSensors()
+ 
+            if sensor_writer.write(vehicle_data) == False:
+                logfile.error("Sensor writer has died - attempting to restart....")
+                sensor_writer = mqWriter(VEHICLE_SERVER, 5672, VEHICLE_QUEUE)
+                time.sleep(1)
+
+
+            # Monitor control worker thread 
+            if control_worker.is_alive() == False:
+                logfile.error("Control reader has died - attempting to restart....")
+                # Re-init thread
+                control_reader = mqReader(CONTROL_SERVER, 5672, CONTROL_QUEUE, _vehicleControl)
+                control_worker = multiprocessing.Process(target=control_reader.run)
+                control_worker.start()
+
+            time.sleep(1)
+
+        control_worker.join()
+
+        
+
+if __name__ == '__main__':
+    main()     
+   
+
+
+
+
+
+
