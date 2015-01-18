@@ -45,31 +45,30 @@ class MQReader(QtCore.QThread):
 
 def GUIUpdate(qt_window, json_data):
     if 'vehicle' in json_data:
-        if 'throttle' in json_data['vehicle']: 
-            qt_window.slider_throttle.setValue(int(json_data['vehicle']['throttle']))
-
-        if 'direction' in json_data['vehicle']: 
-            qt_window.slider_direction.setValue(int(json_data['vehicle']['direction']))
-
-        if 'brake' in json_data['vehicle']: 
-            qt_window.rb_brake.setChecked(json_data['vehicle']['brake'])
-
+        if 'throttle' in json_data['vehicle']: qt_window.slider_throttle.setValue(int(json_data['vehicle']['throttle']))
+        if 'direction' in json_data['vehicle']: qt_window.slider_direction.setValue(int(json_data['vehicle']['direction']))
+        if 'brake' in json_data['vehicle']: qt_window.rb_brake.setChecked(json_data['vehicle']['brake'])
+        if 'wifi' in json_data['vehicle']: qt_window.tb_wifi.setText(str(json_data['vehicle']['wifi']))
+        if 'batteryA' in json_data['vehicle']: qt_window.tb_batt_a.setText(str(json_data['vehicle']['batteryA']))
+        if 'batteryB' in json_data['vehicle']: qt_window.tb_batt_b.setText(str(json_data['vehicle']['batteryB']))
 
 
     if 'camera' in json_data:
-        if 'tilt' in json_data['camera']: 
-            qt_window.slider_cam_tilt.setValue(int(json_data['camera']['tilt']))
-
-        if 'pan' in json_data['camera']: 
-            qt_window.dial_cam_pan.setValue(int(json_data['camera']['pan']))
-
+        if 'tilt' in json_data['camera']: qt_window.slider_cam_tilt.setValue(int(json_data['camera']['tilt']))
+        if 'pan' in json_data['camera']: qt_window.dial_cam_pan.setValue(int(json_data['camera']['pan']))
 
 
     if 'environment' in json_data:
-        if 'temperature' in json_data['environment']:
-            qt_window.tb_temperature.setText(str(json_data['environment']['temperature']))
+        if 'temperature' in json_data['environment']: qt_window.tb_temperature.setText(str(json_data['environment']['temperature']))
+        if 'humidity' in json_data['environment']: qt_window.tb_humidity.setText(str(json_data['environment']['humidity']))
+        if 'pressure' in json_data['environment']: qt_window.tb_pressure.setText(str(json_data['environment']['pressure']))
 
-        if 'humidity' in json_data['environment']: 
-            qt_window.tb_humidity.setText(str(json_data['environment']['humidity']))
+    if 'GPS' in json_data:
+        if 'north' in json_data['GPS']: qt_window.tb_north.setText(str(json_data['GPS']['north']))
+        if 'east' in json_data['GPS']: qt_window.tb_east.setText(str(json_data['GPS']['east']))
+        if 'speed' in json_data['GPS']: qt_window.tb_speed.setText(str(json_data['GPS']['speed']))
+        if 'altitude' in json_data['GPS']: qt_window.tb_altitude.setText(str(json_data['GPS']['altitude']))
+
+
 
 

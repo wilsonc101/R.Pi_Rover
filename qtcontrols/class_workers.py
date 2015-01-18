@@ -120,7 +120,22 @@ def MQWriter(qt_window):
 
 
 def GUIUpdate(qt_window, json_data):
+    if 'vehicle' in json_data:
+        if 'wifi' in json_data['vehicle']: qt_window.bar_wifi.setValue(int(json_data['vehicle']['wifi']))
+        if 'batteryA' in json_data['vehicle']: qt_window.bar_battery_a.setValue(int(json_data['vehicle']['batteryA']))
+        if 'batteryB' in json_data['vehicle']: qt_window.bar_battery_b.setValue(int(json_data['vehicle']['batteryB']))
+  
+
     if 'environment' in json_data:
         if 'temperature' in json_data['environment']: qt_window.tb_temperature.setText(str(json_data['environment']['temperature']))
         if 'humidity' in json_data['environment']: qt_window.tb_humidity.setText(str(json_data['environment']['humidity']))
+        if 'pressure' in json_data['environment']: qt_window.tb_pressure.setText(str(json_data['environment']['pressure']))
+
+    if 'GPS' in json_data:
+        if 'north' in json_data['GPS']: qt_window.tb_gps_north.setText(str(json_data['GPS']['north']))
+        if 'east' in json_data['GPS']: qt_window.tb_gps_east.setText(str(json_data['GPS']['east']))
+        if 'speed' in json_data['GPS']: qt_window.tb_gps_speed.setText(str(json_data['GPS']['speed']))
+        if 'altitude' in json_data['GPS']: qt_window.tb_gps_altitude.setText(str(json_data['GPS']['altitude']))
+
+
 
