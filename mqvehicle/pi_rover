@@ -16,7 +16,7 @@ import func_sensors as sensors
 # Get config
 try:
     config = ConfigParser.ConfigParser()
-    config.read('pi_rover.cfg')
+    config.read('/usr/pi_rover/app/pi_rover.cfg')
 except:
     raise SystemExit("FATAL: Could not open config file")
 
