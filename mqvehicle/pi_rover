@@ -94,8 +94,11 @@ def SendPWM(channel,start,end):
     # PWM output requires channel, start and end. Start and end refer to the start point and length of the pulse.
     # Typically all pulses start at '0'.
     try:
-       pwm.setPWM(int(channel),int(start),int(end))
-       logfile.debug("servo data: " + str(channel) + "," + str(start) + "," + str(end))
+       float_start = float(start)
+       float_end = float(end)
+
+       pwm.setPWM(int(channel),int(float_start),int(float_end))
+       logfile.debug("servo data: " + str(channel) + "," + str(int(float_start)) + "," + str(int(float_end)))
 
     except: 
        logfile.warning("Could not send data to PWM")
@@ -111,7 +114,7 @@ def _vehicleControl(ch, method, properties, body):
             if 'throttle' in json_data['vehicle']:
                 if THROTTLE_INVERT == "true":
                     throttle = int(json_data['vehicle']['throttle'])
-                    throttle_inverted = throttle - (throttle * 2)
+                    throttle_inverted = 0 - throttle
                     SendPWM(THROTTLE_SERVO.Channel, 0, THROTTLE_SERVO.Translate(throttle_inverted))
                 else:
                     SendPWM(THROTTLE_SERVO.Channel, 0, THROTTLE_SERVO.Translate(int(json_data['vehicle']['throttle'])))
@@ -120,7 +123,7 @@ def _vehicleControl(ch, method, properties, body):
             if 'direction' in json_data['vehicle']:
                 if DIRECTION_INVERT == "true":
                     direction = int(json_data['vehicle']['direction'])
-                    direction_inverted = direction - (direction * 2)
+                    direction_inverted = 0 - direction
                     SendPWM(DIRECTION_SERVO.Channel, 0, DIRECTION_SERVO.Translate(direction_inverted))
                 else:
                     SendPWM(DIRECTION_SERVO.Channel, 0, DIRECTION_SERVO.Translate(json_data['vehicle']['direction']))
@@ -143,7 +146,7 @@ def _vehicleControl(ch, method, properties, body):
             if 'tilt' in json_data['camera']:
                 if CAMERA_TILT_INVERT == "true":
                     camera_tilt = int(json_data['camera']['tilt'])
-                    camera_tilt_inverted = camera_tilt - (camera_tilt * 2)
+                    camera_tilt_inverted = 0 - camera_tilt
                     SendPWM(CAMERA_TILT_SERVO.Channel, 0, CAMERA_TILT_SERVO.Translate(camera_tilt_inverted))
                 else:
                     SendPWM(CAMERA_TILT_SERVO.Channel, 0, CAMERA_TILT_SERVO.Translate(int(json_data['camera']['tilt'])))
@@ -151,7 +154,7 @@ def _vehicleControl(ch, method, properties, body):
             if 'pan' in json_data['camera']:
                 if CAMERA_PAN_INVERT == "true":
                     camera_pan = int(json_data['camera']['pan'])
-                    camera_pan_inverted = camera_pan - (camera_pan * 2)
+                    camera_pan_inverted = 0 - camera_pan
                     SendPWM(CAMERA_PAN_SERVO.Channel, 0, CAMERA_PAN_SERVO.Translate(camera_pan_inverted))
                 else:
                     SendPWM(CAMERA_PAN_SERVO.Channel, 0, CAMERA_PAN_SERVO.Translate(int(json_data['camera']['pan'])))
