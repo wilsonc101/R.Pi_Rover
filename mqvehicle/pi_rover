@@ -176,8 +176,8 @@ def _vehicleSensors():
                            'humidity': sensors.getEnvironment_humidity(),
                            'pressure': sensors.getEnvironment_pressure()}
 
-    data['GPS'] = {'north': sensors.getGPS_lat(), 
-                   'east': sensors.getGPS_long(),
+    data['GPS'] = {'latitude': sensors.getGPS_lat(), 
+                   'longitude': sensors.getGPS_long(),
                    'speed': sensors.getGPS_speed(),
                    'altitude': sensors.getGPS_altitude()}
      
