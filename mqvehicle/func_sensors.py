@@ -1,5 +1,19 @@
+import math
+
 from subprocess import *
 from random import randrange
+
+import BMP085 as BMP085
+
+import class_gps as gpsreader
+
+
+# Setup encironment sensor
+environment_sensor = BMP085.BMP085()
+
+# Start GPS Poller
+gps_poller = gpsreader.gpsPoller()
+gps_poller.start()
 
 
 ## Get data from vehicle components
@@ -10,45 +24,55 @@ def getBatteryB():
     return(randrange(100))
 
 def getWifi():
- #   return(randrange(100))
-
     getwifidata_cmd = "awk 'NR==3 {print $3}' /proc/net/wireless | cut -c 1-2"
     wifi_value = _run_cmd(getwifidata_cmd)
 
-    if type(wifi_value) is not int:
-        return(0)
-    else:
+    try:
+        wifi_value = int(wifi_value)
         return(wifi_value)
 
+    except:
+        return(0)
 
 
 ## Get environment data
 def getEnvironment_temperature():
-    return(randrange(100))
+    temperature = environment_sensor.read_temperature()
+    return(temperature)
 
 def getEnvironment_humidity():
     return(randrange(100))
 
 def getEnvironment_pressure():
-    return(randrange(100))
+    pressure = environment_sensor.read_pressure()
+    return(pressure)
 
 
 
 ## Get GPS data
-def getGPS_north():
-    return(randrange(100))
+def getGPS_lat():
+    if gps_poller.gpsdata['status'] == "FIX":
+        return gps_poller.gpsdata['latitude']
+    else:
+        return(gps_poller.gpsdata['status'])
 
-def getGPS_east():
-    return(randrange(100))
+def getGPS_long():
+    if gps_poller.gpsdata['status'] == "FIX":
+        return gps_poller.gpsdata['longitude']
+    else:
+        return(gps_poller.gpsdata['status'])
 
 def getGPS_speed():
-    return(randrange(100))
+    if gps_poller.gpsdata['status'] == "FIX":
+        return math.floor(gps_poller.gpsdata['speed'])
+    else:
+        return(gps_poller.gpsdata['status'])
 
 def getGPS_altitude():
-    return(randrange(100))
-
-
-
+    if gps_poller.gpsdata['status'] == "FIX":
+        return gps_poller.gpsdata['altitude']
+    else:
+        return(gps_poller.gpsdata['status'])
 
 
 ## Run external commands, returns output

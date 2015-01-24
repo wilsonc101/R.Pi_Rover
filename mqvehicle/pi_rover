@@ -9,6 +9,7 @@ import json
 from Adafruit_PWM_Servo_Driver import PWM
 
 import class_servo as servo
+import class_mq as mq
 import func_logging as log
 import func_sensors as sensors
 
@@ -163,53 +164,6 @@ def _vehicleControl(ch, method, properties, body):
         logfile.warning("Could not process control data")
 
 
-class mqReader():
-    def __init__(self, queue_host, queue_port, queue, callback):
-    # Establish connection, queue and begin consuming
-        try:
-            self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=queue_host,port=queue_port,connection_attempts=100,retry_delay=5))
-            self.channel = self.connection.channel()
-            self.channel.exchange_declare(exchange=queue, type='fanout')
-    
-            self.result = self.channel.queue_declare(exclusive=True)
-            self.dynamic_queue_name = self.result.method.queue
- 
-            self.channel.queue_bind(exchange=queue, queue=self.dynamic_queue_name)
-            self.channel.basic_consume(callback, queue=self.dynamic_queue_name, no_ack=True)
-            self.connected = True
-
-        except:
-            self.connected = False
-
-    def run(self):
-        try:
-            self.channel.start_consuming()
-        except:
-            logfile.error("Connection to control queue server appears to have dropped.")
-
-
-class mqWriter():
-    def __init__(self, queue_host, queue_port, queue):
-    # Establish connection and queue for writing
-        try:
-            self.queue = queue
-            # Establish connection & queue
-            self.connection = pika.BlockingConnection(pika.ConnectionParameters(queue_host, queue_port, heartbeat_interval=1))
-            self.channel = self.connection.channel()
-            self.channel.exchange_declare(exchange=queue, type='fanout')
-            self.connected = True
-        except:
-            self.connected = False
- 
-
-    def write(self, data):
-        # Write JSON data to queue
-        try:
-            self.channel.basic_publish(exchange=self.queue, routing_key='', body=json.dumps(data))
-            return(True)
-        except:
-            logfile.warning("Connection to vehicle queue server appears to have dropped")
-            return(False)
 
 
 def _vehicleSensors():
@@ -222,8 +176,8 @@ def _vehicleSensors():
                            'humidity': sensors.getEnvironment_humidity(),
                            'pressure': sensors.getEnvironment_pressure()}
 
-    data['GPS'] = {'north': sensors.getGPS_north(), 
-                   'east': sensors.getGPS_east(),
+    data['GPS'] = {'north': sensors.getGPS_lat(), 
+                   'east': sensors.getGPS_long(),
                    'speed': sensors.getGPS_speed(),
                    'altitude': sensors.getGPS_altitude()}
      
@@ -237,12 +191,12 @@ def main():
     while 1:
 
         # Set control queue reader and start in new thread
-        control_reader = mqReader(CONTROL_SERVER, 5672, CONTROL_QUEUE, _vehicleControl)
+        control_reader = mq.mqReader(CONTROL_SERVER, 5672, CONTROL_QUEUE, _vehicleControl, logfile)
         
         if control_reader.connected == False:
             while control_reader.connected == False:
                 logfile.error("Could not connect to control queue server, reconnecting....")
-                control_reader = mqReader(CONTROL_SERVER, 5672, CONTROL_QUEUE, _vehicleControl)
+                control_reader = mqReader(CONTROL_SERVER, 5672, CONTROL_QUEUE, _vehicleControl, logfile)
                 time.sleep(1)
 
    
@@ -252,12 +206,12 @@ def main():
 
 
         # Setup writer queue for vehicle data
-        sensor_writer = mqWriter(VEHICLE_SERVER, 5672, VEHICLE_QUEUE)
+        sensor_writer = mq.mqWriter(VEHICLE_SERVER, 5672, VEHICLE_QUEUE, logfile)
   
         if sensor_writer.connected == False:
             while sensor_writer.connected == False:
                 logfile.error("Could not connect to vehicle queue server, reconnecting....")
-                sensor_writer = mqWriter(VEHICLE_SERVER, 5672, VEHICLE_QUEUE)
+                sensor_writer = mq.mqWriter(VEHICLE_SERVER, 5672, VEHICLE_QUEUE, logfile)
                 time.sleep(1)
 
          
@@ -267,7 +221,7 @@ def main():
  
             if sensor_writer.write(vehicle_data) == False:
                 logfile.error("Sensor writer has died - attempting to restart....")
-                sensor_writer = mqWriter(VEHICLE_SERVER, 5672, VEHICLE_QUEUE)
+                sensor_writer = mq.mqWriter(VEHICLE_SERVER, 5672, VEHICLE_QUEUE, logfile)
                 time.sleep(1)
 
 
@@ -275,7 +229,7 @@ def main():
             if control_worker.is_alive() == False:
                 logfile.error("Control reader has died - attempting to restart....")
                 # Re-init thread
-                control_reader = mqReader(CONTROL_SERVER, 5672, CONTROL_QUEUE, _vehicleControl)
+                control_reader = mq.mqReader(CONTROL_SERVER, 5672, CONTROL_QUEUE, _vehicleControl, logfile)
                 control_worker = multiprocessing.Process(target=control_reader.run)
                 control_worker.start()
 
