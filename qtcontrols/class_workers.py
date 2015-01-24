@@ -132,8 +132,8 @@ def GUIUpdate(qt_window, json_data):
         if 'pressure' in json_data['environment']: qt_window.tb_pressure.setText(str(json_data['environment']['pressure']))
 
     if 'GPS' in json_data:
-        if 'north' in json_data['GPS']: qt_window.tb_gps_north.setText(str(json_data['GPS']['north']))
-        if 'east' in json_data['GPS']: qt_window.tb_gps_east.setText(str(json_data['GPS']['east']))
+        if 'latitude' in json_data['GPS']: qt_window.tb_gps_lat.setText(str(json_data['GPS']['latitude']))
+        if 'longitude' in json_data['GPS']: qt_window.tb_gps_long.setText(str(json_data['GPS']['longitude']))
         if 'speed' in json_data['GPS']: qt_window.tb_gps_speed.setText(str(json_data['GPS']['speed']))
         if 'altitude' in json_data['GPS']: qt_window.tb_gps_altitude.setText(str(json_data['GPS']['altitude']))
 
