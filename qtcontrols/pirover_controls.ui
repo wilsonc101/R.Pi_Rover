@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>553</width>
-    <height>463</height>
+    <width>587</width>
+    <height>565</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -283,7 +283,7 @@
      <rect>
       <x>0</x>
       <y>250</y>
-      <width>551</width>
+      <width>579</width>
       <height>191</height>
      </rect>
     </property>
@@ -298,7 +298,7 @@
       <rect>
        <x>300</x>
        <y>10</y>
-       <width>241</width>
+       <width>268</width>
        <height>171</height>
       </rect>
      </property>
@@ -616,7 +616,7 @@
      <rect>
       <x>280</x>
       <y>0</y>
-      <width>271</width>
+      <width>299</width>
       <height>241</height>
      </rect>
     </property>
@@ -629,7 +629,7 @@
     <widget class="QDial" name="dial_cam_pan">
      <property name="geometry">
       <rect>
-       <x>110</x>
+       <x>140</x>
        <y>80</y>
        <width>91</width>
        <height>91</height>
@@ -654,7 +654,7 @@
     <widget class="QSlider" name="slider_cam_tilt">
      <property name="geometry">
       <rect>
-       <x>50</x>
+       <x>55</x>
        <y>40</y>
        <width>29</width>
        <height>160</height>
@@ -688,7 +688,7 @@
     <widget class="QLabel" name="lbl_cam_dial">
      <property name="geometry">
       <rect>
-       <x>146</x>
+       <x>175</x>
        <y>65</y>
        <width>21</width>
        <height>16</height>
@@ -708,7 +708,7 @@
     <widget class="QLabel" name="lbl_cam_tilt">
      <property name="geometry">
       <rect>
-       <x>70</x>
+       <x>78</x>
        <y>180</y>
        <width>31</width>
        <height>16</height>
@@ -734,10 +734,10 @@
     <widget class="QToolButton" name="btn_cam_reset">
      <property name="geometry">
       <rect>
-       <x>210</x>
-       <y>200</y>
-       <width>41</width>
-       <height>23</height>
+       <x>237</x>
+       <y>199</y>
+       <width>53</width>
+       <height>26</height>
       </rect>
      </property>
      <property name="text">

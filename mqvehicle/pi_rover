@@ -12,6 +12,7 @@ import class_servo as servo
 import class_mq as mq
 import func_logging as log
 import func_sensors as sensors
+import class_camera as camera
 
 
 # Get config
@@ -77,6 +78,13 @@ try:
                              config.get('camera_tilt', 'name'))
 
     CAMERA_TILT_INVERT = config.get('camera_tilt', 'invert')
+
+    VEHICLE_CAMERA_BIND_ADDRESS = config.get('camera', 'bind_address')
+    VEHICLE_CAMERA_PORT = config.get('camera', 'port')
+    VEHICLE_CAMERA_RESOLUTION_X = config.get('camera', 'resolution_x')
+    VEHICLE_CAMERA_RESOLUTION_Y = config.get('camera', 'resolution_y')
+
+
 
 except: 
     raise SystemExit("FATAL: Error reading sections from config file")
@@ -189,6 +197,19 @@ def main():
 
     # Main loop
     while 1:
+
+        # Setup vehicle camera
+        vehicle_camera = camera.camera(VEHICLE_CAMERA_BIND_ADDRESS, VEHICLE_CAMERA_PORT, VEHICLE_CAMERA_RESOLUTION_X, VEHICLE_CAMERA_RESOLUTION_Y, logfile)
+
+        if vehicle_camera.listening == False:
+            while vehicle_camera.listening == False:
+                logfile.error("Could not find open network socket for video streaming, retrying....")
+                vehicle_camera = camera.camera(VEHICLE_CAMERA_BIND_ADDRESS, VEHICLE_CAMERA_PORT, VEHICLE_CAMERA_RESOLUTION_X, VEHICLE_CAMERA_RESOLUTION_Y, logfile)
+                time.sleep(1)
+
+        camera_worker = multiprocessing.Process(target=vehicle_camera.run)
+        camera_worker.start()
+
 
         # Set control queue reader and start in new thread
         control_reader = mq.mqReader(CONTROL_SERVER, 5672, CONTROL_QUEUE, _vehicleControl, logfile)
