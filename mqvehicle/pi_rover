@@ -79,6 +79,7 @@ try:
 
     CAMERA_TILT_INVERT = config.get('camera_tilt', 'invert')
 
+    VEHICLE_CAMERA_NAME = config.get('camera', 'name')
     VEHICLE_CAMERA_BIND_ADDRESS = config.get('camera', 'bind_address')
     VEHICLE_CAMERA_PORT = config.get('camera', 'port')
     VEHICLE_CAMERA_RESOLUTION_X = config.get('camera', 'resolution_x')
@@ -199,9 +200,8 @@ def main():
     while 1:
 
         # Setup vehicle camera
-        vehicle_camera = camera.camera(VEHICLE_CAMERA_BIND_ADDRESS, VEHICLE_CAMERA_PORT, VEHICLE_CAMERA_RESOLUTION_X, VEHICLE_CAMERA_RESOLUTION_Y, logfile)
+        vehicle_camera = camera.camera(VEHICLE_CAMERA_BIND_ADDRESS, VEHICLE_CAMERA_PORT, VEHICLE_CAMERA_RESOLUTION_X, VEHICLE_CAMERA_RESOLUTION_Y, VEHICLE_CAMERA_NAME, logfile)
         vehicle_camera.start()
-
 
         # Set control queue reader and start in new thread
         control_reader = mq.mqReader(CONTROL_SERVER, 5672, CONTROL_QUEUE, _vehicleControl, logfile)
