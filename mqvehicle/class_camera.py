@@ -3,8 +3,10 @@ import picamera
 
 class camera():
     def __init__(self, bind_address, port, res_x, res_y, log=None):
+        self.log = log
+
         # Setup camera/create object
-        self.camera = picamera.PiCamera(resolution=(res_x, res_y))
+        self.camera = picamera.PiCamera(resolution=(int(res_x), int(res_y)))
 
         try:
             # Setup socket
@@ -32,26 +34,31 @@ class camera():
 
     def run(self):
         # Make camera live and wite to socket connection
-        try:
+#        while 1:
             try:
-                self.camera.start_recording(self.connection, format='h264', bitrate=4000000)
-                self.camera.wait_recording(6000000)
-                self.recording = True    
+                try:
+                    self.camera.start_recording(self.connection, format='h264', bitrate=4000000)
+                    self.camera.wait_recording(6000000)
+                    self.recording = True    
+                    if self.log != None: self.log.info("Camera - recording started.")
 
-            finally:
+
+                finally:
+                    self.recording = False
+                    if self.log != None: self.log.info("Camera - recording stopped.")
+    
+                    self.camera.stop_recording()
+                    self.connection.close()
+                    self.server_socket.close()
+
+
+            except:
                 self.recording = False
 
-                self.camera.stop_recording()
-                self.connection.close()
-                self.server_socket.close()
-
-        except:
-            self.recording = False
-
-            if self.log != None: 
-                self.log.error("Camera - connection dropped")
-            else:
-                print "Camera - connection dropped"
+                if self.log != None: 
+                    self.log.error("Camera - connection dropped")
+                else:
+                    print "Camera - connection dropped"
 
 
 
