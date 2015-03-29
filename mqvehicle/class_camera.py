@@ -1,10 +1,12 @@
 import socket
 import picamera
+import threading
 
-class camera():
+class camera(threading.Thread):
     def __init__(self, bind_address, port, res_x, res_y, log=None):
         self.log = log
-
+        threading.Thread.__init__(self)
+        
         # Setup camera/create object
         self.camera = picamera.PiCamera(resolution=(int(res_x), int(res_y)))
 
@@ -17,13 +19,12 @@ class camera():
             # Accept a single connection and make a file-like object out of it
             self.connection = self.server_socket.accept()[0].makefile('wb')
 
-            self.listening = True
-
-            if self.log != None: self.log.info("Camera - Socket open.")
+            if self.log != None: self.log.info("Camera - Socket open."
+            self.running = False
 
         except:
             # Socket in use or cannot be bound
-            self.listening = False
+            self.running = False
 
             if self.log != None: 
                 self.log.error("Camera - port in use.")
@@ -34,7 +35,8 @@ class camera():
 
     def run(self):
         # Make camera live and wite to socket connection
-#        while 1:
+        self.running = True
+        while self.running:
             try:
                 try:
                     self.camera.start_recording(self.connection, format='h264', bitrate=4000000)
@@ -44,7 +46,6 @@ class camera():
 
 
                 finally:
-                    self.recording = False
                     if self.log != None: self.log.info("Camera - recording stopped.")
     
                     self.camera.stop_recording()
@@ -53,7 +54,6 @@ class camera():
 
 
             except:
-                self.recording = False
 
                 if self.log != None: 
                     self.log.error("Camera - connection dropped")
