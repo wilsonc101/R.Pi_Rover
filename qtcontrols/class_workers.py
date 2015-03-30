@@ -1,4 +1,5 @@
 from PyQt4 import QtCore
+from subprocess import *
 
 import time
 import pika
@@ -14,6 +15,8 @@ CONTROL_SERVER = config.get('control_queue', 'server')
 VEHICLE_QUEUE = config.get('vehicle_queue', 'name')
 VEHICLE_SERVER = config.get('vehicle_queue', 'server')
 
+CAMERA_SERVER = config.get('camera_server', 'server')
+CAMERA_PORT = config.get('camera_server', 'port')
 
 class MQReader(QtCore.QThread):
     def __init__(self):
@@ -139,3 +142,6 @@ def GUIUpdate(qt_window, json_data):
 
 
 
+def OpenPlayer():
+    cmd = "/bin/nc " + CAMERA_SERVER + " " + CAMERA_PORT + " | /usr/bin/mplayer -fps 60 -cache 2048 -really-quiet -"
+    p = Popen(cmd, shell=True, stdout=PIPE)    

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>587</width>
-    <height>565</height>
+    <width>580</width>
+    <height>465</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -303,7 +303,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_environment">
       <attribute name="title">
@@ -312,8 +312,8 @@
       <widget class="QLineEdit" name="tb_temperature">
        <property name="geometry">
         <rect>
-         <x>90</x>
-         <y>30</y>
+         <x>130</x>
+         <y>16</y>
          <width>91</width>
          <height>25</height>
         </rect>
@@ -328,9 +328,9 @@
       <widget class="QLabel" name="lbl_temperature">
        <property name="geometry">
         <rect>
-         <x>13</x>
-         <y>32</y>
-         <width>70</width>
+         <x>30</x>
+         <y>18</y>
+         <width>99</width>
          <height>21</height>
         </rect>
        </property>
@@ -341,9 +341,9 @@
       <widget class="QLabel" name="lbl_humidity">
        <property name="geometry">
         <rect>
-         <x>28</x>
-         <y>62</y>
-         <width>54</width>
+         <x>30</x>
+         <y>48</y>
+         <width>79</width>
          <height>21</height>
         </rect>
        </property>
@@ -354,8 +354,8 @@
       <widget class="QLineEdit" name="tb_humidity">
        <property name="geometry">
         <rect>
-         <x>90</x>
-         <y>60</y>
+         <x>130</x>
+         <y>46</y>
          <width>91</width>
          <height>25</height>
         </rect>
@@ -370,8 +370,8 @@
       <widget class="QLineEdit" name="tb_pressure">
        <property name="geometry">
         <rect>
-         <x>90</x>
-         <y>90</y>
+         <x>130</x>
+         <y>76</y>
          <width>91</width>
          <height>25</height>
         </rect>
@@ -387,8 +387,8 @@
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>92</y>
-         <width>54</width>
+         <y>78</y>
+         <width>80</width>
          <height>21</height>
         </rect>
        </property>
@@ -404,7 +404,7 @@
       <widget class="QLineEdit" name="tb_gps_lat">
        <property name="geometry">
         <rect>
-         <x>90</x>
+         <x>130</x>
          <y>16</y>
          <width>91</width>
          <height>25</height>
@@ -433,7 +433,7 @@
       <widget class="QLineEdit" name="tb_gps_long">
        <property name="geometry">
         <rect>
-         <x>90</x>
+         <x>130</x>
          <y>46</y>
          <width>91</width>
          <height>25</height>
@@ -451,7 +451,7 @@
         <rect>
          <x>30</x>
          <y>48</y>
-         <width>61</width>
+         <width>80</width>
          <height>21</height>
         </rect>
        </property>
@@ -462,7 +462,7 @@
       <widget class="QLineEdit" name="tb_gps_speed">
        <property name="geometry">
         <rect>
-         <x>90</x>
+         <x>130</x>
          <y>76</y>
          <width>91</width>
          <height>25</height>
@@ -492,8 +492,8 @@
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>110</y>
-         <width>54</width>
+         <y>108</y>
+         <width>70</width>
          <height>21</height>
         </rect>
        </property>
@@ -504,8 +504,8 @@
       <widget class="QLineEdit" name="tb_gps_altitude">
        <property name="geometry">
         <rect>
-         <x>90</x>
-         <y>108</y>
+         <x>130</x>
+         <y>106</y>
          <width>91</width>
          <height>25</height>
         </rect>
@@ -734,7 +734,7 @@
     <widget class="QToolButton" name="btn_cam_reset">
      <property name="geometry">
       <rect>
-       <x>237</x>
+       <x>230</x>
        <y>199</y>
        <width>53</width>
        <height>26</height>
@@ -742,6 +742,19 @@
      </property>
      <property name="text">
       <string>RESET</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_open_player">
+     <property name="geometry">
+      <rect>
+       <x>185</x>
+       <y>10</y>
+       <width>98</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Open Player</string>
      </property>
     </widget>
    </widget>
@@ -926,6 +939,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>btn_open_player</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>open_player()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>525</x>
+     <y>28</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>532</x>
+     <y>244</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>increment_throttle()</slot>
@@ -939,5 +968,6 @@
   <slot>set_zero_direction()</slot>
   <slot>set_full_direction()</slot>
   <slot>set_brake()</slot>
+  <slot>open_player()</slot>
  </slots>
 </ui>

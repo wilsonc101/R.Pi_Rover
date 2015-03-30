@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'pirover_controls.ui'
 #
-# Created: Fri Dec 26 18:10:36 2014
+# Created: Mon Mar 30 21:14:17 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -30,7 +30,7 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(553, 463)
+        MainWindow.resize(580, 465)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.frame_controls = QtGui.QFrame(self.centralwidget)
@@ -117,44 +117,44 @@ class Ui_MainWindow(object):
         self.btn_right_full.setFont(font)
         self.btn_right_full.setObjectName(_fromUtf8("btn_right_full"))
         self.frame_data = QtGui.QFrame(self.centralwidget)
-        self.frame_data.setGeometry(QtCore.QRect(0, 250, 551, 191))
+        self.frame_data.setGeometry(QtCore.QRect(0, 250, 579, 191))
         self.frame_data.setFrameShape(QtGui.QFrame.StyledPanel)
         self.frame_data.setFrameShadow(QtGui.QFrame.Raised)
         self.frame_data.setObjectName(_fromUtf8("frame_data"))
         self.tab_sensors = QtGui.QTabWidget(self.frame_data)
-        self.tab_sensors.setGeometry(QtCore.QRect(300, 10, 241, 171))
+        self.tab_sensors.setGeometry(QtCore.QRect(300, 10, 268, 171))
         self.tab_sensors.setObjectName(_fromUtf8("tab_sensors"))
         self.tab_environment = QtGui.QWidget()
         self.tab_environment.setObjectName(_fromUtf8("tab_environment"))
         self.tb_temperature = QtGui.QLineEdit(self.tab_environment)
-        self.tb_temperature.setGeometry(QtCore.QRect(90, 30, 91, 25))
+        self.tb_temperature.setGeometry(QtCore.QRect(130, 16, 91, 25))
         self.tb_temperature.setText(_fromUtf8(""))
         self.tb_temperature.setPlaceholderText(_fromUtf8(""))
         self.tb_temperature.setObjectName(_fromUtf8("tb_temperature"))
         self.lbl_temperature = QtGui.QLabel(self.tab_environment)
-        self.lbl_temperature.setGeometry(QtCore.QRect(13, 32, 70, 21))
+        self.lbl_temperature.setGeometry(QtCore.QRect(30, 18, 99, 21))
         self.lbl_temperature.setObjectName(_fromUtf8("lbl_temperature"))
         self.lbl_humidity = QtGui.QLabel(self.tab_environment)
-        self.lbl_humidity.setGeometry(QtCore.QRect(28, 62, 54, 21))
+        self.lbl_humidity.setGeometry(QtCore.QRect(30, 48, 79, 21))
         self.lbl_humidity.setObjectName(_fromUtf8("lbl_humidity"))
         self.tb_humidity = QtGui.QLineEdit(self.tab_environment)
-        self.tb_humidity.setGeometry(QtCore.QRect(90, 60, 91, 25))
+        self.tb_humidity.setGeometry(QtCore.QRect(130, 46, 91, 25))
         self.tb_humidity.setText(_fromUtf8(""))
         self.tb_humidity.setPlaceholderText(_fromUtf8(""))
         self.tb_humidity.setObjectName(_fromUtf8("tb_humidity"))
         self.tb_pressure = QtGui.QLineEdit(self.tab_environment)
-        self.tb_pressure.setGeometry(QtCore.QRect(90, 90, 91, 25))
+        self.tb_pressure.setGeometry(QtCore.QRect(130, 76, 91, 25))
         self.tb_pressure.setText(_fromUtf8(""))
         self.tb_pressure.setPlaceholderText(_fromUtf8(""))
         self.tb_pressure.setObjectName(_fromUtf8("tb_pressure"))
         self.lbl_pressure = QtGui.QLabel(self.tab_environment)
-        self.lbl_pressure.setGeometry(QtCore.QRect(30, 92, 54, 21))
+        self.lbl_pressure.setGeometry(QtCore.QRect(30, 78, 80, 21))
         self.lbl_pressure.setObjectName(_fromUtf8("lbl_pressure"))
         self.tab_sensors.addTab(self.tab_environment, _fromUtf8(""))
         self.tab_gps = QtGui.QWidget()
         self.tab_gps.setObjectName(_fromUtf8("tab_gps"))
         self.tb_gps_lat = QtGui.QLineEdit(self.tab_gps)
-        self.tb_gps_lat.setGeometry(QtCore.QRect(90, 16, 91, 25))
+        self.tb_gps_lat.setGeometry(QtCore.QRect(130, 16, 91, 25))
         self.tb_gps_lat.setText(_fromUtf8(""))
         self.tb_gps_lat.setPlaceholderText(_fromUtf8(""))
         self.tb_gps_lat.setObjectName(_fromUtf8("tb_gps_lat"))
@@ -162,15 +162,15 @@ class Ui_MainWindow(object):
         self.lbl_gps_lat.setGeometry(QtCore.QRect(30, 18, 61, 21))
         self.lbl_gps_lat.setObjectName(_fromUtf8("lbl_gps_lat"))
         self.tb_gps_long = QtGui.QLineEdit(self.tab_gps)
-        self.tb_gps_long.setGeometry(QtCore.QRect(90, 46, 91, 25))
+        self.tb_gps_long.setGeometry(QtCore.QRect(130, 46, 91, 25))
         self.tb_gps_long.setText(_fromUtf8(""))
         self.tb_gps_long.setPlaceholderText(_fromUtf8(""))
         self.tb_gps_long.setObjectName(_fromUtf8("tb_gps_long"))
-        self.lbl_gps_long = QtGui.QLabel(self.tab_gps)
-        self.lbl_gps_long.setGeometry(QtCore.QRect(30, 48, 61, 21))
-        self.lbl_gps_long.setObjectName(_fromUtf8("lbl_gps_long"))
+        self.lbl_gps_east = QtGui.QLabel(self.tab_gps)
+        self.lbl_gps_east.setGeometry(QtCore.QRect(30, 48, 80, 21))
+        self.lbl_gps_east.setObjectName(_fromUtf8("lbl_gps_east"))
         self.tb_gps_speed = QtGui.QLineEdit(self.tab_gps)
-        self.tb_gps_speed.setGeometry(QtCore.QRect(90, 76, 91, 25))
+        self.tb_gps_speed.setGeometry(QtCore.QRect(130, 76, 91, 25))
         self.tb_gps_speed.setText(_fromUtf8(""))
         self.tb_gps_speed.setPlaceholderText(_fromUtf8(""))
         self.tb_gps_speed.setObjectName(_fromUtf8("tb_gps_speed"))
@@ -178,10 +178,10 @@ class Ui_MainWindow(object):
         self.lbl_gps_speed.setGeometry(QtCore.QRect(30, 78, 54, 21))
         self.lbl_gps_speed.setObjectName(_fromUtf8("lbl_gps_speed"))
         self.lbl_gps_altitude = QtGui.QLabel(self.tab_gps)
-        self.lbl_gps_altitude.setGeometry(QtCore.QRect(30, 110, 54, 21))
+        self.lbl_gps_altitude.setGeometry(QtCore.QRect(30, 108, 70, 21))
         self.lbl_gps_altitude.setObjectName(_fromUtf8("lbl_gps_altitude"))
         self.tb_gps_altitude = QtGui.QLineEdit(self.tab_gps)
-        self.tb_gps_altitude.setGeometry(QtCore.QRect(90, 108, 91, 25))
+        self.tb_gps_altitude.setGeometry(QtCore.QRect(130, 106, 91, 25))
         self.tb_gps_altitude.setText(_fromUtf8(""))
         self.tb_gps_altitude.setPlaceholderText(_fromUtf8(""))
         self.tb_gps_altitude.setObjectName(_fromUtf8("tb_gps_altitude"))
@@ -214,12 +214,12 @@ class Ui_MainWindow(object):
         self.bar_wifi.setProperty("value", 0)
         self.bar_wifi.setObjectName(_fromUtf8("bar_wifi"))
         self.frame_camera = QtGui.QFrame(self.centralwidget)
-        self.frame_camera.setGeometry(QtCore.QRect(280, 0, 271, 241))
+        self.frame_camera.setGeometry(QtCore.QRect(280, 0, 299, 241))
         self.frame_camera.setFrameShape(QtGui.QFrame.StyledPanel)
         self.frame_camera.setFrameShadow(QtGui.QFrame.Raised)
         self.frame_camera.setObjectName(_fromUtf8("frame_camera"))
         self.dial_cam_pan = QtGui.QDial(self.frame_camera)
-        self.dial_cam_pan.setGeometry(QtCore.QRect(110, 80, 91, 91))
+        self.dial_cam_pan.setGeometry(QtCore.QRect(140, 80, 91, 91))
         self.dial_cam_pan.setMaximum(100)
         self.dial_cam_pan.setProperty("value", 50)
         self.dial_cam_pan.setWrapping(True)
@@ -227,7 +227,7 @@ class Ui_MainWindow(object):
         self.dial_cam_pan.setNotchesVisible(True)
         self.dial_cam_pan.setObjectName(_fromUtf8("dial_cam_pan"))
         self.slider_cam_tilt = QtGui.QSlider(self.frame_camera)
-        self.slider_cam_tilt.setGeometry(QtCore.QRect(50, 40, 29, 160))
+        self.slider_cam_tilt.setGeometry(QtCore.QRect(55, 40, 29, 160))
         self.slider_cam_tilt.setMaximum(100)
         self.slider_cam_tilt.setProperty("value", 50)
         self.slider_cam_tilt.setSliderPosition(50)
@@ -238,7 +238,7 @@ class Ui_MainWindow(object):
         self.slider_cam_tilt.setTickInterval(10)
         self.slider_cam_tilt.setObjectName(_fromUtf8("slider_cam_tilt"))
         self.lbl_cam_dial = QtGui.QLabel(self.frame_camera)
-        self.lbl_cam_dial.setGeometry(QtCore.QRect(146, 65, 21, 16))
+        self.lbl_cam_dial.setGeometry(QtCore.QRect(175, 65, 21, 16))
         font = QtGui.QFont()
         font.setPointSize(6)
         font.setBold(True)
@@ -246,14 +246,17 @@ class Ui_MainWindow(object):
         self.lbl_cam_dial.setFont(font)
         self.lbl_cam_dial.setObjectName(_fromUtf8("lbl_cam_dial"))
         self.lbl_cam_tilt = QtGui.QLabel(self.frame_camera)
-        self.lbl_cam_tilt.setGeometry(QtCore.QRect(70, 180, 31, 16))
+        self.lbl_cam_tilt.setGeometry(QtCore.QRect(78, 180, 31, 16))
         self.lbl_cam_tilt.setObjectName(_fromUtf8("lbl_cam_tilt"))
         self.lbl_cam_pan = QtGui.QLabel(self.frame_camera)
         self.lbl_cam_pan.setGeometry(QtCore.QRect(170, 160, 31, 16))
         self.lbl_cam_pan.setObjectName(_fromUtf8("lbl_cam_pan"))
         self.btn_cam_reset = QtGui.QToolButton(self.frame_camera)
-        self.btn_cam_reset.setGeometry(QtCore.QRect(210, 200, 41, 23))
+        self.btn_cam_reset.setGeometry(QtCore.QRect(230, 199, 53, 26))
         self.btn_cam_reset.setObjectName(_fromUtf8("btn_cam_reset"))
+        self.btn_open_player = QtGui.QPushButton(self.frame_camera)
+        self.btn_open_player.setGeometry(QtCore.QRect(185, 10, 98, 27))
+        self.btn_open_player.setObjectName(_fromUtf8("btn_open_player"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
@@ -270,6 +273,7 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.btn_left_full, QtCore.SIGNAL(_fromUtf8("clicked()")), self.set_zero_direction)
         QtCore.QObject.connect(self.btn_right_full, QtCore.SIGNAL(_fromUtf8("clicked()")), self.set_full_direction)
         QtCore.QObject.connect(self.btn_cam_reset, QtCore.SIGNAL(_fromUtf8("clicked()")), self.reset_camera)
+        QtCore.QObject.connect(self.btn_open_player, QtCore.SIGNAL(_fromUtf8("clicked()")), self.open_player)
         QtCore.QObject.connect(self.slider_cam_tilt, QtCore.SIGNAL(_fromUtf8("sliderMoved(int)")), self.tilt_camera)
         QtCore.QObject.connect(self.dial_cam_pan, QtCore.SIGNAL(_fromUtf8("sliderMoved(int)")), self.pan_camera)
         QtCore.QObject.connect(self.slider_cam_tilt, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), self.tilt_camera)
@@ -288,12 +292,12 @@ class Ui_MainWindow(object):
         self.lbl_brake.setText(_translate("MainWindow", "brake", None))
         self.btn_left_full.setText(_translate("MainWindow", "full", None))
         self.btn_right_full.setText(_translate("MainWindow", "full", None))
-        self.lbl_temperature.setText(_translate("MainWindow", "Temperature", None))
+        self.lbl_temperature.setText(_translate("MainWindow", "Temperture", None))
         self.lbl_humidity.setText(_translate("MainWindow", "Humidity", None))
         self.lbl_pressure.setText(_translate("MainWindow", "Pressure", None))
         self.tab_sensors.setTabText(self.tab_sensors.indexOf(self.tab_environment), _translate("MainWindow", "Environment", None))
         self.lbl_gps_lat.setText(_translate("MainWindow", "Latitude", None))
-        self.lbl_gps_long.setText(_translate("MainWindow", "Longitude", None))
+        self.lbl_gps_east.setText(_translate("MainWindow", "Longitude", None))
         self.lbl_gps_speed.setText(_translate("MainWindow", "Speed", None))
         self.lbl_gps_altitude.setText(_translate("MainWindow", "Altitude", None))
         self.tab_sensors.setTabText(self.tab_sensors.indexOf(self.tab_gps), _translate("MainWindow", "GPS", None))
@@ -307,6 +311,7 @@ class Ui_MainWindow(object):
         self.lbl_cam_tilt.setText(_translate("MainWindow", "Tilt", None))
         self.lbl_cam_pan.setText(_translate("MainWindow", "Pan", None))
         self.btn_cam_reset.setText(_translate("MainWindow", "RESET", None))
+        self.btn_open_player.setText(_translate("MainWindow", "Open Player", None))
 
         # Create QThreads for MQ transactions
         # MQ Reader
@@ -319,13 +324,12 @@ class Ui_MainWindow(object):
         json_data = json.loads(queue_data)
         workers.GUIUpdate(self, json_data)
 
-
     def increment_throttle(self):
         forward_value = self.bar_forward.value()
         reverse_value = self.bar_reverse.value()
 
         if reverse_value == 0:
-             if forward_value < 100: 
+             if forward_value < 100:
                  self.bar_forward.setValue(forward_value + 10)
                  self.rb_brake.setChecked(False)
         else:
@@ -333,21 +337,18 @@ class Ui_MainWindow(object):
 
         workers.MQWriter(self)
 
-
     def decrement_throttle(self):
         forward_value = self.bar_forward.value()
         reverse_value = self.bar_reverse.value()
 
         if forward_value == 0:
-             if reverse_value < 100: 
+             if reverse_value < 100:
                 self.bar_reverse.setValue(reverse_value + 10)
                 self.rb_brake.setChecked(False)
         else:
              self.bar_forward.setValue(forward_value - 10)
 
         workers.MQWriter(self)
-
-
 
     def all_stop(self):
         forward_value = self.bar_forward.value()
@@ -356,7 +357,7 @@ class Ui_MainWindow(object):
         left_value = self.bar_left.value()
 
 
-        if forward_value > 0 or reverse_value > 0 or left_value > 0 or right_value > 0: 
+        if forward_value > 0 or reverse_value > 0 or left_value > 0 or right_value > 0:
             self.bar_forward.setValue(0)
             self.bar_reverse.setValue(0)
             self.bar_left.setValue(0)
@@ -374,10 +375,10 @@ class Ui_MainWindow(object):
         if brake_value == True:
             self.bar_forward.setValue(0)
             self.bar_reverse.setValue(0)
-        
+
         workers.MQWriter(self)
 
-        
+
     def increment_direction(self):
         right_value = self.bar_right.value()
         left_value = self.bar_left.value()
@@ -414,7 +415,6 @@ class Ui_MainWindow(object):
         workers.MQWriter(self)
 
 
-
     def set_zero_direction(self):
         left_value = self.bar_left.value()
 
@@ -426,15 +426,19 @@ class Ui_MainWindow(object):
 
         workers.MQWriter(self)
 
-            
+
     def reset_camera(self):
-        self.dial_cam_pan.setValue(50)                        
-        self.slider_cam_tilt.setValue(50)                        
+        self.dial_cam_pan.setValue(50)
+        self.slider_cam_tilt.setValue(50)
         workers.MQWriter(self)
-            
+
 
     def tilt_camera(self):
         workers.MQWriter(self)
 
     def pan_camera(self):
         workers.MQWriter(self)
+
+    def open_player(self):
+        workers.OpenPlayer()
+
