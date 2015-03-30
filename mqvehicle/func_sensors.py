@@ -3,7 +3,7 @@ import math
 from subprocess import *
 from random import randrange
 
-import BMP085 as BMP085
+import Adafruit_BMP085 as BMP085
 
 import class_gps as gpsreader
 
@@ -37,14 +37,14 @@ def getWifi():
 
 ## Get environment data
 def getEnvironment_temperature():
-    temperature = environment_sensor.read_temperature()
+    temperature = environment_sensor.readTemperature()
     return(temperature)
 
 def getEnvironment_humidity():
     return(randrange(100))
 
 def getEnvironment_pressure():
-    pressure = environment_sensor.read_pressure()
+    pressure = environment_sensor.readPressure()
     return(pressure)
 
 
