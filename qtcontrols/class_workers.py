@@ -68,11 +68,14 @@ def MQWriter(qt_window):
     reverse_value = qt_window.bar_reverse.value()
     right_value = qt_window.bar_right.value()
     left_value = qt_window.bar_left.value()
-    brake_value = qt_window.rb_brake.isChecked()
+    brake_value = qt_window.cb_brake.isChecked()
  
     cam_tilt_value = qt_window.slider_cam_tilt.value()
     cam_pan_value = qt_window.dial_cam_pan.value()
  
+    veh_light_value = qt_window.cb_veh_light.isChecked()
+    cam_light_value = qt_window.cb_cam_light.isChecked()
+
 
     # Invert value for left (left = -100 to 0, right = 0 to 100)
     if left_value > 0:
@@ -93,8 +96,8 @@ def MQWriter(qt_window):
 
     # Create/populate JSON data structure
     data = {}
-    data['vehicle'] = {'direction': direction_value, 'throttle': throttle_value, 'brake': brake_value}
-    data['camera'] = {'tilt': cam_tilt_value, 'pan': cam_pan_value}
+    data['vehicle'] = {'direction': direction_value, 'throttle': throttle_value, 'brake': brake_value, 'light': veh_light_value}
+    data['camera'] = {'tilt': cam_tilt_value, 'pan': cam_pan_value, 'light': cam_light_value}
 
 
 
@@ -145,3 +148,7 @@ def GUIUpdate(qt_window, json_data):
 def OpenPlayer():
     cmd = "/bin/nc " + CAMERA_SERVER + " " + CAMERA_PORT + " | /usr/bin/mplayer -fps 60 -cache 2048 -really-quiet -"
     p = Popen(cmd, shell=True, stdout=PIPE)    
+
+
+
+

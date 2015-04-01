@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'pirover_controls.ui'
 #
-# Created: Mon Mar 30 21:14:17 2015
+# Created: Wed Apr  1 21:58:36 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -89,17 +89,6 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.lbl_brake.setFont(font)
         self.lbl_brake.setObjectName(_fromUtf8("lbl_brake"))
-        self.rb_brake = QtGui.QRadioButton(self.frame_controls)
-        self.rb_brake.setGeometry(QtCore.QRect(15, 200, 21, 21))
-        font = QtGui.QFont()
-        font.setPointSize(6)
-        font.setBold(True)
-        font.setWeight(75)
-        self.rb_brake.setFont(font)
-        self.rb_brake.setText(_fromUtf8(""))
-        self.rb_brake.setIconSize(QtCore.QSize(20, 20))
-        self.rb_brake.setCheckable(True)
-        self.rb_brake.setObjectName(_fromUtf8("rb_brake"))
         self.btn_left_full = QtGui.QPushButton(self.frame_controls)
         self.btn_left_full.setGeometry(QtCore.QRect(60, 120, 41, 16))
         font = QtGui.QFont()
@@ -116,6 +105,24 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.btn_right_full.setFont(font)
         self.btn_right_full.setObjectName(_fromUtf8("btn_right_full"))
+        self.lbl_veh_light = QtGui.QLabel(self.frame_controls)
+        self.lbl_veh_light.setGeometry(QtCore.QRect(236, 30, 29, 22))
+        font = QtGui.QFont()
+        font.setPointSize(6)
+        font.setBold(True)
+        font.setWeight(75)
+        self.lbl_veh_light.setFont(font)
+        self.lbl_veh_light.setAlignment(QtCore.Qt.AlignCenter)
+        self.lbl_veh_light.setWordWrap(True)
+        self.lbl_veh_light.setObjectName(_fromUtf8("lbl_veh_light"))
+        self.cb_brake = QtGui.QCheckBox(self.frame_controls)
+        self.cb_brake.setGeometry(QtCore.QRect(16, 200, 21, 22))
+        self.cb_brake.setText(_fromUtf8(""))
+        self.cb_brake.setObjectName(_fromUtf8("cb_brake"))
+        self.cb_veh_light = QtGui.QCheckBox(self.frame_controls)
+        self.cb_veh_light.setGeometry(QtCore.QRect(240, 11, 21, 21))
+        self.cb_veh_light.setText(_fromUtf8(""))
+        self.cb_veh_light.setObjectName(_fromUtf8("cb_veh_light"))
         self.frame_data = QtGui.QFrame(self.centralwidget)
         self.frame_data.setGeometry(QtCore.QRect(0, 250, 579, 191))
         self.frame_data.setFrameShape(QtGui.QFrame.StyledPanel)
@@ -257,6 +264,20 @@ class Ui_MainWindow(object):
         self.btn_open_player = QtGui.QPushButton(self.frame_camera)
         self.btn_open_player.setGeometry(QtCore.QRect(185, 10, 98, 27))
         self.btn_open_player.setObjectName(_fromUtf8("btn_open_player"))
+        self.lbl_cam_light = QtGui.QLabel(self.frame_camera)
+        self.lbl_cam_light.setGeometry(QtCore.QRect(6, 30, 29, 22))
+        font = QtGui.QFont()
+        font.setPointSize(6)
+        font.setBold(True)
+        font.setWeight(75)
+        self.lbl_cam_light.setFont(font)
+        self.lbl_cam_light.setAlignment(QtCore.Qt.AlignCenter)
+        self.lbl_cam_light.setWordWrap(True)
+        self.lbl_cam_light.setObjectName(_fromUtf8("lbl_cam_light"))
+        self.cb_cam_light = QtGui.QCheckBox(self.frame_camera)
+        self.cb_cam_light.setGeometry(QtCore.QRect(10, 11, 21, 21))
+        self.cb_cam_light.setText(_fromUtf8(""))
+        self.cb_cam_light.setObjectName(_fromUtf8("cb_cam_light"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
@@ -267,7 +288,6 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.btn_forward, QtCore.SIGNAL(_fromUtf8("clicked()")), self.increment_throttle)
         QtCore.QObject.connect(self.btn_reverse, QtCore.SIGNAL(_fromUtf8("clicked()")), self.decrement_throttle)
         QtCore.QObject.connect(self.btn_stop, QtCore.SIGNAL(_fromUtf8("clicked()")), self.all_stop)
-        QtCore.QObject.connect(self.rb_brake, QtCore.SIGNAL(_fromUtf8("clicked()")), self.set_brake)
         QtCore.QObject.connect(self.btn_left, QtCore.SIGNAL(_fromUtf8("clicked()")), self.decrement_direction)
         QtCore.QObject.connect(self.btn_right, QtCore.SIGNAL(_fromUtf8("clicked()")), self.increment_direction)
         QtCore.QObject.connect(self.btn_left_full, QtCore.SIGNAL(_fromUtf8("clicked()")), self.set_zero_direction)
@@ -278,6 +298,9 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.dial_cam_pan, QtCore.SIGNAL(_fromUtf8("sliderMoved(int)")), self.pan_camera)
         QtCore.QObject.connect(self.slider_cam_tilt, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), self.tilt_camera)
         QtCore.QObject.connect(self.dial_cam_pan, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), self.pan_camera)
+        QtCore.QObject.connect(self.cb_brake, QtCore.SIGNAL(_fromUtf8("clicked()")), self.set_brake)
+        QtCore.QObject.connect(self.cb_veh_light, QtCore.SIGNAL(_fromUtf8("clicked()")), self.set_veh_light)
+        QtCore.QObject.connect(self.cb_cam_light, QtCore.SIGNAL(_fromUtf8("clicked()")), self.set_cam_light)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -292,6 +315,7 @@ class Ui_MainWindow(object):
         self.lbl_brake.setText(_translate("MainWindow", "brake", None))
         self.btn_left_full.setText(_translate("MainWindow", "full", None))
         self.btn_right_full.setText(_translate("MainWindow", "full", None))
+        self.lbl_veh_light.setText(_translate("MainWindow", "vehicle lights", None))
         self.lbl_temperature.setText(_translate("MainWindow", "Temperture", None))
         self.lbl_humidity.setText(_translate("MainWindow", "Humidity", None))
         self.lbl_pressure.setText(_translate("MainWindow", "Pressure", None))
@@ -312,6 +336,7 @@ class Ui_MainWindow(object):
         self.lbl_cam_pan.setText(_translate("MainWindow", "Pan", None))
         self.btn_cam_reset.setText(_translate("MainWindow", "RESET", None))
         self.btn_open_player.setText(_translate("MainWindow", "Open Player", None))
+        self.lbl_cam_light.setText(_translate("MainWindow", "camera lights", None))
 
         # Create QThreads for MQ transactions
         # MQ Reader
@@ -331,7 +356,7 @@ class Ui_MainWindow(object):
         if reverse_value == 0:
              if forward_value < 100:
                  self.bar_forward.setValue(forward_value + 10)
-                 self.rb_brake.setChecked(False)
+                 self.cb_brake.setChecked(False)
         else:
              self.bar_reverse.setValue(reverse_value - 10)
 
@@ -344,7 +369,7 @@ class Ui_MainWindow(object):
         if forward_value == 0:
              if reverse_value < 100:
                 self.bar_reverse.setValue(reverse_value + 10)
-                self.rb_brake.setChecked(False)
+                self.cb_brake.setChecked(False)
         else:
              self.bar_forward.setValue(forward_value - 10)
 
@@ -362,15 +387,15 @@ class Ui_MainWindow(object):
             self.bar_reverse.setValue(0)
             self.bar_left.setValue(0)
             self.bar_right.setValue(0)
-            self.rb_brake.setChecked(True)
+            self.cb_brake.setChecked(True)
         else:
-            self.rb_brake.toggle()
+            self.cb_brake.toggle()
 
         workers.MQWriter(self)
 
 
     def set_brake(self):
-        brake_value = self.rb_brake.isChecked()
+        brake_value = self.cb_brake.isChecked()
 
         if brake_value == True:
             self.bar_forward.setValue(0)
@@ -426,7 +451,6 @@ class Ui_MainWindow(object):
 
         workers.MQWriter(self)
 
-
     def reset_camera(self):
         self.dial_cam_pan.setValue(50)
         self.slider_cam_tilt.setValue(50)
@@ -442,3 +466,9 @@ class Ui_MainWindow(object):
     def open_player(self):
         workers.OpenPlayer()
 
+
+    def set_cam_light(self):
+        workers.MQWriter(self)
+
+    def set_veh_light(self):
+        workers.MQWriter(self)

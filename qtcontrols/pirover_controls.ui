@@ -208,35 +208,6 @@
       <string>brake</string>
      </property>
     </widget>
-    <widget class="QRadioButton" name="rb_brake">
-     <property name="geometry">
-      <rect>
-       <x>15</x>
-       <y>200</y>
-       <width>21</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>6</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>20</width>
-       <height>20</height>
-      </size>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-    </widget>
     <widget class="QPushButton" name="btn_left_full">
      <property name="geometry">
       <rect>
@@ -275,6 +246,58 @@
      </property>
      <property name="text">
       <string>full</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_veh_light">
+     <property name="geometry">
+      <rect>
+       <x>236</x>
+       <y>30</y>
+       <width>29</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>6</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>vehicle lights</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="cb_brake">
+     <property name="geometry">
+      <rect>
+       <x>16</x>
+       <y>200</y>
+       <width>21</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="cb_veh_light">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>11</y>
+       <width>21</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </widget>
@@ -757,6 +780,45 @@
       <string>Open Player</string>
      </property>
     </widget>
+    <widget class="QLabel" name="lbl_cam_light">
+     <property name="geometry">
+      <rect>
+       <x>6</x>
+       <y>30</y>
+       <width>29</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>6</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>camera lights</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="cb_cam_light">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>11</y>
+       <width>21</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -924,22 +986,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>rb_brake</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>set_brake()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>29</x>
-     <y>210</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>50</x>
-     <y>245</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>btn_open_player</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
@@ -952,6 +998,54 @@
     <hint type="destinationlabel">
      <x>532</x>
      <y>244</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cb_veh_light</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>set_veh_light()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>256</x>
+     <y>24</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>276</x>
+     <y>234</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cb_cam_light</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>set_cam_light()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>306</x>
+     <y>25</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>275</x>
+     <y>201</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cb_brake</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>set_brake()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>21</x>
+     <y>203</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>48</x>
+     <y>245</y>
     </hint>
    </hints>
   </connection>
@@ -969,5 +1063,7 @@
   <slot>set_full_direction()</slot>
   <slot>set_brake()</slot>
   <slot>open_player()</slot>
+  <slot>set_cam_light()</slot>
+  <slot>set_veh_light()</slot>
  </slots>
 </ui>
