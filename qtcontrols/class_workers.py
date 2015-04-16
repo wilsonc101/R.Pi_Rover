@@ -143,6 +143,10 @@ def GUIUpdate(qt_window, json_data):
         if 'speed' in json_data['GPS']: qt_window.tb_gps_speed.setText(str(json_data['GPS']['speed']))
         if 'altitude' in json_data['GPS']: qt_window.tb_gps_altitude.setText(str(json_data['GPS']['altitude']))
 
+#    if 'accelerometer' in json_data:
+#        if 'x' in json_data['accelerometer']: print "x" + str(json_data['accelerometer']['x'])
+#        if 'y' in json_data['accelerometer']: print "y" + str(json_data['accelerometer']['y'])
+
 
 
 def OpenPlayer():
