@@ -77,7 +77,7 @@ def getMovement_Accelerometer():
         acc, mag = movement_sensor.read()
         acc_x, acc_y, acc_z = acc
         mag_x, mag_y, mag_z, ord = mag
-        return(acc_x, acc_y)
+        return(round(acc_x, -1), round(acc_y, -1))
 
 
 ## Run external commands, returns output
