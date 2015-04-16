@@ -28,6 +28,10 @@ except AttributeError:
         return QtGui.QApplication.translate(context, text, disambig)
 
 class Ui_MainWindow(object):
+    def __init__(self):
+        self.MQReadThread = workers.MQReader()
+        
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(580, 465)
@@ -340,7 +344,6 @@ class Ui_MainWindow(object):
 
         # Create QThreads for MQ transactions
         # MQ Reader
-        self.MQReadThread = workers.MQReader()
         MainWindow.connect(self.MQReadThread, self.MQReadThread.signal, self.translateQueueData)
         self.MQReadThread.start()
         self.statusbar.showMessage("Control queue: " + self.MQReadThread.control_queue + "@" + self.MQReadThread.control_server + " - Vehicle queue: " + self.MQReadThread.vehicle_queue + "@" + self.MQReadThread.vehicle_server)
