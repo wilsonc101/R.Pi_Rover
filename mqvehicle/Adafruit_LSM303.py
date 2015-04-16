@@ -117,34 +117,6 @@ if __name__ == '__main__':
     lsm = Adafruit_LSM303()
 
     print '[(Accelerometer X, Y, Z), (Magnetometer X, Y, Z, orientation)]'
-    i = 0
-
-    sleep(2)
-    data = lsm.read()
-    mag_base_x = data[0][0]
-    mag_base_y = data[0][1]
-    mag_base_z = data[0][2]
-
-   
-
-    while 1:
-
-
-        i += 1
-        data = lsm.read()
-        diff_mag_x = data[0][0] - mag_base_x
-        diff_mag_y = data[0][1] - mag_base_y
-        diff_mag_z = data[0][2] - mag_base_z
-
-#        print "!----------------"
-#        print str(mag_base_x) + " - " + str(mag_base_y) + " - " + str(mag_base_z)
-        print str(diff_mag_x) + " - " + str(diff_mag_y) + " - " + str(diff_mag_z)
-#        print str(data[1][0]) + " - " + str(data[1][1]) + " - " + str(data[1][2])
-#        print "----------------!"
-        sleep(.2)
-
-#        print lsm.read()
-#        for i in  data[1]:
-#            print i
-#        sleep(.2) # Output is fun to watch if this is commented out
-
+    while True:
+        print lsm.read()
+        sleep(1) # Output is fun to watch if this is commented out

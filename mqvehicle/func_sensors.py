@@ -4,17 +4,14 @@ from subprocess import *
 from random import randrange
 
 import Adafruit_BMP085 as BMP085
-
-import class_gps as gpsreader
+import Adafruit_LSM303 as LSM303
 
 
 # Setup encironment sensor
 environment_sensor = BMP085.BMP085()
 
-# Start GPS Poller
-gps_poller = gpsreader.gpsPoller()
-gps_poller.start()
-
+# vehicle movement sensor
+movement_sensor = LSM303.Adafruit_LSM303(hires="false")
 
 ## Get data from vehicle components
 def getBatteryA():
@@ -50,29 +47,37 @@ def getEnvironment_pressure():
 
 
 ## Get GPS data
-def getGPS_lat():
+def getGPS_lat(gps_poller):
     if gps_poller.gpsdata['status'] == "FIX":
         return gps_poller.gpsdata['latitude']
     else:
         return(gps_poller.gpsdata['status'])
 
-def getGPS_long():
+def getGPS_long(gps_poller):
     if gps_poller.gpsdata['status'] == "FIX":
         return gps_poller.gpsdata['longitude']
     else:
         return(gps_poller.gpsdata['status'])
 
-def getGPS_speed():
+def getGPS_speed(gps_poller):
     if gps_poller.gpsdata['status'] == "FIX":
         return math.floor(gps_poller.gpsdata['speed'])
     else:
         return(gps_poller.gpsdata['status'])
 
-def getGPS_altitude():
+def getGPS_altitude(gps_poller):
     if gps_poller.gpsdata['status'] == "FIX":
         return gps_poller.gpsdata['altitude']
     else:
         return(gps_poller.gpsdata['status'])
+
+
+# Get movement data
+def getMovement_Accelerometer():
+        acc, mag = movement_sensor.read()
+        acc_x, acc_y, acc_z = acc
+        mag_x, mag_y, mag_z, ord = mag
+        return(acc_x, acc_y)
 
 
 ## Run external commands, returns output
@@ -80,3 +85,5 @@ def _run_cmd(cmd):
     p = Popen(cmd, shell=True, stdout=PIPE)
     output = p.communicate()[0]
     return output
+
+

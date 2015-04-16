@@ -11,6 +11,7 @@ from Adafruit_PWM_Servo_Driver import PWM
 
 import class_servo as servo
 import class_mq as mq
+import class_gps as gpsreader
 import func_logging as log
 import func_sensors as sensors
 import class_camera as camera
@@ -197,7 +198,7 @@ def _vehicleControl(ch, method, properties, body):
 
 
 
-def _vehicleSensors():
+def _vehicleSensors(gps_poller=None):
     data = {}
     data['vehicle'] = {'wifi': sensors.getWifi(), 
                        'batteryA': sensors.getBatteryA(), 
@@ -207,11 +208,18 @@ def _vehicleSensors():
                            'humidity': sensors.getEnvironment_humidity(),
                            'pressure': sensors.getEnvironment_pressure()}
 
-    data['GPS'] = {'latitude': sensors.getGPS_lat(), 
-                   'longitude': sensors.getGPS_long(),
-                   'speed': sensors.getGPS_speed(),
-                   'altitude': sensors.getGPS_altitude()}
+
+    if gps_poller != None:
+        data['GPS'] = {'latitude': sensors.getGPS_lat(gps_poller), 
+                       'longitude': sensors.getGPS_long(gps_poller),
+                       'speed': sensors.getGPS_speed(gps_poller),
+                       'altitude': sensors.getGPS_altitude(gps_poller)}
      
+    accelerometer_x, accelerometer_y = sensors.getMovement_Accelerometer()
+    data['accelerometer'] = {'x': accelerometer_x,
+                             'y': accelerometer_y}
+
+
     return(data)
 
 
@@ -220,6 +228,11 @@ def main():
 
     # Main loop
     while 1:
+
+        # Setup GPS Poller
+        gps_poller = gpsreader.gpsPoller()
+        gps_poller.start()
+
 
         # Setup vehicle camera
         vehicle_camera = camera.camera(VEHICLE_CAMERA_BIND_ADDRESS, VEHICLE_CAMERA_PORT, VEHICLE_CAMERA_RESOLUTION_X, VEHICLE_CAMERA_RESOLUTION_Y, VEHICLE_CAMERA_NAME, logfile)
@@ -252,7 +265,7 @@ def main():
          
         # Transmit/Monitor loop
         while 1:
-            vehicle_data = _vehicleSensors()
+            vehicle_data = _vehicleSensors(gps_poller)
  
             if sensor_writer.write(vehicle_data) == False:
                 logfile.error("Sensor writer has died - attempting to restart....")
@@ -272,14 +285,15 @@ def main():
 
         control_worker.join()
 
+
+    vehicle_camera.join()
+    gps_poller.join()
+
         
 
 if __name__ == '__main__':
-    main()     
-   
+    try:
+        main()     
 
-
-
-
-
-
+    except (KeyboardInterrupt, SystemExit):
+        print "Exiting..."
