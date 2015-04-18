@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>580</width>
+    <width>578</width>
     <height>465</height>
    </rect>
   </property>
@@ -319,9 +319,9 @@
     <widget class="QTabWidget" name="tab_sensors">
      <property name="geometry">
       <rect>
-       <x>300</x>
+       <x>295</x>
        <y>10</y>
-       <width>268</width>
+       <width>273</width>
        <height>171</height>
       </rect>
      </property>
@@ -546,10 +546,56 @@
        <string>Compass</string>
       </attribute>
      </widget>
-     <widget class="QWidget" name="tab_gyro">
+     <widget class="QWidget" name="tab_accel">
       <attribute name="title">
-       <string>Gyro</string>
+       <string>Accel</string>
       </attribute>
+      <widget class="QGraphicsView" name="gv_accel_lr">
+       <property name="geometry">
+        <rect>
+         <x>2</x>
+         <y>23</y>
+         <width>130</width>
+         <height>112</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QGraphicsView" name="gv_accel_rf">
+       <property name="geometry">
+        <rect>
+         <x>137</x>
+         <y>23</y>
+         <width>130</width>
+         <height>112</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lbl_accel_lr">
+       <property name="geometry">
+        <rect>
+         <x>29</x>
+         <y>3</y>
+         <width>77</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Left - Right</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lbl_accel_rf">
+       <property name="geometry">
+        <rect>
+         <x>161</x>
+         <y>3</y>
+         <width>82</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Rear - Front</string>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QLabel" name="lbl_battery_a_2">
@@ -744,9 +790,9 @@
     <widget class="QLabel" name="lbl_cam_pan">
      <property name="geometry">
       <rect>
-       <x>170</x>
-       <y>160</y>
-       <width>31</width>
+       <x>173</x>
+       <y>171</y>
+       <width>27</width>
        <height>16</height>
       </rect>
      </property>

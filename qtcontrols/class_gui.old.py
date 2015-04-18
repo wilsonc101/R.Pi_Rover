@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'pirover_controls.ui'
 #
-# Created: Sat Apr 18 22:20:17 2015
+# Created: Wed Apr  1 21:58:36 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -30,10 +30,11 @@ except AttributeError:
 class Ui_MainWindow(object):
     def __init__(self):
         self.MQReadThread = workers.MQReader()
+        
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(578, 465)
+        MainWindow.resize(580, 465)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.frame_controls = QtGui.QFrame(self.centralwidget)
@@ -132,7 +133,7 @@ class Ui_MainWindow(object):
         self.frame_data.setFrameShadow(QtGui.QFrame.Raised)
         self.frame_data.setObjectName(_fromUtf8("frame_data"))
         self.tab_sensors = QtGui.QTabWidget(self.frame_data)
-        self.tab_sensors.setGeometry(QtCore.QRect(295, 10, 273, 171))
+        self.tab_sensors.setGeometry(QtCore.QRect(300, 10, 268, 171))
         self.tab_sensors.setObjectName(_fromUtf8("tab_sensors"))
         self.tab_environment = QtGui.QWidget()
         self.tab_environment.setObjectName(_fromUtf8("tab_environment"))
@@ -199,21 +200,9 @@ class Ui_MainWindow(object):
         self.tab_compass = QtGui.QWidget()
         self.tab_compass.setObjectName(_fromUtf8("tab_compass"))
         self.tab_sensors.addTab(self.tab_compass, _fromUtf8(""))
-        self.tab_accel = QtGui.QWidget()
-        self.tab_accel.setObjectName(_fromUtf8("tab_accel"))
-        self.gv_accel_lr = QtGui.QGraphicsView(self.tab_accel)
-        self.gv_accel_lr.setGeometry(QtCore.QRect(2, 23, 130, 112))
-        self.gv_accel_lr.setObjectName(_fromUtf8("gv_accel_lr"))
-        self.gv_accel_rf = QtGui.QGraphicsView(self.tab_accel)
-        self.gv_accel_rf.setGeometry(QtCore.QRect(137, 23, 130, 112))
-        self.gv_accel_rf.setObjectName(_fromUtf8("gv_accel_rf"))
-        self.lbl_accel_lr = QtGui.QLabel(self.tab_accel)
-        self.lbl_accel_lr.setGeometry(QtCore.QRect(29, 3, 77, 20))
-        self.lbl_accel_lr.setObjectName(_fromUtf8("lbl_accel_lr"))
-        self.lbl_accel_rf = QtGui.QLabel(self.tab_accel)
-        self.lbl_accel_rf.setGeometry(QtCore.QRect(161, 3, 82, 17))
-        self.lbl_accel_rf.setObjectName(_fromUtf8("lbl_accel_rf"))
-        self.tab_sensors.addTab(self.tab_accel, _fromUtf8(""))
+        self.tab_gyro = QtGui.QWidget()
+        self.tab_gyro.setObjectName(_fromUtf8("tab_gyro"))
+        self.tab_sensors.addTab(self.tab_gyro, _fromUtf8(""))
         self.lbl_battery_a_2 = QtGui.QLabel(self.frame_data)
         self.lbl_battery_a_2.setGeometry(QtCore.QRect(160, 120, 71, 21))
         self.lbl_battery_a_2.setObjectName(_fromUtf8("lbl_battery_a_2"))
@@ -271,7 +260,7 @@ class Ui_MainWindow(object):
         self.lbl_cam_tilt.setGeometry(QtCore.QRect(78, 180, 31, 16))
         self.lbl_cam_tilt.setObjectName(_fromUtf8("lbl_cam_tilt"))
         self.lbl_cam_pan = QtGui.QLabel(self.frame_camera)
-        self.lbl_cam_pan.setGeometry(QtCore.QRect(173, 171, 27, 16))
+        self.lbl_cam_pan.setGeometry(QtCore.QRect(170, 160, 31, 16))
         self.lbl_cam_pan.setObjectName(_fromUtf8("lbl_cam_pan"))
         self.btn_cam_reset = QtGui.QToolButton(self.frame_camera)
         self.btn_cam_reset.setGeometry(QtCore.QRect(230, 199, 53, 26))
@@ -297,25 +286,6 @@ class Ui_MainWindow(object):
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
         MainWindow.setStatusBar(self.statusbar)
-
-
-        # Add graphics scenes
-        # Left-right
-        self.scene_lr = QtGui.QGraphicsScene()
-        self.center_line_lr = QtGui.QGraphicsLineItem(-40, 0, 40, 0)
-        self.wheel_l = QtGui.QGraphicsLineItem(-40, -10, -40, 10, self.center_line_lr)
-        self.wheel_r = QtGui.QGraphicsLineItem(40, -10, 40, 10, self.center_line_lr)
-        self.scene_lr.addItem(self.center_line_lr)
-        self.gv_accel_lr.setScene(self.scene_lr)
-
-        # Front-rear
-        self.scene_rf = QtGui.QGraphicsScene()
-        self.center_line_rf = QtGui.QGraphicsLineItem(-40, 0, 40, 0)
-        self.wheel_re = QtGui.QGraphicsLineItem(-40, -10, -40, 10, self.center_line_rf)
-        self.wheel_f = QtGui.QGraphicsLineItem(40, -10, 40, 10, self.center_line_rf)
-        self.scene_rf.addItem(self.center_line_rf)
-        self.gv_accel_rf.setScene(self.scene_rf)
-
 
         self.retranslateUi(MainWindow)
         self.tab_sensors.setCurrentIndex(0)
@@ -360,9 +330,7 @@ class Ui_MainWindow(object):
         self.lbl_gps_altitude.setText(_translate("MainWindow", "Altitude", None))
         self.tab_sensors.setTabText(self.tab_sensors.indexOf(self.tab_gps), _translate("MainWindow", "GPS", None))
         self.tab_sensors.setTabText(self.tab_sensors.indexOf(self.tab_compass), _translate("MainWindow", "Compass", None))
-        self.lbl_accel_lr.setText(_translate("MainWindow", "Left - Right", None))
-        self.lbl_accel_rf.setText(_translate("MainWindow", "Rear - Front", None))
-        self.tab_sensors.setTabText(self.tab_sensors.indexOf(self.tab_accel), _translate("MainWindow", "Accel", None))
+        self.tab_sensors.setTabText(self.tab_sensors.indexOf(self.tab_gyro), _translate("MainWindow", "Gyro", None))
         self.lbl_battery_a_2.setText(_translate("MainWindow", "Battery - B", None))
         self.lbl_battery_a.setText(_translate("MainWindow", "Battery - A", None))
         self.lbl_wifi.setText(_translate("MainWindow", "Wifi", None))
@@ -410,7 +378,6 @@ class Ui_MainWindow(object):
 
         workers.MQWriter(self)
 
-
     def all_stop(self):
         forward_value = self.bar_forward.value()
         reverse_value = self.bar_reverse.value()
@@ -450,6 +417,8 @@ class Ui_MainWindow(object):
              self.bar_left.setValue(left_value - 10)
 
         workers.MQWriter(self)
+
+
     def decrement_direction(self):
         right_value = self.bar_right.value()
         left_value = self.bar_left.value()
@@ -484,6 +453,7 @@ class Ui_MainWindow(object):
              self.bar_left.setValue(0)
 
         workers.MQWriter(self)
+
     def reset_camera(self):
         self.dial_cam_pan.setValue(50)
         self.slider_cam_tilt.setValue(50)
@@ -505,4 +475,3 @@ class Ui_MainWindow(object):
 
     def set_veh_light(self):
         workers.MQWriter(self)
-

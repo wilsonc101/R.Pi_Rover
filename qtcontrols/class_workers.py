@@ -143,16 +143,26 @@ def GUIUpdate(qt_window, json_data):
         if 'speed' in json_data['GPS']: qt_window.tb_gps_speed.setText(str(json_data['GPS']['speed']))
         if 'altitude' in json_data['GPS']: qt_window.tb_gps_altitude.setText(str(json_data['GPS']['altitude']))
 
-#    if 'accelerometer' in json_data:
-#        if 'x' in json_data['accelerometer']: print "x" + str(json_data['accelerometer']['x'])
-#        if 'y' in json_data['accelerometer']: print "y" + str(json_data['accelerometer']['y'])
+    if 'accelerometer' in json_data:
+        if 'x' in json_data['accelerometer']: 
+            x_pos = int(json_data['accelerometer']['x'])
+            rear = x_pos / 2
+            front = (0 - x_pos) / 2
+            qt_window.center_line_rf.setLine(-40, rear, 40, front)
+            qt_window.wheel_re.setLine(-40, (rear-10), -40, (rear+10))
+            qt_window.wheel_f.setLine(40, (front-10), 40, (front+10))
+
+        if 'y' in json_data['accelerometer']: 
+            y_pos = int(json_data['accelerometer']['y'])
+            left = (0 - y_pos) / 2
+            right = y_pos / 2
+            qt_window.center_line_lr.setLine(-40, left, 40, right)
+            qt_window.wheel_l.setLine(-40, (left-10), -40, (left+10))
+            qt_window.wheel_r.setLine(40, (right-10), 40, (right+10))
 
 
 
 def OpenPlayer():
     cmd = "/bin/nc " + CAMERA_SERVER + " " + CAMERA_PORT + " | /usr/bin/mplayer -fps 60 -cache 2048 -really-quiet -"
     p = Popen(cmd, shell=True, stdout=PIPE)    
-
-
-
 
