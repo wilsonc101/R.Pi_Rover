@@ -9,6 +9,7 @@ case "$1" in
     echo "....done"
 
     echo "Starting Pi Rover...."
+    /usr/bin/killall pi_rover
     /sbin/start-stop-daemon --start --pidfile $PIDFILE_1 -b --make-pidfile --exec $DAEMON_1
     echo "....done"
     ;;
