@@ -46,6 +46,7 @@ class camera(threading.Thread):
                 try:
                     self.camera.start_recording(self.connection, format='h264', bitrate=4000000)
                     self.camera.vflip=True
+                    self.camera.hflip=True
                     self.camera.wait_recording(6000000)
                     self.recording = True    
                     if self.log != None: self.log.info("Camera - recording started.")

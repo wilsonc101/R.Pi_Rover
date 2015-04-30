@@ -6,6 +6,8 @@ import time
 import ConfigParser
 import json
 
+from subprocess import *
+
 import RPi.GPIO as GPIO
 from Adafruit_PWM_Servo_Driver import PWM
 
@@ -125,6 +127,17 @@ def SendPWM(channel,start,end):
        logfile.warning("Could not send data to PWM")
 
 
+## Run external commands, returns output
+def _run_cmd(cmd):
+    p = Popen(cmd, shell=True, stdout=PIPE)
+    output = p.communicate()[0]
+    return output
+
+def _shutdownVehicle():
+    shutdown_cmd = "poweroff"
+    cmd_result = _run_cmd(shutdown_cmd)
+
+
 def _vehicleControl(ch, method, properties, body):
     # Callback for queue reader - write queue data to servos
     try:
@@ -187,10 +200,17 @@ def _vehicleControl(ch, method, properties, body):
                     SendPWM(CAMERA_PAN_SERVO.Channel, 0, CAMERA_PAN_SERVO.Translate(int(json_data['camera']['pan'])))
 
             if 'light' in json_data['camera']:
-                    if json_data['camera']['light'] == True:
-                        GPIO.output(LIGHTS_CAMERA_GPIO, True)
-                    else:
-                        GPIO.output(LIGHTS_CAMERA_GPIO, False)
+                if json_data['camera']['light'] == True:
+                    GPIO.output(LIGHTS_CAMERA_GPIO, True)
+                else:
+                    GPIO.output(LIGHTS_CAMERA_GPIO, False)
+
+
+        if 'state' in json_data:
+            if 'shutdown' in json_data['state']:
+                if json_data['state']['shutdown'] == True:
+                    _shutdownVehicle()
+
 
     except:
         logfile.warning("Could not process control data")
@@ -265,6 +285,7 @@ def main():
          
         # Transmit/Monitor loop
         while 1:
+
             vehicle_data = _vehicleSensors(gps_poller)
  
             if sensor_writer.write(vehicle_data) == False:
@@ -281,7 +302,19 @@ def main():
                 control_worker = multiprocessing.Process(target=control_reader.run)
                 control_worker.start()
 
+
+            vehicle_camera.camera.annotate_text = ("Wifi: " + str(vehicle_data['vehicle']['wifi']) + "% - "\
+                                                   "Battery A: " + str(vehicle_data['vehicle']['batteryA']) + "% - "\
+                                                   "Battery B: " + str(vehicle_data['vehicle']['batteryB']) + "%")
+
             time.sleep(1)
+
+            # Emergency stop 
+            if int(vehicle_data['vehicle']['wifi']) < 10:
+                logfile.warn("Wifi value low - applying emergency stop")
+                SendPWM(THROTTLE_SERVO.Channel, 0, THROTTLE_SERVO.RealNeutral)
+                SendPWM(BRAKE_SERVO.Channel, 0, BRAKE_SERVO.RealMin)
+            
 
         control_worker.join()
 

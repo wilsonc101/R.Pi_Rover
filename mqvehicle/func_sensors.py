@@ -21,11 +21,11 @@ def getBatteryB():
     return(randrange(100))
 
 def getWifi():
-    getwifidata_cmd = "awk 'NR==3 {print $3}' /proc/net/wireless | cut -c 1-2"
+    getwifidata_cmd = "awk 'NR==3 {print $4}' /proc/net/wireless | cut -c 1-3"
     wifi_value = _run_cmd(getwifidata_cmd)
 
     try:
-        wifi_value = int(wifi_value)
+        wifi_value = 100 + int(wifi_value)
         return(wifi_value)
 
     except:
