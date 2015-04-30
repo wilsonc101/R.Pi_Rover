@@ -76,6 +76,8 @@ def MQWriter(qt_window):
     veh_light_value = qt_window.cb_veh_light.isChecked()
     cam_light_value = qt_window.cb_cam_light.isChecked()
 
+    shutdown_vehicle = qt_window.poweroff
+
 
     # Invert value for left (left = -100 to 0, right = 0 to 100)
     if left_value > 0:
@@ -98,7 +100,7 @@ def MQWriter(qt_window):
     data = {}
     data['vehicle'] = {'direction': direction_value, 'throttle': throttle_value, 'brake': brake_value, 'light': veh_light_value}
     data['camera'] = {'tilt': cam_tilt_value, 'pan': cam_pan_value, 'light': cam_light_value}
-
+    data['state'] = {'shutdown': shutdown_vehicle}
 
 
     try:

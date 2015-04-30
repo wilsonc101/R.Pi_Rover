@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'pirover_controls.ui'
 #
-# Created: Sat Apr 18 22:20:17 2015
+# Created: Wed Apr 29 22:18:54 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -30,6 +30,7 @@ except AttributeError:
 class Ui_MainWindow(object):
     def __init__(self):
         self.MQReadThread = workers.MQReader()
+        self.poweroff=False
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
@@ -164,7 +165,7 @@ class Ui_MainWindow(object):
         self.tab_gps = QtGui.QWidget()
         self.tab_gps.setObjectName(_fromUtf8("tab_gps"))
         self.tb_gps_lat = QtGui.QLineEdit(self.tab_gps)
-        self.tb_gps_lat.setGeometry(QtCore.QRect(130, 16, 91, 25))
+        self.tb_gps_lat.setGeometry(QtCore.QRect(130, 16, 120, 25))
         self.tb_gps_lat.setText(_fromUtf8(""))
         self.tb_gps_lat.setPlaceholderText(_fromUtf8(""))
         self.tb_gps_lat.setObjectName(_fromUtf8("tb_gps_lat"))
@@ -172,7 +173,7 @@ class Ui_MainWindow(object):
         self.lbl_gps_lat.setGeometry(QtCore.QRect(30, 18, 61, 21))
         self.lbl_gps_lat.setObjectName(_fromUtf8("lbl_gps_lat"))
         self.tb_gps_long = QtGui.QLineEdit(self.tab_gps)
-        self.tb_gps_long.setGeometry(QtCore.QRect(130, 46, 91, 25))
+        self.tb_gps_long.setGeometry(QtCore.QRect(130, 46, 120, 25))
         self.tb_gps_long.setText(_fromUtf8(""))
         self.tb_gps_long.setPlaceholderText(_fromUtf8(""))
         self.tb_gps_long.setObjectName(_fromUtf8("tb_gps_long"))
@@ -215,26 +216,32 @@ class Ui_MainWindow(object):
         self.lbl_accel_rf.setObjectName(_fromUtf8("lbl_accel_rf"))
         self.tab_sensors.addTab(self.tab_accel, _fromUtf8(""))
         self.lbl_battery_a_2 = QtGui.QLabel(self.frame_data)
-        self.lbl_battery_a_2.setGeometry(QtCore.QRect(160, 120, 71, 21))
+        self.lbl_battery_a_2.setGeometry(QtCore.QRect(160, 100, 71, 21))
         self.lbl_battery_a_2.setObjectName(_fromUtf8("lbl_battery_a_2"))
         self.bar_battery_a = QtGui.QProgressBar(self.frame_data)
-        self.bar_battery_a.setGeometry(QtCore.QRect(40, 80, 118, 23))
+        self.bar_battery_a.setGeometry(QtCore.QRect(40, 60, 118, 23))
         self.bar_battery_a.setProperty("value", 0)
         self.bar_battery_a.setObjectName(_fromUtf8("bar_battery_a"))
         self.bar_battery_b = QtGui.QProgressBar(self.frame_data)
-        self.bar_battery_b.setGeometry(QtCore.QRect(40, 120, 118, 23))
+        self.bar_battery_b.setGeometry(QtCore.QRect(40, 100, 118, 23))
         self.bar_battery_b.setProperty("value", 0)
         self.bar_battery_b.setObjectName(_fromUtf8("bar_battery_b"))
         self.lbl_battery_a = QtGui.QLabel(self.frame_data)
-        self.lbl_battery_a.setGeometry(QtCore.QRect(160, 80, 71, 21))
+        self.lbl_battery_a.setGeometry(QtCore.QRect(160, 60, 71, 21))
         self.lbl_battery_a.setObjectName(_fromUtf8("lbl_battery_a"))
         self.lbl_wifi = QtGui.QLabel(self.frame_data)
-        self.lbl_wifi.setGeometry(QtCore.QRect(160, 40, 54, 21))
+        self.lbl_wifi.setGeometry(QtCore.QRect(160, 20, 54, 21))
         self.lbl_wifi.setObjectName(_fromUtf8("lbl_wifi"))
         self.bar_wifi = QtGui.QProgressBar(self.frame_data)
-        self.bar_wifi.setGeometry(QtCore.QRect(40, 40, 118, 23))
+        self.bar_wifi.setGeometry(QtCore.QRect(40, 20, 118, 23))
         self.bar_wifi.setProperty("value", 0)
         self.bar_wifi.setObjectName(_fromUtf8("bar_wifi"))
+        self.btn_shutdown = QtGui.QPushButton(self.frame_data)
+        self.btn_shutdown.setGeometry(QtCore.QRect(40, 140, 75, 35))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.btn_shutdown.setFont(font)
+        self.btn_shutdown.setObjectName(_fromUtf8("btn_shutdown"))
         self.frame_camera = QtGui.QFrame(self.centralwidget)
         self.frame_camera.setGeometry(QtCore.QRect(280, 0, 299, 241))
         self.frame_camera.setFrameShape(QtGui.QFrame.StyledPanel)
@@ -298,7 +305,6 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
         MainWindow.setStatusBar(self.statusbar)
 
-
         # Add graphics scenes
         # Left-right
         self.scene_lr = QtGui.QGraphicsScene()
@@ -335,6 +341,7 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.cb_brake, QtCore.SIGNAL(_fromUtf8("clicked()")), self.set_brake)
         QtCore.QObject.connect(self.cb_veh_light, QtCore.SIGNAL(_fromUtf8("clicked()")), self.set_veh_light)
         QtCore.QObject.connect(self.cb_cam_light, QtCore.SIGNAL(_fromUtf8("clicked()")), self.set_cam_light)
+        QtCore.QObject.connect(self.btn_shutdown, QtCore.SIGNAL(_fromUtf8("clicked()")), self.shutdown_vehicle)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -367,6 +374,8 @@ class Ui_MainWindow(object):
         self.lbl_battery_a.setText(_translate("MainWindow", "Battery - A", None))
         self.lbl_wifi.setText(_translate("MainWindow", "Wifi", None))
         self.bar_wifi.setFormat(_translate("MainWindow", "%p%", None))
+        self.btn_shutdown.setText(_translate("MainWindow", "Shutdown\n"
+"Vehicle", None))
         self.lbl_cam_dial.setText(_translate("MainWindow", "front", None))
         self.lbl_cam_tilt.setText(_translate("MainWindow", "Tilt", None))
         self.lbl_cam_pan.setText(_translate("MainWindow", "Pan", None))
@@ -379,6 +388,7 @@ class Ui_MainWindow(object):
         MainWindow.connect(self.MQReadThread, self.MQReadThread.signal, self.translateQueueData)
         self.MQReadThread.start()
         self.statusbar.showMessage("Control queue: " + self.MQReadThread.control_queue + "@" + self.MQReadThread.control_server + " - Vehicle queue: " + self.MQReadThread.vehicle_queue + "@" + self.MQReadThread.vehicle_server)
+
 
     def translateQueueData(self, queue_data):
         json_data = json.loads(queue_data)
@@ -473,7 +483,6 @@ class Ui_MainWindow(object):
 
         workers.MQWriter(self)
 
-
     def set_zero_direction(self):
         left_value = self.bar_left.value()
 
@@ -506,3 +515,6 @@ class Ui_MainWindow(object):
     def set_veh_light(self):
         workers.MQWriter(self)
 
+    def shutdown_vehicle(self):
+        self.poweroff=True
+        workers.MQWriter(self)

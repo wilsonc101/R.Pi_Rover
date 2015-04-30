@@ -429,7 +429,7 @@
         <rect>
          <x>130</x>
          <y>16</y>
-         <width>91</width>
+         <width>120</width>
          <height>25</height>
         </rect>
        </property>
@@ -458,7 +458,7 @@
         <rect>
          <x>130</x>
          <y>46</y>
-         <width>91</width>
+         <width>120</width>
          <height>25</height>
         </rect>
        </property>
@@ -602,7 +602,7 @@
      <property name="geometry">
       <rect>
        <x>160</x>
-       <y>120</y>
+       <y>100</y>
        <width>71</width>
        <height>21</height>
       </rect>
@@ -615,7 +615,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>80</y>
+       <y>60</y>
        <width>118</width>
        <height>23</height>
       </rect>
@@ -628,7 +628,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>120</y>
+       <y>100</y>
        <width>118</width>
        <height>23</height>
       </rect>
@@ -641,7 +641,7 @@
      <property name="geometry">
       <rect>
        <x>160</x>
-       <y>80</y>
+       <y>60</y>
        <width>71</width>
        <height>21</height>
       </rect>
@@ -654,7 +654,7 @@
      <property name="geometry">
       <rect>
        <x>160</x>
-       <y>40</y>
+       <y>20</y>
        <width>54</width>
        <height>21</height>
       </rect>
@@ -667,7 +667,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>40</y>
+       <y>20</y>
        <width>118</width>
        <height>23</height>
       </rect>
@@ -677,6 +677,25 @@
      </property>
      <property name="format">
       <string>%p%</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_shutdown">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>140</y>
+       <width>75</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Shutdown
+Vehicle</string>
      </property>
     </widget>
    </widget>
@@ -1095,6 +1114,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>btn_shutdown</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>shutdown_vehicle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>75</x>
+     <y>397</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>182</x>
+     <y>470</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>increment_throttle()</slot>
@@ -1111,5 +1146,6 @@
   <slot>open_player()</slot>
   <slot>set_cam_light()</slot>
   <slot>set_veh_light()</slot>
+  <slot>shutdown_vehicle()</slot>
  </slots>
 </ui>
