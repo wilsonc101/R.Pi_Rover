@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 class PWM :
     def __init__(self, address=None, debug=None):
         self.address = address
