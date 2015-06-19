@@ -80,7 +80,7 @@ class systemType():
             if 'type' not in service or 'desc' not in service or 'attr' not in service:
                 return(False)
 
-        json{}
+        json = {}
 
         json['op'] = self.op
         json['type'] = self.type
