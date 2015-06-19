@@ -36,12 +36,15 @@ except:
 
 
 try:
-    # Queue settings
-    CONTROL_QUEUE = config.get('control_queue', 'name')
-    CONTROL_SERVER = config.get('control_queue', 'server')
+    # ID
+    VEHICLE_ID = config.get('vehicle_id', 'id')
 
-    VEHICLE_QUEUE = config.get('vehicle_queue', 'name')
-    VEHICLE_SERVER = config.get('vehicle_queue', 'server')
+    # Queue settings
+    CONTROL_EXCHANGE = config.get('control_exchange', 'name')
+    CONTROL_SERVER = config.get('control_exchange', 'server')
+
+    VEHICLE_EXCHANGE = config.get('vehicle_exchange', 'name')
+    VEHICLE_SERVER = config.get('vehicle_exchange', 'server')
 
     # Define servos
     DIRECTION_SERVO = servo.StandardServo(config.get('direction', 'channel'),
@@ -260,7 +263,7 @@ def main():
 #        vehicle_camera.start()
 
         # Set control queue reader and start in new thread
-        control_reader = mq.mqReader(CONTROL_SERVER, 5672, CONTROL_QUEUE, _vehicleControl, logfile)
+        control_reader = mq.mqReader(CONTROL_SERVER, 5672, CONTROL_EXCHANGE, _vehicleControl, VEHICLE_ID, logfile)
         
         if control_reader.connected == False:
             while control_reader.connected == False:
@@ -275,7 +278,7 @@ def main():
 
 
         # Setup writer queue for vehicle data
-        sensor_writer = mq.mqWriter(VEHICLE_SERVER, 5672, VEHICLE_QUEUE, logfile)
+        sensor_writer = mq.mqWriter(VEHICLE_SERVER, 5672, VEHICLE_EXCHANGE, VEHICLE_ID, logfile)
   
         if sensor_writer.connected == False:
             while sensor_writer.connected == False:

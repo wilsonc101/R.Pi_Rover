@@ -2,18 +2,18 @@ import pika
 import json
 
 class mqReader():
-    def __init__(self, queue_host, queue_port, queue, callback, log=None):
+    def __init__(self, host, port, exchange, callback, vehicle_id, log=None):
     # Establish connection, queue and begin consuming
         self.log = log
         try:
-            self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=queue_host,port=queue_port,connection_attempts=100,retry_delay=5))
+            self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=host,port=port,connection_attempts=100,retry_delay=5))
             self.channel = self.connection.channel()
-            self.channel.exchange_declare(exchange=queue, type='fanout')
+            self.channel.exchange_declare(exchange=exchange, type='topic')
 
             self.result = self.channel.queue_declare(exclusive=True)
             self.dynamic_queue_name = self.result.method.queue
  
-            self.channel.queue_bind(exchange=queue, queue=self.dynamic_queue_name)
+            self.channel.queue_bind(exchange=exchange, queue=self.dynamic_queue_name, routing_key=vehicle_id)
             self.channel.basic_consume(callback, queue=self.dynamic_queue_name, no_ack=True)
             self.connected = True
             if self.log != None: self.log.info("Connected to reader queue.")
@@ -34,15 +34,16 @@ class mqReader():
 
 
 class mqWriter():
-    def __init__(self, queue_host, queue_port, queue, log=None):
+    def __init__(self, host, port, exchange, vehicle_id, log=None):
     # Establish connection and queue for writing
         self.log = log
+        self.exchange = exchange
+        self.vehicle_id = vehicle_id
         try:
-            self.queue = queue
             # Establish connection & queue
-            self.connection = pika.BlockingConnection(pika.ConnectionParameters(queue_host, queue_port, heartbeat_interval=1))
+            self.connection = pika.BlockingConnection(pika.ConnectionParameters(host, port, heartbeat_interval=1))
             self.channel = self.connection.channel()
-            self.channel.exchange_declare(exchange=queue, type='fanout')
+            self.channel.exchange_declare(exchange=self.exchange, type='topic')
             self.connected = True
             if self.log != None: self.log.info("Connected to writer queue.")
 
@@ -54,7 +55,7 @@ class mqWriter():
     def write(self, data):
         # Write JSON data to queue
         try:
-            self.channel.basic_publish(exchange=self.queue, routing_key='', body=json.dumps(data))
+            self.channel.basic_publish(exchange=self.exchange, routing_key=self.vehicle_id, body=json.dumps(data))
             if self.log != None: self.log.debug("Writing data to vehicle queue")
             return(True)
         except:

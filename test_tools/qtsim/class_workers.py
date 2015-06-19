@@ -8,11 +8,13 @@ import ConfigParser
 config = ConfigParser.ConfigParser()
 config.read('pi_controls.cfg')
 
-CONTROL_QUEUE = config.get('control_queue', 'name')
-CONTROL_SERVER = config.get('control_queue', 'server')
+CONTROL_EXCHANGE = config.get('control_exchange', 'name')
+CONTROL_SERVER = config.get('control_exchange', 'server')
 
-VEHICLE_QUEUE = config.get('vehicle_queue', 'name')
-VEHICLE_SERVER = config.get('vehicle_queue', 'server')
+VEHICLE_EXCHANGE = config.get('vehicle_exchange', 'name')
+VEHICLE_SERVER = config.get('vehicle_exchange', 'server')
+
+VEHICLE_ID = config.get('vehicle_id', 'id')
 
 
 class MQReader(QtCore.QThread):
@@ -24,11 +26,11 @@ class MQReader(QtCore.QThread):
             self.channel = self.connection.channel()
 
             ## EXCHANGE BASED ##
-            self.channel.exchange_declare(exchange=CONTROL_QUEUE, type='fanout')
+            self.channel.exchange_declare(exchange=CONTROL_EXCHANGE, type='topic')
             self.result = self.channel.queue_declare(exclusive=True)
             self.queue_name = self.result.method.queue
   
-            self.channel.queue_bind(exchange=CONTROL_QUEUE, queue=self.queue_name)
+            self.channel.queue_bind(exchange=CONTROL_EXCHANGE, queue=self.queue_name, routing_key=VEHICLE_ID)
             self.channel.basic_consume(self._poll_queue, queue=self.queue_name, no_ack=True)
 
 
@@ -76,9 +78,9 @@ def MQWriter(qt_window):
         channel = connection.channel()
 
         ## EXCHANGE BASED ##
-        channel.exchange_declare(exchange=VEHICLE_QUEUE, type='fanout')
+        channel.exchange_declare(exchange=VEHICLE_EXCHANGE, type='topic')
         # Write JSON data to queue
-        channel.basic_publish(exchange=VEHICLE_QUEUE, routing_key='', body=json.dumps(data))
+        channel.basic_publish(exchange=VEHICLE_EXCHANGE, routing_key=VEHICLE_ID, body=json.dumps(data))
 
 
 

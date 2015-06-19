@@ -387,7 +387,7 @@ class Ui_MainWindow(object):
         # MQ Reader
         MainWindow.connect(self.MQReadThread, self.MQReadThread.signal, self.translateQueueData)
         self.MQReadThread.start()
-        self.statusbar.showMessage("Control queue: " + self.MQReadThread.control_queue + "@" + self.MQReadThread.control_server + " - Vehicle queue: " + self.MQReadThread.vehicle_queue + "@" + self.MQReadThread.vehicle_server)
+        self.statusbar.showMessage("Vehicle ID: " + self.MQReadThread.vehicle_id)
 
 
     def translateQueueData(self, queue_data):

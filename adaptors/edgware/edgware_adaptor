@@ -1,0 +1,119 @@
+#!/usr/bin/python -B
+
+import json
+import time
+import multiprocessing
+import ConfigParser
+
+import class_mqtt as mqtt
+import class_rmq as rmq
+import class_datatypes as edgware
+
+
+try: 
+    config = ConfigParser.ConfigParser()
+    config.read('edgware_adaptor.cfg')
+except:
+    raise SystemExit("FATAL: Could not open config file")
+
+# RabbitMQ connection details
+RMQ_HOST = config.get('platform_broker', 'server')
+RMQ_PORT = int(config.get('platform_broker', 'port'))
+RMQ_EXCHANGE_CONTROL = config.get('platform_broker', 'control_exchange')
+RMQ_EXCHANGE_VEHICLE = config.get('platform_broker', 'vehicle_exchange')
+RMQ_TOPIC = config.get('platform_broker', 'vehicle_id')
+
+# Mosquitto connection details
+MQTT_HOST = config.get('edgware_broker', 'server')
+MQTT_PORT = int(config.get('edgware_broker', 'port'))
+MQTT_TOPIC_IN = config.get('edgware_broker', 'input_topic')
+MQTT_TOPIC_OUT = config.get('edgware_broker', 'output_topic')
+
+# Edgware connection details
+EDGWARE_NODE = config.get('edgware', 'node_id')
+
+
+def writeMQTTOutput(client, topic, data):
+#    mqtt_client.publish(topic="$test/test01", payload="a test message from python")
+    client.publish(topic=topic, payload=data)
+    nothing = None
+
+def writeRMQOutput(client, exchange, topic, data):
+#    rmq_client_writer.
+    nothing = None
+
+def processMQTTInput(data):
+    print("MQTT -- " + str(data))
+
+def processRMQInput(data):
+    print("RMQ -- " + str(data))
+
+
+def main():
+    
+    #### SETUP MQTT CONNECTION
+    mqtt_reader_pconn, mqtt_reader_cconn = multiprocessing.Pipe()
+    mqtt_client = mqtt.mqttClient(host=MQTT_HOST, port=MQTT_PORT, pipe=mqtt_reader_cconn, client_id="python")
+
+    if mqtt_client.connected != True:
+        raise SystemExit("FATAL: Failed to connect to MQTT broker")
+
+    mqtt_client.subscribe(topic=MQTT_TOPIC_IN)
+
+    mqtt_client.client.loop_start()       
+
+
+    #### SETUP RABBITMQ CONNECTION
+    rmq_control_pconn, rmq_control_cconn = multiprocessing.Pipe()
+    rmq_control_reader = rmq.rmqClientReader(host=RMQ_HOST, port=RMQ_PORT)
+    rmq_control_reader.subscribe(RMQ_EXCHANGE_CONTROL, RMQ_TOPIC)
+
+    rmq_vehicle_pconn, rmq_vehicle_cconn = multiprocessing.Pipe()
+    rmq_vehicle_reader = rmq.rmqClientReader(host=RMQ_HOST, port=RMQ_PORT)
+    rmq_vehicle_reader.subscribe(RMQ_EXCHANGE_VEHICLE, RMQ_TOPIC)
+
+    rmq_client_writer = rmq.rmqClientWriter(host=RMQ_HOST, port=RMQ_PORT)
+
+
+    rmq_vehicle_thread = multiprocessing.Process(target=rmq_vehicle_reader.run, args=(rmq_vehicle_cconn,))
+    rmq_vehicle_thread.start()
+
+    rmq_control_thread = multiprocessing.Process(target=rmq_control_reader.run, args=(rmq_control_cconn,))
+    rmq_control_thread.start()
+
+
+    # Declare adaptor to Edgware
+    platform_type = edgware.platformType()
+    platform_type.type = "pi_rover"
+        
+    platform = edgware.platform()
+    platform.type = "pi_rover"
+    platform.id = RMQ_TOPIC
+
+    writeMQTTOutput(mqtt_client, MQTT_TOPIC_OUT, json.dumps(platform_type.generateJSON()))
+    writeMQTTOutput(mqtt_client, MQTT_TOPIC_OUT, json.dumps(platform.generateJSON()))
+
+
+
+    # Forever loop
+    while 1:
+
+        if mqtt_reader_pconn.poll() == True: processMQTTInput(mqtt_reader_pconn.recv())
+        if rmq_control_pconn.poll() == True: processRMQInput(rmq_control_pconn.recv())
+        if rmq_vehicle_pconn.poll() == True: processRMQInput(rmq_vehicle_pconn.recv())
+
+        time.sleep(.2)
+
+
+    # Clean-up
+    mqtt_client.client.loop_stop()
+    rmq_control.join()
+
+
+
+if __name__ == '__main__':
+#    try: 
+        main()
+#    except (KeyboardInterrupt, SystemExit):
+#        print "Exiting..."
+

@@ -1,6 +1,8 @@
 import json
 import threading
- 
+import time 
+
+
 class gpsPoller(threading.Thread):
   def __init__(self):
     threading.Thread.__init__(self)
@@ -16,6 +18,7 @@ class gpsPoller(threading.Thread):
   def run(self):
     self.running = True
     while self.running:
+        time.sleep(1)
         if self.fixmode > 1:
             self.gpsdata['status'] = "FIX"
             self.gpsdata['fixmode'] = self.fixmode

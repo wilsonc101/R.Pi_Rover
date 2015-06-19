@@ -9,20 +9,23 @@ import ConfigParser
 config = ConfigParser.ConfigParser()
 config.read('pi_controls.cfg')
 
-CONTROL_QUEUE = config.get('control_queue', 'name')
-CONTROL_SERVER = config.get('control_queue', 'server')
+VEHICLE_ID = config.get('vehicle_id', 'id')
 
-VEHICLE_QUEUE = config.get('vehicle_queue', 'name')
-VEHICLE_SERVER = config.get('vehicle_queue', 'server')
+CONTROL_EXCHANGE = config.get('control_exchange', 'name')
+CONTROL_SERVER = config.get('control_exchange', 'server')
+
+VEHICLE_EXCHANGE = config.get('vehicle_exchange', 'name')
+VEHICLE_SERVER = config.get('vehicle_exchange', 'server')
 
 CAMERA_SERVER = config.get('camera_server', 'server')
 CAMERA_PORT = config.get('camera_server', 'port')
 
 class MQReader(QtCore.QThread):
     def __init__(self):
-        self.control_queue = CONTROL_QUEUE
+        self.vehicle_id = VEHICLE_ID
+        self.control_exchange = CONTROL_EXCHANGE
         self.control_server = CONTROL_SERVER
-        self.vehicle_queue = VEHICLE_QUEUE
+        self.vehicle_exchange = VEHICLE_EXCHANGE
         self.vehicle_server = VEHICLE_SERVER
 
         try:   
@@ -32,17 +35,13 @@ class MQReader(QtCore.QThread):
             self.channel = self.connection.channel()
 
             ## EXCHANGE BASED ##
-            self.channel.exchange_declare(exchange=VEHICLE_QUEUE, type='fanout')
+            self.channel.exchange_declare(exchange=VEHICLE_EXCHANGE, type='topic')
             self.result = self.channel.queue_declare(exclusive=True)
             self.queue_name = self.result.method.queue
 
-            self.channel.queue_bind(exchange=VEHICLE_QUEUE, queue=self.queue_name)
+            self.channel.queue_bind(exchange=VEHICLE_EXCHANGE, queue=self.queue_name, routing_key=VEHICLE_ID)
             self.channel.basic_consume(self._poll_queue, queue=self.queue_name, no_ack=True)
 
-            ## QUEUE BASED ##
-#            self.channel.queue_declare(queue=VEHICLE_QUEUE)
-#            self.channel.basic_consume(self._poll_queue, queue=VEHICLE_QUEUE)
- 
         except:
             raise SystemExit("Could not connect to queue server")
 
@@ -50,7 +49,6 @@ class MQReader(QtCore.QThread):
     def _poll_queue(self, ch, method, properties, body):
         try:
             self.emit(self.signal, str(body))
-#            ch.basic_ack(delivery_tag = method.delivery_tag)
         except:
             raise SystemExit("Error polling vehicle queue")
 
@@ -109,16 +107,9 @@ def MQWriter(qt_window):
         channel = connection.channel()
 
         ## EXCHANGE BASED ##
-        channel.exchange_declare(exchange=CONTROL_QUEUE, type='fanout')
+        channel.exchange_declare(exchange=CONTROL_EXCHANGE, type='topic')
         # Write JSON data to queue
-        channel.basic_publish(exchange=CONTROL_QUEUE, routing_key='', body=json.dumps(data))
-
-
-        ## QUEUE BASED ##
-#        channel.queue_declare(queue=CONTROL_QUEUE)
-        # Write JSON data to queue
-#        channel.basic_publish(exchange='',routing_key=CONTROL_QUEUE, body=json.dumps(data))
-
+        channel.basic_publish(exchange=CONTROL_EXCHANGE, routing_key=VEHICLE_ID, body=json.dumps(data))
 
         connection.close()
 
