@@ -77,7 +77,7 @@ class systemType():
 
         # Check service is well defined
         for service in self.services:
-            if 'type' not in service or 'desc' not in service or 'attr' not in service:
+            if 'type' not in service:
                 return(False)
 
         json = {}
@@ -91,4 +91,74 @@ class systemType():
         if self.attr != None: json['attr'] = self.attr
         if self.correl != None: json['correl'] = self.correl
            
+        return(json)
+
+
+
+class system():
+    def __init__(self):
+        self.op = "register:system"
+        self.id = None
+        self.type = None
+        # Optional
+        self.user = None
+        self.desc = None
+        self.attr = None
+        self.correl = None
+
+    def generateJSON(self):
+        # Type & ID must be set for valid output - return if not set
+        if self.type == None or self.id == None:
+            return(False)
+        
+        json = {}
+    
+        json['op'] = self.op
+        json['id'] = self.id
+        json['type'] = self.type
+ 
+        # Optional fields
+        if self.user != None: json['user'] = self.desc
+        if self.desc != None: json['desc'] = self.desc
+        if self.attr != None: json['attr'] = self.attr
+        if self.correl != None: json['correl'] = self.correl
+
+        return(json)
+
+
+
+
+class serviceType():
+    def __init__(self):
+        self.avaliablemodes = ["input-feed", "output-feed", "notification", "listener", "solicit-response", "request-response"]
+        self.op = "register:service-type"
+        self.type = None
+        self.mode = None
+        # Optional
+        self.schema = None
+        self.desc = None
+        self.attr = None
+        self.correl = None
+
+    def generateJSON(self):
+        # Type & ID must be set for valid output - return if not set
+        if self.type == None:
+            return("TYPE WRONG")
+
+        if self.mode not in self.avaliablemodes:
+            return("MODE WRONG")
+
+
+        json = {}
+    
+        json['op'] = self.op
+        json['type'] = self.type
+        json['mode'] = self.mode
+
+        # Optional fields
+        if self.schema != None: json['schema'] = self.schema
+        if self.desc != None: json['desc'] = self.desc
+        if self.attr != None: json['attr'] = self.attr
+        if self.correl != None: json['correl'] = self.correl
+
         return(json)

@@ -7,7 +7,7 @@ import ConfigParser
 
 import class_mqtt as mqtt
 import class_rmq as rmq
-import class_datatypes as edgware
+import class_edgware as edgware
 
 
 try: 
@@ -43,7 +43,21 @@ def writeRMQOutput(client, exchange, topic, data):
     nothing = None
 
 def processMQTTInput(data):
-    print("MQTT -- " + str(data))
+    try:
+        json_data = json.loads(data)
+
+        op = json_data['op']
+        request_response = json_data['request-response']
+        msg = json_data['msg']
+        solicit_response = json_data['solicit-response']
+        correl = json_data['correl']
+        encoding = json_data['encoding']
+
+        print("MQTT -- " + msg)
+
+    except:
+        return(False)
+
 
 def processRMQInput(data):
     print("RMQ -- " + str(data))
@@ -58,7 +72,7 @@ def main():
     if mqtt_client.connected != True:
         raise SystemExit("FATAL: Failed to connect to MQTT broker")
 
-    mqtt_client.subscribe(topic=MQTT_TOPIC_IN)
+    mqtt_client.subscribe(topic=MQTT_TOPIC_OUT)
 
     mqtt_client.client.loop_start()       
 
@@ -66,10 +80,18 @@ def main():
     #### SETUP RABBITMQ CONNECTION
     rmq_control_pconn, rmq_control_cconn = multiprocessing.Pipe()
     rmq_control_reader = rmq.rmqClientReader(host=RMQ_HOST, port=RMQ_PORT)
+    if rmq_control_reader.connected == False:
+        raise SystemExit("FATAL: Failed to connect to RQM broker")
+
     rmq_control_reader.subscribe(RMQ_EXCHANGE_CONTROL, RMQ_TOPIC)
+
+
 
     rmq_vehicle_pconn, rmq_vehicle_cconn = multiprocessing.Pipe()
     rmq_vehicle_reader = rmq.rmqClientReader(host=RMQ_HOST, port=RMQ_PORT)
+    if rmq_vehicle_reader.connected == False:
+        raise SystemExit("FATAL: Failed to connect to RQM broker")
+ 
     rmq_vehicle_reader.subscribe(RMQ_EXCHANGE_VEHICLE, RMQ_TOPIC)
 
     rmq_client_writer = rmq.rmqClientWriter(host=RMQ_HOST, port=RMQ_PORT)
@@ -82,17 +104,66 @@ def main():
     rmq_control_thread.start()
 
 
-    # Declare adaptor to Edgware
+    ##### SETUP EDGWARE     
+    ## Define element types
+    # Service Types
+    service_type = edgware.serviceType()
+    service_type.type = "temp_sensor"
+    service_type.mode = "request-response"
+    service_type.correl = 100
+    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(service_type.generateJSON()))
+
+    service_type = edgware.serviceType()
+    service_type.type = "vehicle_control"
+    service_type.mode = "request-response"
+    service_type.correl = 101
+    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(service_type.generateJSON()))
+
+    # System Types
+    system_type = edgware.systemType()
+    system_type.type = "vehicle"
+    system_type.services.append({'type':'temp_sensor'})
+    system_type.correl = 200
+    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(system_type.generateJSON()))
+
+    system_type = edgware.systemType()
+    system_type.type = "control"
+    system_type.services.append({'type':'vehicle_control'})
+    system_type.correl = 201
+    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(system_type.generateJSON()))
+
+    # Platform Types
     platform_type = edgware.platformType()
     platform_type.type = "pi_rover"
-        
+    platform_type.correl = 300
+    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(platform_type.generateJSON()))
+
+
+    ## Define elements
+    # Platforms
     platform = edgware.platform()
     platform.type = "pi_rover"
     platform.id = RMQ_TOPIC
+    platform.correl = 10001
+    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(platform.generateJSON()))
 
-    writeMQTTOutput(mqtt_client, MQTT_TOPIC_OUT, json.dumps(platform_type.generateJSON()))
-    writeMQTTOutput(mqtt_client, MQTT_TOPIC_OUT, json.dumps(platform.generateJSON()))
+    # Systems (+ activate)
+    system = edgware.system()
+    system.type = "vehicle"
+    system.id = platform.id + "/vehicle"
+    print system.id 
+    system.correl = 20001
+    activate_system = json.dumps({"op":"state:system", "id": system.id, "state":"running", "correl":20002})
+    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(system.generateJSON()))
+    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, activate_system)
 
+    system = edgware.system()
+    system.type = "control"
+    system.id = platform.id + "/control"
+    system.correl = 30001
+    activate_system = json.dumps({"op":"state:system", "id": system.id, "state":"running", "correl":30002})
+    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(system.generateJSON()))
+    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, activate_system)
 
 
     # Forever loop
@@ -112,8 +183,10 @@ def main():
 
 
 if __name__ == '__main__':
-#    try: 
+    try: 
         main()
-#    except (KeyboardInterrupt, SystemExit):
-#        print "Exiting..."
+    except (KeyboardInterrupt, SystemExit):
+        mqtt_client.client.loop_stop()
+        rmq_control.join()
+        print "Exiting..."
 
