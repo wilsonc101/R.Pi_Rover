@@ -4034,3 +4034,6 @@
 2015-06-19 15:57:47,973 -- Could not process control data
 2015-06-19 15:57:49,396 -- Could not process control data
 2015-06-19 15:57:59,695 -- Connection to control queue server appears to have dropped.
+2015-06-22 22:29:29,615 -- Connected to reader queue.
+2015-06-22 22:29:29,645 -- Connected to writer queue.
+2015-06-22 22:30:06,738 -- Connection to control queue server appears to have dropped.

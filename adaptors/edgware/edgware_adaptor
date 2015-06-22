@@ -43,20 +43,40 @@ def writeRMQOutput(client, exchange, topic, data):
     nothing = None
 
 def processMQTTInput(data):
-    try:
-        json_data = json.loads(data)
+    json_data = json.loads(data)
 
+    def request(json_data):
+        # Extract request data
         op = json_data['op']
-        request_response = json_data['request-response']
         msg = json_data['msg']
         solicit_response = json_data['solicit-response']
         correl = json_data['correl']
         encoding = json_data['encoding']
 
-        print("MQTT -- " + msg)
+        for responder in json_data['request-response']:
+            if RMQ_TOPIC in responder: request_response = responder
 
-    except:
+        # Generate response
+        json_response = {}
+        json_response['op'] = "response"
+        json_response['solicit-response'] = solicit_response
+        json_response['msg'] = 20        ########### CALL OUT TO FUNCTION FOR SENSOR
+        json_response['request-response'] = request_response
+        json_response['correl'] = correl
+
+        return(json_response)
+
+    def notification(json_data):
         return(False)
+
+    input_handlers = {'request' : request,
+                      'notification' : notification}
+
+    if "op" in json_data: 
+        if json_data['op'] in input_handlers: return(input_handlers[str(json_data['op'])](json_data))
+
+    return(False)
+
 
 
 def processRMQInput(data):
@@ -169,7 +189,11 @@ def main():
     # Forever loop
     while 1:
 
-        if mqtt_reader_pconn.poll() == True: processMQTTInput(mqtt_reader_pconn.recv())
+        if mqtt_reader_pconn.poll() == True: 
+            response = processMQTTInput(mqtt_reader_pconn.recv())
+            if response != False: writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(response))
+
+
         if rmq_control_pconn.poll() == True: processRMQInput(rmq_control_pconn.recv())
         if rmq_vehicle_pconn.poll() == True: processRMQInput(rmq_vehicle_pconn.recv())
 
