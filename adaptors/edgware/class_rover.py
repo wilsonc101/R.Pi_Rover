@@ -11,15 +11,15 @@ class piRoverControls():
 
 class piRoverVehicle():
     def __init__(self):
-        self.vehcleWifi = None
-        self.vehcleBatteryA = None
-        self.vehcleBatteryB = None
+        self.vehicleWifi = None
+        self.vehicleBatteryA = None
+        self.vehicleBatteryB = None
         self.environmentTemperature = None
         self.environmentPressure = None
+        self.environmentHumidity = None
         self.gpsLatitude = None
         self.gpsLongitude = None
         self.gpsAltitude = None
         self.gpsSpeed = None
         self.accelLR = None
         self.accelRF = None
-

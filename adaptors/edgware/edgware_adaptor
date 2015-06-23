@@ -8,6 +8,7 @@ import ConfigParser
 import class_mqtt as mqtt
 import class_rmq as rmq
 import class_edgware as edgware
+import class_rover as rover
 
 
 try: 
@@ -32,20 +33,57 @@ MQTT_TOPIC_OUT = config.get('edgware_broker', 'output_topic')
 # Edgware connection details
 EDGWARE_NODE = config.get('edgware', 'node_id')
 
+VEHICLE_DATA = rover.piRoverVehicle()
+CONTROL_DATA = rover.piRoverControls()
 
 def writeMQTTOutput(client, topic, data):
-#    mqtt_client.publish(topic="$test/test01", payload="a test message from python")
     client.publish(topic=topic, payload=data)
     nothing = None
 
 def writeRMQOutput(client, exchange, topic, data):
-#    rmq_client_writer.
     nothing = None
 
 def processMQTTInput(data):
     json_data = json.loads(data)
 
+    # Handle 'Request' messages
     def request(json_data):
+        # Service types
+        def getEnvironmentData(msg):
+            if msg == "getTemperature":
+                return(VEHICLE_DATA.environmentTemperature)
+
+            elif msg == "getPressure":
+                return(VEHICLE_DATA.environmentPressure)
+
+            elif msg == "getHumidity":
+                return(VEHICLE_DATA.environmentHumidity)
+
+            else:
+                return("unknown request")
+
+        def getGPSData(msg):
+            return("gpsdata")
+
+        def getAccelerometerData(msg):
+            return("acceldata")
+
+        def getVehicleStatusData(msg):
+            return("vehstat")
+
+        def getVehicleControlData(msg):
+            return("vehctrldata")
+
+        def getCameraControlData(msg):
+            return("camctrldata")
+
+        type_handlers = {'environment-sensor': getEnvironmentData,
+                         'gps': getGPSData,
+                         'accelerometer': getAccelerometerData,
+                         'vehicle-status': getVehicleStatusData,
+                         'vehicle-control': getVehicleControlData,
+                         'camera-control': getCameraControlData}
+
         # Extract request data
         op = json_data['op']
         msg = json_data['msg']
@@ -53,21 +91,31 @@ def processMQTTInput(data):
         correl = json_data['correl']
         encoding = json_data['encoding']
 
+        # Extract 'my' service id
         for responder in json_data['request-response']:
             if RMQ_TOPIC in responder: request_response = responder
+
+        # Seperate service type from platform/system path
+        service = request_response.split("/")[2]
+        if service in type_handlers:
+            response_msg = type_handlers[service](msg)
+        else:
+            response_msg = "unknown service"
 
         # Generate response
         json_response = {}
         json_response['op'] = "response"
         json_response['solicit-response'] = solicit_response
-        json_response['msg'] = 20        ########### CALL OUT TO FUNCTION FOR SENSOR
+        json_response['msg'] = response_msg
         json_response['request-response'] = request_response
         json_response['correl'] = correl
-
         return(json_response)
 
+ 
+   # Handle 'Notification' messages (unused)
     def notification(json_data):
         return(False)
+
 
     input_handlers = {'request' : request,
                       'notification' : notification}
@@ -78,16 +126,116 @@ def processMQTTInput(data):
     return(False)
 
 
-
 def processRMQInput(data):
-    print("RMQ -- " + str(data))
+    try:
+        json_data = json.loads(data)
+        if 'camera' in json_data:
+            if 'tilt' in json_data['camera']: CONTROL_DATA.cameraTiltPosition = json_data['camera']['tilt']
+            if 'pan' in json_data['camera']: CONTROL_DATA.cameraPanPosition = json_data['camera']['pan']
+            if 'light' in json_data['camera']: CONTROL_DATA.cameraLightState = json_data['camera']['light']
+
+        if 'vehicle' in json_data:
+            if 'throttle' in json_data['vehicle']: CONTROL_DATA.throttlePosition = json_data['vehicle']['throttle']
+            if 'direction' in json_data['vehicle']: CONTROL_DATA.directionPosition = json_data['vehicle']['direction']
+            if 'brake' in json_data['vehicle']: CONTROL_DATA.brakeState = json_data['vehicle']['brake']
+            if 'light' in json_data['vehicle']: CONTROL_DATA.vehicleLightState = json_data['vehicle']['light']
+            if 'wifi' in json_data['vehicle']: VEHICLE_DATA.vehicleWifi = json_data['vehicle']['wifi']
+            if 'batteryA' in json_data['vehicle']: VEHICLE_DATA.vehicleBatteryA = json_data['vehicle']['batteryA']
+            if 'batteryB' in json_data['vehicle']: VEHICLE_DATA.vehicleBatteryB = json_data['vehicle']['batteryB']
+
+        if 'environment' in json_data:
+            if 'temperature' in json_data['environment']: VEHICLE_DATA.environmentTemperature = json_data['environment']['temperature']
+            if 'humidity' in json_data['environment']: VEHICLE_DATA.environmentHumidity = json_data['environment']['humidity']
+            if 'pressure' in json_data['environment']: VEHICLE_DATA.environmentPressure = json_data['environment']['pressure']
+
+        if 'GPS' in json_data:
+            if 'latitude' in json_data['GPS']: VEHICLE_DATA.gpsLatitude = json_data['GPS']['latitude']
+            if 'longitude' in json_data['GPS']: VEHICLE_DATA.gpsLongitude = json_data['GPS']['longitude']
+            if 'speed' in json_data['GPS']: VEHICLE_DATA.gpsSpeed = json_data['GPS']['speed']
+            if 'altitude' in json_data['GPS']: VEHICLE_DATA.gpsAltitude = json_data['GPS']['altitude']
+
+        if 'accelerometer' in json_data:
+            if 'x' in json_data['accelerometer']: VEHICLE_DATA.accelLR = json_data['accelerometer']['x']
+            if 'y' in json_data['accelerometer']: VEHICLE_DATA.accelRF = json_data['accelerometer']['y']
+
+    except:
+        return(False)
+
+
+
+def registerEdgwareTypes(mqtt_client):
+    # Services
+    services = {}
+    services['environment-sensor'] = {"type":"environment-sensor",
+                                      "mode":"request-response"}
+
+    services['gps'] = {"type":"gps",
+                       "mode":"request-response"}
+
+    services['accelerometer'] = {"type":"accelerometer",
+                                 "mode":"request-response"}
+
+    services['vehicle-status'] = {"type":"vehicle-status",
+                                 "mode":"request-response"}
+
+    services['vehicle-control'] = {"type":"vehicle-control",
+                                   "mode":"request-response"}
+
+    services['camera-control'] = {"type":"camera-control",
+                                   "mode":"request-response"}
+
+    # Systems (collections of services)
+    systems = {}
+    systems['vehicle'] = {"type":"vehicle",
+                          "services":[{"type":services['environment-sensor']['type']},
+                                      {"type":services['accelerometer']['type']},
+                                      {"type":services['vehicle-status']['type']},
+                                      {"type":services['gps']['type']}]}
+
+    systems['control'] = {"type":"control",
+                          "services":[{"type":services['vehicle-control']['type']},
+                                      {"type":services['camera-control']['type']}]}
+
+    # Platforms (collections of systems)
+    platforms = {}
+    platforms['pi-rover'] = {"type":"pi-rover"}
+
+
+    try:
+        i = 100
+        for service in services:
+            i += 1
+            service_type = edgware.serviceType()
+            service_type.type = services[service]['type']
+            service_type.mode = services[service]['mode']
+            service_type.correl = i
+            writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(service_type.generateJSON()))
+    
+        i = 1000
+        for system in systems:
+            i += 1
+            system_type = edgware.systemType()
+            system_type.type = systems[system]['type']
+            system_type.services = systems[system]['services']
+            system_type.correl = i
+            writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(system_type.generateJSON()))
+    
+        i = 2000
+        for platform in platforms:
+            i += 1
+            platform_type = edgware.platformType()
+            platform_type.type = platforms[platform]['type']
+            platform_type.correl = i
+            writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(platform_type.generateJSON()))
+    except:
+        return(False)
 
 
 def main():
     
     #### SETUP MQTT CONNECTION
     mqtt_reader_pconn, mqtt_reader_cconn = multiprocessing.Pipe()
-    mqtt_client = mqtt.mqttClient(host=MQTT_HOST, port=MQTT_PORT, pipe=mqtt_reader_cconn, client_id="python")
+    mqtt_client = mqtt.mqttClient(host=MQTT_HOST, port=MQTT_PORT, pipe=mqtt_reader_cconn, client_id=RMQ_TOPIC)
 
     if mqtt_client.connected != True:
         raise SystemExit("FATAL: Failed to connect to MQTT broker")
@@ -124,39 +272,8 @@ def main():
     rmq_control_thread.start()
 
 
-    ##### SETUP EDGWARE     
-    ## Define element types
-    # Service Types
-    service_type = edgware.serviceType()
-    service_type.type = "temp_sensor"
-    service_type.mode = "request-response"
-    service_type.correl = 100
-    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(service_type.generateJSON()))
-
-    service_type = edgware.serviceType()
-    service_type.type = "vehicle_control"
-    service_type.mode = "request-response"
-    service_type.correl = 101
-    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(service_type.generateJSON()))
-
-    # System Types
-    system_type = edgware.systemType()
-    system_type.type = "vehicle"
-    system_type.services.append({'type':'temp_sensor'})
-    system_type.correl = 200
-    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(system_type.generateJSON()))
-
-    system_type = edgware.systemType()
-    system_type.type = "control"
-    system_type.services.append({'type':'vehicle_control'})
-    system_type.correl = 201
-    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(system_type.generateJSON()))
-
-    # Platform Types
-    platform_type = edgware.platformType()
-    platform_type.type = "pi_rover"
-    platform_type.correl = 300
-    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(platform_type.generateJSON()))
+    # Register edgware types
+    registerEdgwareTypes(mqtt_client)
 
 
     ## Define elements

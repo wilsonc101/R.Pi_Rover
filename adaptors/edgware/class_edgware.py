@@ -142,12 +142,8 @@ class serviceType():
 
     def generateJSON(self):
         # Type & ID must be set for valid output - return if not set
-        if self.type == None:
-            return("TYPE WRONG")
-
-        if self.mode not in self.avaliablemodes:
-            return("MODE WRONG")
-
+        if self.type == None or self.mode not in self.avaliablemodes:
+            return(False)
 
         json = {}
     
