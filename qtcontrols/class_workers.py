@@ -57,7 +57,8 @@ class MQReader(QtCore.QThread):
             self.channel.start_consuming()
 
         except:
-            raise SystemExit("Lost connection to queue server")
+            return(False)
+#            raise SystemExit("Lost connection to queue server")
 
 
 def MQWriter(qt_window):

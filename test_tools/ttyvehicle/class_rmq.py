@@ -1,9 +1,11 @@
 import pika
 import json
+import threading
 
-class mqReader():
+class mqReader(threading.Thread):
     def __init__(self, host, port, exchange, callback, vehicle_id, log=None):
     # Establish connection, queue and begin consuming
+        threading.Thread.__init__(self)
         self.log = log
         try:
             self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=host,port=port,connection_attempts=100,retry_delay=5))
@@ -31,7 +33,7 @@ class mqReader():
                 self.log.error("Connection to control queue server appears to have dropped.")
             else:
                 print "ERROR: Connection to control queue server appears to have dropped."
-
+            return
 
 class mqWriter():
     def __init__(self, host, port, exchange, vehicle_id, log=None):

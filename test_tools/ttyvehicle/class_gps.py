@@ -26,26 +26,30 @@ class gpsPoller(threading.Thread):
 
 
   def run(self):
-    self.running = True
-    while self.running:
-        time.sleep(1)
-        seconds = str(time.strftime("%S", time.gmtime()))[1:]
-        latitude, longitude = self.demodata[seconds]
+    try:
+        self.running = True
+        while self.running:
+            time.sleep(1)
+            seconds = str(time.strftime("%S", time.gmtime()))[1:]
+            latitude, longitude = self.demodata[seconds]
+        
+            if self.fixmode > 1:
+                self.gpsdata['status'] = "FIX"
+                self.gpsdata['fixmode'] = self.fixmode
+                self.gpsdata['latitude'] = str(latitude).ljust(9, "0")
+                self.gpsdata['longitude'] = str(longitude).ljust(9, "0")
+                self.gpsdata['time'] = "2015-01-01T12:00:00.000"
+                self.gpsdata['speed'] = 10
+                self.gpsdata['altitude'] = 120
+                self.gpsdata['climb'] = 0
+                self.gpsdata['error-speed'] = 0
+                self.gpsdata['error-latitude'] = 0
+                self.gpsdata['error-longitude'] = 0
+                self.gpsdata['error-altitude'] = 0
+                self.gpsdata['error-time'] = 0
+                self.gpsdata['satellites'] = "unknown"
+            else:
+                self.gpsdata['status'] = "NO FIX"
+    except:    
+        return
 
-        if self.fixmode > 1:
-            self.gpsdata['status'] = "FIX"
-            self.gpsdata['fixmode'] = self.fixmode
-            self.gpsdata['latitude'] = str(latitude).ljust(9, "0")
-            self.gpsdata['longitude'] = str(longitude).ljust(9, "0")
-            self.gpsdata['time'] = "2015-01-01T12:00:00.000"
-            self.gpsdata['speed'] = 10
-            self.gpsdata['altitude'] = 120
-            self.gpsdata['climb'] = 0
-            self.gpsdata['error-speed'] = 0
-            self.gpsdata['error-latitude'] = 0
-            self.gpsdata['error-longitude'] = 0
-            self.gpsdata['error-altitude'] = 0
-            self.gpsdata['error-time'] = 0
-            self.gpsdata['satellites'] = "unknown"
-        else:
-            self.gpsdata['status'] = "NO FIX"

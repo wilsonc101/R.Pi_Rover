@@ -53,37 +53,75 @@ def processMQTTInput(data):
         def getEnvironmentData(msg):
             if msg == "getTemperature":
                 return(VEHICLE_DATA.environmentTemperature)
-
             elif msg == "getPressure":
                 return(VEHICLE_DATA.environmentPressure)
-
             elif msg == "getHumidity":
                 return(VEHICLE_DATA.environmentHumidity)
-
             else:
                 return("unknown request")
 
         def getGPSData(msg):
-            return("gpsdata")
+            if msg == "getPosition":
+                return(VEHICLE_DATA.gpsLongitude, VEHICLE_DATA.gpsLatitude)
+            elif msg == "getSpeed":
+                return(VEHICLE_DATA.gpsSpeed)
+            elif msg == "getAltitude":
+                return(VEHICLE_DATA.gpsAltitude)
+            else:
+                return("unknown request")
 
         def getAccelerometerData(msg):
-            return("acceldata")
+            if msg == "getAttitude":
+                return(VEHICLE_DATA.accelLR, VEHICLE_DATA.accelFR)
+            else:
+                return("unknown request")
+
 
         def getVehicleStatusData(msg):
-            return("vehstat")
+            if msg == "getBatteryStatus":
+                return(VEHICLE_DATA.vehicleBatteryA, VEHICLE_DATA.vehicleBatteryB)
+            elif msg == "getWifiStatus":
+                return(VEHICLE_DATA.vehicleWifi)
+            else:
+                return("unknown request")
 
-        def getVehicleControlData(msg):
-            return("vehctrldata")
+        def queryVehicleControlData(msg):
+            # GET Data
+            if msg == "getDriveStatus":
+                return(CONTROL_DATA.throttlePosition, CONTROL_DATA.brakeState)
+            elif msg == "getDirectionPosition":
+                return(CONTROL_DATA.directionPosition)
+            elif msg == "getVehicleLightState":
+                return(CONTROL_DATA.vehicleLightState)
+            # SET Data
+            elif msg == "setVehicleStop":
+                 nothing = None
+                 ###### ADD CALL TO WRITE RMQ
+            elif msg == "setVehicleLightState":
+                 nothing = None
+                 ###### ADD CALL TO WRITE RMQ
+            else:
+                return("unknown request")                 
 
-        def getCameraControlData(msg):
+
+        def queryCameraControlData(msg):
+            # GET Data
+            if msg == "getPosition":
+                return(CONTROL_DATA.cameraPanPosition, CONTROL_DATA.cameraTiltPosition)
+            elif msg == "getCameraLightState":
+                return(CONTROL_DATA.cameraLightState)
+            # SET Data
+            elif msg == "setPosition":
+                 nothing = None
+            
             return("camctrldata")
 
         type_handlers = {'environment-sensor': getEnvironmentData,
                          'gps': getGPSData,
                          'accelerometer': getAccelerometerData,
                          'vehicle-status': getVehicleStatusData,
-                         'vehicle-control': getVehicleControlData,
-                         'camera-control': getCameraControlData}
+                         'vehicle-control': queryVehicleControlData,
+                         'camera-control': queryCameraControlData}
 
         # Extract request data
         op = json_data['op']

@@ -386,6 +386,7 @@ class Ui_MainWindow(object):
         # Create QThreads for MQ transactions
         # MQ Reader
         MainWindow.connect(self.MQReadThread, self.MQReadThread.signal, self.translateQueueData)
+        self.MQReadThread.daemon = True
         self.MQReadThread.start()
         self.statusbar.showMessage("Vehicle ID: " + self.MQReadThread.vehicle_id)
 

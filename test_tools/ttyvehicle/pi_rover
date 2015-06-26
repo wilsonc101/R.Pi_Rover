@@ -13,11 +13,13 @@ from subprocess import *
 from class_pwm import PWM
 
 import class_servo as servo
-import class_mq as mq
+import class_rmq as mq
 import class_gps as gpsreader
 import func_logging as log
 import func_sensors as sensors
 #import class_camera as camera
+
+RUNNING_THREADS = []
 
 
 # Get config
@@ -255,7 +257,9 @@ def main():
 
         # Setup GPS Poller
         gps_poller = gpsreader.gpsPoller()
+        gps_poller.daemon = True
         gps_poller.start()
+        RUNNING_THREADS.append(gps_poller)
 
 
         # Setup vehicle camera
@@ -273,7 +277,9 @@ def main():
 
    
         control_worker = multiprocessing.Process(target=control_reader.run)
+        control_worker.daemon = True
         control_worker.start()
+        RUNNING_THREADS.append(control_worker)
 
 
 
@@ -326,6 +332,9 @@ def main():
     #vehicle_camera.join()
     gps_poller.join()
 
+#    control_worker.exit()
+#    gps_poller.exit()
+
         
 
 if __name__ == '__main__':
@@ -334,3 +343,8 @@ if __name__ == '__main__':
 
     except (KeyboardInterrupt, SystemExit):
         print "Exiting..."
+#        for thread in RUNNING_THREADS:
+#            print thread
+#            while thread.isAlive(): 
+#                print "trying..."
+#                thread.join(1)
