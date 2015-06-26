@@ -1,0 +1,37 @@
+2015-06-24 14:46:34,933 -- Connected to reader queue.
+2015-06-24 14:46:34,961 -- Connected to writer queue.
+2015-06-24 15:42:40,291 -- Connection to control queue server appears to have dropped.
+2015-06-24 16:31:05,423 -- Connected to reader queue.
+2015-06-24 16:31:05,452 -- Connected to writer queue.
+2015-06-24 16:31:13,340 -- Connection to control queue server appears to have dropped.
+2015-06-24 16:31:29,984 -- Connected to reader queue.
+2015-06-24 16:31:30,014 -- Connected to writer queue.
+2015-06-24 16:34:36,076 -- Connection to control queue server appears to have dropped.
+2015-06-24 16:41:09,471 -- Connected to reader queue.
+2015-06-24 16:41:09,500 -- Connected to writer queue.
+2015-06-24 16:41:10,503 -- Connection to vehicle queue server appears to have dropped
+2015-06-24 16:41:10,503 -- Sensor writer has died - attempting to restart....
+2015-06-24 16:41:18,502 -- Connection to control queue server appears to have dropped.
+2015-06-24 16:43:22,201 -- Connected to reader queue.
+2015-06-24 16:43:22,229 -- Connected to writer queue.
+2015-06-24 16:43:23,232 -- Connection to vehicle queue server appears to have dropped
+2015-06-24 16:43:23,232 -- Sensor writer has died - attempting to restart....
+2015-06-24 16:43:25,259 -- Sensor writer has died - attempting to restart....
+2015-06-24 16:43:27,287 -- Sensor writer has died - attempting to restart....
+2015-06-24 16:43:28,254 -- Connection to control queue server appears to have dropped.
+2015-06-24 16:44:10,543 -- Connected to reader queue.
+2015-06-24 16:44:10,571 -- Connected to writer queue.
+2015-06-24 16:47:02,230 -- Connected to reader queue.
+2015-06-24 16:47:02,258 -- Connected to writer queue.
+2015-06-24 16:47:14,064 -- Connection to control queue server appears to have dropped.
+2015-06-24 16:47:39,177 -- Connected to reader queue.
+2015-06-24 16:47:39,205 -- Connected to writer queue.
+2015-06-24 16:48:20,639 -- Connection to control queue server appears to have dropped.
+2015-06-24 16:48:59,884 -- Connected to reader queue.
+2015-06-24 16:48:59,913 -- Connected to writer queue.
+2015-06-24 17:15:45,826 -- Connection to control queue server appears to have dropped.
+2015-06-24 17:15:46,384 -- Connection to vehicle queue server appears to have dropped
+2015-06-24 17:15:46,384 -- Sensor writer has died - attempting to restart....
+2015-06-24 17:15:47,385 -- Control reader has died - attempting to restart....
+2015-06-25 10:58:16,425 -- Connected to reader queue.
+2015-06-25 10:58:16,457 -- Connected to writer queue.

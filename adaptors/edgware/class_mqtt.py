@@ -10,22 +10,19 @@ class mqttClient():
         self.client.on_connect = self.on_connect
         self.client.on_message = self.on_message
 
-#        try:
-        self.client.connect(host, port, keepalive)
-        self.client.loop()
-        self.connected = True
+        try:
+            self.client.connect(host, port, keepalive)
+            self.client.loop()
+            self.connected = True
 
 
-#        except:
-#        self.connected = False
+        except:
+            self.connected = False
 
     def on_connect(self, client, userdata, flags, rc):
             if self.log != None: self.log.info("MQTT Connection status:" + st(rc))
          
-#        self.queue.put({'mqtt_client': {'connection_status': rc}})
-
     def on_message(self, client, userdata, msg):
-#        self.pipe.send("test")
         self.pipe.send(str(msg.payload))
 
 
@@ -48,12 +45,12 @@ class mqttClient():
  
 
     def publish(self, topic, payload, qos=0):
-#         try:
+         try:
              self.client.publish(topic, payload=payload, qos=qos)
              if self.log != None: self.log.debug("Published message: " + payload)
 
-#         except:
-#             if self.log != None: self.log.error("Failed to publish message to " + topic)
+         except:
+             if self.log != None: self.log.error("Failed to publish message to " + topic)
      
 
     def run(self):

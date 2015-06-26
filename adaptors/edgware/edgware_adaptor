@@ -48,6 +48,7 @@ def processMQTTInput(data):
 
     # Handle 'Request' messages
     def request(json_data):
+
         # Service types
         def getEnvironmentData(msg):
             if msg == "getTemperature":
@@ -157,7 +158,7 @@ def processRMQInput(data):
         if 'accelerometer' in json_data:
             if 'x' in json_data['accelerometer']: VEHICLE_DATA.accelLR = json_data['accelerometer']['x']
             if 'y' in json_data['accelerometer']: VEHICLE_DATA.accelRF = json_data['accelerometer']['y']
-
+ 
     except:
         return(False)
 
@@ -198,7 +199,7 @@ def registerEdgwareTypes(mqtt_client):
 
     # Platforms (collections of systems)
     platforms = {}
-    platforms['pi-rover'] = {"type":"pi-rover"}
+    platforms['simulation-platform'] = {"type":"simulation-platform"}
 
 
     try:
@@ -235,7 +236,7 @@ def main():
     
     #### SETUP MQTT CONNECTION
     mqtt_reader_pconn, mqtt_reader_cconn = multiprocessing.Pipe()
-    mqtt_client = mqtt.mqttClient(host=MQTT_HOST, port=MQTT_PORT, pipe=mqtt_reader_cconn, client_id=RMQ_TOPIC)
+    mqtt_client = mqtt.mqttClient(host=MQTT_HOST, port=MQTT_PORT, pipe=mqtt_reader_cconn, client_id=("adp" + str(RMQ_TOPIC)))
 
     if mqtt_client.connected != True:
         raise SystemExit("FATAL: Failed to connect to MQTT broker")
@@ -279,20 +280,21 @@ def main():
     ## Define elements
     # Platforms
     platform = edgware.platform()
-    platform.type = "pi_rover"
+    platform.type = "simulation-platform"
     platform.id = RMQ_TOPIC
     platform.correl = 10001
     writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(platform.generateJSON()))
+
 
     # Systems (+ activate)
     system = edgware.system()
     system.type = "vehicle"
     system.id = platform.id + "/vehicle"
-    print system.id 
     system.correl = 20001
     activate_system = json.dumps({"op":"state:system", "id": system.id, "state":"running", "correl":20002})
     writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(system.generateJSON()))
     writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, activate_system)
+
 
     system = edgware.system()
     system.type = "control"
@@ -302,6 +304,7 @@ def main():
     writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(system.generateJSON()))
     writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, activate_system)
 
+    time.sleep(2)
 
     # Forever loop
     while 1:
@@ -309,7 +312,6 @@ def main():
         if mqtt_reader_pconn.poll() == True: 
             response = processMQTTInput(mqtt_reader_pconn.recv())
             if response != False: writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(response))
-
 
         if rmq_control_pconn.poll() == True: processRMQInput(rmq_control_pconn.recv())
         if rmq_vehicle_pconn.poll() == True: processRMQInput(rmq_vehicle_pconn.recv())

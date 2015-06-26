@@ -234,8 +234,8 @@ def _vehicleSensors(gps_poller=None):
 
 
     if gps_poller != None:
-        data['GPS'] = {'latitude': sensors.getGPS_lat(gps_poller), 
-                       'longitude': sensors.getGPS_long(gps_poller),
+        data['GPS'] = {'latitude': str(sensors.getGPS_lat(gps_poller)), 
+                       'longitude': str(sensors.getGPS_long(gps_poller)),
                        'speed': sensors.getGPS_speed(gps_poller),
                        'altitude': sensors.getGPS_altitude(gps_poller)}
      
@@ -283,7 +283,7 @@ def main():
         if sensor_writer.connected == False:
             while sensor_writer.connected == False:
                 logfile.error("Could not connect to vehicle queue server, reconnecting....")
-                sensor_writer = mq.mqWriter(VEHICLE_SERVER, 5672, VEHICLE_QUEUE, logfile)
+                sensor_writer = mq.mqWriter(VEHICLE_SERVER, 5672, VEHICLE_EXCHANGE, logfile)
                 time.sleep(1)
 
          
@@ -294,7 +294,7 @@ def main():
  
             if sensor_writer.write(vehicle_data) == False:
                 logfile.error("Sensor writer has died - attempting to restart....")
-                sensor_writer = mq.mqWriter(VEHICLE_SERVER, 5672, VEHICLE_QUEUE, logfile)
+                sensor_writer = mq.mqWriter(VEHICLE_SERVER, 5672, VEHICLE_EXCHANGE, logfile)
                 time.sleep(1)
 
 
@@ -302,7 +302,7 @@ def main():
             if control_worker.is_alive() == False:
                 logfile.error("Control reader has died - attempting to restart....")
                 # Re-init thread
-                control_reader = mq.mqReader(CONTROL_SERVER, 5672, CONTROL_QUEUE, _vehicleControl, logfile)
+                control_reader = mq.mqReader(CONTROL_SERVER, 5672, CONTROL_EXCHANGE, _vehicleControl, logfile)
                 control_worker = multiprocessing.Process(target=control_reader.run)
                 control_worker.start()
 
