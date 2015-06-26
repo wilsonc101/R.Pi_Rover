@@ -58,11 +58,13 @@ class rmqClientReader():
 class rmqClientWriter():
     def __init__(self, host, port, log=None):
         self.log = log
+        self.exchange = None
         try:
             # Establish connection to broker
-            self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=host,port=port,heartbeat_interval=1))
+            self.connection = pika.BlockingConnection(pika.ConnectionParameters(host, port))
             self.channel = self.connection.channel()
             self.connected = True
+
             if self.log != None: self.log.info("Connected to broker.")
 
         except:
@@ -71,12 +73,20 @@ class rmqClientWriter():
 
     
 
-    def publish(self, exchange, topic, body):
+    def declareExchange(self, exchange):
         try:
-            self.channel.exchange_declare(exchange=exchange, type='topic')
-            self.channel.basic_publish(exchange=exchange, routing_key=topic, body=body)
+            self.exchange = exchange
+            self.channel.exchange_declare(exchange=self.exchange, type='topic')
+            return(True)
+
+        except:
+            return(False)
+
+
+    def publish(self, topic, data):
+        try:
+            self.channel.basic_publish(exchange=self.exchange, routing_key=topic, body=data)
             if self.log != None: self.log.debug("Writing data to topic exchange")
-            print "HERE!!!"
             return(True)
 
         except:
@@ -85,4 +95,7 @@ class rmqClientWriter():
             else:
                 print("Failed to send message to topic " + str(topic))
             return(False)
+
+
+
 
