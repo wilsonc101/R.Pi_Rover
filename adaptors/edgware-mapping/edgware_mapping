@@ -1,0 +1,239 @@
+#!/usr/bin/python -B
+
+import json
+import time
+import multiprocessing
+import ConfigParser
+
+import class_mqtt as mqtt
+import class_edgware as edgware
+
+
+try: 
+    config = ConfigParser.ConfigParser()
+    config.read('edgware_mapping.cfg')
+except:
+    raise SystemExit("FATAL: Could not open config file")
+
+# Mosquitto connection details
+MQTT_HOST = config.get('edgware_broker', 'server')
+MQTT_PORT = int(config.get('edgware_broker', 'port'))
+MQTT_TOPIC_IN = config.get('edgware_broker', 'input_topic')
+MQTT_TOPIC_OUT = config.get('edgware_broker', 'output_topic')
+UNIT_ID = config.get('platform', 'unit_id')
+
+# Edgware connection details
+EDGWARE_NODE = config.get('edgware', 'node_id')
+
+# List of known platforms and their location tuples
+PLATFORM_LOCATIONS = {}
+
+
+def writeMQTTOutput(client, topic, data):
+    client.publish(topic=topic, payload=data)
+
+def processMQTTInput(data):
+    json_data = json.loads(data)
+    correl = json_data['correl']
+
+    # Handle 'Query Result' messages
+    def queryResult(json_data):
+        querytype = json_data['op'].split(":")[1]
+   
+        if querytype == "system-types":
+            return(json_data['system-types'])
+
+        elif querytype == "systems":
+            systems = []
+            for system in json_data['systems']:
+                systems.append(system['id'])
+            return("systems", systems, correl)
+
+        elif querytype == "platform-types":
+            return(json_data['platform-types'])
+
+        elif querytype == "platforms":
+            platforms = []
+            for platform in json_data['platforms']:
+                platforms.append(platform['id'])
+            return("platforms", platforms, correl)
+
+	elif querytype == "nodes":
+            return(json_data['nodes'])
+
+        elif querytype == "bearers":
+            return(json_data['bearers'])
+
+        else:
+            return("unknown query", None)
+
+
+    # Handle 'Request' messages (unused)
+    def request(json_data):
+        return(None, None, None)
+
+   # Handle 'Notification' messages (unused)
+    def notification(json_data):
+        return(None, None, None)
+
+    input_handlers = {'request' : request,
+                      'notification' : notification,
+                      'query-result:bearers' : queryResult,
+                      'query-result:nodes' : queryResult,
+                      'query-result:platform-types' : queryResult,
+                      'query-result:platforms' : queryResult,
+                      'query-result:system-types' : queryResult,
+                      'query-result:systems' : queryResult}
+
+    # Select handler function based on 'op' (operation) value, return tuple
+    if "op" in json_data: 
+        if json_data['op'] in input_handlers: return(input_handlers[str(json_data['op'])](json_data))
+        
+    # Do nothing with invalid messages
+    return(None, None, None)
+
+
+def registerEdgwareTypes(mqtt_client):
+    # Services
+    services = {}
+    services['reader'] = {"type":"reader",
+                          "mode":"solicit-response"}
+
+    # Systems (collections of services)
+    systems = {}
+    systems['data-reader'] = {"type":"data-reader",
+                          "services":[{"type":services['reader']['type']}]}
+
+    # Platforms (collections of systems)
+    platforms = {}
+    platforms['google-mapping'] = {"type":"google-mapping"}
+
+    # Loop through dictionaries and populate Edgware
+    try:
+        i = 100
+        for service in services:
+            i += 1
+            service_type = edgware.serviceType()
+            service_type.type = services[service]['type']
+            service_type.mode = services[service]['mode']
+            service_type.correl = i
+            writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(service_type.generateJSON()))
+    
+        i = 1000
+        for system in systems:
+            i += 1
+            system_type = edgware.systemType()
+            system_type.type = systems[system]['type']
+            system_type.services = systems[system]['services']
+            system_type.correl = i
+            writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(system_type.generateJSON()))
+    
+        i = 2000
+        for platform in platforms:
+            i += 1
+            platform_type = edgware.platformType()
+            platform_type.type = platforms[platform]['type']
+            platform_type.correl = i
+            writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(platform_type.generateJSON()))
+    except:
+        return(False)
+
+
+def main():
+    #### SETUP MQTT CONNECTION
+    mqtt_reader_pconn, mqtt_reader_cconn = multiprocessing.Pipe()
+    mqtt_client = mqtt.mqttClient(host=MQTT_HOST, port=MQTT_PORT, pipe=mqtt_reader_cconn, client_id=("adp" + str(UNIT_ID)))
+
+    if mqtt_client.connected != True:
+        raise SystemExit("FATAL: Failed to connect to MQTT broker")
+
+    mqtt_client.subscribe(topic=MQTT_TOPIC_OUT)
+
+    mqtt_client.client.loop_start()       
+
+
+    #### CONFIGURE EDGWARE
+    # Register edgware types
+    registerEdgwareTypes(mqtt_client)
+
+    ## Define elements
+    # Platforms
+    platform = edgware.platform()
+    platform.type = "google-mapper"
+    platform.id = UNIT_ID
+    platform.correl = 10001
+    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(platform.generateJSON()))
+
+    # Systems (+ activate)
+    system = edgware.system()
+    system.type = "data-reader"
+    system.id = platform.id + "/data-reader"
+    system.correl = 30001
+    activate_system = json.dumps({"op":"state:system", "id": system.id, "state":"running", "correl":30002})
+    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(system.generateJSON()))
+    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, activate_system)
+
+    # Wait for Edgware to complete registrations - response message will queue
+    time.sleep(2)
+
+
+
+    ## INTERNAL - Used in forever loop to update glocal dict of known platforms & systems
+    def _query_platforms(type="simulation-platform"):
+        edgware_query = json.dumps({"op":"query:platforms", "type":type, "correl":9001})
+        writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, edgware_query)  
+
+    def _query_systems(platform, correl, type="vehicle"):
+        if type == "*":
+            edgware_query = json.dumps({"op":"query:systems", "platform":platform, "correl":correl})
+        else:
+            edgware_query = json.dumps({"op":"query:systems", "platform":platform, "type":type, "correl":correl})
+    
+        writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, edgware_query)  
+
+
+    # Appended to platform record - used as correl when querying platform
+    platform_autoID = 9900
+
+    # Forever loop
+    while 1:
+
+        # Query for all platforms - default type = simulation-platform
+        _query_platforms()
+
+        if mqtt_reader_pconn.poll() == True: 
+            response_type, data, correl = processMQTTInput(mqtt_reader_pconn.recv())
+
+            if response_type == "platforms":
+                # If platform is not in global dict, add it with a auto incrementing ID (autoid)
+                for platform in data:
+                    if platform not in PLATFORM_LOCATIONS: 
+                        PLATFORM_LOCATIONS[platform] = {'location':(0,0), 'autoid':platform_autoID}
+                        platform_autoID += 1
+
+            elif response_type == "systems":
+                # If correl matches the autoid of a platform, append systems to record
+                for platform in PLATFORM_LOCATIONS:
+                    if int(PLATFORM_LOCATIONS[platform]['autoid']) == int(correl):
+                        PLATFORM_LOCATIONS[platform]['systems'] = data
+
+
+        # Loop through global dict, query systems using autoid as correl 
+        for platform in PLATFORM_LOCATIONS:
+            _query_systems(platform, PLATFORM_LOCATIONS[platform]['autoid'])
+
+        print json.dumps(PLATFORM_LOCATIONS)
+
+        # Slow loop repeat to avoid CPU hogging
+        time.sleep(.2)
+
+    # Clean-up
+    mqtt_client.client.loop_stop()
+
+
+if __name__ == '__main__':
+    try: 
+        main()
+    except (KeyboardInterrupt, SystemExit):
+        print "Exiting..."
+
