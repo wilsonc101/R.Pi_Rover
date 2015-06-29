@@ -50,7 +50,7 @@ class MQReader(QtCore.QThread):
         try:
             self.emit(self.signal, str(body))
         except:
-            raise SystemExit("Error polling vehicle queue")
+            return(False)
 
     def run(self):
         try:
@@ -58,7 +58,6 @@ class MQReader(QtCore.QThread):
 
         except:
             return(False)
-#            raise SystemExit("Lost connection to queue server")
 
 
 def MQWriter(qt_window):
@@ -115,8 +114,7 @@ def MQWriter(qt_window):
         connection.close()
 
     except:
-        raise SystemExit("Could not write to control queue")
-
+        return(False)
 
 
 def GUIUpdate(qt_window, json_data):

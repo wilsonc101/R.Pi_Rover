@@ -19,7 +19,7 @@ VEHICLE_ID = config.get('vehicle_id', 'id')
 
 class MQReader(QtCore.QThread):
     def __init__(self):
-#        try:   
+        try:   
             QtCore.QThread.__init__(self)
             self.signal = QtCore.SIGNAL("signal")
             self.connection = pika.BlockingConnection(pika.ConnectionParameters(CONTROL_SERVER))
@@ -33,33 +33,30 @@ class MQReader(QtCore.QThread):
             self.channel.queue_bind(exchange=CONTROL_EXCHANGE, queue=self.queue_name, routing_key=VEHICLE_ID)
             self.channel.basic_consume(self._poll_queue, queue=self.queue_name, no_ack=True)
 
-
-            ## QUEUE BASED ##
-#            self.channel.queue_declare(queue=CONTROL_QUEUE)
-#            self.channel.basic_consume(self._poll_queue, queue=CONTROL_QUEUE)
-
-#        except:
-#            raise SystemExit("Could not connect to queue server")
+        except:
+             return(False)
 
 
     def _poll_queue(self, ch, method, properties, body):
         try:
             self.emit(self.signal, str(body))
+            return(True)
         except:
-            raise SystemExit("Error polling vehicle queue")
+            return(False)    
 
     def run(self):
         try:
             self.channel.start_consuming()
-
+            return(True)
         except:
-            raise SystemExit("Lost connection to queue server")
+             return(False)
 
 
 def MQWriter(qt_window):
     # Enviroment
     temperature_value = qt_window.sb_temperature.value()
     humidity_value = qt_window.sb_humidity.value()
+    pressure_value = qt_window.sb_pressure.value()
  
     # GPS
     north_value = qt_window.sb_north.value()
@@ -69,7 +66,7 @@ def MQWriter(qt_window):
     # Create/populate JSON data structure
     data = {}
     data['environment'] = {'temperature': temperature_value, 'humidity': humidity_value}
-    data['GPS'] = {'north': north_value, 'east': east_value}
+    data['GPS'] = {'logitude': north_value, 'latitude': east_value}
 
 
     try:
@@ -81,19 +78,11 @@ def MQWriter(qt_window):
         channel.exchange_declare(exchange=VEHICLE_EXCHANGE, type='topic')
         # Write JSON data to queue
         channel.basic_publish(exchange=VEHICLE_EXCHANGE, routing_key=VEHICLE_ID, body=json.dumps(data))
-
-
-
-        ## QUEUE BASED ##
-#        channel.queue_declare(queue=VEHICLE_QUEUE)
-        # Write JSON data to queue
-#        channel.basic_publish(exchange='',routing_key=VEHICLE_QUEUE, body=json.dumps(data))
-
-
         connection.close()
-
+        return(True)
+     
     except:
-        raise SystemExit("Could not write to control queue")
+        return(False)
 
 
 

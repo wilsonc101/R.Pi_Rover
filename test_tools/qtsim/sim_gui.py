@@ -12,4 +12,3 @@ if __name__ == '__main__':
     gui.setupUi(gui_mainwindow)
     gui_mainwindow.show()
     sys.exit(gui_app.exec_())
-    print("here")
