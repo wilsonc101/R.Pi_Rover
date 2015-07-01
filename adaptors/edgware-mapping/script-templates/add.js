@@ -1,7 +1,7 @@
 function addMarker() {
     var markers = {};
     //po08m3u5
-    var position = new google.maps.LatLng(51.448806,-2.145816);
+    var position = new google.maps.LatLng(51.448298,-2.146085);
     bounds.extend(position);
     marker0 = new google.maps.Marker({position: position,
                                      map: map,
@@ -11,7 +11,7 @@ function addMarker() {
     markers["po08m3u5"] = marker0;
 
     //fy776wj0
-    var position = new google.maps.LatLng(51.449147,-2.1466);
+    var position = new google.maps.LatLng(51.448659,-2.14646);
     bounds.extend(position);
     marker1 = new google.maps.Marker({position: position,
                                      map: map,
@@ -20,7 +20,8 @@ function addMarker() {
 
     markers["fy776wj0"] = marker1;
 
-    map.setCenter(position);
+    map.fitBounds(bounds);
+    map.setZoom(16);
 
     //d166ce06
     var position = new google.maps.LatLng(51.448806,-2.145816);

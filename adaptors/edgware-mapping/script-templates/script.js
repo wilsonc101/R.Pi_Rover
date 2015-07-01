@@ -3,6 +3,8 @@ var bounds;
 
 
 var timer = setInterval(function (){
+                   
+                   // Re-add script
                    var script = document.createElement("script");
                    script.type = "text/javascript";
                    script.src = "update.js";
@@ -13,7 +15,7 @@ function initialize() {
     var mapCanvas = document.getElementById('map-canvas');
     var mapOptions = {
       center: new google.maps.LatLng(0, 0),
-      zoom: 17,
+      zoom: 16,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
 
@@ -21,7 +23,7 @@ function initialize() {
     map.fitBounds(bounds);
 
     var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
-        this.setZoom(17);
+        this.setZoom(16);
         google.maps.event.removeListener(boundsListener);
 
         // Populate array of initial markers
