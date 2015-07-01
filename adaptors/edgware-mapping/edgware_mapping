@@ -39,7 +39,6 @@ def processMQTTInput(data):
     # Handle 'Query Result' messages
     def queryResult(json_data):
         querytype = json_data['op'].split(":")[1]
-   
         if querytype == "system-types":
             return(json_data['system-types'])
 
@@ -47,7 +46,7 @@ def processMQTTInput(data):
             systems = []
             for system in json_data['systems']:
                 systems.append(system['id'])
-            return("systems", systems, correl)
+            return(json_data['op'], systems, correl)
 
         elif querytype == "platform-types":
             return(json_data['platform-types'])
@@ -56,7 +55,7 @@ def processMQTTInput(data):
             platforms = []
             for platform in json_data['platforms']:
                 platforms.append(platform['id'])
-            return("platforms", platforms, correl)
+            return(json_data['op'], platforms, correl)
 
 	elif querytype == "nodes":
             return(json_data['nodes'])
@@ -65,12 +64,16 @@ def processMQTTInput(data):
             return(json_data['bearers'])
 
         else:
-            return("unknown query", None)
+            return("unknown query", None, correl)
 
 
     # Handle 'Request' messages (unused)
     def request(json_data):
         return(None, None, None)
+
+    # Handle 'Response' messages (unused)
+    def response(json_data):
+        return("response", json_data['msg'], correl)
 
    # Handle 'Notification' messages (unused)
     def notification(json_data):
@@ -78,6 +81,7 @@ def processMQTTInput(data):
 
     input_handlers = {'request' : request,
                       'notification' : notification,
+                      'response' : response,
                       'query-result:bearers' : queryResult,
                       'query-result:nodes' : queryResult,
                       'query-result:platform-types' : queryResult,
@@ -86,8 +90,7 @@ def processMQTTInput(data):
                       'query-result:systems' : queryResult}
 
     # Select handler function based on 'op' (operation) value, return tuple
-    if "op" in json_data: 
-        if json_data['op'] in input_handlers: return(input_handlers[str(json_data['op'])](json_data))
+    if json_data['op'] in input_handlers: return(input_handlers[str(json_data['op'])](json_data))
         
     # Do nothing with invalid messages
     return(None, None, None)
@@ -158,19 +161,19 @@ def main():
 
     ## Define elements
     # Platforms
-    platform = edgware.platform()
-    platform.type = "google-mapper"
-    platform.id = UNIT_ID
-    platform.correl = 10001
-    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(platform.generateJSON()))
+    edgware_platform = edgware.platform()
+    edgware_platform.type = "google-mapper"
+    edgware_platform.id = UNIT_ID
+    edgware_platform.correl = 10001
+    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(edgware_platform.generateJSON()))
 
     # Systems (+ activate)
-    system = edgware.system()
-    system.type = "data-reader"
-    system.id = platform.id + "/data-reader"
-    system.correl = 30001
-    activate_system = json.dumps({"op":"state:system", "id": system.id, "state":"running", "correl":30002})
-    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(system.generateJSON()))
+    edgware_system = edgware.system()
+    edgware_system.type = "data-reader"
+    edgware_system.id = edgware_platform.id + "/data-reader"
+    edgware_system.correl = 30001
+    activate_system = json.dumps({"op":"state:system", "id": edgware_system.id, "state":"running", "correl":30002})
+    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(edgware_system.generateJSON()))
     writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, activate_system)
 
     # Wait for Edgware to complete registrations - response message will queue
@@ -188,44 +191,146 @@ def main():
             edgware_query = json.dumps({"op":"query:systems", "platform":platform, "correl":correl})
         else:
             edgware_query = json.dumps({"op":"query:systems", "platform":platform, "type":type, "correl":correl})
-    
         writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, edgware_query)  
+
+    def _query_position(servicepath, msg, correl, localservicepath):
+        edgware_query = json.dumps({"op" : "request", 	  
+                         "request-response": [str(servicepath)],
+                         "msg" : "getPosition",
+                         "solicit-response" : localservicepath,   
+                         "correl" : correl})
+        writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, edgware_query)  
+
+
+    def _write_JSScript(addscriptpath, updatescriptpath):
+        markers = {0: "'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'",
+                   1: "'http://maps.google.com/mapfiles/ms/icons/red-dot.png'",
+                   2: "'http://maps.google.com/mapfiles/ms/icons/purple-dot.png'",
+                   3: "'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'",
+                   4: "'http://maps.google.com/mapfiles/ms/icons/green-dot.png'"}
+
+
+        # Create 'Add' script
+        addscript = open(addscriptpath, "w")
+        addscript.write("function addMarker() {\n")
+        addscript.write("    var markers = {};\n")
+
+        # Create 'Update' script
+        updatescript = open(updatescriptpath, "w")
+        updatescript.write("function changeMarkerPosition(id, marker) {\n")
+        updatescript.write("    var positions = {};\n")
+
+
+
+        platform_count = 0
+        marker_count = 0
+        for platform in PLATFORM_LOCATIONS:
+            if marker_count > 4: marker_count = 0
+
+            # Write 'Add' script contents
+            addscript.write("    //" + platform + "\n")
+            addscript.write("    var position = new google.maps.LatLng(" + str(PLATFORM_LOCATIONS[platform]['location'][0]) + "," + str(PLATFORM_LOCATIONS[platform]['location'][1]) + ");\n")
+            addscript.write("    bounds.extend(position);\n")
+            addscript.write("    marker" + str(platform_count) + " = new google.maps.Marker({position: position,\n")
+            addscript.write("                                     map: map,\n")
+            addscript.write("                                     title: '" + platform + "',\n")
+            addscript.write("                                     icon: " + markers[marker_count] + "});\n")
+            addscript.write("\n")
+            addscript.write('    markers["' + platform + '"] = marker' + str(platform_count) + ';\n')
+            addscript.write("\n")
+
+            # Center map on first platform
+            if platform_count == 1: 
+                addscript.write("    map.setCenter(position);\n")
+                addscript.write("\n")
+           
+            # Write 'Update' script contents
+            updatescript.write('    positions["' + platform + '"] = [' + str(PLATFORM_LOCATIONS[platform]['location'][0]) + ", " + str(PLATFORM_LOCATIONS[platform]['location'][1]) + '];\n')
+            
+            platform_count += 1
+            marker_count += 1
+
+        updatescript.write('\n')
+        updatescript.write("    for (var key in positions) {\n")
+        updatescript.write("       if (id == key) {\n")
+        updatescript.write("          var lat = positions[key][0];\n")
+        updatescript.write("          var long = positions[key][1];\n")
+        updatescript.write("          var latlng = new google.maps.LatLng(lat, long);\n")
+        updatescript.write("          marker.setPosition(latlng);\n")
+        updatescript.write("          map.setCenter(latlng);\n")
+        updatescript.write("       }\n")
+        updatescript.write("    }\n")
+        updatescript.write("}\n")
+        updatescript.close()
+
+
+        addscript.write("    return markers;\n")
+        addscript.write("}")
+        addscript.close()
+
 
 
     # Appended to platform record - used as correl when querying platform
     platform_autoID = 9900
 
+    loop_counter = 0
     # Forever loop
     while 1:
+ 
+        if loop_counter == 15:
+            loop_counter = 0
+            # Query for all platforms - default type = simulation-platform
+            _query_platforms(type="simulation-platform")
 
-        # Query for all platforms - default type = simulation-platform
-        _query_platforms()
+            # Loop through global dict, 
+            for platform in PLATFORM_LOCATIONS:
+                # Query platforms for systems using autoid as correl - default type = vehicle
+                _query_systems(platform=platform, correl=PLATFORM_LOCATIONS[platform]['autoid'], type="vehicle")
+  
+                # Query systems for locations
+                if "systems" in PLATFORM_LOCATIONS[platform]:
+                    for system in PLATFORM_LOCATIONS[platform]['systems']:
+                        _query_position(servicepath=platform + "/" + system + "/gps", 
+                                        localservicepath=edgware_system.id + "/reader",
+                                        correl=PLATFORM_LOCATIONS[platform]['autoid'], 
+                                        msg="getPosition")
+
+            # generate JavaScript file
+            _write_JSScript(addscriptpath="/var/www/html/add.js", updatescriptpath="/var/www/html/update.js")
+
 
         if mqtt_reader_pconn.poll() == True: 
             response_type, data, correl = processMQTTInput(mqtt_reader_pconn.recv())
 
-            if response_type == "platforms":
+            if response_type == "query-result:platforms":
                 # If platform is not in global dict, add it with a auto incrementing ID (autoid)
                 for platform in data:
                     if platform not in PLATFORM_LOCATIONS: 
                         PLATFORM_LOCATIONS[platform] = {'location':(0,0), 'autoid':platform_autoID}
                         platform_autoID += 1
 
-            elif response_type == "systems":
+            elif response_type == "query-result:systems":
                 # If correl matches the autoid of a platform, append systems to record
                 for platform in PLATFORM_LOCATIONS:
                     if int(PLATFORM_LOCATIONS[platform]['autoid']) == int(correl):
                         PLATFORM_LOCATIONS[platform]['systems'] = data
 
+            elif response_type == "response":
+                for platform in PLATFORM_LOCATIONS:
+                    if int(PLATFORM_LOCATIONS[platform]['autoid']) == int(correl):
+                        PLATFORM_LOCATIONS[platform]['location'] = (float(data[0]), float(data[1]))
 
-        # Loop through global dict, query systems using autoid as correl 
-        for platform in PLATFORM_LOCATIONS:
-            _query_systems(platform, PLATFORM_LOCATIONS[platform]['autoid'])
+
+
 
         print json.dumps(PLATFORM_LOCATIONS)
 
-        # Slow loop repeat to avoid CPU hogging
+        loop_counter += 1
         time.sleep(.2)
+
+
+
+        # Slow loop repeat to avoid CPU hogging
 
     # Clean-up
     mqtt_client.client.loop_stop()

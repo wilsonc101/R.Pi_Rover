@@ -66,7 +66,7 @@ def processMQTTInput(data):
 
         def getGPSData(msg):
             if msg == "getPosition":
-                return((VEHICLE_DATA.gpsLongitude, VEHICLE_DATA.gpsLatitude), None)
+                return((VEHICLE_DATA.gpsLatitude, VEHICLE_DATA.gpsLongitude), None)
             elif msg == "getSpeed":
                 return(VEHICLE_DATA.gpsSpeed, None)
             elif msg == "getAltitude":
@@ -163,7 +163,11 @@ def processMQTTInput(data):
 
         # Extract 'my' service id
         for responder in json_data['request-response']:
-            if RMQ_TOPIC in responder: request_response = responder
+            if RMQ_TOPIC in responder: 
+                request_response = responder
+            else:
+                # Message not for me
+                return(None, None)
 
         # Seperate service type from platform/system path and call function
         service = request_response.split("/")[2]
@@ -174,7 +178,7 @@ def processMQTTInput(data):
             mqtt_response = "unknown service"
             rmq_response = None
 
-        # Generate response
+            # Generate response
         json_response = {}
         json_response['op'] = "response"
         json_response['solicit-response'] = solicit_response
