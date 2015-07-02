@@ -54,7 +54,7 @@ def processMQTTInput(data):
         elif querytype == "platforms":
             platforms = []
             for platform in json_data['platforms']:
-                platforms.append(platform['id'])
+                platforms.append(platform)
             return(json_data['op'], platforms, correl)
 
 	elif querytype == "nodes":
@@ -186,21 +186,6 @@ def main():
         edgware_query = json.dumps({"op":"query:platforms", "type":type, "correl":9001})
         writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, edgware_query)  
 
-    def _query_systems(platform, correl, type="vehicle"):
-        if type == "*":
-            edgware_query = json.dumps({"op":"query:systems", "platform":platform, "correl":correl})
-        else:
-            edgware_query = json.dumps({"op":"query:systems", "platform":platform, "type":type, "correl":correl})
-        writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, edgware_query)  
-
-    def _query_position(servicepath, msg, correl, localservicepath):
-        edgware_query = json.dumps({"op" : "request", 	  
-                         "request-response": [str(servicepath)],
-                         "msg" : "getPosition",
-                         "solicit-response" : localservicepath,   
-                         "correl" : correl})
-        writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, edgware_query)  
-
 
     def _write_JSScript(addscriptpath, updatescriptpath):
         markers = {0: "'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'",
@@ -263,9 +248,11 @@ def main():
         updatescript.write("          bounds.extend(latlng);\n")
         updatescript.write('\n')
         updatescript.write("          for (var datakey in data) {\n")
-        updatescript.write("              var infowindow = new google.maps.InfoWindow({ content: data[datakey] });\n")
-        updatescript.write("              google.maps.event.clearInstanceListeners(marker);\n")
-        updatescript.write("              google.maps.event.addListener(marker, 'click', function() {infowindow.open(map, marker);});\n")
+        updatescript.write("              if (id == datakey) {\n")
+        updatescript.write("                  var infowindow = new google.maps.InfoWindow({ content: data[datakey] });\n")
+        updatescript.write("                  google.maps.event.clearInstanceListeners(marker);\n")
+        updatescript.write("                  google.maps.event.addListener(marker, 'click', function() {infowindow.open(map, marker);});\n")
+        updatescript.write("              }\n")
         updatescript.write("          }\n")
         updatescript.write("       }\n")
         updatescript.write("    }\n")
@@ -294,19 +281,6 @@ def main():
             # Query for all platforms - default type = simulation-platform
             _query_platforms(type="simulation-platform")
 
-            # Loop through global dict, 
-            for platform in PLATFORM_LOCATIONS:
-                # Query platforms for systems using autoid as correl - default type = vehicle
-                _query_systems(platform=platform, correl=PLATFORM_LOCATIONS[platform]['autoid'], type="vehicle")
-  
-                # Query systems for locations
-                if "systems" in PLATFORM_LOCATIONS[platform]:
-                    for system in PLATFORM_LOCATIONS[platform]['systems']:
-                        _query_position(servicepath=platform + "/" + system + "/gps", 
-                                        localservicepath=edgware_system.id + "/reader",
-                                        correl=PLATFORM_LOCATIONS[platform]['autoid'], 
-                                        msg="getPosition")
-
             # generate JavaScript file
             _write_JSScript(addscriptpath="/var/www/html/add.js", updatescriptpath="/var/www/html/update.js")
 
@@ -317,15 +291,14 @@ def main():
             if response_type == "query-result:platforms":
                 # If platform is not in global dict, add it with a auto incrementing ID (autoid)
                 for platform in data:
-                    if platform not in PLATFORM_LOCATIONS: 
-                        PLATFORM_LOCATIONS[platform] = {'location':(0,0), 'autoid':platform_autoID}
+                    if platform['id'] not in PLATFORM_LOCATIONS: 
+                        PLATFORM_LOCATIONS[platform['id']] = {'location':(float(platform['loc']['lat']),float(platform['loc']['long'])), 'autoid':platform_autoID}
                         platform_autoID += 1
+                        print json.dumps(PLATFORM_LOCATIONS)
 
-            elif response_type == "query-result:systems":
-                # If correl matches the autoid of a platform, append systems to record
-                for platform in PLATFORM_LOCATIONS:
-                    if int(PLATFORM_LOCATIONS[platform]['autoid']) == int(correl):
-                        PLATFORM_LOCATIONS[platform]['systems'] = data
+                    else:
+                        PLATFORM_LOCATIONS[platform['id']] = {'location':(float(platform['loc']['lat']),float(platform['loc']['long']))}
+                        print json.dumps(PLATFORM_LOCATIONS)
 
             elif response_type == "response":
                 for platform in PLATFORM_LOCATIONS:
@@ -335,7 +308,6 @@ def main():
 
 
 
-        print json.dumps(PLATFORM_LOCATIONS)
 
         loop_counter += 1
         time.sleep(.2)

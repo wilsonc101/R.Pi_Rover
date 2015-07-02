@@ -3,9 +3,9 @@ function changeMarkerPosition(id, marker) {
     var data = {};
     positions["po08m3u5"] = [51.448298, -2.146085];
     data["po08m3u5"] = "unitID: po08m3u5";
-    positions["fy776wj0"] = [51.448659, -2.14646];
+    positions["fy776wj0"] = [51.449501, -2.146074];
     data["fy776wj0"] = "unitID: fy776wj0";
-    positions["d166ce06"] = [51.448806, -2.145816];
+    positions["d166ce06"] = [51.448298, -2.146085];
     data["d166ce06"] = "unitID: d166ce06";
 
     for (var key in positions) {
@@ -17,9 +17,11 @@ function changeMarkerPosition(id, marker) {
           bounds.extend(latlng);
 
           for (var datakey in data) {
-              var infowindow = new google.maps.InfoWindow({ content: data[datakey] });
-              google.maps.event.clearInstanceListeners(marker);
-              google.maps.event.addListener(marker, 'click', function() {infowindow.open(map, marker);});
+              if (id == datakey) {
+                  var infowindow = new google.maps.InfoWindow({ content: data[datakey] });
+                  google.maps.event.clearInstanceListeners(marker);
+                  google.maps.event.addListener(marker, 'click', function() {infowindow.open(map, marker);});
+              }
           }
        }
     }

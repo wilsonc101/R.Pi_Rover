@@ -80,7 +80,6 @@ def processMQTTInput(data):
             else:
                 return("unknown request", None)
 
-
         def getVehicleStatusData(msg):
             if msg == "getBatteryStatus":
                 return((VEHICLE_DATA.vehicleBatteryA, VEHICLE_DATA.vehicleBatteryB), None)
@@ -390,16 +389,36 @@ def main():
     time.sleep(2)
 
     # Forever loop
+    location_counter = 0
     while 1:
 
+        # Populate platform location fields if present
+        if location_counter == 15:    
+            location_counter = 0
+            if VEHICLE_DATA.gpsLatitude != None and VEHICLE_DATA.gpsLongitude != None: 
+                platform.loc['lat'] = VEHICLE_DATA.gpsLatitude
+                platform.loc['long'] = VEHICLE_DATA.gpsLongitude
+  
+                if VEHICLE_DATA.gpsAltitude != None:
+                    platform.loc['alt'] = VEHICLE_DATA.gpsAltitude
+                else:
+                    platform.loc['alt'] = 0
+
+                # Update platform
+                writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(platform.generateJSON()))
+
+
+        # If MQTT pipe has content
         if mqtt_reader_pconn.poll() == True: 
             mqtt_response, rmq_response = processMQTTInput(mqtt_reader_pconn.recv())
             if rmq_response != None: writeRMQOutput(rmq_client_control_writer, RMQ_TOPIC, json.dumps(rmq_response))
             if mqtt_response != None: writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(mqtt_response))
  
+        # If RMQ pipes have content
         if rmq_control_pconn.poll() == True: processRMQInput(rmq_control_pconn.recv())
         if rmq_vehicle_pconn.poll() == True: processRMQInput(rmq_vehicle_pconn.recv())
 
+        location_counter += 1
         time.sleep(.2)
 
     # Clean-up
