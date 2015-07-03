@@ -1,8 +1,12 @@
 class BMP085 :
     def __init__(self):
-        self.temp = 0
-        self.pressure = 0
-        self.alt = 0
+        try:
+            self.temp = 0
+            self.pressure = 0
+            self.alt = 0
+        except:
+            assert False, "Error: Failed to initialise sensor - BMP085" 
+
 
     def readTemperature(self):
         self.temp = 21

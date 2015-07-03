@@ -40,7 +40,7 @@ try:
     config = ConfigParser.ConfigParser()
     config.read(configfilepath)
 except:
-    raise SystemExit("FATAL: Could not open config file")
+    raise SystemExit("FATAL: Unknown error - " + str(sys.exc_info()[0]))
 
 
 # Validate input - Log file
@@ -52,8 +52,10 @@ else:
 # Setup logging
 try:
     logfile = log.CreateLogger(console=0, file=1, filepath=logfilepath, level=config.get('logging', 'level'))
+    assert logfile, "Error: Failed to create log outputs"
+
 except:
-    raise SystemExit("FATAL: Could not create log file")
+    raise SystemExit("FATAL: Unknown error - " + str(sys.exc_info()[0]))
 
 
 try:
@@ -117,17 +119,22 @@ try:
     LIGHTS_CAMERA_GPIO = int(config.get('lights', 'camera_gpio_pin'))
     LIGHTS_VEHICLE_GPIO = int(config.get('lights', 'vehicle_gpio_pin'))
 
+except ConfigParser.NoSectionError as err:
+    raise SystemExit("Error: " + str(err))
 
-except: 
-    raise SystemExit("FATAL: Error reading sections from config file")
+except ConfigParser.NoOptionError as err:
+    raise SystemExit("Error: " + str(err))
+
+except:
+    raise SystemExit("FATAL: Unknown error - " + str(sys.exc_info()[0]))
 
 
 # Create PWM object
-#try:
-pwm = PWM(0x40, debug=True)
-pwm.setPWMFreq(60) 
-#except:
-#    raise SystemExit("FATAL: Could not init PWM")
+try:
+    pwm = PWM(0x40, debug=True)
+    pwm.setPWMFreq(60) 
+except:
+    raise SystemExit("FATAL: Unknown error - " + str(sys.exc_info()[0]))
 
 
 # Configure GPIO pins
@@ -147,23 +154,33 @@ def SendPWM(channel,start,end):
 
        pwm.setPWM(int(channel),int(float_start),int(float_end))
        logfile.debug("servo data: " + str(channel) + "," + str(int(float_start)) + "," + str(int(float_end)))
+       return(True)
 
     except: 
+       return(False)
        logfile.warning("Could not send data to PWM")
 
 
 ## Run external commands, returns output
 def _run_cmd(cmd):
-    p = Popen(cmd, shell=True, stdout=PIPE)
-    output = p.communicate()[0]
-    return output
+    try:
+        p = Popen(cmd, shell=True, stdout=PIPE)
+        output = p.communicate()[0]
+        return output
+
+    except:
+        return(False)    
 
 def _shutdownVehicle():
     shutdown_cmd = "poweroff"
+
     cmd_result = _run_cmd(shutdown_cmd)
+    assert cmd_result, "Error: Failed to execute shutdown command"
 
 
 def _vehicleControl(ch, method, properties, body):
+    print body
+
     # Callback for queue reader - write queue data to servos
     try:
         json_data = json.loads(str(body))
@@ -236,38 +253,42 @@ def _vehicleControl(ch, method, properties, body):
                 if json_data['state']['shutdown'] == True:
                     _shutdownVehicle()
 
+        return(True)
 
     except:
+        return(False)
         logfile.warning("Could not process control data")
 
 
 
 
 def _vehicleSensors(gps_poller=None):
-    data = {}
-    data['vehicle'] = {'wifi': sensors.getWifi(), 
-                       'batteryA': sensors.getBatteryA(), 
-                       'batteryB': sensors.getBatteryB()}
 
-    data['environment'] = {'temperature': sensors.getEnvironment_temperature(), 
-                           'humidity': sensors.getEnvironment_humidity(),
-                           'pressure': sensors.getEnvironment_pressure()}
+    try:
+        data = {}
+        data['vehicle'] = {'wifi': sensors.getWifi(),
+                           'batteryA': sensors.getBatteryA(),
+                           'batteryB': sensors.getBatteryB()}
+      
+        data['environment'] = {'temperature': sensors.getEnvironment_temperature(),
+                               'humidity': sensors.getEnvironment_humidity(),
+                               'pressure': sensors.getEnvironment_pressure()}
+      
+      
+        if gps_poller != None:
+            data['GPS'] = {'latitude': str(sensors.getGPS_lat(gps_poller)),
+                           'longitude': str(sensors.getGPS_long(gps_poller)),
+                           'speed': sensors.getGPS_speed(gps_poller),
+                           'altitude': sensors.getGPS_altitude(gps_poller)}
+      
+        accelerometer_x, accelerometer_y = sensors.getMovement_Accelerometer()
+        data['accelerometer'] = {'x': accelerometer_x,
+                                 'y': accelerometer_y}
+      
+        return(data)
 
-
-    if gps_poller != None:
-        data['GPS'] = {'latitude': str(sensors.getGPS_lat(gps_poller)), 
-                       'longitude': str(sensors.getGPS_long(gps_poller)),
-                       'speed': sensors.getGPS_speed(gps_poller),
-                       'altitude': sensors.getGPS_altitude(gps_poller)}
-     
-    accelerometer_x, accelerometer_y = sensors.getMovement_Accelerometer()
-    data['accelerometer'] = {'x': accelerometer_x,
-                             'y': accelerometer_y}
-
-
-    return(data)
-
-
+    except:
+        return(False)
 
 def main():
 
@@ -314,7 +335,8 @@ def main():
         while 1:
 
             vehicle_data = _vehicleSensors(gps_poller)
- 
+            assert vehicle_data, "Error: Failed to process sensor data" 
+
             if sensor_writer.write(vehicle_data) == False:
                 logfile.error("Sensor writer has died - attempting to restart....")
                 sensor_writer = mq.mqWriter(VEHICLE_SERVER, 5672, VEHICLE_EXCHANGE, logfile)
@@ -358,5 +380,12 @@ if __name__ == '__main__':
     try:
         main()     
 
-    except (KeyboardInterrupt, SystemExit):
-        print "Exiting..."
+    except (KeyboardInterrupt, SystemExit) as err:
+        print str(err) + " -- Exiting..."
+
+    except AssertionError as err:
+        print str(err)
+
+    except:
+        print "Error: unknown error - " + str(sys.exc_info()[0])
+

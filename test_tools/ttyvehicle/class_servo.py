@@ -2,32 +2,38 @@
 from __future__ import division
 
 class StandardServo():
-	def __init__(self,channelid,min,max,neutral,name):
-		self.Channel = int(channelid)
-		self.RealMin = int(min)
-		self.RealMax = int(max)
-		self.RealNeutral = int(neutral)
-		self.Name = name
+    def __init__(self,channelid,min,max,neutral,name):
+        try:
+            self.Channel = int(channelid)
+            self.RealMin = int(min)
+            self.RealMax = int(max)
+            self.RealNeutral = int(neutral)
+            self.Name = name
 
-	def Translate(self, input):
-		# Translate percentages to interpolated outputs
-		# Input is expected to be -100 to 100 (full reverse to full forward)
-		
-		input = int(input)
-	
-		output = self.RealNeutral
+        except:
+            assert Failed, "Error: Failed to initialise server"
 
-		if input >= -100 and input <= 100:
-			if input < 0:
-				neg_span = abs(self.RealNeutral-self.RealMin)
-				output = self.RealNeutral - ((neg_span / 100)*abs(input))
-			elif input > 0:
-				pos_span = abs(self.RealNeutral-self.RealMax)
-				output = self.RealNeutral + ((pos_span / 100)*abs(input))
-		else:
-			output = "out of range"
-				
-		return output
+    
+    def Translate(self, input):
+        # Translate percentages to interpolated outputs
+        # Input is expected to be -100 to 100 (full reverse to full forward)
+        try:
+            input = int(input)
+    
+            output = self.RealNeutral
+    
+            if input >= -100 and input <= 100:
+                if input < 0:
+                    neg_span = abs(self.RealNeutral-self.RealMin)
+                    output = self.RealNeutral - ((neg_span / 100)*abs(input))
+                elif input > 0:
+                    pos_span = abs(self.RealNeutral-self.RealMax)
+                    output = self.RealNeutral + ((pos_span / 100)*abs(input))
+
+            return output
+
+        except:
+            return(False)
 
 
 # Examples:

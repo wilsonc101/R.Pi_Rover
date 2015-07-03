@@ -4,25 +4,33 @@ import time
 
 class gpsPoller(threading.Thread):
   def __init__(self):
-    threading.Thread.__init__(self)
-    self.gpsdata = {'status': "NO FIX"}
-    self.running = False
-    self.fixmode = 3
-    self.demodata = {'2':(51.449501, -2.146074),
-                '3':(51.449501, -2.146074),
-                '4':(51.448806, -2.145816),
-                '5':(51.448806, -2.145816),
-                '6':(51.448298, -2.146085),
-                '7':(51.448298, -2.146085),
-                '8':(51.448659, -2.146460),
-                '9':(51.448659, -2.146460),
-                '0':(51.449147, -2.146600),
-                '1':(51.449147, -2.146600)}
+    try:
+        threading.Thread.__init__(self)
+        self.gpsdata = {'status': "NO FIX"}
+        self.running = False
+        self.fixmode = 3
+        self.demodata = {'2':(51.449501, -2.146074),
+                    '3':(51.449501, -2.146074),
+                    '4':(51.448806, -2.145816),
+                    '5':(51.448806, -2.145816),
+                    '6':(51.448298, -2.146085),
+                    '7':(51.448298, -2.146085),
+                    '8':(51.448659, -2.146460),
+                    '9':(51.448659, -2.146460),
+                    '0':(51.449147, -2.146600),
+                    '1':(51.449147, -2.146600)}
+    except:
+      assert False, "Error: Failed to initialise GPS thread"
 
 
   def setFixMode(self, mode):
-    if 0 < mode < 3:
-        self.fixmode = mode  
+    try:
+        if 0 < mode < 3:
+            self.fixmode = mode  
+        return(True)
+
+    except:
+        return(False)
 
 
   def run(self):
@@ -50,6 +58,6 @@ class gpsPoller(threading.Thread):
                 self.gpsdata['satellites'] = "unknown"
             else:
                 self.gpsdata['status'] = "NO FIX"
-    except:    
-        return
 
+    except:    
+        assert False, "Error: Processing GPS data failed"

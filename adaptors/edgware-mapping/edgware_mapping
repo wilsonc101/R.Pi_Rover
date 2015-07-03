@@ -4,35 +4,72 @@ import json
 import time
 import multiprocessing
 import ConfigParser
+import argparse
+import sys
+import os.path
 
 import class_mqtt as mqtt
 import class_edgware as edgware
 
 
-try: 
+# Setup input arguments
+arg_parser = argparse.ArgumentParser(description='Usage options for edgware adaptor')
+arg_parser.add_argument('-c', '--configfile', help="Optional - configuration file path")
+arg_parser.add_argument('-l', '--logfile', help="Optional - Log file path")
+# Process input and generate dict
+args = vars(arg_parser.parse_args())
+
+
+# Validate input - Config file
+if args['configfile'] != None:
+    configfilepath = args['configfile']
+else:
+    configfilepath = 'edgware_mapping.cfg'
+
+if not os.path.isfile(configfilepath):
+   raise SystemExit("ERROR: File not found - " + str(configfilepath))
+
+# Get config
+try:
     config = ConfigParser.ConfigParser()
-    config.read('edgware_mapping.cfg')
+    config.read(configfilepath)
 except:
-    raise SystemExit("FATAL: Could not open config file")
+    raise SystemExit("FATAL: Unknown error - " + str(sys.exc_info()[0]))
 
-# Mosquitto connection details
-MQTT_HOST = config.get('edgware_broker', 'server')
-MQTT_PORT = int(config.get('edgware_broker', 'port'))
-MQTT_TOPIC_IN = config.get('edgware_broker', 'input_topic')
-MQTT_TOPIC_OUT = config.get('edgware_broker', 'output_topic')
-UNIT_ID = config.get('platform', 'unit_id')
 
-# Edgware connection details
-EDGWARE_NODE = config.get('edgware', 'node_id')
+# Parse config data, convert to vars
+try:
+    # Mosquitto connection details
+    MQTT_HOST = config.get('edgware_broker', 'server')
+    MQTT_PORT = int(config.get('edgware_broker', 'port'))
+    MQTT_TOPIC_IN = config.get('edgware_broker', 'input_topic')
+    MQTT_TOPIC_OUT = config.get('edgware_broker', 'output_topic')
+    UNIT_ID = config.get('platform', 'unit_id')
 
-# List of known platforms and their location tuples
+    # Edgware connection details
+    EDGWARE_NODE = config.get('edgware', 'node_id')
+
+    _DEFAULT_PLATFORM = config.get('mapping', 'platform_type')
+
+except ConfigParser.NoSectionError as err:
+    raise SystemExit("ERROR: " + str(err))
+
+except ConfigParser.NoOptionError as err:
+    raise SystemExit("Error: " + str(err))
+
+except:
+    raise SystemExit("FATAL: Unknown error - " + str(sys.exc_info()[0]))
+
+# Global vars
 PLATFORM_LOCATIONS = {}
 
-_DEFAULT_PLATFORM = config.get('mapping', 'platform_type')
 
 def writeMQTTOutput(client, topic, data):
-    client.publish(topic=topic, payload=data)
+    result = client.publish(topic=topic, payload=data)
+    assert result, "Error publishing MQTT message to " + str(topic)
+    return(result)
 
+    
 def processMQTTInput(data):
     json_data = json.loads(data)
     correl = json_data['correl']
@@ -40,17 +77,11 @@ def processMQTTInput(data):
     # Handle 'Query Result' messages
     def queryResult(json_data):
         querytype = json_data['op'].split(":")[1]
-        if querytype == "system-types":
-            return(json_data['system-types'])
-
-        elif querytype == "systems":
+        if querytype == "systems":
             systems = []
             for system in json_data['systems']:
                 systems.append(system['id'])
             return(json_data['op'], systems, correl)
-
-        elif querytype == "platform-types":
-            return(json_data['platform-types'])
 
         elif querytype == "platforms":
             platforms = []
@@ -58,19 +89,13 @@ def processMQTTInput(data):
                 platforms.append(platform)
             return(json_data['op'], platforms, correl)
 
-	elif querytype == "nodes":
-            return(json_data['nodes'])
-
-        elif querytype == "bearers":
-            return(json_data['bearers'])
-
         else:
             return("unknown query", None, correl)
 
 
     # Handle 'Request' messages (unused)
     def request(json_data):
-        return(None, None, None)
+        return("request", json_data['msg'], correl)
 
     # Handle 'Response' messages (unused)
     def response(json_data):
@@ -78,16 +103,13 @@ def processMQTTInput(data):
 
    # Handle 'Notification' messages (unused)
     def notification(json_data):
-        return(None, None, None)
+        return("notification", json_data['msg'], correl)
+
 
     input_handlers = {'request' : request,
                       'notification' : notification,
                       'response' : response,
-                      'query-result:bearers' : queryResult,
-                      'query-result:nodes' : queryResult,
-                      'query-result:platform-types' : queryResult,
                       'query-result:platforms' : queryResult,
-                      'query-result:system-types' : queryResult,
                       'query-result:systems' : queryResult}
 
     # Select handler function based on 'op' (operation) value, return tuple
@@ -121,8 +143,11 @@ def registerEdgwareTypes(mqtt_client):
             service_type.type = services[service]['type']
             service_type.mode = services[service]['mode']
             service_type.correl = i
-            writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(service_type.generateJSON()))
-    
+
+            message =  json.dumps(service_type.generateJSON())
+            assert message, "Error generating JSON for service type " + str(services[service]['type'])
+            writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, message)
+
         i = 1000
         for system in systems:
             i += 1
@@ -130,16 +155,26 @@ def registerEdgwareTypes(mqtt_client):
             system_type.type = systems[system]['type']
             system_type.services = systems[system]['services']
             system_type.correl = i
-            writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(system_type.generateJSON()))
-    
+
+            message =  json.dumps(system_type.generateJSON())
+            assert message, "Error generating JSON for system type " + str(services[service]['type'])
+            writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, message)
+
         i = 2000
         for platform in platforms:
             i += 1
             platform_type = edgware.platformType()
             platform_type.type = platforms[platform]['type']
             platform_type.correl = i
-            writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(platform_type.generateJSON()))
+
+            message =  json.dumps(platform_type.generateJSON())
+            assert message, "Error generating JSON for platform type " + str(services[service]['type'])
+            writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, message)
+
+        return(True)
+
     except:
+        print "Error: Unknown error - " + str(sys.exc_info()[0])
         return(False)
 
 
@@ -152,13 +187,14 @@ def main():
         raise SystemExit("FATAL: Failed to connect to MQTT broker")
 
     mqtt_client.subscribe(topic=MQTT_TOPIC_OUT)
-
+    mqtt_client.set_will(MQTT_TOPIC_IN)
     mqtt_client.client.loop_start()       
 
 
     #### CONFIGURE EDGWARE
     # Register edgware types
-    registerEdgwareTypes(mqtt_client)
+    result = registerEdgwareTypes(mqtt_client)
+    assert result, "Error registering Edgware component types"
 
     ## Define elements
     # Platforms
@@ -181,7 +217,6 @@ def main():
     time.sleep(2)
 
 
-
     ## INTERNAL - Used in forever loop to update glocal dict of known platforms & systems
     def _query_platforms(type=_DEFAULT_PLATFORM):
         edgware_query = json.dumps({"op":"query:platforms", "type":type, "correl":9001})
@@ -197,12 +232,21 @@ def main():
 
 
         # Create 'Add' script
-        addscript = open(addscriptpath, "w")
+        try:
+            addscript = open(addscriptpath, "w")
+        except:
+            return(False)
+
         addscript.write("function addMarker() {\n")
         addscript.write("    var markers = {};\n")
 
+
         # Create 'Update' script
-        updatescript = open(updatescriptpath, "w")
+        try:
+            updatescript = open(updatescriptpath, "w")
+        except:
+            return(False)
+
         updatescript.write("function changeMarkerPosition(id, marker) {\n")
         updatescript.write("    var positions = {};\n")
         updatescript.write("    var data = {};\n")
@@ -227,7 +271,7 @@ def main():
             addscript.write("\n")
 
             # Center map on first platform
-            if platform_count == 1: 
+            if platform_count == 0: 
                 addscript.write("    map.fitBounds(bounds);\n")
                 addscript.write("    map.setZoom(16);\n")
                 addscript.write("\n")
@@ -268,6 +312,8 @@ def main():
         addscript.write("}")
         addscript.close()
 
+        return(True)
+
 
 
     # Appended to platform record - used as correl when querying platform
@@ -276,14 +322,16 @@ def main():
     loop_counter = 0
     # Forever loop
     while 1:
- 
+
+        # Slow repeat loop 
         if loop_counter == 15:
             loop_counter = 0
             # Query for all platforms - default type = simulation-platform
             _query_platforms(type="simulation-platform")
 
             # generate JavaScript file
-            _write_JSScript(addscriptpath="/var/www/html/add.js", updatescriptpath="/var/www/html/update.js")
+            result = _write_JSScript(addscriptpath="/var/www/html/add.js", updatescriptpath="/var/www/html/update.js")
+            assert result, "Error: Failed to create JavaScript files"
 
 
         if mqtt_reader_pconn.poll() == True: 
@@ -308,14 +356,9 @@ def main():
 
 
 
-
-
         loop_counter += 1
         time.sleep(.2)
 
-
-
-        # Slow loop repeat to avoid CPU hogging
 
     # Clean-up
     mqtt_client.client.loop_stop()
@@ -324,6 +367,13 @@ def main():
 if __name__ == '__main__':
     try: 
         main()
-    except (KeyboardInterrupt, SystemExit):
-        print "Exiting..."
+    except (KeyboardInterrupt, SystemExit) as err:
+        print str(err) + " -- Exiting..."
+
+    except AssertionError as err:
+        print str(err)
+
+    except:
+        print "Error: unknown error - " + str(sys.exc_info()[0])
+
 

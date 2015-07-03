@@ -28,12 +28,16 @@ class mqReader(threading.Thread):
     def run(self):
         try:
             self.channel.start_consuming()
+            return(True)
+
         except:
             if self.log != None:
                 self.log.error("Connection to control queue server appears to have dropped.")
             else:
                 print "ERROR: Connection to control queue server appears to have dropped."
-            return
+
+            return(False)
+
 
 class mqWriter():
     def __init__(self, host, port, exchange, vehicle_id, log=None):
@@ -43,7 +47,7 @@ class mqWriter():
         self.vehicle_id = vehicle_id
         try:
             # Establish connection & queue
-            self.connection = pika.BlockingConnection(pika.ConnectionParameters(host, port, heartbeat_interval=1))
+            self.connection = pika.BlockingConnection(pika.ConnectionParameters(host, port))
             self.channel = self.connection.channel()
             self.channel.exchange_declare(exchange=self.exchange, type='topic')
             self.connected = True
