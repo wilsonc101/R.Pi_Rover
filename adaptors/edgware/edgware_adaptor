@@ -12,7 +12,7 @@ import class_mqtt as mqtt
 import class_rmq as rmq
 import class_edgware as edgware
 import class_rover as rover
-
+import func_logging as log
 
 
 # Setup input arguments
@@ -36,6 +36,20 @@ if not os.path.isfile(configfilepath):
 try:
     config = ConfigParser.ConfigParser()
     config.read(configfilepath)
+except:
+    raise SystemExit("FATAL: Unknown error - " + str(sys.exc_info()[0]))
+
+# Validate input - Log file
+if args['logfile'] != None:
+    logfilepath = args['logfile']
+else:
+    logfilepath = config.get('logging', 'path')
+
+# Setup logging
+try:
+    logfile = log.CreateLogger(console=False, file=True, filepath=logfilepath, level=config.get('logging', 'level'))
+    assert logfile, "Error: Failed to create log outputs"
+
 except:
     raise SystemExit("FATAL: Unknown error - " + str(sys.exc_info()[0]))
 
@@ -78,17 +92,20 @@ CONTROL_DATA = rover.piRoverControls()
 
 def writeMQTTOutput(client, topic, data):
     result = client.publish(topic=topic, payload=data)
+    logfile.debug("Writing data to MQTT: " + str(data))
     assert result, "Error publishing MQTT message to " + str(topic)
     return(result)
 
 def writeRMQOutput(client, topic, data):
     result = client.publish(topic, data)
+    logfile.debug("Writing data to RMQ: " + str(data))
     assert result, "Error publishing RMQ message to " + str(topic)
     return(result)
 
 def processMQTTInput(data):
 # Responds to main thread with a tuple for transmission to queues - (for MQTT, for RMQ)
     json_data = json.loads(data)
+    logfile.debug("Receieved data from MQTT: " + str(data))
 
     # Handle 'Request' messages
     def request(json_data):
@@ -248,6 +265,7 @@ def processMQTTInput(data):
 
 def processRMQInput(data):
 # Populate global var from RMQ JSON messages
+    logfile.debug("Received data from RMQ: " + str(data))
     try:
         json_data = json.loads(data)
         if 'camera' in json_data:
@@ -335,6 +353,7 @@ def registerEdgwareTypes(mqtt_client):
             
             message =  json.dumps(service_type.generateJSON())
             assert message, "Error generating JSON for service type " + str(services[service]['type'])
+            logfile.debug("Registering Edgware service type: " + str(services[service]['type']))
             writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, message)
     
         i = 1000
@@ -346,7 +365,8 @@ def registerEdgwareTypes(mqtt_client):
             system_type.correl = i
 
             message =  json.dumps(system_type.generateJSON())
-            assert message, "Error generating JSON for system type " + str(services[service]['type'])
+            assert message, "Error generating JSON for system type " + str(systems[system]['type'])
+            logfile.debug("Registering Edgware service type: " + str(systems[system]['type']))
             writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, message)
    
         i = 2000
@@ -357,12 +377,14 @@ def registerEdgwareTypes(mqtt_client):
             platform_type.correl = i
 
             message =  json.dumps(platform_type.generateJSON())
-            assert message, "Error generating JSON for platform type " + str(services[service]['type'])
+            assert message, "Error generating JSON for platform type " + str(platforms[platform]['type'])
+            logfile.debug("Registering Edgware service type: " + str(platforms[platform]['type']))
             writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, message)
 
         return(True)
 
     except:
+        logfile.error("Error: Unknown error caught when registering Edware types")
         print "Error: Unknown error - " + str(sys.exc_info()[0])
         return(False)
 
@@ -370,33 +392,38 @@ def registerEdgwareTypes(mqtt_client):
 def main():
     #### SETUP MQTT CONNECTION
     mqtt_reader_pconn, mqtt_reader_cconn = multiprocessing.Pipe()
-    mqtt_client = mqtt.mqttClient(host=MQTT_HOST, port=MQTT_PORT, pipe=mqtt_reader_cconn, client_id=("adp" + str(RMQ_TOPIC)))
+    mqtt_client = mqtt.mqttClient(host=MQTT_HOST, port=MQTT_PORT, pipe=mqtt_reader_cconn, client_id=("adp" + str(RMQ_TOPIC)), log=logfile)
 
     if mqtt_client.connected != True:
         raise SystemExit("FATAL: Failed to connect to MQTT broker")
 
+    logfile.info("Connected to MQTT server")
+
     mqtt_client.subscribe(topic=MQTT_TOPIC_OUT)
+    logfile.info("Subscribed to MQTT topic " + MQTT_TOPIC_OUT)
+
     mqtt_client.set_will(MQTT_TOPIC_IN)
     mqtt_client.client.loop_start()       
-
 
     #### SETUP RABBITMQ CONNECTIONS
     ## Control
     # Reader
     rmq_control_pconn, rmq_control_cconn = multiprocessing.Pipe()
-    rmq_control_reader = rmq.rmqClientReader(host=RMQ_HOST_CONTROL, port=RMQ_PORT_CONTROL)
+    rmq_control_reader = rmq.rmqClientReader(host=RMQ_HOST_CONTROL, port=RMQ_PORT_CONTROL, log=logfile)
 
     if rmq_control_reader.connected == False:
         raise SystemExit("FATAL: Failed to connect to RQM broker")
+    logfile.info("Connected to RMQ server - control")
 
     rmq_control_reader.subscribe(RMQ_EXCHANGE_CONTROL, RMQ_TOPIC)
+    logfile.info("Subscribed to RMQ control topic " + RMQ_TOPIC)
 
     rmq_control_thread = multiprocessing.Process(target=rmq_control_reader.run, args=(rmq_control_cconn,))
     rmq_control_thread.daemon = True
     rmq_control_thread.start()
 
     # Writer
-    result = rmq_client_control_writer = rmq.rmqClientWriter(host=RMQ_HOST_CONTROL, port=RMQ_PORT_CONTROL)
+    result = rmq_client_control_writer = rmq.rmqClientWriter(host=RMQ_HOST_CONTROL, port=RMQ_PORT_CONTROL, log=logfile)
     assert result, "Error connecting to RMQ broker for writing"
     result = rmq_client_control_writer.declareExchange(RMQ_EXCHANGE_CONTROL)
     assert result, "Error declaring RMQ exchange"
@@ -408,8 +435,10 @@ def main():
 
     if rmq_vehicle_reader.connected == False:
         raise SystemExit("FATAL: Failed to connect to RQM broker")
+    logfile.info("Connected to RMQ server - vehicle")
  
     rmq_vehicle_reader.subscribe(RMQ_EXCHANGE_VEHICLE, RMQ_TOPIC)
+    logfile.info("Subscribed to RMQ vehicle topic " + RMQ_TOPIC)
 
     rmq_vehicle_thread = multiprocessing.Process(target=rmq_vehicle_reader.run, args=(rmq_vehicle_cconn,))
     rmq_vehicle_thread.daemon = True
@@ -427,6 +456,7 @@ def main():
     platform.type = "simulation-platform"
     platform.id = RMQ_TOPIC
     platform.correl = 10001
+    logfile.info("Edgware - Regsitering platform " + str(platform.id))
     writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(platform.generateJSON()))
 
     # Systems (+ activate)
@@ -435,6 +465,7 @@ def main():
     system.id = platform.id + "/vehicle"
     system.correl = 20001
     activate_system = json.dumps({"op":"state:system", "id": system.id, "state":"running", "correl":20002})
+    logfile.info("Edgware - Regsitering system " + str(system.id))
     writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(system.generateJSON()))
     writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, activate_system)
 
@@ -443,6 +474,7 @@ def main():
     system.id = platform.id + "/control"
     system.correl = 30001
     activate_system = json.dumps({"op":"state:system", "id": system.id, "state":"running", "correl":30002})
+    logfile.info("Edgware - Regsitering system " + str(system.id))
     writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(system.generateJSON()))
     writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, activate_system)
 
@@ -465,21 +497,26 @@ def main():
                     platform.loc['alt'] = 0
 
                 # Update platform
+                logfile.debug("Updating platform position")
                 writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(platform.generateJSON()))
 
 
         # If MQTT pipe has content
         if mqtt_reader_pconn.poll() == True: 
+            logfile.debug("Recieved data from MQTT")
             mqtt_response, rmq_response = processMQTTInput(mqtt_reader_pconn.recv())
+            
             if rmq_response != None: writeRMQOutput(rmq_client_control_writer, RMQ_TOPIC, json.dumps(rmq_response))
             if mqtt_response != None: writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(mqtt_response))
  
         # If RMQ pipes have content
         if rmq_control_pconn.poll() == True: 
+            logfile.debug("Recieved data from RMQ - control")
             result = processRMQInput(rmq_control_pconn.recv())
             assert result, "Error Processing RMQ control data"
 
         if rmq_vehicle_pconn.poll() == True: 
+            logfile.debug("Recieved data from RMQ - vehicle")
             result = processRMQInput(rmq_vehicle_pconn.recv())
             assert result, "Error Processing RMQ vehicle data"
 

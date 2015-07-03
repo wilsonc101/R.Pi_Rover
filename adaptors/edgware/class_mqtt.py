@@ -20,7 +20,7 @@ class mqttClient():
             self.connected = False
 
     def on_connect(self, client, userdata, flags, rc):
-            if self.log != None: self.log.info("MQTT Connection status:" + st(rc))
+            if self.log != None: self.log.info("MQTT Connection status:" + str(rc))
          
     def on_message(self, client, userdata, msg):
         self.pipe.send(str(msg.payload))
