@@ -47,7 +47,9 @@ class rmqClientReader():
             # Set multiprocessing queue as class global and begin consuming
             self.pipe = pipe
             self.channel.start_consuming()
+            return(True)
         except:
+            return(False)
             if self.log != None:
                 self.log.error("Connection to broker appears to have dropped.")
             else:

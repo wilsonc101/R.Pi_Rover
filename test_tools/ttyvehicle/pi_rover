@@ -5,6 +5,7 @@ import pika
 import time
 import ConfigParser
 import json
+import argparse
 
 from subprocess import *
 
@@ -19,20 +20,38 @@ import func_logging as log
 import func_sensors as sensors
 #import class_camera as camera
 
-RUNNING_THREADS = []
 
+# Setup input arguments
+arg_parser = argparse.ArgumentParser(description='Usage options for ttyvehicle')
+arg_parser.add_argument('-c', '--configfile', help="Optional - configuration file path")
+arg_parser.add_argument('-l', '--logfile', help="Optional - Log file path")
+# Process input and generate dict
+args = vars(arg_parser.parse_args())
+
+
+# Validate input - Config file
+if args['configfile'] != None:
+    configfilepath = args['configfile']
+else:
+    configfilepath = 'pi_rover.cfg'
 
 # Get config
 try:
     config = ConfigParser.ConfigParser()
-    config.read('pi_rover.cfg')
+    config.read(configfilepath)
 except:
     raise SystemExit("FATAL: Could not open config file")
 
 
+# Validate input - Log file
+if args['logfile'] != None:
+    logfilepath = args['logfile']
+else:
+    logfilepath = config.get('logging', 'path')    
+
 # Setup logging
 try:
-    logfile = log.CreateLogger(console=0, file=1, filepath=config.get('logging', 'path'), level=config.get('logging', 'level'))
+    logfile = log.CreateLogger(console=0, file=1, filepath=logfilepath, level=config.get('logging', 'level'))
 except:
     raise SystemExit("FATAL: Could not create log file")
 
@@ -259,7 +278,6 @@ def main():
         gps_poller = gpsreader.gpsPoller()
         gps_poller.daemon = True
         gps_poller.start()
-        RUNNING_THREADS.append(gps_poller)
 
 
         # Setup vehicle camera
@@ -279,7 +297,6 @@ def main():
         control_worker = multiprocessing.Process(target=control_reader.run)
         control_worker.daemon = True
         control_worker.start()
-        RUNNING_THREADS.append(control_worker)
 
 
 
@@ -343,8 +360,3 @@ if __name__ == '__main__':
 
     except (KeyboardInterrupt, SystemExit):
         print "Exiting..."
-#        for thread in RUNNING_THREADS:
-#            print thread
-#            while thread.isAlive(): 
-#                print "trying..."
-#                thread.join(1)

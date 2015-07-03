@@ -1,20 +1,22 @@
-import time
+#!/usr/bin/python -B
+import argparse
 
-seconds = str(time.strftime("%S", time.gmtime()))[1:]
+# Setup input arguments
+arg_parser = argparse.ArgumentParser(description='Usage options for ttyvehicle')
+arg_parser.add_argument('-c', '--configfile', help="Optional - configuration file path")
+arg_parser.add_argument('-l', '--logfile', help="Optional - Log file path")
 
-demodata = {'0':(51.449501, -2.146074),
-                     '1':(51.449501, -2.146074),
-                     '2':(51.448806, -2.145816),
-                     '3':(51.448806, -2.145816),
-                     '4':(51.448298, -2.146085),
-                     '5':(51.448298, -2.146085),
-                     '6':(51.448659, -2.146460),
-                     '7':(51.448659, -2.146460),
-                     '8':(51.449147, -2.146600),
-                     '9':(51.449147, -2.146600)}
+# Process input and generate dict
+args = arg_parser.parse_args().__dict__
+
+# Validate input
+if args['configfile'] != None: 
+    print args['configfile']
+else:
+    print "default config"
 
 
-
-print seconds
-
-print demodata[seconds] 
+if args['logfile'] != None:
+    print args['logfile']
+else:
+    print "default log"

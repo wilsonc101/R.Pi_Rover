@@ -28,6 +28,7 @@ EDGWARE_NODE = config.get('edgware', 'node_id')
 # List of known platforms and their location tuples
 PLATFORM_LOCATIONS = {}
 
+_DEFAULT_PLATFORM = config.get('mapping', 'platform_type')
 
 def writeMQTTOutput(client, topic, data):
     client.publish(topic=topic, payload=data)
@@ -182,7 +183,7 @@ def main():
 
 
     ## INTERNAL - Used in forever loop to update glocal dict of known platforms & systems
-    def _query_platforms(type="simulation-platform"):
+    def _query_platforms(type=_DEFAULT_PLATFORM):
         edgware_query = json.dumps({"op":"query:platforms", "type":type, "correl":9001})
         writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, edgware_query)  
 

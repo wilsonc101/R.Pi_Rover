@@ -4,6 +4,9 @@ import json
 import time
 import multiprocessing
 import ConfigParser
+import argparse
+import sys
+import os.path
 
 import class_mqtt as mqtt
 import class_rmq as rmq
@@ -11,40 +14,77 @@ import class_edgware as edgware
 import class_rover as rover
 
 
-try: 
+
+# Setup input arguments
+arg_parser = argparse.ArgumentParser(description='Usage options for edgware adaptor')
+arg_parser.add_argument('-c', '--configfile', help="Optional - configuration file path")
+arg_parser.add_argument('-l', '--logfile', help="Optional - Log file path")
+# Process input and generate dict
+args = vars(arg_parser.parse_args())
+
+
+# Validate input - Config file
+if args['configfile'] != None:
+    configfilepath = args['configfile']
+else:
+    configfilepath = 'edgware_adaptor.cfg'
+
+if not os.path.isfile(configfilepath): 
+   raise SystemExit("ERROR: File not found - " + str(configfilepath))
+
+# Get config
+try:
     config = ConfigParser.ConfigParser()
-    config.read('edgware_adaptor.cfg')
+    config.read(configfilepath)
 except:
-    raise SystemExit("FATAL: Could not open config file")
+    raise SystemExit("FATAL: Unknown error - " + str(sys.exc_info()[0]))
 
-# RabbitMQ connection details
-RMQ_TOPIC = config.get('platform_broker', 'unit_id')
 
-RMQ_HOST_CONTROL = config.get('platform_broker', 'control_server')
-RMQ_PORT_CONTROL = int(config.get('platform_broker', 'control_port'))
-RMQ_EXCHANGE_CONTROL = config.get('platform_broker', 'control_exchange')
+# Parse config data, convert to vars
+try:
+    # RabbitMQ connection details
+    RMQ_TOPIC = config.get('platform_broker', 'unit_id')
 
-RMQ_HOST_VEHICLE = config.get('platform_broker', 'vehicle_server')
-RMQ_PORT_VEHICLE = int(config.get('platform_broker', 'vehicle_port'))
-RMQ_EXCHANGE_VEHICLE = config.get('platform_broker', 'vehicle_exchange')
+    RMQ_HOST_CONTROL = config.get('platform_broker', 'control_server')
+    RMQ_PORT_CONTROL = int(config.get('platform_broker', 'control_port'))
+    RMQ_EXCHANGE_CONTROL = config.get('platform_broker', 'control_exchange')
 
-# Mosquitto connection details
-MQTT_HOST = config.get('edgware_broker', 'server')
-MQTT_PORT = int(config.get('edgware_broker', 'port'))
-MQTT_TOPIC_IN = config.get('edgware_broker', 'input_topic')
-MQTT_TOPIC_OUT = config.get('edgware_broker', 'output_topic')
+    RMQ_HOST_VEHICLE = config.get('platform_broker', 'vehicle_server')
+    RMQ_PORT_VEHICLE = int(config.get('platform_broker', 'vehicle_port'))
+    RMQ_EXCHANGE_VEHICLE = config.get('platform_broker', 'vehicle_exchange')
 
-# Edgware connection details
-EDGWARE_NODE = config.get('edgware', 'node_id')
+    # Mosquitto connection details
+    MQTT_HOST = config.get('edgware_broker', 'server')
+    MQTT_PORT = int(config.get('edgware_broker', 'port'))
+    MQTT_TOPIC_IN = config.get('edgware_broker', 'input_topic')
+    MQTT_TOPIC_OUT = config.get('edgware_broker', 'output_topic')
 
+    # Edgware connection details
+    EDGWARE_NODE = config.get('edgware', 'node_id')
+
+except ConfigParser.NoSectionError as err:
+    raise SystemExit("ERROR: " + str(err))
+
+except ConfigParser.NoOptionError as err:
+    raise SystemExit("Error: " + str(err))
+
+except:
+    raise SystemExit("FATAL: Unknown error - " + str(sys.exc_info()[0]))
+
+# Global vars
 VEHICLE_DATA = rover.piRoverVehicle()
 CONTROL_DATA = rover.piRoverControls()
 
+
 def writeMQTTOutput(client, topic, data):
-    client.publish(topic=topic, payload=data)
+    result = client.publish(topic=topic, payload=data)
+    assert result, "Error publishing MQTT message to " + str(topic)
+    return(result)
 
 def writeRMQOutput(client, topic, data):
-     client.publish(topic, data)
+    result = client.publish(topic, data)
+    assert result, "Error publishing RMQ message to " + str(topic)
+    return(result)
 
 def processMQTTInput(data):
 # Responds to main thread with a tuple for transmission to queues - (for MQTT, for RMQ)
@@ -239,6 +279,8 @@ def processRMQInput(data):
             if 'x' in json_data['accelerometer']: VEHICLE_DATA.accelLR = json_data['accelerometer']['x']
             if 'y' in json_data['accelerometer']: VEHICLE_DATA.accelRF = json_data['accelerometer']['y']
  
+        return(True)
+
     except:
         return(False)
 
@@ -290,7 +332,10 @@ def registerEdgwareTypes(mqtt_client):
             service_type.type = services[service]['type']
             service_type.mode = services[service]['mode']
             service_type.correl = i
-            writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(service_type.generateJSON()))
+            
+            message =  json.dumps(service_type.generateJSON())
+            assert message, "Error generating JSON for service type " + str(services[service]['type'])
+            writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, message)
     
         i = 1000
         for system in systems:
@@ -299,16 +344,26 @@ def registerEdgwareTypes(mqtt_client):
             system_type.type = systems[system]['type']
             system_type.services = systems[system]['services']
             system_type.correl = i
-            writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(system_type.generateJSON()))
-    
+
+            message =  json.dumps(system_type.generateJSON())
+            assert message, "Error generating JSON for system type " + str(services[service]['type'])
+            writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, message)
+   
         i = 2000
         for platform in platforms:
             i += 1
             platform_type = edgware.platformType()
             platform_type.type = platforms[platform]['type']
             platform_type.correl = i
-            writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(platform_type.generateJSON()))
+
+            message =  json.dumps(platform_type.generateJSON())
+            assert message, "Error generating JSON for platform type " + str(services[service]['type'])
+            writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, message)
+
+        return(True)
+
     except:
+        print "ERROR: Unknown error - " + str(sys.exc_info()[0])
         return(False)
 
 
@@ -321,7 +376,7 @@ def main():
         raise SystemExit("FATAL: Failed to connect to MQTT broker")
 
     mqtt_client.subscribe(topic=MQTT_TOPIC_OUT)
-
+    mqtt_client.set_will(MQTT_TOPIC_IN)
     mqtt_client.client.loop_start()       
 
 
@@ -330,6 +385,7 @@ def main():
     # Reader
     rmq_control_pconn, rmq_control_cconn = multiprocessing.Pipe()
     rmq_control_reader = rmq.rmqClientReader(host=RMQ_HOST_CONTROL, port=RMQ_PORT_CONTROL)
+
     if rmq_control_reader.connected == False:
         raise SystemExit("FATAL: Failed to connect to RQM broker")
 
@@ -340,13 +396,16 @@ def main():
     rmq_control_thread.start()
 
     # Writer
-    rmq_client_control_writer = rmq.rmqClientWriter(host=RMQ_HOST_CONTROL, port=RMQ_PORT_CONTROL)
-    rmq_client_control_writer.declareExchange(RMQ_EXCHANGE_CONTROL)
+    result = rmq_client_control_writer = rmq.rmqClientWriter(host=RMQ_HOST_CONTROL, port=RMQ_PORT_CONTROL)
+    assert result, "Error connecting to RMQ broker for writing"
+    result = rmq_client_control_writer.declareExchange(RMQ_EXCHANGE_CONTROL)
+    assert result, "Error declaring RMQ exchange"
 
     ## Vehicle
     # Reader
     rmq_vehicle_pconn, rmq_vehicle_cconn = multiprocessing.Pipe()
     rmq_vehicle_reader = rmq.rmqClientReader(host=RMQ_HOST_VEHICLE, port=RMQ_PORT_VEHICLE)
+
     if rmq_vehicle_reader.connected == False:
         raise SystemExit("FATAL: Failed to connect to RQM broker")
  
@@ -359,7 +418,8 @@ def main():
 
     #### CONFIGURE EDGWARE
     # Register edgware types
-    registerEdgwareTypes(mqtt_client)
+    result = registerEdgwareTypes(mqtt_client)
+    assert result, "Error registering Edgware component types"
 
     ## Define elements
     # Platforms
@@ -415,8 +475,14 @@ def main():
             if mqtt_response != None: writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(mqtt_response))
  
         # If RMQ pipes have content
-        if rmq_control_pconn.poll() == True: processRMQInput(rmq_control_pconn.recv())
-        if rmq_vehicle_pconn.poll() == True: processRMQInput(rmq_vehicle_pconn.recv())
+        if rmq_control_pconn.poll() == True: 
+            result = processRMQInput(rmq_control_pconn.recv())
+            assert result, "Error Processing RMQ control data"
+
+        if rmq_vehicle_pconn.poll() == True: 
+            result = processRMQInput(rmq_vehicle_pconn.recv())
+            assert result, "Error Processing RMQ vehicle data"
+
 
         location_counter += 1
         time.sleep(.2)
@@ -430,6 +496,8 @@ def main():
 if __name__ == '__main__':
     try: 
         main()
-    except (KeyboardInterrupt, SystemExit):
-        print "Exiting..."
+    except (KeyboardInterrupt, SystemExit) as err:
+        print str(err) + " -- Exiting..."
+    except:
+        print "ERROR: File not found - " + str(sys.exc_info()[0])
 
