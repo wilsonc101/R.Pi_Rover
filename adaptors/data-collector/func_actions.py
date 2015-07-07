@@ -25,9 +25,6 @@ def postData(path, headers, payload):
     except:
         return(500, "Error: Payload failed JSON parsing")
 
-    
-
-
     try:
         vehicle_collection = _mongo_db[json_data['vehicle_id']]
         vehicle_collection.insert({"timestamp":request_time, "vehicle_data": json_data['vehicle_data']})
@@ -36,15 +33,27 @@ def postData(path, headers, payload):
         return(500, "Error: Failed to add vehicle data")
 
 
-def getMap(query):
-    params = query.split("?")
-    print str(params)
+def getMap(query=None):
+    date_from = today = datetime.now().strftime('%Y-%m-%d')
+    date_to = date_from
+    time_from = "00:00:00"
+    time_to = "23:59:59"
+    
+    # Get params from query string
+    if query != None:
+        params = query.split("?")
+        for param in params:
+            if "=" in param: 
+                key, value = param.split("=")
+                if key == "vehicle_id": vehicle_id = value
+                if key == "date_from": date_from = value.replace("%20", " ")  
+                if key == "date_to": date_to = value.replace("%20", " ")
+                if key == "time_from": time_from = value.replace("%20", " ")  
+                if key == "time_to": time_to = value.replace("%20", " ")
 
-    # Payload
-    vehicle_id = "d166ce06"
-    date_from = "2015-07-07 10:00:00"
-    date_to = "2015-07-07 11:00:00" 
-  
+    else:
+        return(500, "Error: Missing query string")
+    
     # HTML Header
     html_header = "<!DOCTYPE html>\n\
 <html>\n\
@@ -89,8 +98,8 @@ google.maps.event.addDomListener(window, 'load', initialize);\n\
 
     try:
         # Adjust formats
-        isodatetime_from = datetime.strptime(date_from, '%Y-%m-%d %H:%M:%S')
-        isodatetime_to = datetime.strptime(date_to, '%Y-%m-%d %H:%M:%S')
+        isodatetime_from = datetime.strptime(date_from + " " + time_from, '%Y-%m-%d %H:%M:%S')
+        isodatetime_to = datetime.strptime(date_to + " " + time_to, '%Y-%m-%d %H:%M:%S')
 
         polygon_cords = ""
         markers = ""
@@ -133,7 +142,5 @@ def _mongoConnect():
 
     except:
         assert False, "Error: Unknown error occured while connecting to MongoDB"
-
-
 
 _mongo_client, _mongo_db = _mongoConnect()
