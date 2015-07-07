@@ -13,7 +13,8 @@ class http_handler(BaseHTTPRequestHandler):
         self.log = None
 
     def do_GET(self):
-        urls = {'/action/getmap': self.actions.getMap}
+        urls = {'/action/getmap': self.actions.getMap,
+                '/action/platformlist': self.actions.getPlatforms}
 
         if "?" in self.path:
             url = self.path[:self.path.find("?")]
@@ -25,7 +26,7 @@ class http_handler(BaseHTTPRequestHandler):
 
 
         if url in urls:
-            response_code, response = urls[url](query)
+            response_code, response = urls[url](query, self)
         else:
             response_code = 404
             response = "Invalid URL - " + self.path   

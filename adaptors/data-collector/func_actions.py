@@ -33,7 +33,7 @@ def postData(path, headers, payload):
         return(500, "Error: Failed to add vehicle data")
 
 
-def getMap(query=None):
+def getMap(query=None, handler=None):
     date_from = today = datetime.now().strftime('%Y-%m-%d')
     date_to = date_from
     time_from = "00:00:00"
@@ -131,6 +131,36 @@ google.maps.event.addDomListener(window, 'load', initialize);\n\
 
     except:
         return(500, "Error: Failed to generate response ")
+
+
+
+
+
+def getPlatforms(query=None, handler=None):
+    # Get collection list from current DB
+    collection_list = _mongo_db.collection_names(include_system_collections=False)
+
+    # HTML Header
+    html_header = "<html>\n\
+    <head>\n\
+        <meta http-equiv=\"refresh\" content=\"20\">\n\
+        <meta http-equiv=\"X-UA-Compatible\" content=\"chrome=1\">\n\
+    </head>\n\
+    <body>\n"
+
+    # HTML Footer
+    html_footer = "</body>\n</html>"
+
+    # Add to each returned collection
+    link_prefix =  "http://" + str(handler.headers['Host']) + "/action/getmap?vehicle_id="
+ 
+    html_body = "Display all data recorded within the last 24hrs:<br>\n<br>\n"    
+    for collection in collection_list:
+         html_body = html_body + "<a href=" + link_prefix + str(collection) + ">" + str(collection) + "</a><br>\n"
+
+    response = html_header + html_body + html_footer
+
+    return(200, response)
 
 
 
