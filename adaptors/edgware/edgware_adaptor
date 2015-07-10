@@ -160,21 +160,21 @@ def processMQTTInput(data):
             action = str(msg.split(":")[:1][0])
             value = msg.split(":")[1:]
             if action == "setVehicleStop":
-                 if value == True:
-                     ###### GO DO SOMETHING
-                     return("OK", None)
-                 else:
-                     return("value out of range", None)
+                if value == True:
+                    ###### GO DO SOMETHING
+                    return("OK", None)
+                else:
+                    return("value out of range", None)
 
             elif action == "setVehicleLightState":
-                 if value == True:
-                     ##### Do something
-                     return("OK", None)
-                 elif value == False:
-                     ##### Do something
-                     return("OK", None)
-                 else:
-                     return("value out of range", None)
+                if value == True:
+                    ##### Do something
+                    return("OK", None)
+                elif value == False:
+                    ##### Do something
+                    return("OK", None)
+                else:
+                    return("value out of range", None)
             else:
                 return("unknown query", None)
             
@@ -185,6 +185,10 @@ def processMQTTInput(data):
                 return((CONTROL_DATA.cameraPanPosition, CONTROL_DATA.cameraTiltPosition), None)
             elif msg == "getCameraLightState":
                 return(CONTROL_DATA.cameraLightState, None)
+            elif msg == "getStill":
+                print "HERE"
+                rmq_response = {"camera": {"takestill": {"correl": json_data['correl'], "solicit-response": json_data['solicit-response'], "request-response": json_data['request-response']}}} 
+                return(None, rmq_response)
             elif ":" not in msg:
                 return("unknown request", None)
  
@@ -272,6 +276,7 @@ def processRMQInput(data):
             if 'tilt' in json_data['camera']: CONTROL_DATA.cameraTiltPosition = json_data['camera']['tilt']
             if 'pan' in json_data['camera']: CONTROL_DATA.cameraPanPosition = json_data['camera']['pan']
             if 'light' in json_data['camera']: CONTROL_DATA.cameraLightState = json_data['camera']['light']
+            if 'still' in json_data['camera']: print str(json_data['camera']['still'])
 
         if 'vehicle' in json_data:
             if 'throttle' in json_data['vehicle']: CONTROL_DATA.throttlePosition = json_data['vehicle']['throttle']
@@ -526,7 +531,7 @@ def main():
 
     # Clean-up
     mqtt_client.client.loop_stop()
-    rmq_control.join()
+    rmq_control_thread.join()
 
 
 
@@ -534,6 +539,7 @@ if __name__ == '__main__':
     try: 
         main()
     except (KeyboardInterrupt, SystemExit) as err:
+        logfile.info("User action - Exiting")
         print str(err) + " -- Exiting..."
 
     except AssertionError as err:

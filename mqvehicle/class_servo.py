@@ -9,21 +9,21 @@ class StandardServo():
 		self.RealNeutral = int(neutral)
 		self.Name = name
 
-	def Translate(self, input):
+	def Translate(self, inputper):
 		# Translate percentages to interpolated outputs
 		# Input is expected to be -100 to 100 (full reverse to full forward)
 		
-		input = int(input)
+		inputper = int(inputper)
 	
 		output = self.RealNeutral
 
-		if input >= -100 and input <= 100:
-			if input < 0:
+		if inputper >= -100 and input <= 100:
+			if inputper < 0:
 				neg_span = abs(self.RealNeutral-self.RealMin)
-				output = self.RealNeutral - ((neg_span / 100)*abs(input))
-			elif input > 0:
+				output = self.RealNeutral - ((neg_span / 100)*abs(inputper))
+			elif inputper > 0:
 				pos_span = abs(self.RealNeutral-self.RealMax)
-				output = self.RealNeutral + ((pos_span / 100)*abs(input))
+				output = self.RealNeutral + ((pos_span / 100)*abs(inputper))
 		else:
 			output = "out of range"
 				

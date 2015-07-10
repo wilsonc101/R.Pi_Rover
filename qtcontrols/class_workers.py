@@ -1,7 +1,6 @@
 from PyQt4 import QtCore
 from subprocess import *
 
-import time
 import pika
 import json
 import ConfigParser
@@ -157,4 +156,4 @@ def GUIUpdate(qt_window, json_data):
 def OpenPlayer():
     cmd = "/bin/nc " + CAMERA_SERVER + " " + CAMERA_PORT + " | /usr/bin/mplayer -fps 60 -cache 2048 -really-quiet -"
     p = Popen(cmd, shell=True, stdout=PIPE)    
-
+    return(p)

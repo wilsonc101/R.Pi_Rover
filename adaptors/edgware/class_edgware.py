@@ -1,5 +1,3 @@
-import json
-
 class platformType():
     def __init__(self):
         self.op = "register:platform-type"

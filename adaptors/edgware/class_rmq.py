@@ -1,5 +1,4 @@
 import pika
-import json
 
 class rmqClientReader():
     def __init__(self, host, port, log=None):

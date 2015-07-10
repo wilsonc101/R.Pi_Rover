@@ -2,6 +2,9 @@ import json
 import threading
 import time 
 
+import sim_data as data
+
+
 class gpsPoller(threading.Thread):
   def __init__(self):
     try:
@@ -9,16 +12,11 @@ class gpsPoller(threading.Thread):
         self.gpsdata = {'status': "NO FIX"}
         self.running = False
         self.fixmode = 3
-        self.demodata = {'2':(51.449501, -2.146074),
-                    '3':(51.449501, -2.146074),
-                    '4':(51.448806, -2.145816),
-                    '5':(51.448806, -2.145816),
-                    '6':(51.448298, -2.146085),
-                    '7':(51.448298, -2.146085),
-                    '8':(51.448659, -2.146460),
-                    '9':(51.448659, -2.146460),
-                    '0':(51.449147, -2.146600),
-                    '1':(51.449147, -2.146600)}
+
+        self.gps_cords = data.gps_cords
+        self._count_gps_cords = len(self.gps_cords)
+        self._count = 100
+
     except:
       assert False, "Error: Failed to initialise GPS thread"
 
@@ -36,11 +34,17 @@ class gpsPoller(threading.Thread):
   def run(self):
     try:
         self.running = True
+
+
         while self.running:
             time.sleep(1)
-            seconds = str(time.strftime("%S", time.gmtime()))[1:]
-            latitude, longitude = self.demodata[seconds]
-        
+
+            # Reset counter
+            if self._count > (self._count_gps_cords - 1): self._count = 0
+
+            latitude, longitude = self.gps_cords[self._count]
+            self._count += 1
+
             if self.fixmode > 1:
                 self.gpsdata['status'] = "FIX"
                 self.gpsdata['fixmode'] = self.fixmode

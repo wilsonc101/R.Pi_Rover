@@ -3,13 +3,13 @@ import logging
 log_format = logging.Formatter('%(asctime)s -- %(message)s')
 
 
-def CreateLogger(console=0, file=0, filepath=0, level='WARNING'):
+def CreateLogger(toconsole=0, tofile=0, filepath=0, level='WARNING'):
 
         # Create logger instance
         logger = logging.getLogger('pi_rover')
-	SetLevel(logger, level)
+        SetLevel(logger, level)
 
-        if console == 1:
+        if toconsole == 1:
                 ## Console Output
                 log_out_console = logging.StreamHandler()
                 SetLevel(log_out_console, level)
@@ -17,7 +17,7 @@ def CreateLogger(console=0, file=0, filepath=0, level='WARNING'):
                 logger.addHandler(log_out_console)
 
 
-        if file == 1:
+        if tofile == 1:
                 ## File output
                 log_out_file = logging.FileHandler(filepath)
                 SetLevel(log_out_file, level)
@@ -39,5 +39,4 @@ def SetLevel(log_output, level):
                 log_output.setLevel(logging.INFO)
         elif level == 'DEBUG':
                 log_output.setLevel(logging.DEBUG)
-		print("here")
 

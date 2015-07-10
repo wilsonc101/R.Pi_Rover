@@ -273,7 +273,7 @@ def main():
             # Center map on first platform
             if platform_count == 0: 
                 addscript.write("    map.fitBounds(bounds);\n")
-                addscript.write("    map.setZoom(16);\n")
+                addscript.write("    map.setZoom(14);\n")
                 addscript.write("\n")
            
             # Write 'Update' script contents
@@ -291,6 +291,8 @@ def main():
         updatescript.write("          var latlng = new google.maps.LatLng(lat, long);\n")
         updatescript.write("          marker.setPosition(latlng);\n")
         updatescript.write("          bounds.extend(latlng);\n")
+
+
         updatescript.write('\n')
         updatescript.write("          for (var datakey in data) {\n")
         updatescript.write("              if (id == datakey) {\n")
@@ -301,8 +303,9 @@ def main():
         updatescript.write("          }\n")
         updatescript.write("       }\n")
         updatescript.write("    }\n")
-        updatescript.write("    map.fitBounds(bounds);\n")
-        updatescript.write("    map.setZoom(16);\n")
+#        updatescript.write("    map.fitBounds(bounds);\n")
+#        updatescript.write("    map.setZoom(14);\n")
+#        updatescript.write("    map.setCenter(latlng);\n") 
         updatescript.write("\n")
         updatescript.write("}\n")
         updatescript.close()
@@ -343,17 +346,16 @@ def main():
                     if platform['id'] not in PLATFORM_LOCATIONS: 
                         PLATFORM_LOCATIONS[platform['id']] = {'location':(float(platform['loc']['lat']),float(platform['loc']['long'])), 'autoid':platform_autoID}
                         platform_autoID += 1
-                        print json.dumps(PLATFORM_LOCATIONS)
+#                        print json.dumps(PLATFORM_LOCATIONS)
 
                     else:
                         PLATFORM_LOCATIONS[platform['id']] = {'location':(float(platform['loc']['lat']),float(platform['loc']['long']))}
-                        print json.dumps(PLATFORM_LOCATIONS)
+#                        print json.dumps(PLATFORM_LOCATIONS)
 
             elif response_type == "response":
                 for platform in PLATFORM_LOCATIONS:
                     if int(PLATFORM_LOCATIONS[platform]['autoid']) == int(correl):
                         PLATFORM_LOCATIONS[platform]['location'] = (float(data[0]), float(data[1]))
-
 
 
         loop_counter += 1

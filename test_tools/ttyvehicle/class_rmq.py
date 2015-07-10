@@ -25,7 +25,8 @@ class mqReader(threading.Thread):
             self.connected = False
 
 
-    def run(self):
+    def run(self, pipe):
+        print pipe
         try:
             self.channel.start_consuming()
             return(True)

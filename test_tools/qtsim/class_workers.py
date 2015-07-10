@@ -34,7 +34,7 @@ class MQReader(QtCore.QThread):
             self.channel.basic_consume(self._poll_queue, queue=self.queue_name, no_ack=True)
 
         except:
-             return(False)
+             assert False, "Error: Failed to connect to broker"
 
 
     def _poll_queue(self, ch, method, properties, body):
@@ -47,9 +47,8 @@ class MQReader(QtCore.QThread):
     def run(self):
         try:
             self.channel.start_consuming()
-            return(True)
         except:
-             return(False)
+            return(False)
 
 
 def MQWriter(qt_window):

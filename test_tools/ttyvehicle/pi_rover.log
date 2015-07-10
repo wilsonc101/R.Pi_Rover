@@ -238,3 +238,118 @@
 2015-07-03 15:59:00,157 -- Connected to writer queue.
 2015-07-03 16:00:03,279 -- Connected to reader queue.
 2015-07-03 16:00:03,306 -- Connected to writer queue.
+2015-07-05 18:17:38,858 -- Connected to reader queue.
+2015-07-05 18:17:38,886 -- Connected to writer queue.
+2015-07-05 22:00:27,664 -- Connection to control queue server appears to have dropped.
+2015-07-05 22:00:28,134 -- Connection to vehicle queue server appears to have dropped
+2015-07-05 22:00:28,134 -- Sensor writer has died - attempting to restart....
+2015-07-05 22:00:29,137 -- Control reader has died - attempting to restart....
+2015-07-05 22:00:30,139 -- Sensor writer has died - attempting to restart....
+2015-07-06 10:09:33,287 -- Connected to reader queue.
+2015-07-06 10:09:33,316 -- Connected to writer queue.
+2015-07-06 10:10:01,614 -- Connected to reader queue.
+2015-07-06 10:10:01,641 -- Connected to writer queue.
+2015-07-06 10:10:28,325 -- Connected to reader queue.
+2015-07-06 10:10:28,351 -- Connected to writer queue.
+2015-07-06 10:12:40,833 -- Connected to reader queue.
+2015-07-06 10:12:40,863 -- Connected to writer queue.
+2015-07-06 10:17:41,360 -- Connected to reader queue.
+2015-07-06 10:17:41,388 -- Connected to writer queue.
+2015-07-06 10:18:37,537 -- Connected to reader queue.
+2015-07-06 10:18:37,563 -- Connected to writer queue.
+2015-07-06 10:20:02,937 -- Connected to reader queue.
+2015-07-06 10:20:02,963 -- Connected to writer queue.
+2015-07-06 10:20:49,691 -- Connected to reader queue.
+2015-07-06 10:20:49,716 -- Connected to writer queue.
+2015-07-06 10:22:55,338 -- Connection to vehicle queue server appears to have dropped
+2015-07-06 10:22:55,339 -- Sensor writer has died - attempting to restart....
+2015-07-06 10:22:55,339 -- Connection to control queue server appears to have dropped.
+2015-07-06 10:22:56,366 -- Control reader has died - attempting to restart....
+2015-07-06 10:27:59,893 -- Connected to reader queue.
+2015-07-06 10:27:59,919 -- Connected to writer queue.
+2015-07-06 10:36:18,022 -- Connected to reader queue.
+2015-07-06 10:36:18,047 -- Connected to writer queue.
+2015-07-06 13:24:43,577 -- Connected to reader queue.
+2015-07-06 13:24:43,604 -- Connected to writer queue.
+2015-07-07 09:08:25,452 -- Connected to reader queue.
+2015-07-07 09:08:25,481 -- Connected to writer queue.
+2015-07-09 10:00:20,652 -- Connected to reader queue.
+2015-07-09 10:00:20,680 -- Connected to writer queue.
+2015-07-09 16:10:42,103 -- Connected to reader queue.
+2015-07-09 16:10:42,129 -- Connected to writer queue.
+2015-07-09 16:10:56,630 -- Connected to reader queue.
+2015-07-09 16:10:56,656 -- Connected to writer queue.
+2015-07-09 16:14:56,536 -- Connected to reader queue.
+2015-07-09 16:14:56,562 -- Connected to writer queue.
+2015-07-09 16:15:32,814 -- Connected to reader queue.
+2015-07-09 16:15:32,841 -- Connected to writer queue.
+2015-07-09 16:16:36,193 -- Connected to reader queue.
+2015-07-09 16:16:36,220 -- Connected to writer queue.
+2015-07-09 16:17:45,483 -- Connected to reader queue.
+2015-07-09 16:17:45,510 -- Connected to writer queue.
+2015-07-09 16:18:37,825 -- Connected to reader queue.
+2015-07-09 16:18:37,851 -- Connected to writer queue.
+2015-07-09 16:19:54,408 -- Connected to reader queue.
+2015-07-09 16:19:54,434 -- Connected to writer queue.
+2015-07-09 16:26:05,897 -- Connected to reader queue.
+2015-07-09 16:26:05,923 -- Connected to writer queue.
+2015-07-09 16:26:41,002 -- Connected to reader queue.
+2015-07-09 16:26:41,030 -- Connected to writer queue.
+2015-07-09 16:26:48,474 -- Connection to control queue server appears to have dropped.
+2015-07-09 16:36:50,453 -- Connected to reader queue.
+2015-07-09 16:36:50,479 -- Connected to writer queue.
+2015-07-09 16:39:23,677 -- Connected to reader queue.
+2015-07-09 16:39:23,704 -- Connected to writer queue.
+2015-07-09 16:40:03,149 -- Connected to reader queue.
+2015-07-09 16:40:03,175 -- Connected to writer queue.
+2015-07-09 16:42:28,563 -- Connected to reader queue.
+2015-07-09 16:42:28,589 -- Connected to writer queue.
+2015-07-09 16:44:31,397 -- Connected to reader queue.
+2015-07-09 16:44:31,425 -- Connected to writer queue.
+2015-07-09 16:45:17,386 -- Connected to reader queue.
+2015-07-09 16:45:17,412 -- Connected to writer queue.
+2015-07-09 16:45:24,310 -- Connection to control queue server appears to have dropped.
+2015-07-09 16:45:24,445 -- Control reader has died - attempting to restart....
+2015-07-09 16:45:25,483 -- Control reader has died - attempting to restart....
+2015-07-09 16:46:36,873 -- Connected to reader queue.
+2015-07-09 16:46:36,901 -- Connected to writer queue.
+2015-07-09 16:46:41,158 -- Connection to control queue server appears to have dropped.
+2015-07-09 16:46:41,927 -- Control reader has died - attempting to restart....
+2015-07-09 16:46:42,978 -- Control reader has died - attempting to restart....
+2015-07-09 16:46:44,017 -- Control reader has died - attempting to restart....
+2015-07-09 16:46:45,056 -- Control reader has died - attempting to restart....
+2015-07-09 16:46:46,100 -- Control reader has died - attempting to restart....
+2015-07-09 16:46:47,148 -- Control reader has died - attempting to restart....
+2015-07-09 16:51:31,527 -- Connected to reader queue.
+2015-07-09 16:51:31,555 -- Connected to writer queue.
+2015-07-09 16:51:36,480 -- Connection to control queue server appears to have dropped.
+2015-07-09 16:51:36,576 -- Control reader has died - attempting to restart....
+2015-07-09 16:51:37,625 -- Control reader has died - attempting to restart....
+2015-07-09 16:51:38,664 -- Control reader has died - attempting to restart....
+2015-07-09 16:51:39,702 -- Control reader has died - attempting to restart....
+2015-07-09 16:51:40,748 -- Control reader has died - attempting to restart....
+2015-07-09 16:51:41,797 -- Control reader has died - attempting to restart....
+2015-07-09 16:55:10,702 -- Connected to reader queue.
+2015-07-09 16:55:25,270 -- Connected to reader queue.
+2015-07-09 16:55:25,296 -- Connected to writer queue.
+2015-07-09 16:55:29,598 -- Connection to control queue server appears to have dropped.
+2015-07-09 16:55:30,320 -- Control reader has died - attempting to restart....
+2015-07-09 16:55:31,368 -- Control reader has died - attempting to restart....
+2015-07-09 16:55:32,406 -- Control reader has died - attempting to restart....
+2015-07-09 16:55:33,447 -- Control reader has died - attempting to restart....
+2015-07-09 16:55:34,495 -- Control reader has died - attempting to restart....
+2015-07-09 16:55:35,548 -- Control reader has died - attempting to restart....
+2015-07-09 16:55:36,586 -- Control reader has died - attempting to restart....
+2015-07-09 16:55:37,628 -- Control reader has died - attempting to restart....
+2015-07-09 16:55:38,683 -- Control reader has died - attempting to restart....
+2015-07-09 16:55:39,724 -- Control reader has died - attempting to restart....
+2015-07-09 16:56:25,194 -- Connected to reader queue.
+2015-07-09 16:56:25,221 -- Connected to writer queue.
+2015-07-10 10:12:51,974 -- Connected to reader queue.
+2015-07-10 10:12:52,003 -- Connected to writer queue.
+2015-07-10 10:15:10,798 -- Connected to reader queue.
+2015-07-10 10:15:10,827 -- Connected to writer queue.
+2015-07-10 10:32:10,424 -- Connected to reader queue.
+2015-07-10 10:32:10,452 -- Connected to writer queue.
+2015-07-10 10:33:17,598 -- Connected to reader queue.
+2015-07-10 10:33:17,631 -- Connected to writer queue.

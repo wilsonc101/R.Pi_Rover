@@ -261,6 +261,7 @@ class Ui_MainWindow(object):
         # MQ Reader
         self.MQReadThread = workers.MQReader()
         MainWindow.connect(self.MQReadThread, self.MQReadThread.signal, self.translateQueueData)
+        self.MQReadThread.daemon = True
         self.MQReadThread.start()
 
         # Send initial veicle values

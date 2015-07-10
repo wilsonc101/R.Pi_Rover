@@ -1,11 +1,11 @@
 #!/usr/bin/python -B
 
 import multiprocessing
-import pika
 import time
 import ConfigParser
 import json
 import argparse
+import sys
 
 from subprocess import *
 
@@ -18,7 +18,7 @@ import class_rmq as mq
 import class_gps as gpsreader
 import func_logging as log
 import func_sensors as sensors
-#import class_camera as camera
+import class_camera as camera
 
 
 # Setup input arguments
@@ -51,7 +51,7 @@ else:
 
 # Setup logging
 try:
-    logfile = log.CreateLogger(console=0, file=1, filepath=logfilepath, level=config.get('logging', 'level'))
+    logfile = log.CreateLogger(toconsole=False, tofile=True, filepath=logfilepath, level=config.get('logging', 'level'))
     assert logfile, "Error: Failed to create log outputs"
 
 except:
@@ -137,6 +137,9 @@ except:
     raise SystemExit("FATAL: Unknown error - " + str(sys.exc_info()[0]))
 
 
+PENDING_IMAGE_REQUESTS = {}
+
+
 # Configure GPIO pins
 #try:
 #    GPIO.setmode(GPIO.BCM)
@@ -149,16 +152,16 @@ def SendPWM(channel,start,end):
     # PWM output requires channel, start and end. Start and end refer to the start point and length of the pulse.
     # Typically all pulses start at '0'.
     try:
-       float_start = float(start)
-       float_end = float(end)
+        float_start = float(start)
+        float_end = float(end)
 
-       pwm.setPWM(int(channel),int(float_start),int(float_end))
-       logfile.debug("servo data: " + str(channel) + "," + str(int(float_start)) + "," + str(int(float_end)))
-       return(True)
+        pwm.setPWM(int(channel),int(float_start),int(float_end))
+        logfile.debug("servo data: " + str(channel) + "," + str(int(float_start)) + "," + str(int(float_end)))
+        return(True)
 
     except: 
-       return(False)
-       logfile.warning("Could not send data to PWM")
+        return(False)
+        logfile.warning("Could not send data to PWM")
 
 
 ## Run external commands, returns output
@@ -247,6 +250,13 @@ def _vehicleControl(ch, method, properties, body):
                 else:
                     GPIO.output(LIGHTS_CAMERA_GPIO, False)
 
+            if 'takestill' in json_data['camera']:
+                request_details = json_data['camera']['takestill']
+                PENDING_IMAGE_REQUESTS[request_details['correl']] = request_details                
+                PENDING_IMAGE_REQUESTS[request_details['correl']]['status'] = "pending"
+
+                print "TAKEREQ -- " + str(PENDING_IMAGE_REQUESTS)
+
 
         if 'state' in json_data:
             if 'shutdown' in json_data['state']:
@@ -290,6 +300,8 @@ def _vehicleSensors(gps_poller=None):
     except:
         return(False)
 
+
+
 def main():
 
     # Main loop
@@ -302,8 +314,7 @@ def main():
 
 
         # Setup vehicle camera
-#        vehicle_camera = camera.camera(VEHICLE_CAMERA_BIND_ADDRESS, VEHICLE_CAMERA_PORT, VEHICLE_CAMERA_RESOLUTION_X, VEHICLE_CAMERA_RESOLUTION_Y, VEHICLE_CAMERA_NAME, logfile)
-#        vehicle_camera.start()
+        vehicle_camera = camera.camera(log=logfile)
 
         # Set control queue reader and start in new thread
         control_reader = mq.mqReader(CONTROL_SERVER, 5672, CONTROL_EXCHANGE, _vehicleControl, VEHICLE_ID, logfile)
@@ -311,11 +322,11 @@ def main():
         if control_reader.connected == False:
             while control_reader.connected == False:
                 logfile.error("Could not connect to control queue server, reconnecting....")
-                control_reader = mq.mqReader(CONTROL_SERVER, 5672, CONTROL_QUEUE, _vehicleControl, logfile)
+                control_reader = mq.mqReader(CONTROL_SERVER, 5672, CONTROL_EXCHANGE, _vehicleControl, logfile)
                 time.sleep(1)
 
    
-        control_worker = multiprocessing.Process(target=control_reader.run)
+        control_worker = multiprocessing.Process(target=control_reader.run, args=("THINGS",))
         control_worker.daemon = True
         control_worker.start()
 
@@ -333,6 +344,7 @@ def main():
          
         # Transmit/Monitor loop
         while 1:
+
 
             vehicle_data = _vehicleSensors(gps_poller)
             assert vehicle_data, "Error: Failed to process sensor data" 
@@ -356,6 +368,27 @@ def main():
             #                                       "Battery A: " + str(vehicle_data['vehicle']['batteryA']) + "% - "\
             #                                       "Battery B: " + str(vehicle_data['vehicle']['batteryB']) + "%")
 
+
+            print "REQS -- " + str(PENDING_IMAGE_REQUESTS) 
+            for request in PENDING_IMAGE_REQUESTS:
+                if request['status'] == 'pending':
+                    if 'GPS' in vehicle_data and 'latitude' in vehicle_data['GPS'] and 'longitude' in vehicle_data['GPS']:
+                        try:
+                            image_path = vehicle_camera.captureStill(lat=vehicle_data['GPS']['latitude'], long=vehicle_data['GPS']['longitude'])
+                            request['msg'] = image_path
+                            sensor_writer.write(request)
+                            request['status'] = "sent"
+                        except:
+                            assert False, "Error: Failed to send image message"
+                            
+                else:
+                    del PENDING_IMAGE_REQUESTS[request]
+
+                             
+#            image_path = vehicle_camera.captureStill(lat=vehicle_data['GPS']['latitude'], long=vehicle_data['GPS']['longitude'])
+
+
+
             time.sleep(1)
 
             # Emergency stop 
@@ -374,18 +407,18 @@ def main():
 #    control_worker.exit()
 #    gps_poller.exit()
 
-        
+
 
 if __name__ == '__main__':
-    try:
+#    try:
         main()     
 
-    except (KeyboardInterrupt, SystemExit) as err:
-        print str(err) + " -- Exiting..."
+#    except (KeyboardInterrupt, SystemExit) as err:
+#        print str(err) + " -- Exiting..."
 
-    except AssertionError as err:
-        print str(err)
+#    except AssertionError as err:
+#        print str(err)
 
-    except:
-        print "Error: unknown error - " + str(sys.exc_info()[0])
+#    except:
+#        print "Error: unknown error - " + str(sys.exc_info()[0])
 

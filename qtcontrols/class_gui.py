@@ -400,11 +400,11 @@ class Ui_MainWindow(object):
         reverse_value = self.bar_reverse.value()
 
         if reverse_value == 0:
-             if forward_value < 100:
-                 self.bar_forward.setValue(forward_value + 10)
-                 self.cb_brake.setChecked(False)
+            if forward_value < 100:
+                self.bar_forward.setValue(forward_value + 10)
+                self.cb_brake.setChecked(False)
         else:
-             self.bar_reverse.setValue(reverse_value - 10)
+            self.bar_reverse.setValue(reverse_value - 10)
 
         workers.MQWriter(self)
 
@@ -413,11 +413,11 @@ class Ui_MainWindow(object):
         reverse_value = self.bar_reverse.value()
 
         if forward_value == 0:
-             if reverse_value < 100:
+            if reverse_value < 100:
                 self.bar_reverse.setValue(reverse_value + 10)
                 self.cb_brake.setChecked(False)
         else:
-             self.bar_forward.setValue(forward_value - 10)
+            self.bar_forward.setValue(forward_value - 10)
 
         workers.MQWriter(self)
 
@@ -456,9 +456,9 @@ class Ui_MainWindow(object):
         left_value = self.bar_left.value()
 
         if left_value == 0:
-             if right_value < 100: self.bar_right.setValue(right_value + 10)
+            if right_value < 100: self.bar_right.setValue(right_value + 10)
         else:
-             self.bar_left.setValue(left_value - 10)
+            self.bar_left.setValue(left_value - 10)
 
         workers.MQWriter(self)
     def decrement_direction(self):
@@ -466,9 +466,9 @@ class Ui_MainWindow(object):
         left_value = self.bar_left.value()
 
         if right_value == 0:
-             if left_value < 100: self.bar_left.setValue(left_value + 10)
+            if left_value < 100: self.bar_left.setValue(left_value + 10)
         else:
-             self.bar_right.setValue(right_value - 10)
+            self.bar_right.setValue(right_value - 10)
 
         workers.MQWriter(self)
 
@@ -477,10 +477,10 @@ class Ui_MainWindow(object):
         right_value = self.bar_right.value()
 
         if right_value < 100:
-             self.bar_right.setValue(100)
-             self.bar_left.setValue(0)
+            self.bar_right.setValue(100)
+            self.bar_left.setValue(0)
         else:
-             self.bar_right.setValue(0)
+            self.bar_right.setValue(0)
 
         workers.MQWriter(self)
 
@@ -488,10 +488,10 @@ class Ui_MainWindow(object):
         left_value = self.bar_left.value()
 
         if left_value < 100:
-             self.bar_left.setValue(100)
-             self.bar_right.setValue(0)
+            self.bar_left.setValue(100)
+            self.bar_right.setValue(0)
         else:
-             self.bar_left.setValue(0)
+            self.bar_left.setValue(0)
 
         workers.MQWriter(self)
     def reset_camera(self):

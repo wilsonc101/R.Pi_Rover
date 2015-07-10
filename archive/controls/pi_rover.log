@@ -788,3 +788,13 @@
 2015-01-01 16:55:34,490 -- vehicle connection failed
 2015-01-01 16:55:40,755 -- user closed controls after network failure
 2015-01-01 16:55:40,755 -- user closed controls after network failure
+2015-07-09 09:54:41,378 -- connecting to vehicle
+2015-07-09 09:54:41,378 -- connecting to vehicle
+2015-07-09 09:54:43,381 -- network connection failed
+2015-07-09 09:54:43,381 -- network connection failed
+2015-07-09 09:54:44,447 -- network connection error - Transmit
+2015-07-09 09:54:44,447 -- network connection error - Transmit
+2015-07-09 09:54:44,447 -- vehicle connection failed
+2015-07-09 09:54:44,447 -- vehicle connection failed
+2015-07-09 09:54:46,026 -- user closed controls after network failure
+2015-07-09 09:54:46,026 -- user closed controls after network failure

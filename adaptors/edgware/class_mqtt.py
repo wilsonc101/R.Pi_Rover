@@ -49,14 +49,14 @@ class mqttClient():
  
 
     def publish(self, topic, payload, qos=0):
-         try:
-             self.client.publish(topic, payload=payload, qos=qos)
-             if self.log != None: self.log.debug("Published message: " + payload)
-             return(True)
+        try:
+            self.client.publish(topic, payload=payload, qos=qos)
+            if self.log != None: self.log.debug("Published message: " + payload)
+            return(True)
 
-         except:
-             if self.log != None: self.log.error("Failed to publish message to " + topic)
-             return(False)
+        except:
+            if self.log != None: self.log.error("Failed to publish message to " + topic)
+            return(False)
      
 
     def set_will(self, topic):
@@ -69,7 +69,7 @@ class mqttClient():
             self.client.loop_start()
 
         except:
-             if self.log != None: self.log.error("Failed to enter consumer loop")
+            if self.log != None: self.log.error("Failed to enter consumer loop")
  
 
 
