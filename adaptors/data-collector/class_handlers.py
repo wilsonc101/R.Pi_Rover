@@ -50,10 +50,3 @@ class http_handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(response)
     
-        
-    def _mongoConnect(self):
-        print "init dbcl"
-        return(True)
-
-
-    

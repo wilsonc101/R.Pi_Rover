@@ -11,7 +11,6 @@ class camera():
 
 
     def captureStill(self, lat, long, heading=0, tilt=0, capturepath="/var/www/html/capture", size=(600,600)):
-        print "HERE"
         buffer = StringIO()
 
 
@@ -29,13 +28,14 @@ class camera():
         c.setopt(c.WRITEDATA, buffer)
         c.perform()
 
-        capture_filepath = capturepath + "/" + str(uuid.uuid1()) + ".jpg"
+        capture_filename = str(uuid.uuid1()) + ".jpg"
+        capture_filepath = capturepath + "/" + capture_filename
 
         try:
             file = open(capture_filepath, "wb")
             file.write(buffer.getvalue())
             file.close()
-            return(capture_filepath)        
+            return(capture_filename)        
            
         except:
             return(False)

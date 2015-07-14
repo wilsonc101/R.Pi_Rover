@@ -1,355 +1,212 @@
-2015-06-24 14:46:34,933 -- Connected to reader queue.
-2015-06-24 14:46:34,961 -- Connected to writer queue.
-2015-06-24 15:42:40,291 -- Connection to control queue server appears to have dropped.
-2015-06-24 16:31:05,423 -- Connected to reader queue.
-2015-06-24 16:31:05,452 -- Connected to writer queue.
-2015-06-24 16:31:13,340 -- Connection to control queue server appears to have dropped.
-2015-06-24 16:31:29,984 -- Connected to reader queue.
-2015-06-24 16:31:30,014 -- Connected to writer queue.
-2015-06-24 16:34:36,076 -- Connection to control queue server appears to have dropped.
-2015-06-24 16:41:09,471 -- Connected to reader queue.
-2015-06-24 16:41:09,500 -- Connected to writer queue.
-2015-06-24 16:41:10,503 -- Connection to vehicle queue server appears to have dropped
-2015-06-24 16:41:10,503 -- Sensor writer has died - attempting to restart....
-2015-06-24 16:41:18,502 -- Connection to control queue server appears to have dropped.
-2015-06-24 16:43:22,201 -- Connected to reader queue.
-2015-06-24 16:43:22,229 -- Connected to writer queue.
-2015-06-24 16:43:23,232 -- Connection to vehicle queue server appears to have dropped
-2015-06-24 16:43:23,232 -- Sensor writer has died - attempting to restart....
-2015-06-24 16:43:25,259 -- Sensor writer has died - attempting to restart....
-2015-06-24 16:43:27,287 -- Sensor writer has died - attempting to restart....
-2015-06-24 16:43:28,254 -- Connection to control queue server appears to have dropped.
-2015-06-24 16:44:10,543 -- Connected to reader queue.
-2015-06-24 16:44:10,571 -- Connected to writer queue.
-2015-06-24 16:47:02,230 -- Connected to reader queue.
-2015-06-24 16:47:02,258 -- Connected to writer queue.
-2015-06-24 16:47:14,064 -- Connection to control queue server appears to have dropped.
-2015-06-24 16:47:39,177 -- Connected to reader queue.
-2015-06-24 16:47:39,205 -- Connected to writer queue.
-2015-06-24 16:48:20,639 -- Connection to control queue server appears to have dropped.
-2015-06-24 16:48:59,884 -- Connected to reader queue.
-2015-06-24 16:48:59,913 -- Connected to writer queue.
-2015-06-24 17:15:45,826 -- Connection to control queue server appears to have dropped.
-2015-06-24 17:15:46,384 -- Connection to vehicle queue server appears to have dropped
-2015-06-24 17:15:46,384 -- Sensor writer has died - attempting to restart....
-2015-06-24 17:15:47,385 -- Control reader has died - attempting to restart....
-2015-06-25 10:58:16,425 -- Connected to reader queue.
-2015-06-25 10:58:16,457 -- Connected to writer queue.
-2015-06-26 11:42:01,277 -- Connected to reader queue.
-2015-06-26 11:42:01,308 -- Connected to writer queue.
-2015-06-26 11:45:10,043 -- Could not process control data
-2015-06-26 11:45:10,078 -- Could not process control data
-2015-06-26 11:45:10,105 -- Could not process control data
-2015-06-26 11:45:10,130 -- Could not process control data
-2015-06-26 11:45:10,157 -- Could not process control data
-2015-06-26 11:45:10,201 -- Could not process control data
-2015-06-26 11:45:10,232 -- Could not process control data
-2015-06-26 11:45:10,268 -- Could not process control data
-2015-06-26 11:45:10,302 -- Could not process control data
-2015-06-26 11:45:10,335 -- Could not process control data
-2015-06-26 11:45:10,370 -- Could not process control data
-2015-06-26 11:45:10,903 -- Could not process control data
-2015-06-26 11:45:11,038 -- Could not process control data
-2015-06-26 11:45:11,168 -- Could not process control data
-2015-06-26 11:45:11,382 -- Could not process control data
-2015-06-26 11:45:11,720 -- Could not process control data
-2015-06-26 11:45:11,860 -- Could not process control data
-2015-06-26 11:45:11,990 -- Could not process control data
-2015-06-26 11:45:12,222 -- Could not process control data
-2015-06-26 11:45:21,347 -- Could not process control data
-2015-06-26 11:45:21,446 -- Could not process control data
-2015-06-26 11:45:21,628 -- Could not process control data
-2015-06-26 11:45:21,772 -- Could not process control data
-2015-06-26 11:45:21,910 -- Could not process control data
-2015-06-26 11:45:22,047 -- Could not process control data
-2015-06-26 11:45:32,689 -- Could not process control data
-2015-06-26 11:45:33,117 -- Could not process control data
-2015-06-26 11:45:53,989 -- Connection to control queue server appears to have dropped.
-2015-06-26 11:47:09,090 -- Connected to reader queue.
-2015-06-26 11:47:09,118 -- Connected to writer queue.
-2015-06-26 11:47:10,757 -- Connection to control queue server appears to have dropped.
-2015-06-26 11:47:25,177 -- Connected to reader queue.
-2015-06-26 11:47:25,205 -- Connected to writer queue.
-2015-06-26 11:47:52,782 -- Connection to control queue server appears to have dropped.
-2015-06-26 11:48:58,266 -- Connected to reader queue.
-2015-06-26 11:48:58,296 -- Connected to writer queue.
-2015-06-26 11:49:54,201 -- Could not process control data
-2015-06-26 11:49:54,324 -- Could not process control data
-2015-06-26 11:49:55,750 -- Could not process control data
-2015-06-26 11:49:56,036 -- Could not process control data
-2015-06-26 11:49:56,685 -- Could not process control data
-2015-06-26 11:49:56,813 -- Could not process control data
-2015-06-26 11:49:56,949 -- Could not process control data
-2015-06-26 11:51:01,630 -- Connection to control queue server appears to have dropped.
-2015-06-26 11:52:36,680 -- Connected to reader queue.
-2015-06-26 11:52:36,707 -- Connected to writer queue.
-2015-06-26 11:52:46,565 -- Could not process control data
-2015-06-26 11:52:46,643 -- Could not process control data
-2015-06-26 11:52:46,669 -- Could not process control data
-2015-06-26 11:52:46,695 -- Could not process control data
-2015-06-26 11:52:46,722 -- Could not process control data
-2015-06-26 11:52:46,758 -- Could not process control data
-2015-06-26 11:52:46,790 -- Could not process control data
-2015-06-26 11:52:46,857 -- Could not process control data
-2015-06-26 11:52:46,885 -- Could not process control data
-2015-06-26 11:52:46,912 -- Could not process control data
-2015-06-26 11:52:46,940 -- Could not process control data
-2015-06-26 11:52:46,966 -- Could not process control data
-2015-06-26 11:52:47,003 -- Could not process control data
-2015-06-26 11:52:47,030 -- Could not process control data
-2015-06-26 11:52:47,056 -- Could not process control data
-2015-06-26 11:52:47,083 -- Could not process control data
-2015-06-26 11:52:47,122 -- Could not process control data
-2015-06-26 11:52:47,150 -- Could not process control data
-2015-06-26 11:52:47,176 -- Could not process control data
-2015-06-26 11:52:47,205 -- Could not process control data
-2015-06-26 11:52:47,244 -- Could not process control data
-2015-06-26 11:52:47,269 -- Could not process control data
-2015-06-26 11:52:47,296 -- Could not process control data
-2015-06-26 11:52:47,322 -- Could not process control data
-2015-06-26 11:52:47,354 -- Could not process control data
-2015-06-26 11:52:47,379 -- Could not process control data
-2015-06-26 11:52:48,033 -- Could not process control data
-2015-06-26 11:57:28,555 -- Connected to reader queue.
-2015-06-26 11:57:28,583 -- Connected to writer queue.
-2015-06-26 11:57:29,639 -- Connection to control queue server appears to have dropped.
-2015-06-26 11:57:59,019 -- Connected to reader queue.
-2015-06-26 11:57:59,047 -- Connected to writer queue.
-2015-06-26 11:58:00,214 -- Connection to control queue server appears to have dropped.
-2015-06-26 11:58:32,133 -- Connected to reader queue.
-2015-06-26 11:58:32,161 -- Connected to writer queue.
-2015-06-26 11:58:33,519 -- Connection to control queue server appears to have dropped.
-2015-06-26 12:00:33,092 -- Connected to reader queue.
-2015-06-26 12:00:33,120 -- Connected to writer queue.
-2015-06-26 12:00:35,335 -- Connection to control queue server appears to have dropped.
-2015-06-26 12:02:47,628 -- Connected to reader queue.
-2015-06-26 12:02:47,657 -- Connected to writer queue.
-2015-06-26 12:02:49,008 -- Connection to control queue server appears to have dropped.
-2015-06-26 12:03:14,579 -- Connected to reader queue.
-2015-06-26 12:03:14,608 -- Connected to writer queue.
-2015-06-26 12:03:30,878 -- Connection to control queue server appears to have dropped.
-2015-06-26 12:03:42,443 -- Connected to reader queue.
-2015-06-26 12:03:42,471 -- Connected to writer queue.
-2015-06-26 12:03:44,534 -- Connection to control queue server appears to have dropped.
-2015-06-26 12:04:03,891 -- Connected to reader queue.
-2015-06-26 12:04:03,919 -- Connected to writer queue.
-2015-06-26 12:04:06,279 -- Connection to control queue server appears to have dropped.
-2015-06-26 12:04:37,208 -- Connected to reader queue.
-2015-06-26 12:04:37,237 -- Connected to writer queue.
-2015-06-26 12:04:38,975 -- Connection to control queue server appears to have dropped.
-2015-06-26 12:08:40,334 -- Connected to reader queue.
-2015-06-26 12:08:40,362 -- Connected to writer queue.
-2015-06-26 12:08:41,711 -- Connection to control queue server appears to have dropped.
-2015-06-26 12:08:55,298 -- Connected to reader queue.
-2015-06-26 12:08:55,326 -- Connected to writer queue.
-2015-06-26 12:08:57,823 -- Connection to control queue server appears to have dropped.
-2015-06-26 12:12:01,563 -- Connected to reader queue.
-2015-06-26 12:12:01,591 -- Connected to writer queue.
-2015-06-26 12:12:02,711 -- Connection to control queue server appears to have dropped.
-2015-06-26 12:13:14,241 -- Connected to reader queue.
-2015-06-26 12:13:14,270 -- Connected to writer queue.
-2015-06-26 12:13:15,695 -- Connection to control queue server appears to have dropped.
-2015-06-26 12:16:24,089 -- Connected to reader queue.
-2015-06-26 12:16:24,116 -- Connected to writer queue.
-2015-06-26 12:16:25,904 -- Connection to control queue server appears to have dropped.
-2015-06-26 12:17:29,836 -- Connected to reader queue.
-2015-06-26 12:17:29,864 -- Connected to writer queue.
-2015-06-26 16:52:43,058 -- Connected to reader queue.
-2015-06-26 16:52:43,088 -- Connected to writer queue.
-2015-06-26 17:00:07,142 -- Connected to reader queue.
-2015-06-26 17:00:07,170 -- Connected to writer queue.
-2015-06-29 11:56:45,823 -- Connected to reader queue.
-2015-06-29 11:56:45,853 -- Connected to writer queue.
-2015-06-30 10:28:49,875 -- Connected to reader queue.
-2015-06-30 10:28:49,903 -- Connected to writer queue.
-2015-06-30 13:24:13,876 -- Connected to reader queue.
-2015-06-30 13:24:13,906 -- Connected to writer queue.
-2015-06-30 14:07:51,659 -- Connected to reader queue.
-2015-06-30 14:07:51,688 -- Connected to writer queue.
-2015-06-30 15:04:08,649 -- Could not process control data
-2015-06-30 15:04:08,677 -- Could not process control data
-2015-06-30 15:04:08,704 -- Could not process control data
-2015-06-30 15:04:08,730 -- Could not process control data
-2015-06-30 15:04:08,767 -- Could not process control data
-2015-06-30 15:04:08,793 -- Could not process control data
-2015-06-30 15:04:08,820 -- Could not process control data
-2015-06-30 15:04:08,847 -- Could not process control data
-2015-06-30 15:04:08,885 -- Could not process control data
-2015-06-30 15:04:08,911 -- Could not process control data
-2015-06-30 15:04:08,938 -- Could not process control data
-2015-06-30 15:04:08,963 -- Could not process control data
-2015-06-30 15:04:09,003 -- Could not process control data
-2015-06-30 15:04:09,028 -- Could not process control data
-2015-06-30 15:04:09,054 -- Could not process control data
-2015-06-30 15:04:09,080 -- Could not process control data
-2015-06-30 15:04:09,125 -- Could not process control data
-2015-06-30 15:04:09,153 -- Could not process control data
-2015-06-30 15:04:09,179 -- Could not process control data
-2015-06-30 15:04:09,203 -- Could not process control data
-2015-06-30 15:04:09,244 -- Could not process control data
-2015-06-30 15:04:09,270 -- Could not process control data
-2015-06-30 15:04:09,295 -- Could not process control data
-2015-06-30 15:04:09,322 -- Could not process control data
-2015-06-30 15:04:09,359 -- Could not process control data
-2015-06-30 15:04:09,384 -- Could not process control data
-2015-06-30 15:04:09,411 -- Could not process control data
-2015-06-30 15:04:09,438 -- Could not process control data
-2015-06-30 15:04:09,477 -- Could not process control data
-2015-06-30 15:04:09,503 -- Could not process control data
-2015-06-30 15:04:09,529 -- Could not process control data
-2015-06-30 15:04:09,554 -- Could not process control data
-2015-06-30 15:04:09,594 -- Could not process control data
-2015-06-30 15:04:09,620 -- Could not process control data
-2015-06-30 15:37:13,383 -- Connected to reader queue.
-2015-06-30 15:37:13,411 -- Connected to writer queue.
-2015-06-30 15:38:15,247 -- Connected to reader queue.
-2015-06-30 15:38:15,275 -- Connected to writer queue.
-2015-06-30 16:42:38,362 -- Connected to reader queue.
-2015-06-30 16:42:38,400 -- Connected to writer queue.
-2015-07-01 09:41:53,292 -- Connected to reader queue.
-2015-07-01 09:41:53,321 -- Connected to writer queue.
-2015-07-01 14:48:11,304 -- Connected to reader queue.
-2015-07-01 14:48:11,331 -- Connected to writer queue.
-2015-07-01 17:19:31,757 -- Connection to control queue server appears to have dropped.
-2015-07-01 17:19:32,070 -- Connection to vehicle queue server appears to have dropped
-2015-07-01 17:19:32,070 -- Sensor writer has died - attempting to restart....
-2015-07-01 17:19:33,072 -- Control reader has died - attempting to restart....
-2015-07-01 17:19:34,074 -- Sensor writer has died - attempting to restart....
-2015-07-02 09:43:24,618 -- Connected to reader queue.
-2015-07-02 09:43:24,649 -- Connected to writer queue.
-2015-07-02 10:08:03,285 -- Connected to reader queue.
-2015-07-02 10:08:03,313 -- Connected to writer queue.
-2015-07-02 12:59:06,112 -- Connected to reader queue.
-2015-07-02 12:59:06,141 -- Connected to writer queue.
-2015-07-02 12:59:08,046 -- Connected to reader queue.
-2015-07-02 12:59:08,075 -- Connected to writer queue.
-2015-07-02 17:02:30,712 -- Connection to control queue server appears to have dropped.
-2015-07-02 17:02:31,405 -- Connection to vehicle queue server appears to have dropped
-2015-07-02 17:02:31,405 -- Sensor writer has died - attempting to restart....
-2015-07-02 17:02:32,408 -- Control reader has died - attempting to restart....
-2015-07-02 17:02:33,409 -- Sensor writer has died - attempting to restart....
-2015-07-03 09:40:46,609 -- Connected to reader queue.
-2015-07-03 09:40:46,638 -- Connected to writer queue.
-2015-07-03 11:20:18,195 -- Connected to reader queue.
-2015-07-03 11:20:18,223 -- Connected to writer queue.
-2015-07-03 15:52:05,453 -- Connected to reader queue.
-2015-07-03 15:52:05,478 -- Connected to writer queue.
-2015-07-03 15:59:00,132 -- Connected to reader queue.
-2015-07-03 15:59:00,157 -- Connected to writer queue.
-2015-07-03 16:00:03,279 -- Connected to reader queue.
-2015-07-03 16:00:03,306 -- Connected to writer queue.
-2015-07-05 18:17:38,858 -- Connected to reader queue.
-2015-07-05 18:17:38,886 -- Connected to writer queue.
-2015-07-05 22:00:27,664 -- Connection to control queue server appears to have dropped.
-2015-07-05 22:00:28,134 -- Connection to vehicle queue server appears to have dropped
-2015-07-05 22:00:28,134 -- Sensor writer has died - attempting to restart....
-2015-07-05 22:00:29,137 -- Control reader has died - attempting to restart....
-2015-07-05 22:00:30,139 -- Sensor writer has died - attempting to restart....
-2015-07-06 10:09:33,287 -- Connected to reader queue.
-2015-07-06 10:09:33,316 -- Connected to writer queue.
-2015-07-06 10:10:01,614 -- Connected to reader queue.
-2015-07-06 10:10:01,641 -- Connected to writer queue.
-2015-07-06 10:10:28,325 -- Connected to reader queue.
-2015-07-06 10:10:28,351 -- Connected to writer queue.
-2015-07-06 10:12:40,833 -- Connected to reader queue.
-2015-07-06 10:12:40,863 -- Connected to writer queue.
-2015-07-06 10:17:41,360 -- Connected to reader queue.
-2015-07-06 10:17:41,388 -- Connected to writer queue.
-2015-07-06 10:18:37,537 -- Connected to reader queue.
-2015-07-06 10:18:37,563 -- Connected to writer queue.
-2015-07-06 10:20:02,937 -- Connected to reader queue.
-2015-07-06 10:20:02,963 -- Connected to writer queue.
-2015-07-06 10:20:49,691 -- Connected to reader queue.
-2015-07-06 10:20:49,716 -- Connected to writer queue.
-2015-07-06 10:22:55,338 -- Connection to vehicle queue server appears to have dropped
-2015-07-06 10:22:55,339 -- Sensor writer has died - attempting to restart....
-2015-07-06 10:22:55,339 -- Connection to control queue server appears to have dropped.
-2015-07-06 10:22:56,366 -- Control reader has died - attempting to restart....
-2015-07-06 10:27:59,893 -- Connected to reader queue.
-2015-07-06 10:27:59,919 -- Connected to writer queue.
-2015-07-06 10:36:18,022 -- Connected to reader queue.
-2015-07-06 10:36:18,047 -- Connected to writer queue.
-2015-07-06 13:24:43,577 -- Connected to reader queue.
-2015-07-06 13:24:43,604 -- Connected to writer queue.
-2015-07-07 09:08:25,452 -- Connected to reader queue.
-2015-07-07 09:08:25,481 -- Connected to writer queue.
-2015-07-09 10:00:20,652 -- Connected to reader queue.
-2015-07-09 10:00:20,680 -- Connected to writer queue.
-2015-07-09 16:10:42,103 -- Connected to reader queue.
-2015-07-09 16:10:42,129 -- Connected to writer queue.
-2015-07-09 16:10:56,630 -- Connected to reader queue.
-2015-07-09 16:10:56,656 -- Connected to writer queue.
-2015-07-09 16:14:56,536 -- Connected to reader queue.
-2015-07-09 16:14:56,562 -- Connected to writer queue.
-2015-07-09 16:15:32,814 -- Connected to reader queue.
-2015-07-09 16:15:32,841 -- Connected to writer queue.
-2015-07-09 16:16:36,193 -- Connected to reader queue.
-2015-07-09 16:16:36,220 -- Connected to writer queue.
-2015-07-09 16:17:45,483 -- Connected to reader queue.
-2015-07-09 16:17:45,510 -- Connected to writer queue.
-2015-07-09 16:18:37,825 -- Connected to reader queue.
-2015-07-09 16:18:37,851 -- Connected to writer queue.
-2015-07-09 16:19:54,408 -- Connected to reader queue.
-2015-07-09 16:19:54,434 -- Connected to writer queue.
-2015-07-09 16:26:05,897 -- Connected to reader queue.
-2015-07-09 16:26:05,923 -- Connected to writer queue.
-2015-07-09 16:26:41,002 -- Connected to reader queue.
-2015-07-09 16:26:41,030 -- Connected to writer queue.
-2015-07-09 16:26:48,474 -- Connection to control queue server appears to have dropped.
-2015-07-09 16:36:50,453 -- Connected to reader queue.
-2015-07-09 16:36:50,479 -- Connected to writer queue.
-2015-07-09 16:39:23,677 -- Connected to reader queue.
-2015-07-09 16:39:23,704 -- Connected to writer queue.
-2015-07-09 16:40:03,149 -- Connected to reader queue.
-2015-07-09 16:40:03,175 -- Connected to writer queue.
-2015-07-09 16:42:28,563 -- Connected to reader queue.
-2015-07-09 16:42:28,589 -- Connected to writer queue.
-2015-07-09 16:44:31,397 -- Connected to reader queue.
-2015-07-09 16:44:31,425 -- Connected to writer queue.
-2015-07-09 16:45:17,386 -- Connected to reader queue.
-2015-07-09 16:45:17,412 -- Connected to writer queue.
-2015-07-09 16:45:24,310 -- Connection to control queue server appears to have dropped.
-2015-07-09 16:45:24,445 -- Control reader has died - attempting to restart....
-2015-07-09 16:45:25,483 -- Control reader has died - attempting to restart....
-2015-07-09 16:46:36,873 -- Connected to reader queue.
-2015-07-09 16:46:36,901 -- Connected to writer queue.
-2015-07-09 16:46:41,158 -- Connection to control queue server appears to have dropped.
-2015-07-09 16:46:41,927 -- Control reader has died - attempting to restart....
-2015-07-09 16:46:42,978 -- Control reader has died - attempting to restart....
-2015-07-09 16:46:44,017 -- Control reader has died - attempting to restart....
-2015-07-09 16:46:45,056 -- Control reader has died - attempting to restart....
-2015-07-09 16:46:46,100 -- Control reader has died - attempting to restart....
-2015-07-09 16:46:47,148 -- Control reader has died - attempting to restart....
-2015-07-09 16:51:31,527 -- Connected to reader queue.
-2015-07-09 16:51:31,555 -- Connected to writer queue.
-2015-07-09 16:51:36,480 -- Connection to control queue server appears to have dropped.
-2015-07-09 16:51:36,576 -- Control reader has died - attempting to restart....
-2015-07-09 16:51:37,625 -- Control reader has died - attempting to restart....
-2015-07-09 16:51:38,664 -- Control reader has died - attempting to restart....
-2015-07-09 16:51:39,702 -- Control reader has died - attempting to restart....
-2015-07-09 16:51:40,748 -- Control reader has died - attempting to restart....
-2015-07-09 16:51:41,797 -- Control reader has died - attempting to restart....
-2015-07-09 16:55:10,702 -- Connected to reader queue.
-2015-07-09 16:55:25,270 -- Connected to reader queue.
-2015-07-09 16:55:25,296 -- Connected to writer queue.
-2015-07-09 16:55:29,598 -- Connection to control queue server appears to have dropped.
-2015-07-09 16:55:30,320 -- Control reader has died - attempting to restart....
-2015-07-09 16:55:31,368 -- Control reader has died - attempting to restart....
-2015-07-09 16:55:32,406 -- Control reader has died - attempting to restart....
-2015-07-09 16:55:33,447 -- Control reader has died - attempting to restart....
-2015-07-09 16:55:34,495 -- Control reader has died - attempting to restart....
-2015-07-09 16:55:35,548 -- Control reader has died - attempting to restart....
-2015-07-09 16:55:36,586 -- Control reader has died - attempting to restart....
-2015-07-09 16:55:37,628 -- Control reader has died - attempting to restart....
-2015-07-09 16:55:38,683 -- Control reader has died - attempting to restart....
-2015-07-09 16:55:39,724 -- Control reader has died - attempting to restart....
-2015-07-09 16:56:25,194 -- Connected to reader queue.
-2015-07-09 16:56:25,221 -- Connected to writer queue.
-2015-07-10 10:12:51,974 -- Connected to reader queue.
-2015-07-10 10:12:52,003 -- Connected to writer queue.
-2015-07-10 10:15:10,798 -- Connected to reader queue.
-2015-07-10 10:15:10,827 -- Connected to writer queue.
-2015-07-10 10:32:10,424 -- Connected to reader queue.
-2015-07-10 10:32:10,452 -- Connected to writer queue.
-2015-07-10 10:33:17,598 -- Connected to reader queue.
-2015-07-10 10:33:17,631 -- Connected to writer queue.
+2015-07-14 11:22:28,451 -- Connected to broker.
+2015-07-14 11:22:28,520 -- Connected to broker.
+2015-07-14 11:22:28,532 -- Failed to send message to topic d166ce06
+2015-07-14 11:22:28,533 -- Sensor writer has died - attempting to restart....
+2015-07-14 11:22:28,545 -- Connected to broker.
+2015-07-14 11:22:30,547 -- Failed to send message to topic d166ce06
+2015-07-14 11:22:30,547 -- Sensor writer has died - attempting to restart....
+2015-07-14 11:22:30,560 -- Connected to broker.
+2015-07-14 11:22:32,562 -- Failed to send message to topic d166ce06
+2015-07-14 11:22:32,563 -- Sensor writer has died - attempting to restart....
+2015-07-14 11:22:32,575 -- Connected to broker.
+2015-07-14 11:22:34,578 -- Failed to send message to topic d166ce06
+2015-07-14 11:22:34,578 -- Sensor writer has died - attempting to restart....
+2015-07-14 11:22:34,597 -- Connected to broker.
+2015-07-14 11:22:36,599 -- Failed to send message to topic d166ce06
+2015-07-14 11:22:36,599 -- Sensor writer has died - attempting to restart....
+2015-07-14 11:22:36,614 -- Connected to broker.
+2015-07-14 11:22:53,552 -- Connected to broker.
+2015-07-14 11:22:53,613 -- Connected to broker.
+2015-07-14 11:23:43,921 -- Connected to broker.
+2015-07-14 11:23:43,979 -- Connected to broker.
+2015-07-14 11:24:07,818 -- Error: Failure processing control data
+2015-07-14 11:24:08,820 -- Error: Failure processing control data
+2015-07-14 11:24:09,835 -- Error: Failure processing control data
+2015-07-14 11:24:10,836 -- Error: Failure processing control data
+2015-07-14 11:24:11,839 -- Error: Failure processing control data
+2015-07-14 11:24:12,856 -- Error: Failure processing control data
+2015-07-14 11:24:13,858 -- Error: Failure processing control data
+2015-07-14 11:24:14,859 -- Error: Failure processing control data
+2015-07-14 11:24:15,863 -- Error: Failure processing control data
+2015-07-14 11:24:16,878 -- Error: Failure processing control data
+2015-07-14 11:24:17,880 -- Error: Failure processing control data
+2015-07-14 11:24:54,960 -- Connected to broker.
+2015-07-14 11:24:55,041 -- Connected to broker.
+2015-07-14 11:30:16,797 -- Connected to broker.
+2015-07-14 11:30:16,881 -- Connected to broker.
+2015-07-14 11:31:05,103 -- Connected to broker.
+2015-07-14 11:31:05,182 -- Connected to broker.
+2015-07-14 11:32:07,231 -- Connected to broker.
+2015-07-14 11:32:07,313 -- Connected to broker.
+2015-07-14 11:45:05,848 -- Connected to broker.
+2015-07-14 11:45:05,936 -- Connected to broker.
+2015-07-14 11:45:11,726 -- Connected to broker.
+2015-07-14 11:45:11,815 -- Connected to broker.
+2015-07-14 11:46:29,583 -- Connected to broker.
+2015-07-14 11:46:29,661 -- Connected to broker.
+2015-07-14 11:47:20,614 -- Connected to broker.
+2015-07-14 11:47:20,696 -- Connected to broker.
+2015-07-14 12:18:13,472 -- Connected to broker.
+2015-07-14 12:18:13,534 -- Connected to broker.
+2015-07-14 12:18:17,681 -- Connected to broker.
+2015-07-14 12:18:17,739 -- Connected to broker.
+2015-07-14 12:20:46,182 -- Connected to broker.
+2015-07-14 12:20:46,244 -- Connected to broker.
+2015-07-14 12:22:40,524 -- Connected to broker.
+2015-07-14 12:22:40,584 -- Connected to broker.
+2015-07-14 12:24:10,366 -- Connected to broker.
+2015-07-14 12:24:10,426 -- Connected to broker.
+2015-07-14 12:24:13,504 -- Connected to broker.
+2015-07-14 12:24:13,563 -- Connected to broker.
+2015-07-14 12:25:11,110 -- Connected to broker.
+2015-07-14 12:25:11,171 -- Connected to broker.
+2015-07-14 12:25:58,161 -- Connected to broker.
+2015-07-14 12:25:58,219 -- Connected to broker.
+2015-07-14 12:28:15,365 -- Connected to broker.
+2015-07-14 12:28:15,426 -- Connected to broker.
+2015-07-14 12:28:48,083 -- Connected to broker.
+2015-07-14 12:28:48,142 -- Connected to broker.
+2015-07-14 12:30:41,693 -- Connected to broker.
+2015-07-14 12:30:41,755 -- Connected to broker.
+2015-07-14 12:32:44,697 -- Connected to broker.
+2015-07-14 12:32:44,758 -- Connected to broker.
+2015-07-14 12:34:06,925 -- Connected to broker.
+2015-07-14 12:34:06,984 -- Connected to broker.
+2015-07-14 12:34:41,419 -- Connected to broker.
+2015-07-14 12:34:41,478 -- Connected to broker.
+2015-07-14 12:34:48,438 -- Connected to broker.
+2015-07-14 12:34:48,498 -- Connected to broker.
+2015-07-14 12:35:59,512 -- Connected to broker.
+2015-07-14 12:35:59,570 -- Connected to broker.
+2015-07-14 12:38:00,265 -- Connected to broker.
+2015-07-14 12:38:00,327 -- Connected to broker.
+2015-07-14 12:38:27,028 -- Connected to broker.
+2015-07-14 12:38:27,088 -- Connected to broker.
+2015-07-14 12:39:18,535 -- Connected to broker.
+2015-07-14 12:39:18,596 -- Connected to broker.
+2015-07-14 12:46:58,157 -- Connected to broker.
+2015-07-14 12:46:58,218 -- Connected to broker.
+2015-07-14 12:49:04,851 -- Connected to broker.
+2015-07-14 12:49:04,910 -- Connected to broker.
+2015-07-14 12:49:09,710 -- Connected to broker.
+2015-07-14 12:49:09,770 -- Connected to broker.
+2015-07-14 12:57:42,541 -- Connected to broker.
+2015-07-14 12:57:42,599 -- Connected to broker.
+2015-07-14 12:58:17,192 -- Connected to broker.
+2015-07-14 12:58:17,253 -- Connected to broker.
+2015-07-14 12:59:36,389 -- Connected to broker.
+2015-07-14 12:59:36,447 -- Connected to broker.
+2015-07-14 14:37:40,568 -- Connected to broker.
+2015-07-14 14:37:40,626 -- Connected to broker.
+2015-07-14 14:37:43,875 -- Connected to broker.
+2015-07-14 14:37:43,934 -- Connected to broker.
+2015-07-14 14:37:54,609 -- Error: Failed to send image message
+2015-07-14 14:37:56,055 -- Error: Failed to send image message
+2015-07-14 14:37:57,465 -- Error: Failed to send image message
+2015-07-14 14:37:58,860 -- Error: Failed to send image message
+2015-07-14 14:38:00,232 -- Error: Failed to send image message
+2015-07-14 14:38:01,699 -- Error: Failed to send image message
+2015-07-14 14:38:03,250 -- Error: Failed to send image message
+2015-07-14 14:38:04,630 -- Error: Failed to send image message
+2015-07-14 14:38:06,092 -- Error: Failed to send image message
+2015-07-14 14:38:07,633 -- Error: Failed to send image message
+2015-07-14 14:38:09,107 -- Error: Failed to send image message
+2015-07-14 14:38:10,515 -- Error: Failed to send image message
+2015-07-14 14:38:11,866 -- Error: Failed to send image message
+2015-07-14 14:42:30,780 -- Connected to broker.
+2015-07-14 14:42:30,839 -- Connected to broker.
+2015-07-14 14:42:44,251 -- Error: Failed to send image message
+2015-07-14 14:42:45,473 -- Error: Failed to send image message
+2015-07-14 14:42:46,672 -- Error: Failed to send image message
+2015-07-14 14:42:48,050 -- Error: Failed to send image message
+2015-07-14 14:42:49,273 -- Error: Failed to send image message
+2015-07-14 14:42:50,702 -- Error: Failed to send image message
+2015-07-14 14:42:51,895 -- Error: Failed to send image message
+2015-07-14 14:42:53,399 -- Error: Failed to send image message
+2015-07-14 14:42:54,661 -- Error: Failed to send image message
+2015-07-14 14:42:56,036 -- Error: Failed to send image message
+2015-07-14 14:44:13,804 -- Connected to broker.
+2015-07-14 14:44:13,862 -- Connected to broker.
+2015-07-14 14:44:20,463 -- Connected to broker.
+2015-07-14 14:44:20,523 -- Connected to broker.
+2015-07-14 14:44:25,412 -- Error: Failed to send image message
+2015-07-14 14:44:26,908 -- Error: Failed to send image message
+2015-07-14 14:44:28,296 -- Error: Failed to send image message
+2015-07-14 14:44:29,744 -- Error: Failed to send image message
+2015-07-14 14:44:31,162 -- Error: Failed to send image message
+2015-07-14 14:44:32,589 -- Error: Failed to send image message
+2015-07-14 14:44:34,045 -- Error: Failed to send image message
+2015-07-14 14:44:35,549 -- Error: Failed to send image message
+2015-07-14 14:44:36,904 -- Error: Failed to send image message
+2015-07-14 14:44:38,592 -- Error: Failed to send image message
+2015-07-14 14:44:39,965 -- Error: Failed to send image message
+2015-07-14 14:44:41,558 -- Error: Failed to send image message
+2015-07-14 14:44:42,876 -- Error: Failed to send image message
+2015-07-14 14:44:44,411 -- Error: Failed to send image message
+2015-07-14 14:44:45,613 -- Error: Failed to send image message
+2015-07-14 14:44:47,001 -- Error: Failed to send image message
+2015-07-14 14:44:48,372 -- Error: Failed to send image message
+2015-07-14 14:44:49,992 -- Error: Failed to send image message
+2015-07-14 14:44:51,363 -- Error: Failed to send image message
+2015-07-14 14:44:52,739 -- Error: Failed to send image message
+2015-07-14 14:44:54,369 -- Error: Failed to send image message
+2015-07-14 14:44:55,555 -- Error: Failed to send image message
+2015-07-14 14:44:57,206 -- Error: Failed to send image message
+2015-07-14 14:44:58,641 -- Error: Failed to send image message
+2015-07-14 14:45:00,066 -- Error: Failed to send image message
+2015-07-14 14:45:01,458 -- Error: Failed to send image message
+2015-07-14 14:45:02,882 -- Error: Failed to send image message
+2015-07-14 14:45:04,269 -- Error: Failed to send image message
+2015-07-14 14:45:06,118 -- Error: Failed to send image message
+2015-07-14 14:45:07,519 -- Error: Failed to send image message
+2015-07-14 14:45:08,940 -- Error: Failed to send image message
+2015-07-14 14:45:10,483 -- Error: Failed to send image message
+2015-07-14 14:45:11,877 -- Error: Failed to send image message
+2015-07-14 14:45:13,448 -- Error: Failed to send image message
+2015-07-14 14:45:14,938 -- Error: Failed to send image message
+2015-07-14 14:45:16,548 -- Error: Failed to send image message
+2015-07-14 14:45:18,188 -- Error: Failed to send image message
+2015-07-14 14:45:19,646 -- Error: Failed to send image message
+2015-07-14 14:45:21,306 -- Error: Failed to send image message
+2015-07-14 14:45:22,720 -- Error: Failed to send image message
+2015-07-14 14:45:24,457 -- Error: Failed to send image message
+2015-07-14 14:45:24,622 -- Error: Failed to send image message
+2015-07-14 14:45:26,184 -- Error: Failed to send image message
+2015-07-14 14:45:26,347 -- Error: Failed to send image message
+2015-07-14 14:45:27,786 -- Error: Failed to send image message
+2015-07-14 14:45:28,001 -- Error: Failed to send image message
+2015-07-14 14:45:29,594 -- Error: Failed to send image message
+2015-07-14 14:45:29,786 -- Error: Failed to send image message
+2015-07-14 14:45:31,718 -- Error: Failed to send image message
+2015-07-14 14:45:31,877 -- Error: Failed to send image message
+2015-07-14 14:45:33,284 -- Error: Failed to send image message
+2015-07-14 14:45:33,446 -- Error: Failed to send image message
+2015-07-14 14:45:35,066 -- Error: Failed to send image message
+2015-07-14 14:45:35,339 -- Error: Failed to send image message
+2015-07-14 14:45:36,799 -- Error: Failed to send image message
+2015-07-14 14:45:37,046 -- Error: Failed to send image message
+2015-07-14 14:45:38,532 -- Error: Failed to send image message
+2015-07-14 14:45:38,703 -- Error: Failed to send image message
+2015-07-14 14:45:40,288 -- Error: Failed to send image message
+2015-07-14 14:45:40,468 -- Error: Failed to send image message
+2015-07-14 14:45:42,123 -- Error: Failed to send image message
+2015-07-14 14:45:42,417 -- Error: Failed to send image message
+2015-07-14 14:45:42,417 -- Control reader has died - attempting to restart....
+2015-07-14 14:45:42,430 -- Connected to broker.
+2015-07-14 14:45:43,533 -- Control reader has died - attempting to restart....
+2015-07-14 14:45:43,546 -- Connected to broker.
+2015-07-14 14:46:22,224 -- Connected to broker.
+2015-07-14 14:46:22,286 -- Connected to broker.
+2015-07-14 14:52:40,754 -- Connected to broker.
+2015-07-14 14:52:40,816 -- Connected to broker.
+2015-07-14 14:53:04,395 -- Error: No image file generated
+2015-07-14 14:53:05,893 -- Error: No image file generated
+2015-07-14 14:53:07,227 -- Error: No image file generated
+2015-07-14 14:53:08,685 -- Error: No image file generated
+2015-07-14 14:53:10,120 -- Error: No image file generated
+2015-07-14 14:53:11,468 -- Error: No image file generated
+2015-07-14 14:53:12,839 -- Error: No image file generated
+2015-07-14 14:53:14,196 -- Error: No image file generated
+2015-07-14 14:53:15,878 -- Error: No image file generated
+2015-07-14 14:53:18,995 -- Connected to broker.
+2015-07-14 14:53:19,062 -- Connected to broker.

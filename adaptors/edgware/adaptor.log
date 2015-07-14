@@ -177,3 +177,269 @@
 2015-07-09 16:14:06,566 -- Edgware - Regsitering system d166ce06/control
 2015-07-09 16:57:19,215 -- User action - Exiting
 2015-07-10 10:16:03,044 -- User action - Exiting
+2015-07-14 12:16:26,345 -- Connected to MQTT server
+2015-07-14 12:16:26,346 -- Subscribed to $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 12:16:26,346 -- Subscribed to MQTT topic $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 12:16:26,349 -- MQTT Connection status:0
+2015-07-14 12:16:26,359 -- Connected to broker.
+2015-07-14 12:16:26,359 -- Connected to RMQ server - control
+2015-07-14 12:16:26,403 -- Subscribed to RMQ control topic d166ce06
+2015-07-14 12:16:26,417 -- Connected to broker.
+2015-07-14 12:16:26,442 -- Connected to RMQ server - vehicle
+2015-07-14 12:16:26,487 -- Subscribed to RMQ vehicle topic d166ce06
+2015-07-14 12:16:26,490 -- Edgware - Regsitering platform d166ce06
+2015-07-14 12:16:26,490 -- Edgware - Regsitering system d166ce06/vehicle
+2015-07-14 12:16:26,491 -- Edgware - Regsitering system d166ce06/control
+2015-07-14 12:45:44,246 -- User action - Exiting
+2015-07-14 12:47:07,470 -- Connected to MQTT server
+2015-07-14 12:47:07,470 -- Subscribed to $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 12:47:07,470 -- Subscribed to MQTT topic $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 12:47:07,473 -- MQTT Connection status:0
+2015-07-14 12:47:07,484 -- Connected to broker.
+2015-07-14 12:47:07,484 -- Connected to RMQ server - control
+2015-07-14 12:47:07,529 -- Subscribed to RMQ control topic d166ce06
+2015-07-14 12:47:07,544 -- Connected to broker.
+2015-07-14 12:47:07,569 -- Connected to RMQ server - vehicle
+2015-07-14 12:47:07,628 -- Subscribed to RMQ vehicle topic d166ce06
+2015-07-14 12:47:07,631 -- Edgware - Regsitering platform d166ce06
+2015-07-14 12:47:07,633 -- Edgware - Regsitering system d166ce06/vehicle
+2015-07-14 12:47:07,634 -- Edgware - Regsitering system d166ce06/control
+2015-07-14 12:47:19,095 -- User action - Exiting
+2015-07-14 12:49:14,435 -- Connected to MQTT server
+2015-07-14 12:49:14,436 -- Subscribed to $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 12:49:14,436 -- Subscribed to MQTT topic $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 12:49:14,439 -- MQTT Connection status:0
+2015-07-14 12:49:14,449 -- Connected to broker.
+2015-07-14 12:49:14,450 -- Connected to RMQ server - control
+2015-07-14 12:49:14,494 -- Subscribed to RMQ control topic d166ce06
+2015-07-14 12:49:14,508 -- Connected to broker.
+2015-07-14 12:49:14,534 -- Connected to RMQ server - vehicle
+2015-07-14 12:49:14,579 -- Subscribed to RMQ vehicle topic d166ce06
+2015-07-14 12:49:14,582 -- Edgware - Regsitering platform d166ce06
+2015-07-14 12:49:14,582 -- Edgware - Regsitering system d166ce06/vehicle
+2015-07-14 12:49:14,582 -- Edgware - Regsitering system d166ce06/control
+2015-07-14 12:49:16,510 -- User action - Exiting
+2015-07-14 12:49:38,299 -- Connected to MQTT server
+2015-07-14 12:49:38,299 -- Subscribed to $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 12:49:38,299 -- Subscribed to MQTT topic $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 12:49:38,303 -- MQTT Connection status:0
+2015-07-14 12:49:38,313 -- Connected to broker.
+2015-07-14 12:49:38,313 -- Connected to RMQ server - control
+2015-07-14 12:49:38,357 -- Subscribed to RMQ control topic d166ce06
+2015-07-14 12:49:38,371 -- Connected to broker.
+2015-07-14 12:49:38,396 -- Connected to RMQ server - vehicle
+2015-07-14 12:49:38,441 -- Subscribed to RMQ vehicle topic d166ce06
+2015-07-14 12:49:38,443 -- Edgware - Regsitering platform d166ce06
+2015-07-14 12:49:38,443 -- Edgware - Regsitering system d166ce06/vehicle
+2015-07-14 12:49:38,444 -- Edgware - Regsitering system d166ce06/control
+2015-07-14 12:50:17,095 -- User action - Exiting
+2015-07-14 12:57:49,097 -- Connected to MQTT server
+2015-07-14 12:57:49,098 -- Subscribed to $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 12:57:49,098 -- Subscribed to MQTT topic $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 12:57:49,101 -- MQTT Connection status:0
+2015-07-14 12:57:49,111 -- Connected to broker.
+2015-07-14 12:57:49,111 -- Connected to RMQ server - control
+2015-07-14 12:57:49,156 -- Subscribed to RMQ control topic d166ce06
+2015-07-14 12:57:49,170 -- Connected to broker.
+2015-07-14 12:57:49,194 -- Connected to RMQ server - vehicle
+2015-07-14 12:57:49,240 -- Subscribed to RMQ vehicle topic d166ce06
+2015-07-14 12:57:49,242 -- Edgware - Regsitering platform d166ce06
+2015-07-14 12:57:49,242 -- Edgware - Regsitering system d166ce06/vehicle
+2015-07-14 12:57:49,242 -- Edgware - Regsitering system d166ce06/control
+2015-07-14 12:59:53,188 -- User action - Exiting
+2015-07-14 13:56:01,010 -- Connected to MQTT server
+2015-07-14 13:56:01,010 -- Subscribed to $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 13:56:01,010 -- Subscribed to MQTT topic $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 13:56:01,014 -- MQTT Connection status:0
+2015-07-14 13:56:01,025 -- Connected to broker.
+2015-07-14 13:56:01,025 -- Connected to RMQ server - control
+2015-07-14 13:56:01,069 -- Subscribed to RMQ control topic d166ce06
+2015-07-14 13:56:01,086 -- Connected to broker.
+2015-07-14 13:56:01,110 -- Connected to RMQ server - vehicle
+2015-07-14 13:56:01,154 -- Subscribed to RMQ vehicle topic d166ce06
+2015-07-14 13:56:01,157 -- Edgware - Regsitering platform d166ce06
+2015-07-14 13:56:01,158 -- Edgware - Regsitering system d166ce06/vehicle
+2015-07-14 13:56:01,158 -- Edgware - Regsitering system d166ce06/control
+2015-07-14 13:56:25,440 -- User action - Exiting
+2015-07-14 13:57:03,155 -- Connected to MQTT server
+2015-07-14 13:57:03,155 -- Subscribed to $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 13:57:03,155 -- Subscribed to MQTT topic $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 13:57:03,158 -- MQTT Connection status:0
+2015-07-14 13:57:03,169 -- Connected to broker.
+2015-07-14 13:57:03,169 -- Connected to RMQ server - control
+2015-07-14 13:57:03,214 -- Subscribed to RMQ control topic d166ce06
+2015-07-14 13:57:03,228 -- Connected to broker.
+2015-07-14 13:57:03,252 -- Connected to RMQ server - vehicle
+2015-07-14 13:57:03,296 -- Subscribed to RMQ vehicle topic d166ce06
+2015-07-14 13:57:03,298 -- Edgware - Regsitering platform d166ce06
+2015-07-14 13:57:03,299 -- Edgware - Regsitering system d166ce06/vehicle
+2015-07-14 13:57:03,299 -- Edgware - Regsitering system d166ce06/control
+2015-07-14 13:57:18,050 -- User action - Exiting
+2015-07-14 13:58:27,701 -- Connected to MQTT server
+2015-07-14 13:58:27,701 -- Subscribed to $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 13:58:27,701 -- Subscribed to MQTT topic $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 13:58:27,704 -- MQTT Connection status:0
+2015-07-14 13:58:27,715 -- Connected to broker.
+2015-07-14 13:58:27,715 -- Connected to RMQ server - control
+2015-07-14 13:58:27,760 -- Subscribed to RMQ control topic d166ce06
+2015-07-14 13:58:27,775 -- Connected to broker.
+2015-07-14 13:58:27,799 -- Connected to RMQ server - vehicle
+2015-07-14 13:58:27,845 -- Subscribed to RMQ vehicle topic d166ce06
+2015-07-14 13:58:27,848 -- Edgware - Regsitering platform d166ce06
+2015-07-14 13:58:27,849 -- Edgware - Regsitering system d166ce06/vehicle
+2015-07-14 13:58:27,849 -- Edgware - Regsitering system d166ce06/control
+2015-07-14 13:58:36,770 -- User action - Exiting
+2015-07-14 13:59:12,951 -- Connected to MQTT server
+2015-07-14 13:59:12,952 -- Subscribed to $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 13:59:12,952 -- Subscribed to MQTT topic $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 13:59:12,954 -- MQTT Connection status:0
+2015-07-14 13:59:12,965 -- Connected to broker.
+2015-07-14 13:59:12,965 -- Connected to RMQ server - control
+2015-07-14 13:59:13,012 -- Subscribed to RMQ control topic d166ce06
+2015-07-14 13:59:13,027 -- Connected to broker.
+2015-07-14 13:59:13,052 -- Connected to RMQ server - vehicle
+2015-07-14 13:59:13,099 -- Subscribed to RMQ vehicle topic d166ce06
+2015-07-14 13:59:13,103 -- Edgware - Regsitering platform d166ce06
+2015-07-14 13:59:13,103 -- Edgware - Regsitering system d166ce06/vehicle
+2015-07-14 13:59:13,105 -- Edgware - Regsitering system d166ce06/control
+2015-07-14 13:59:49,193 -- User action - Exiting
+2015-07-14 14:01:08,325 -- Connected to MQTT server
+2015-07-14 14:01:08,326 -- Subscribed to $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 14:01:08,326 -- Subscribed to MQTT topic $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 14:01:08,329 -- MQTT Connection status:0
+2015-07-14 14:01:08,339 -- Connected to broker.
+2015-07-14 14:01:08,339 -- Connected to RMQ server - control
+2015-07-14 14:01:08,383 -- Subscribed to RMQ control topic d166ce06
+2015-07-14 14:01:08,398 -- Connected to broker.
+2015-07-14 14:01:08,422 -- Connected to RMQ server - vehicle
+2015-07-14 14:01:08,467 -- Subscribed to RMQ vehicle topic d166ce06
+2015-07-14 14:01:08,471 -- Edgware - Regsitering platform d166ce06
+2015-07-14 14:01:08,472 -- Edgware - Regsitering system d166ce06/vehicle
+2015-07-14 14:01:08,473 -- Edgware - Regsitering system d166ce06/control
+2015-07-14 14:15:44,696 -- User action - Exiting
+2015-07-14 14:17:25,324 -- Connected to MQTT server
+2015-07-14 14:17:25,325 -- Subscribed to $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 14:17:25,325 -- Subscribed to MQTT topic $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 14:17:25,328 -- MQTT Connection status:0
+2015-07-14 14:17:25,338 -- Connected to broker.
+2015-07-14 14:17:25,338 -- Connected to RMQ server - control
+2015-07-14 14:17:25,384 -- Subscribed to RMQ control topic d166ce06
+2015-07-14 14:17:25,398 -- Connected to broker.
+2015-07-14 14:17:25,423 -- Connected to RMQ server - vehicle
+2015-07-14 14:17:25,469 -- Subscribed to RMQ vehicle topic d166ce06
+2015-07-14 14:17:25,471 -- Edgware - Regsitering platform d166ce06
+2015-07-14 14:17:25,472 -- Edgware - Regsitering system d166ce06/vehicle
+2015-07-14 14:17:25,472 -- Edgware - Regsitering system d166ce06/control
+2015-07-14 14:17:32,344 -- User action - Exiting
+2015-07-14 14:18:59,215 -- Connected to MQTT server
+2015-07-14 14:18:59,215 -- Subscribed to $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 14:18:59,215 -- Subscribed to MQTT topic $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 14:18:59,218 -- MQTT Connection status:0
+2015-07-14 14:18:59,228 -- Connected to broker.
+2015-07-14 14:18:59,228 -- Connected to RMQ server - control
+2015-07-14 14:18:59,271 -- Subscribed to RMQ control topic d166ce06
+2015-07-14 14:18:59,286 -- Connected to broker.
+2015-07-14 14:18:59,310 -- Connected to RMQ server - vehicle
+2015-07-14 14:18:59,355 -- Subscribed to RMQ vehicle topic d166ce06
+2015-07-14 14:18:59,358 -- Edgware - Regsitering platform d166ce06
+2015-07-14 14:18:59,359 -- Edgware - Regsitering system d166ce06/vehicle
+2015-07-14 14:18:59,360 -- Edgware - Regsitering system d166ce06/control
+2015-07-14 14:19:11,057 -- User action - Exiting
+2015-07-14 14:25:03,823 -- Connected to MQTT server
+2015-07-14 14:25:03,823 -- Subscribed to $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 14:25:03,823 -- Subscribed to MQTT topic $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 14:25:03,826 -- MQTT Connection status:0
+2015-07-14 14:25:03,836 -- Connected to broker.
+2015-07-14 14:25:03,836 -- Connected to RMQ server - control
+2015-07-14 14:25:03,881 -- Subscribed to RMQ control topic d166ce06
+2015-07-14 14:25:03,897 -- Connected to broker.
+2015-07-14 14:25:03,921 -- Connected to RMQ server - vehicle
+2015-07-14 14:25:03,967 -- Subscribed to RMQ vehicle topic d166ce06
+2015-07-14 14:25:03,971 -- Edgware - Regsitering platform d166ce06
+2015-07-14 14:25:03,971 -- Edgware - Regsitering system d166ce06/vehicle
+2015-07-14 14:25:03,972 -- Edgware - Regsitering system d166ce06/control
+2015-07-14 14:25:13,425 -- User action - Exiting
+2015-07-14 14:25:27,208 -- Connected to MQTT server
+2015-07-14 14:25:27,208 -- Subscribed to $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 14:25:27,209 -- Subscribed to MQTT topic $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 14:25:27,211 -- MQTT Connection status:0
+2015-07-14 14:25:27,221 -- Connected to broker.
+2015-07-14 14:25:27,221 -- Connected to RMQ server - control
+2015-07-14 14:25:27,265 -- Subscribed to RMQ control topic d166ce06
+2015-07-14 14:25:27,280 -- Connected to broker.
+2015-07-14 14:25:27,304 -- Connected to RMQ server - vehicle
+2015-07-14 14:25:27,349 -- Subscribed to RMQ vehicle topic d166ce06
+2015-07-14 14:25:27,354 -- Edgware - Regsitering platform d166ce06
+2015-07-14 14:25:27,355 -- Edgware - Regsitering system d166ce06/vehicle
+2015-07-14 14:25:27,356 -- Edgware - Regsitering system d166ce06/control
+2015-07-14 14:25:36,793 -- User action - Exiting
+2015-07-14 14:32:07,790 -- Connected to MQTT server
+2015-07-14 14:32:07,790 -- Subscribed to $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 14:32:07,790 -- Subscribed to MQTT topic $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 14:32:07,793 -- MQTT Connection status:0
+2015-07-14 14:32:07,804 -- Connected to broker.
+2015-07-14 14:32:07,804 -- Connected to RMQ server - control
+2015-07-14 14:32:07,848 -- Subscribed to RMQ control topic d166ce06
+2015-07-14 14:32:07,863 -- Connected to broker.
+2015-07-14 14:32:07,887 -- Connected to RMQ server - vehicle
+2015-07-14 14:32:07,932 -- Subscribed to RMQ vehicle topic d166ce06
+2015-07-14 14:32:07,935 -- Edgware - Regsitering platform d166ce06
+2015-07-14 14:32:07,936 -- Edgware - Regsitering system d166ce06/vehicle
+2015-07-14 14:32:07,937 -- Edgware - Regsitering system d166ce06/control
+2015-07-14 14:32:21,160 -- User action - Exiting
+2015-07-14 14:37:47,495 -- Connected to MQTT server
+2015-07-14 14:37:47,495 -- Subscribed to $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 14:37:47,495 -- Subscribed to MQTT topic $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 14:37:47,499 -- MQTT Connection status:0
+2015-07-14 14:37:47,509 -- Connected to broker.
+2015-07-14 14:37:47,509 -- Connected to RMQ server - control
+2015-07-14 14:37:47,554 -- Subscribed to RMQ control topic d166ce06
+2015-07-14 14:37:47,569 -- Connected to broker.
+2015-07-14 14:37:47,593 -- Connected to RMQ server - vehicle
+2015-07-14 14:37:47,637 -- Subscribed to RMQ vehicle topic d166ce06
+2015-07-14 14:37:47,640 -- Edgware - Regsitering platform d166ce06
+2015-07-14 14:37:47,640 -- Edgware - Regsitering system d166ce06/vehicle
+2015-07-14 14:37:47,641 -- Edgware - Regsitering system d166ce06/control
+2015-07-14 14:38:12,919 -- User action - Exiting
+2015-07-14 14:42:34,078 -- Connected to MQTT server
+2015-07-14 14:42:34,078 -- Subscribed to $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 14:42:34,079 -- Subscribed to MQTT topic $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 14:42:34,081 -- MQTT Connection status:0
+2015-07-14 14:42:34,091 -- Connected to broker.
+2015-07-14 14:42:34,092 -- Connected to RMQ server - control
+2015-07-14 14:42:34,135 -- Subscribed to RMQ control topic d166ce06
+2015-07-14 14:42:34,149 -- Connected to broker.
+2015-07-14 14:42:34,173 -- Connected to RMQ server - vehicle
+2015-07-14 14:42:34,219 -- Subscribed to RMQ vehicle topic d166ce06
+2015-07-14 14:42:34,223 -- Edgware - Regsitering platform d166ce06
+2015-07-14 14:42:34,223 -- Edgware - Regsitering system d166ce06/vehicle
+2015-07-14 14:42:34,224 -- Edgware - Regsitering system d166ce06/control
+2015-07-14 14:45:41,798 -- User action - Exiting
+2015-07-14 14:46:13,981 -- Connected to MQTT server
+2015-07-14 14:46:13,982 -- Subscribed to $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 14:46:13,982 -- Subscribed to MQTT topic $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 14:46:13,985 -- MQTT Connection status:0
+2015-07-14 14:46:13,995 -- Connected to broker.
+2015-07-14 14:46:13,995 -- Connected to RMQ server - control
+2015-07-14 14:46:14,040 -- Subscribed to RMQ control topic d166ce06
+2015-07-14 14:46:14,056 -- Connected to broker.
+2015-07-14 14:46:14,080 -- Connected to RMQ server - vehicle
+2015-07-14 14:46:14,124 -- Subscribed to RMQ vehicle topic d166ce06
+2015-07-14 14:46:14,127 -- Edgware - Regsitering platform d166ce06
+2015-07-14 14:46:14,128 -- Edgware - Regsitering system d166ce06/vehicle
+2015-07-14 14:46:14,128 -- Edgware - Regsitering system d166ce06/control
+2015-07-14 14:47:21,571 -- User action - Exiting
+2015-07-14 14:52:44,008 -- MQTT Connection status:0
+2015-07-14 14:52:44,008 -- Connected to MQTT server
+2015-07-14 14:52:44,009 -- Subscribed to $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 14:52:44,009 -- Subscribed to MQTT topic $fabric/node1/$adapters/$mqtt/$out/roveradp
+2015-07-14 14:52:44,022 -- Connected to broker.
+2015-07-14 14:52:44,022 -- Connected to RMQ server - control
+2015-07-14 14:52:44,066 -- Subscribed to RMQ control topic d166ce06
+2015-07-14 14:52:44,081 -- Connected to broker.
+2015-07-14 14:52:44,105 -- Connected to RMQ server - vehicle
+2015-07-14 14:52:44,149 -- Subscribed to RMQ vehicle topic d166ce06
+2015-07-14 14:52:44,152 -- Edgware - Regsitering platform d166ce06
+2015-07-14 14:52:44,153 -- Edgware - Regsitering system d166ce06/vehicle
+2015-07-14 14:52:44,154 -- Edgware - Regsitering system d166ce06/control
+2015-07-14 15:21:06,867 -- User action - Exiting

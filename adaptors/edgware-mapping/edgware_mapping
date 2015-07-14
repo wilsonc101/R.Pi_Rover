@@ -303,9 +303,6 @@ def main():
         updatescript.write("          }\n")
         updatescript.write("       }\n")
         updatescript.write("    }\n")
-#        updatescript.write("    map.fitBounds(bounds);\n")
-#        updatescript.write("    map.setZoom(14);\n")
-#        updatescript.write("    map.setCenter(latlng);\n") 
         updatescript.write("\n")
         updatescript.write("}\n")
         updatescript.close()
@@ -346,11 +343,8 @@ def main():
                     if platform['id'] not in PLATFORM_LOCATIONS: 
                         PLATFORM_LOCATIONS[platform['id']] = {'location':(float(platform['loc']['lat']),float(platform['loc']['long'])), 'autoid':platform_autoID}
                         platform_autoID += 1
-#                        print json.dumps(PLATFORM_LOCATIONS)
-
                     else:
                         PLATFORM_LOCATIONS[platform['id']] = {'location':(float(platform['loc']['lat']),float(platform['loc']['long']))}
-#                        print json.dumps(PLATFORM_LOCATIONS)
 
             elif response_type == "response":
                 for platform in PLATFORM_LOCATIONS:

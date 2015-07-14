@@ -47,11 +47,11 @@ else:
 
 # Setup logging
 try:
-    logfile = log.CreateLogger(console=False, file=True, filepath=logfilepath, level=config.get('logging', 'level'))
+    logfile = log.CreateLogger(toconsole=False, tofile=True, filepath=logfilepath, level=config.get('logging', 'level'))
     assert logfile, "Error: Failed to create log outputs"
 
 except:
-    raise SystemExit("FATAL: Unknown error - " + str(sys.exc_info()[0]))
+    raise SystemExit(" 1 FATAL: Unknown error - " + str(sys.exc_info()[0]))
 
 
 # Parse config data, convert to vars
@@ -186,7 +186,6 @@ def processMQTTInput(data):
             elif msg == "getCameraLightState":
                 return(CONTROL_DATA.cameraLightState, None)
             elif msg == "getStill":
-                print "HERE"
                 rmq_response = {"camera": {"takestill": {"correl": json_data['correl'], "solicit-response": json_data['solicit-response'], "request-response": json_data['request-response']}}} 
                 return(None, rmq_response)
             elif ":" not in msg:
@@ -238,16 +237,21 @@ def processMQTTInput(data):
             mqtt_response = "unknown service"
             rmq_response = None
 
+        # If MQTT data present - form valid response
+        if mqtt_response != None:
             # Generate response
-        json_response = {}
-        json_response['op'] = "response"
-        json_response['solicit-response'] = solicit_response
-        json_response['msg'] = mqtt_response
-        json_response['request-response'] = request_response
-        json_response['correl'] = correl
+            json_response = {}
+            json_response['op'] = "response"
+            json_response['solicit-response'] = solicit_response
+            json_response['msg'] = mqtt_response
+            json_response['request-response'] = request_response
+            json_response['correl'] = correl
 
-        # Return MQTT amd RMQ responses
-        return(json_response, rmq_response)
+            # Return MQTT amd RMQ responses
+            return(json_response, rmq_response)
+
+        else:
+            return(mqtt_response, rmq_response)
 
  
    # Handle 'Notification' messages (unused)
@@ -272,11 +276,12 @@ def processRMQInput(data):
     logfile.debug("Received data from RMQ: " + str(data))
     try:
         json_data = json.loads(data)
+
+        # NON RETURNING (ingest only)
         if 'camera' in json_data:
             if 'tilt' in json_data['camera']: CONTROL_DATA.cameraTiltPosition = json_data['camera']['tilt']
             if 'pan' in json_data['camera']: CONTROL_DATA.cameraPanPosition = json_data['camera']['pan']
             if 'light' in json_data['camera']: CONTROL_DATA.cameraLightState = json_data['camera']['light']
-            if 'still' in json_data['camera']: print str(json_data['camera']['still'])
 
         if 'vehicle' in json_data:
             if 'throttle' in json_data['vehicle']: CONTROL_DATA.throttlePosition = json_data['vehicle']['throttle']
@@ -301,11 +306,30 @@ def processRMQInput(data):
         if 'accelerometer' in json_data:
             if 'x' in json_data['accelerometer']: VEHICLE_DATA.accelLR = json_data['accelerometer']['x']
             if 'y' in json_data['accelerometer']: VEHICLE_DATA.accelRF = json_data['accelerometer']['y']
- 
-        return(True)
+
+        # RETURNING (bi-directional)
+        if 'camera' in json_data:
+            if 'still' in json_data['camera']: return(_processCameraStill(json_data['camera']['still']), None)
+
+        return(None, None)
 
     except:
-        return(False)
+        assert False, "Error: Failed processing RMQ control data"
+
+
+def _processCameraStill(msg):
+    for responder in msg['request-response']:
+        if RMQ_TOPIC in responder:
+            request_response = responder
+
+    mqtt_response = {'op':'response',
+                     'correl': msg['correl'],
+                     'msg': msg['msg'],
+                     'request-response': request_response,
+                     'solicit-response': msg['solicit-response']}    
+
+    return(mqtt_response)
+
 
 
 
@@ -390,7 +414,6 @@ def registerEdgwareTypes(mqtt_client):
 
     except:
         logfile.error("Error: Unknown error caught when registering Edware types")
-        print "Error: Unknown error - " + str(sys.exc_info()[0])
         return(False)
 
 
@@ -510,20 +533,23 @@ def main():
         if mqtt_reader_pconn.poll() == True: 
             logfile.debug("Recieved data from MQTT")
             mqtt_response, rmq_response = processMQTTInput(mqtt_reader_pconn.recv())
-            
             if rmq_response != None: writeRMQOutput(rmq_client_control_writer, RMQ_TOPIC, json.dumps(rmq_response))
             if mqtt_response != None: writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(mqtt_response))
  
         # If RMQ pipes have content
         if rmq_control_pconn.poll() == True: 
             logfile.debug("Recieved data from RMQ - control")
-            result = processRMQInput(rmq_control_pconn.recv())
-            assert result, "Error Processing RMQ control data"
+            mqtt_response, rmq_response = processRMQInput(rmq_control_pconn.recv())
+            if rmq_response != None: writeRMQOutput(rmq_client_control_writer, RMQ_TOPIC, json.dumps(rmq_response))
+            if mqtt_response != None: writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(mqtt_response))
+            
 
         if rmq_vehicle_pconn.poll() == True: 
             logfile.debug("Recieved data from RMQ - vehicle")
-            result = processRMQInput(rmq_vehicle_pconn.recv())
-            assert result, "Error Processing RMQ vehicle data"
+            mqtt_response, rmq_response = processRMQInput(rmq_vehicle_pconn.recv())
+            if rmq_response != None: writeRMQOutput(rmq_client_control_writer, RMQ_TOPIC, json.dumps(rmq_response))
+            if mqtt_response != None: 
+                writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(mqtt_response))
 
 
         location_counter += 1
