@@ -177,7 +177,8 @@ def _run_cmd(cmd):
         return output
 
     except:
-        return(False)    
+        return(False)
+
 
 def _shutdownVehicle():
     shutdown_cmd = "poweroff"
@@ -271,8 +272,6 @@ def _vehicleControl(data):
         logfile.warning("Could not process control data")
 
 
-
-
 def _vehicleSensors(gps_poller=None):
 
     try:
@@ -302,17 +301,14 @@ def _vehicleSensors(gps_poller=None):
         return(False)
 
 
-
 def main():
 
     # Main loop
     while 1:
-
         # Setup GPS Poller
         gps_poller = gpsreader.gpsPoller()
         gps_poller.daemon = True
         gps_poller.start()
-
 
         # Setup vehicle camera
         vehicle_camera = camera.camera(log=logfile)
@@ -337,7 +333,6 @@ def main():
         control_worker = multiprocessing.Process(target=control_reader.run, args=(control_cconn,))
         control_worker.daemon = True
         control_worker.start()
-
 
         # Setup writer queue for vehicle data
         # Hold loop if not connected
@@ -403,18 +398,11 @@ def main():
                             except:
                                 logfile.error("Error: Failed to send image message")
 
-
-
-
                 # Emergency stop 
                 if int(vehicle_data['vehicle']['wifi']) < 10:
                     logfile.warn("Wifi value low - applying emergency stop")
                     SendPWM(THROTTLE_SERVO.Channel, 0, THROTTLE_SERVO.RealNeutral)
                     SendPWM(BRAKE_SERVO.Channel, 0, BRAKE_SERVO.RealMin)
-
-
-
-
 
             # Monitor control worker thread 
             if control_worker.is_alive() == False:
@@ -427,7 +415,6 @@ def main():
                 control_worker.start()
                 time.sleep(1)
 
-
             # Annotate video stream
             #vehicle_camera.camera.annotate_text = ("Wifi: " + str(vehicle_data['vehicle']['wifi']) + "% - "\
             #                                       "Battery A: " + str(vehicle_data['vehicle']['batteryA']) + "% - "\
@@ -437,11 +424,6 @@ def main():
             counter += 1
             time.sleep(.1)
  
-
-            
-
-
-
     #vehicle_camera.join()
     gps_poller.join()
     control_worker.join()

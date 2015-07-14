@@ -1,4 +1,3 @@
-import json
 import threading
 import time 
 
@@ -18,7 +17,7 @@ class gpsPoller(threading.Thread):
         self._count = 100
 
     except:
-      assert False, "Error: Failed to initialise GPS thread"
+        assert False, "Error: Failed to initialise GPS thread"
 
 
   def setFixMode(self, mode):

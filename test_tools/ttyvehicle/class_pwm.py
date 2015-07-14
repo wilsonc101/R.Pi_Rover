@@ -18,7 +18,6 @@ class PWM :
 
     def setPWM(self, channel, start, end):
         try:
-            nothing = None
             return(True)
 
         except:

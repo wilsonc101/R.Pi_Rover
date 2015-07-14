@@ -1,2 +1,2 @@
 def output(self, *args):
-    nothing = None
+    return(True)
