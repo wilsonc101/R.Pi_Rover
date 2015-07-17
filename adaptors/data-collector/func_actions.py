@@ -109,13 +109,13 @@ google.maps.event.addDomListener(window, 'load', initialize);\n\
     
         for entry in vehicle_data:
             # Only add point if postion data is present
-            if 'lat' in entry['vehicle_data'] and 'long' in entry['vehicle_data']:
+            if 'latitude' in entry['vehicle_data'] and 'longitude' in entry['vehicle_data']:
                 # Build Polgon entries
-                response_section = "new google.maps.LatLng(" + str(entry['vehicle_data']['lat']) + "," + str(entry['vehicle_data']['long']) + "),\n"
+                response_section = "new google.maps.LatLng(" + str(entry['vehicle_data']['latitude']) + "," + str(entry['vehicle_data']['longitude']) + "),\n"
                 polygon_cords = polygon_cords + response_section
     
                 # Build marker entries
-                response_section = "var position = new google.maps.LatLng(" + str(entry['vehicle_data']['lat']) + "," + str(entry['vehicle_data']['long']) + ");\n\
+                response_section = "var position = new google.maps.LatLng(" + str(entry['vehicle_data']['latitude']) + "," + str(entry['vehicle_data']['longitude']) + ");\n\
                 marker = new google.maps.Marker({position: position,\n\
                                           map: map,\n\
                                          title:'" + str(entry['timestamp']) + "',\n\
