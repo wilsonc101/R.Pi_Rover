@@ -3,7 +3,7 @@ import json
 
 import isodate
 import pymongo
-
+import pygal
 
 MONGO_HOST = "localhost"
 MONGO_PORT = 27017
@@ -104,6 +104,10 @@ google.maps.event.addDomListener(window, 'load', initialize);\n\
         polygon_cords = ""
         markers = ""
 
+        xaxis_labels = []
+        throttle_positions = []
+        direction_positions = []
+
         # Query collection and print
         vehicle_data = _mongo_db[vehicle_id].find({"timestamp" : {"$gte" : isodatetime_from, "$lte" : isodatetime_to}}).sort("timestamp", 1)
     
@@ -122,6 +126,25 @@ google.maps.event.addDomListener(window, 'load', initialize);\n\
                                          icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'});\n\
                 bounds.extend(position)\n"
                 markers = markers + response_section
+ 
+            # Populate local arrys with other vehicle data
+            xaxis_labels.append(entry['timestamp'])
+            if 'throttle' in entry['vehicle_data']:
+                throttle_positions.append(entry['vehicle_data']['throttle']
+
+            if 'direction' in entry['vehicle_data']:
+                direction_positions.append(entry['vehicle_data']['direction']
+
+
+        # Generate graphs
+        if len(throttle_positions) > 1:
+            throttle_line_chart = pygal.Line(width=400,height=250,style=LightStyle,show_legend=False)
+            throttle_line_chart.x_labels = xaxis_labels
+            throttle_line_chart.add('', throttle_positions)
+            raw_graph = throttle_line_chart.render()            
+            print str(raw_graph)
+        
+
 
         # Section closures
         polygon_cords = polygon_cords + "];\n"
