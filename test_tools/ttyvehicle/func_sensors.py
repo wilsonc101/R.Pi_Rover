@@ -1,7 +1,6 @@
 import math
-
-from subprocess import *
 from random import randrange
+from subprocess import *
 
 import class_ttyBMP085 as BMP085
 import class_ttyLSM303 as LSM303

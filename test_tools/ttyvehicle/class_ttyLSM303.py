@@ -1,5 +1,6 @@
 import time
 
+
 class LSM303 :
     def __init__(self):
         try:

@@ -1,6 +1,7 @@
 #!/usr/bin/python
 from __future__ import division
 
+
 class StandardServo():
 	def __init__(self,channelid,min,max,neutral,name):
 		self.Channel = int(channelid)

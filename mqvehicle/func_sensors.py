@@ -1,7 +1,6 @@
 import math
-
-from subprocess import *
 from random import randrange
+from subprocess import *
 
 import Adafruit_BMP085 as BMP085
 import Adafruit_LSM303 as LSM303

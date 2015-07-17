@@ -1,7 +1,6 @@
-import uuid
-import pycurl
-
 from StringIO import StringIO
+import pycurl
+import uuid
 
 
 class camera():

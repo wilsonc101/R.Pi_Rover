@@ -1,9 +1,8 @@
-from PyQt4 import QtCore
-
-import time
-import pika
-import json
 import ConfigParser
+from PyQt4 import QtCore
+import json
+import pika
+import time
 
 
 class MQReader(QtCore.QThread):

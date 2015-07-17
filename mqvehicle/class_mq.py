@@ -1,5 +1,6 @@
-import pika
 import json
+import pika
+
 
 class mqReader():
     def __init__(self, queue_host, queue_port, queue, callback, log=None):

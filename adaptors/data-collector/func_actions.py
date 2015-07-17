@@ -1,8 +1,8 @@
-import pymongo
-import json
-import isodate
-
 from datetime import datetime
+import json
+
+import isodate
+import pymongo
 
 
 MONGO_HOST = "localhost"
@@ -108,18 +108,20 @@ google.maps.event.addDomListener(window, 'load', initialize);\n\
         vehicle_data = _mongo_db[vehicle_id].find({"timestamp" : {"$gte" : isodatetime_from, "$lte" : isodatetime_to}}).sort("timestamp", 1)
     
         for entry in vehicle_data:
-            # Build Polgon entries
-            response_section = "new google.maps.LatLng(" + str(entry['vehicle_data']['lat']) + "," + str(entry['vehicle_data']['long']) + "),\n"
-            polygon_cords = polygon_cords + response_section
-
-            # Build marker entries
-            response_section = "var position = new google.maps.LatLng(" + str(entry['vehicle_data']['lat']) + "," + str(entry['vehicle_data']['long']) + ");\n\
-            marker = new google.maps.Marker({position: position,\n\
-                                      map: map,\n\
-                                     title:'" + str(entry['timestamp']) + "',\n\
-                                     icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'});\n\
-            bounds.extend(position)\n"
-            markers = markers + response_section
+            # Only add point if postion data is present
+            if 'lat' in entry['vehicle_data'] and 'long' in entry['vehicle_data']:
+                # Build Polgon entries
+                response_section = "new google.maps.LatLng(" + str(entry['vehicle_data']['lat']) + "," + str(entry['vehicle_data']['long']) + "),\n"
+                polygon_cords = polygon_cords + response_section
+    
+                # Build marker entries
+                response_section = "var position = new google.maps.LatLng(" + str(entry['vehicle_data']['lat']) + "," + str(entry['vehicle_data']['long']) + ");\n\
+                marker = new google.maps.Marker({position: position,\n\
+                                          map: map,\n\
+                                         title:'" + str(entry['timestamp']) + "',\n\
+                                         icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'});\n\
+                bounds.extend(position)\n"
+                markers = markers + response_section
 
         # Section closures
         polygon_cords = polygon_cords + "];\n"
@@ -171,6 +173,6 @@ def _mongoConnect():
         return(mongo_client, mongo_db)
 
     except:
-        assert False, "Error: Unknown error occured while connecting to MongoDB"
+        assert False, "Error: Unknown error occurred while connecting to MongoDB"
 
 _mongo_client, _mongo_db = _mongoConnect()

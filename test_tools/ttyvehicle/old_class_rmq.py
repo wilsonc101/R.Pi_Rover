@@ -1,6 +1,7 @@
-import pika
 import json
+import pika
 import threading
+
 
 class mqReader(threading.Thread):
     def __init__(self, host, port, exchange, callback, vehicle_id, log=None):

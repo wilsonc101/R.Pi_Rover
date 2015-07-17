@@ -1,6 +1,8 @@
 import socket
-import picamera
 import threading
+
+import picamera
+
 
 class camera(threading.Thread):
     def __init__(self, bind_address, port, res_x, res_y, name, log=None):

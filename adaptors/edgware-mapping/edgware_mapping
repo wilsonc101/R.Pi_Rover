@@ -278,7 +278,8 @@ def main():
            
             # Write 'Update' script contents
             updatescript.write('    positions["' + platform + '"] = [' + str(PLATFORM_LOCATIONS[platform]['location'][0]) + ", " + str(PLATFORM_LOCATIONS[platform]['location'][1]) + '];\n')
-            updatescript.write('    data["' + platform + '"] = "unitID: ' + platform + '";\n')
+            updatescript.write('    data["' + platform + '"] = "unitID: ' + platform + \
+                                                                '<br>something: else";\n')
             
             platform_count += 1
             marker_count += 1

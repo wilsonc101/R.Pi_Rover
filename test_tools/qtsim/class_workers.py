@@ -1,9 +1,8 @@
-from PyQt4 import QtCore
-
-import time
-import pika
-import json
 import ConfigParser
+from PyQt4 import QtCore
+import json
+import pika
+
 
 config = ConfigParser.ConfigParser()
 config.read('pi_controls.cfg')
@@ -34,7 +33,7 @@ class MQReader(QtCore.QThread):
             self.channel.basic_consume(self._poll_queue, queue=self.queue_name, no_ack=True)
 
         except:
-             assert False, "Error: Failed to connect to broker"
+            assert False, "Error: Failed to connect to broker"
 
 
     def _poll_queue(self, ch, method, properties, body):

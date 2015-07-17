@@ -519,3 +519,4 @@ class Ui_MainWindow(object):
     def shutdown_vehicle(self):
         self.poweroff=True
         workers.MQWriter(self)
+        raise SystemExit("OK: Vehicle Shutdown")

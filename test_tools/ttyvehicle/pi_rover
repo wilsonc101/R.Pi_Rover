@@ -181,10 +181,12 @@ def _run_cmd(cmd):
 
 
 def _shutdownVehicle():
-    shutdown_cmd = "poweroff"
+    raise SystemExit()
 
-    cmd_result = _run_cmd(shutdown_cmd)
-    assert cmd_result, "Error: Failed to execute shutdown command"
+#    shutdown_cmd = "poweroff"
+
+#    cmd_result = _run_cmd(shutdown_cmd)
+#    assert cmd_result, "Error: Failed to execute shutdown command"
 
 
 def _vehicleControl(data):
@@ -262,10 +264,13 @@ def _vehicleControl(data):
 
         if 'state' in json_data:
             if 'shutdown' in json_data['state']:
-                if json_data['state']['shutdown'] == True:
+                if str(json_data['state']['shutdown']) == "True":
                     _shutdownVehicle()
 
         return(True)
+
+    except SystemExit:
+        raise SystemExit("OK: Vehicle shutdown request processed")
 
     except:
         return(False)

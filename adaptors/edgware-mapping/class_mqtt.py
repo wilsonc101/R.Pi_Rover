@@ -1,5 +1,6 @@
 import paho.mqtt.client as mqtt
 
+
 class mqttClient():
     def __init__(self, host, port, pipe, client_id="paho", keepalive=60, log=None):
         self.pipe = pipe

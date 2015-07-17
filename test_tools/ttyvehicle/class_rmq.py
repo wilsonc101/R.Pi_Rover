@@ -1,5 +1,6 @@
 import pika
 
+
 class rmqClientReader():
     def __init__(self, host, port, log=None):
         self.log = log

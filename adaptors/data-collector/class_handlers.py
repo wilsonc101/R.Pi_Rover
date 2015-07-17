@@ -1,11 +1,9 @@
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer 
-# from StringIO import StringIO 
-
 import ConfigParser 
 import time 
 
 
-
+# from StringIO import StringIO 
 class http_handler(BaseHTTPRequestHandler):
     import func_actions as actions
     

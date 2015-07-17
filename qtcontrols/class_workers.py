@@ -1,9 +1,9 @@
+import ConfigParser
 from PyQt4 import QtCore
+import json
+import pika
 from subprocess import *
 
-import pika
-import json
-import ConfigParser
 
 config = ConfigParser.ConfigParser()
 config.read('pi_controls.cfg')

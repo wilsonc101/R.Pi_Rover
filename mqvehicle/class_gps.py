@@ -1,7 +1,9 @@
 import json
-from gps import *
 import threading
- 
+
+from gps import *
+
+
 class gpsPoller(threading.Thread):
     def __init__(self):
         threading.Thread.__init__(self)

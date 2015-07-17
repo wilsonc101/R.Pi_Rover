@@ -1,11 +1,12 @@
 #!/usr/bin/python
 import re
+
 import smbus
+
 
 # ===========================================================================
 # Adafruit_I2C Class
 # ===========================================================================
-
 class Adafruit_I2C(object):
 
   @staticmethod

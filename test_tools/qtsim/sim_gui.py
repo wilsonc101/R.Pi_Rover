@@ -1,9 +1,10 @@
 #!/usr/bin/python -B
 
 from PyQt4 import QtCore, QtGui
+import sys
 
 import class_gui
-import sys
+
 
 if __name__ == '__main__':
     try:
