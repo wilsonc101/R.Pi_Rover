@@ -127,7 +127,7 @@ def processRMQInput(data):
 
 
 def writeHTTPOutput():
-#    try:
+    try:
         post_data = {}
         post_data['vehicle_id'] = RMQ_TOPIC
         post_data['vehicle_data'] = {'latitude': VEHICLE_DATA.gpsLatitude, 
@@ -146,11 +146,10 @@ def writeHTTPOutput():
         c.perform()
 
         response = buffer.getvalue()
-        print response
         return(response)
 
-#    except:
-#        return(False)
+    except:
+        return(False)
 
 
 
@@ -225,15 +224,15 @@ def main():
 
 
 if __name__ == '__main__':
-#    try: 
+    try: 
         main()
-#    except (KeyboardInterrupt, SystemExit) as err:
-#        logfile.info("User action - Exiting")
-#        print str(err) + " -- Exiting..."
+    except (KeyboardInterrupt, SystemExit) as err:
+        logfile.info("User action - Exiting")
+        print str(err) + " -- Exiting..."
 
-#    except AssertionError as err:
-#        print str(err)
+    except AssertionError as err:
+        print str(err)
 
-#    except:
-#        print "Error: unknown error - " + str(sys.exc_info()[0])
+    except:
+        print "Error: unknown error - " + str(sys.exc_info()[0])
 
