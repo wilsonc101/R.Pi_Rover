@@ -3,7 +3,12 @@ import json
 
 import isodate
 import pymongo
+
+import sys
+
 import pygal
+from pygal.style import LightStyle
+
 
 MONGO_HOST = "localhost"
 MONGO_PORT = 27017
@@ -54,8 +59,8 @@ def getMap(query=None, handler=None):
     else:
         return(500, "Error: Missing query string")
     
-    # HTML Header
-    html_header = "<!DOCTYPE html>\n\
+    # HTML Start Header
+    html_head_start = "<!DOCTYPE html>\n\
 <html>\n\
   <head>\n\
     <style>\n\
@@ -65,6 +70,8 @@ def getMap(query=None, handler=None):
       }\n\
     </style>\n\
     <script src=\"https://maps.googleapis.com/maps/api/js\"></script>\n\
+    <script type=\"text/javascript\" src=\"http://kozea.github.com/pygal.js/javascripts/svg.jquery.js\"></script>\n\
+   <script type=\"text/javascript\" src=\"http://kozea.github.com/pygal.js/javascripts/pygal-tooltips.js\"></script>\n\
     <script>\n\
 	function initialize() {\n\
   var bounds = new google.maps.LatLngBounds();\n\
@@ -77,8 +84,8 @@ def getMap(query=None, handler=None):
       mapOptions);\n\
   var flightPlanCoordinates = ["
 
-    # HTML Footer
-    html_footer = "var flightPath = new google.maps.Polyline({\n\
+    # HTML End Header 
+    html_head_end = "var flightPath = new google.maps.Polyline({\n\
     path: flightPlanCoordinates,\n\
     geodesic: true,\n\
     strokeColor: '#FF0000',\n\
@@ -89,10 +96,14 @@ def getMap(query=None, handler=None):
 }\n\
 google.maps.event.addDomListener(window, 'load', initialize);\n\
     </script>\n\
-  </head>\n\
-  <body>\n\
-    <div id=\"map-canvas\"></div>\n\
-  </body>\n\
+  </head>\n"
+
+
+    #HTML Body
+    html_body_start ="  <body>\n\
+    <div id=\"map-canvas\"></div>\n"
+
+    html_body_end = "  </body>\n\
 </html>"
 
 
@@ -128,21 +139,31 @@ google.maps.event.addDomListener(window, 'load', initialize);\n\
                 markers = markers + response_section
  
             # Populate local arrys with other vehicle data
-            xaxis_labels.append(entry['timestamp'])
+            xaxis_labels.append(str(entry['timestamp']))
             if 'throttle' in entry['vehicle_data']:
-                throttle_positions.append(entry['vehicle_data']['throttle']
+                if entry['vehicle_data']['throttle'] is not None:
+                    throttle_positions.append(entry['vehicle_data']['throttle'])
+                else:
+                    throttle_positions.append(0)
 
             if 'direction' in entry['vehicle_data']:
-                direction_positions.append(entry['vehicle_data']['direction']
+                if entry['vehicle_data']['direction'] is not None:
+                    direction_positions.append(entry['vehicle_data']['direction'])
+                else:
+                    direction_positions.append(0)
+
 
 
         # Generate graphs
-        if len(throttle_positions) > 1:
-            throttle_line_chart = pygal.Line(width=400,height=250,style=LightStyle,show_legend=False)
-            throttle_line_chart.x_labels = xaxis_labels
-            throttle_line_chart.add('', throttle_positions)
-            raw_graph = throttle_line_chart.render()            
-            print str(raw_graph)
+        if len(throttle_positions) > 0:
+            throttle_graph = _createChart(throttle_positions, xaxis_labels)
+            throttle_graph = "<br>\n<br>\n<figure>" + throttle_graph + "\n<br></figure>"
+        else:
+            throttle_graph = ""
+
+        if len(direction_positions) > 0:
+            direction_graph = _createChart(direction_positions, xaxis_labels)
+            
         
 
 
@@ -151,14 +172,28 @@ google.maps.event.addDomListener(window, 'load', initialize);\n\
         markers = markers + "map.fitBounds(bounds);"
 
         # Build response
-        response = html_header + polygon_cords + markers + html_footer
+        response = html_head_start + polygon_cords + markers + html_head_end + html_body_start + throttle_graph + html_body_end
         return(200, str(response))
 
+    except TypeError as e:
+        print e
+    except NameError as e:
+        print e
+
     except:
+        print str(sys.exc_info()[0])
         return(500, "Error: Failed to generate response ")
 
 
 
+
+def _createChart(data, labels):
+    throttle_line_chart = pygal.Line(width=700,height=400,show_legend=False,style=LightStyle,x_label_rotation=20,label_font_size=12)
+    throttle_line_chart.title = "Throttle %age"
+    throttle_line_chart.x_labels = labels
+    throttle_line_chart.add('', data)
+    raw_graph = throttle_line_chart.render()            
+    return raw_graph
 
 
 def getPlatforms(query=None, handler=None):
