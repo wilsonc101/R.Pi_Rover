@@ -146,6 +146,7 @@ def writeHTTPOutput():
         c.perform()
 
         response = buffer.getvalue()
+        print str(response)
         return(response)
 
     except:
