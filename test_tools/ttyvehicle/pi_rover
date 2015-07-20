@@ -6,6 +6,8 @@ import ConfigParser
 import json
 import argparse
 import sys
+import os
+
 
 from subprocess import *
 
@@ -21,19 +23,24 @@ import func_logging as log
 import func_sensors as sensors
 
 
+
 # Setup input arguments
 arg_parser = argparse.ArgumentParser(description='Usage options for ttyvehicle')
 arg_parser.add_argument('-c', '--configfile', help="Optional - configuration file path")
 arg_parser.add_argument('-l', '--logfile', help="Optional - Log file path")
+arg_parser.add_argument('-i', '--ID', help="Optional - Vehicle ID")
+
 # Process input and generate dict
 args = vars(arg_parser.parse_args())
+
 
 
 # Validate input - Config file
 if args['configfile'] != None:
     configfilepath = args['configfile']
 else:
-    configfilepath = 'pi_rover.cfg'
+    local_path = os.path.dirname(os.path.abspath(__file__))
+    configfilepath = str(local_path) + '/pi_rover.cfg'
 
 # Get config
 try:
@@ -58,10 +65,16 @@ except:
     raise SystemExit("FATAL: Unknown error - " + str(sys.exc_info()[0]))
 
 
-try:
-    # ID
+# Validate input - Vehicle ID
+if args['ID'] != None:
+    VEHICLE_ID = args['ID']
+else:
     VEHICLE_ID = config.get('vehicle_id', 'id')
 
+print VEHICLE_ID
+
+
+try:
     # Queue settings
     CONTROL_EXCHANGE = config.get('control_exchange', 'name')
     CONTROL_HOST = config.get('control_exchange', 'host')
