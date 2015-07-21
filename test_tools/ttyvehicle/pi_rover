@@ -8,19 +8,20 @@ import argparse
 import sys
 import os
 
-
 from subprocess import *
 
 #from Adafruit_PWM_Servo_Driver import PWM
-from class_pwm import PWM
-import class_servo as servo
-import class_rmq as mq
-import class_gps as gpsreader
-import class_camera as camera
+import messaging.rabbitmq as mq
 
-import func_ttyGPIO as GPIO
-import func_logging as log
-import func_sensors as sensors
+import sensors.gps as gpsreader
+import sensors.camera as camera
+import sensors.query_sensors as sensors
+
+import drive.pwm as PWM
+import drive.servo as servo
+import drive.ttyGPIO as GPIO
+
+import core.logger as log
 
 
 
@@ -40,7 +41,7 @@ if args['configfile'] != None:
     configfilepath = args['configfile']
 else:
     local_path = os.path.dirname(os.path.abspath(__file__))
-    configfilepath = str(local_path) + '/pi_rover.cfg'
+    configfilepath = str(local_path) + '/config/pi_rover.cfg'
 
 # Get config
 try:
@@ -148,7 +149,7 @@ except:
 
 # Create PWM object
 try:
-    pwm = PWM(0x40, debug=True)
+    pwm = PWM.PWM(0x40, debug=True)
     pwm.setPWMFreq(60) 
 except:
     raise SystemExit("FATAL: Unknown error - " + str(sys.exc_info()[0]))

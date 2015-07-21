@@ -2,8 +2,8 @@ import math
 from random import randrange
 from subprocess import *
 
-import class_ttyBMP085 as BMP085
-import class_ttyLSM303 as LSM303
+import sensors.ttyBMP085 as BMP085
+import sensors.ttyLSM303 as LSM303
 
 
 try:
