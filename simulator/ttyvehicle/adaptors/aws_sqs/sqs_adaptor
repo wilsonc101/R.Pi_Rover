@@ -153,11 +153,14 @@ def processRMQInput(data):
 def postSQSMessage(queue):
 # Post data from globals to SQS
     try:
+        if CONTROL_DATA.throttlePosition is None: throttle_position = 0
+        if CONTROL_DATA.directionPosition is None: direction_position = 0
+
         post_data = {'latitude': VEHICLE_DATA.gpsLatitude, 
                      'longitude': VEHICLE_DATA.gpsLongitude,
                      'altitude': VEHICLE_DATA.gpsAltitude,
-                     'throttle': CONTROL_DATA.throttlePosition,
-                     'direction': CONTROL_DATA.directionPosition}
+                     'throttle': throttle_position,
+                     'direction': direction_position}
 
         queue.send_message(QueueUrl=queue.url, 
                            MessageBody=json.dumps(post_data), 
