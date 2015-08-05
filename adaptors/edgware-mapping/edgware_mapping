@@ -273,7 +273,7 @@ def main():
             # Center map on first platform
             if platform_count == 0: 
                 addscript.write("    map.fitBounds(bounds);\n")
-                addscript.write("    map.setZoom(14);\n")
+                addscript.write("    map.setZoom(2);\n")
                 addscript.write("\n")
            
             # Write 'Update' script contents
