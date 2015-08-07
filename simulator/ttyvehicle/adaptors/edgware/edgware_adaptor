@@ -274,7 +274,7 @@ def processMQTTInput(data):
 
 
 def processRMQInput(data):
-# Populate global var from RMQ JSON messages
+# Populate global var from RMQ JSON messages - return tuple of messages (for MQTT, for RMQ)
     logfile.debug("Received data from RMQ: " + str(data))
     try:
         json_data = json.loads(data)
@@ -320,7 +320,6 @@ def processRMQInput(data):
 
 
 def _processCameraStill(msg):
-    print "PROCESS-STILL -- " + str(msg)
     for responder in msg['request-response']:
         if RMQ_TOPIC in responder:
             request_response = responder
@@ -551,8 +550,7 @@ def main():
             logfile.debug("Recieved data from RMQ - vehicle")
             mqtt_response, rmq_response = processRMQInput(rmq_vehicle_pconn.recv())
             if rmq_response != None: writeRMQOutput(rmq_client_control_writer, RMQ_TOPIC, json.dumps(rmq_response))
-            if mqtt_response != None: 
-                writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(mqtt_response))
+            if mqtt_response != None: writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(mqtt_response))
 
 
         location_counter += 1

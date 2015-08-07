@@ -400,7 +400,8 @@ def main():
                             try:
                                 # Form message content and trigger capture
                                 message = {'camera': {'still': ""}}
-                                image_path = vehicle_camera.captureStill(lat=vehicle_data['GPS']['latitude'], long=vehicle_data['GPS']['longitude'])
+                                image_path = vehicle_camera.captureStill(lat=vehicle_data['GPS']['latitude'], 
+                                                                         long=vehicle_data['GPS']['longitude'])
 
                                 # Only complete if capture was successful
                                 if image_path != False:
