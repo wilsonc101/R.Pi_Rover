@@ -77,15 +77,15 @@ if not args['sharedkey']:
     if args['collectkeyid'] is None: 
         raise SystemExit("Error: No collect key id provided")
     else:
-        COLLECT_AWS_KEY_ID = args['collectkeyid']
+        AWS_COLLECT_KEY_ID = args['collectkeyid']
 
     if args['collectkey'] is None: 
         raise SystemExit("Error: No collect key provided")
     else:
-        COLLECT_AWS_KEY = args['collectkey']
+        AWS_COLLECT_KEY = args['collectkey']
 else:
-    COLLECT_AWS_KEY_ID = CONTROL_AWS_KEY_ID
-    COLLECT_AWS_KEY = CONTROL_AWS_KEY
+    AWS_COLLECT_KEY_ID = AWS_CONTROL_KEY_ID
+    AWS_COLLECT_KEY = AWS_CONTROL_KEY
 
 
 # Validate input - vehicle id
@@ -198,16 +198,16 @@ def processSQSInput(messages):
 
 def postRMQMessage(client, topic, message):
     try:
-        result = client.publish(topic, data)
-        logfile.debug("Writing data to RMQ: " + str(data))
+        result = client.publish(topic, json.dumps(message))
+        logfile.debug("Writing data to RMQ: " + str(message))
         return result
     except:
         return False
 
 
-def postSQSMessage(client, queue_url, message):
+def postSQSMessage(client, message):
     try:
-        client.send_message(QueueUrl=queue.url, 
+        client.send_message(QueueUrl=client.url, 
                            MessageBody=json.dumps(message), 
                            MessageAttributes={'vehicle_id': {'StringValue':RMQ_TOPIC, 'DataType':'String'}})
         return True
@@ -260,9 +260,11 @@ def main():
     except:
         assert False, "Error: Could not connect to AWS"
 
-    sqs_client = session.client('sqs')
-    control_queue_url = sqs_client.get_queue_url(QueueName=AWS_CONTROL_QUEUE_NAME)['QueueUrl']
-    collect_queue_url = sqs_client.get_queue_url(QueueName=AWS_COLLECT_QUEUE_NAME)['QueueUrl']
+    sqs_control_client = control_session.client('sqs')
+    control_queue_url = sqs_control_client.get_queue_url(QueueName=AWS_CONTROL_QUEUE_NAME)['QueueUrl']
+    
+    sqs_collect_client = collect_session.client('sqs')
+    collect_queue_url = sqs_collect_client.get_queue_url(QueueName=AWS_COLLECT_QUEUE_NAME)['QueueUrl']
 
     control_sqs = control_session.resource('sqs')
     sqs_control_queue = control_sqs.Queue(control_queue_url)
@@ -322,7 +324,7 @@ def main():
         if sqs_pub_counter == 100:
             sqs_pub_counter = 0
             status_message = _GenerateVehicleStatusMessage()            
-            result = postSQSMessage(client=sqs_collect_queue, queue_url=collect_queue_url, message=status_message)
+            result = postSQSMessage(client=sqs_collect_queue, message=status_message)
             assert result, "Error: Failed posting vehicle data"
           
  
@@ -330,7 +332,7 @@ def main():
         ## Get messages from SQS
         if sqs_sub_counter == 30:
             sqs_sub_counter = 0
-            received_messages = sqs_control_queue.receive_messages(QueueUrl=sqs_queue.url,
+            received_messages = sqs_control_queue.receive_messages(QueueUrl=sqs_control_queue.url,
                                                                    MessageAttributeNames=['All'],
                                                                    AttributeNames=['All'],
                                                                    MaxNumberOfMessages=10)
@@ -344,7 +346,7 @@ def main():
                 result = postSQSMessage(client=sqs_collect_queue, queue_url=collect_queue_url, message=sqs_response)
                 assert result, "Error: Failed posting SQS response"
 
-            for rmq_response in rmq_responces:
+            for rmq_response in rmq_responses:
                 result = postRMQMessage(rmq_client_control_writer, RMQ_TOPIC, json.dumps(rmq_response)) 
                 assert result, "Error: Failed posting RMQ response"
 
@@ -368,7 +370,8 @@ def main():
             if sqs_response != None: postSQSMessage(client=sqs_collect_queue, queue_url=collect_queue_url, message=sqs_response)
 
 
-        counter += 1
+        sqs_pub_counter += 1
+        sqs_sub_counter += 1
         time.sleep(.1)
 
 
