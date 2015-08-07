@@ -1,0 +1,24 @@
+{"services": {"accelerometer": {"type": "accelerometer",
+                                "mode": "request-response"},
+              "vehicle-control": {"type": "vehicle-control",
+                                  "mode": "request-response"},
+              "vehicle-status": {"type": "vehicle-status",
+                                 "mode": "request-response"},
+              "camera-control": {"type": "camera-control",
+                                 "mode": "request-response"},
+              "environment-sensor": {"type": "environment-sensor",
+                                    "mode": "request-response"},
+              "gps": {"type": "gps",
+                      "mode": "request-response"}},
+
+ "systems": {"control": {"services": [{"type": "vehicle-control"},
+                                      {"type": "camera-control"}],
+                         "type": "control"},
+             "vehicle": {"services": [{"type": "environment-sensor"},
+                                      {"type": "accelerometer"},
+                                      {"type": "vehicle-status"},
+                                      {"type": "gps"}],
+                         "type": "vehicle"}},
+
+ "platforms": {"simulation-platform": {"type": "simulation-platform"}}}
+

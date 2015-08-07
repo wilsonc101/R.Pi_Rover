@@ -8,11 +8,11 @@ import argparse
 import sys
 import os.path
 
-import class_mqtt as mqtt
-import class_rmq as rmq
-import class_edgware as edgware
-import class_rover as rover
-import func_logging as log
+import messaging.mqtt as mqtt
+import messaging.rmq as rmq
+import messaging.edgware as edgware
+import vehicle.rover as rover
+import core.logger as log
 
 
 # Setup input arguments
@@ -27,7 +27,7 @@ args = vars(arg_parser.parse_args())
 if args['configfile'] != None:
     configfilepath = args['configfile']
 else:
-    configfilepath = 'edgware_adaptor.cfg'
+    configfilepath = 'config/edgware_adaptor.cfg'
 
 if not os.path.isfile(configfilepath): 
    raise SystemExit("ERROR: File not found - " + str(configfilepath))
@@ -106,6 +106,8 @@ def processMQTTInput(data):
 # Responds to main thread with a tuple for transmission to queues - (for MQTT, for RMQ)
     json_data = json.loads(data)
     logfile.debug("Receieved data from MQTT: " + str(data))
+
+    print json_data
 
     # Handle 'Request' messages
     def request(json_data):
@@ -318,6 +320,7 @@ def processRMQInput(data):
 
 
 def _processCameraStill(msg):
+    print "PROCESS-STILL -- " + str(msg)
     for responder in msg['request-response']:
         if RMQ_TOPIC in responder:
             request_response = responder
