@@ -17,8 +17,12 @@ import messaging.edgware as edgware
 arg_parser = argparse.ArgumentParser(description='Usage options for aws_init')
 arg_parser.add_argument('-c', '--configfile', help="Optional - configuration file path")
 arg_parser.add_argument('-l', '--logfile', help="Optional - Log file path")
-arg_parser.add_argument('-i', '--keyid', help="AWS access key ID ")
-arg_parser.add_argument('-k', '--key', help="AWS access key")
+arg_parser.add_argument('-i', '--controlkeyid', help="AWS access key ID for control queue")
+arg_parser.add_argument('-k', '--controlkey', help="AWS access key for control queue")
+arg_parser.add_argument('-j', '--collectkeyid', help="AWS access key ID for collect queue")
+arg_parser.add_argument('-m', '--collectkey', help="AWS access key for collect queue")
+arg_parser.add_argument('-s', '--sharedkey', action="store_true", help="Optional - use with -i and -k to use single key for both queues. Value: True")
+
 
 # Process input and generate dict
 args = vars(arg_parser.parse_args())
@@ -57,21 +61,39 @@ except:
 
 
 # Validate input - access creds
-if args['keyid'] is None: 
-    raise SystemExit("Error: No key id provided")
+# Control (primary) key
+if args['controlkeyid'] is None:
+    raise SystemExit("Error: No control key id provided")
 else:
-    AWS_KEY_ID = args['keyid']
+    AWS_CONTROL_KEY_ID = args['controlkeyid']
 
-if args['key'] is None: 
-    raise SystemExit("Error: No key provided")
+if args['controlkey'] is None:
+    raise SystemExit("Error: No control key provided")
 else:
-    AWS_KEY = args['key']
+    AWS_CONTROL_KEY = args['controlkey']
+
+# Collect (secondary) key if not shared
+if not args['sharedkey']:
+    if args['collectkeyid'] is None:
+        raise SystemExit("Error: No collect key id provided")
+    else:
+        AWS_COLLECT_KEY_ID = args['collectkeyid']
+
+    if args['collectkey'] is None:
+        raise SystemExit("Error: No collect key provided")
+    else:
+        AWS_COLLECT_KEY = args['collectkey']
+else:
+    AWS_COLLECT_KEY_ID = AWS_CONTROL_KEY_ID
+    AWS_COLLECT_KEY = AWS_CONTROL_KEY
+
 
 
 # Validate config
 try:
     AWS_DEFAULT_REGION = config.get('aws_defaults', 'region')
-    AWS_DEFAULT_QUEUE_NAME = config.get('aws_defaults', 'queue_name')
+    AWS_COLLECT_QUEUE_NAME = config.get('aws_defaults', 'collect_queue_name')
+    AWS_CONTROL_QUEUE_NAME = config.get('aws_defaults', 'control_queue_name')
 
     # Mosquitto connection details
     MQTT_HOST = config.get('edgware_broker', 'server')
@@ -99,6 +121,153 @@ def writeMQTTOutput(client, topic, data):
     logfile.debug("Writing data to MQTT: " + str(data))
     assert result, "Error publishing MQTT message to " + str(topic)
     return(result)
+
+def processMQTTInput(data):
+# Responds to main thread with a tuple for transmission to queues - (for MQTT, for SQS)
+    json_data = json.loads(data)
+    logfile.debug("Receieved data from MQTT: " + str(data))
+
+    print json_data
+
+    # Handle 'Request' messages
+    def request(json_data):
+        # Service types
+        def getEnvironmentData(msg):
+            if msg == "getTemperature":
+#                return(VEHICLE_DATA.environmentTemperature, None)
+                return(99, None)
+            elif msg == "getPressure":
+                return(VEHICLE_DATA.environmentPressure, None)
+            elif msg == "getHumidity":
+                return(VEHICLE_DATA.environmentHumidity, None)
+            else:
+                return("unknown request", None)
+
+        def queryVehicleControlData(msg):
+            # GET Data
+            if msg == "getDriveStatus":
+                return((CONTROL_DATA.throttlePosition, CONTROL_DATA.brakeState), None)
+            elif msg == "getDirectionPosition":
+                return(CONTROL_DATA.directionPosition, None)
+            elif msg == "getVehicleLightState":
+                return(CONTROL_DATA.vehicleLightState, None)
+            elif ":" not in msg:
+                return("unknown request", None)
+
+            # SET Data
+            action = str(msg.split(":")[:1][0])
+            value = msg.split(":")[1:]
+            if action == "setVehicleStop":
+                if value == True:
+                    ###### GO DO SOMETHING
+                    return("OK", None)
+                else:
+                    return("value out of range", None)
+
+            elif action == "setVehicleLightState":
+                if value == True:
+                    ##### Do something
+                    return("OK", None)
+                elif value == False:
+                    ##### Do something
+                    return("OK", None)
+                else:
+                    return("value out of range", None)
+            else:
+                return("unknown query", None)
+            
+        def queryCameraControlData(msg):
+            # GET Data
+            if msg == "getPosition":
+                return((CONTROL_DATA.cameraPanPosition, CONTROL_DATA.cameraTiltPosition), None)
+            elif msg == "getCameraLightState":
+                return(CONTROL_DATA.cameraLightState, None)
+            elif msg == "getStill":
+                sqs_response = {"camera": {"takestill": {"correl": json_data['correl'], "solicit-response": json_data['solicit-response'], "request-response": json_data['request-response']}}} 
+                return(None, sqs_response)
+            elif ":" not in msg:
+                return("unknown request", None)
+ 
+            # SET Data
+            action = str(msg.split(":")[:1][0])
+            value = msg.split(":")[1:]
+            if action == "setPosition":
+                # Position expects a tuple - (pan,tilt)
+                if len(value[0][1:-1].split(",")) == 2:
+                    pan, tilt = value[0][1:-1].split(",")
+                    sqs_response = {"camera": {"pan": int(pan), "tilt":int(tilt)}} 
+                    return("OK", sqs_response)
+                else:
+                    return("value out of range", None)
+            else:
+                return("unknown query", None)
+
+
+        # Extract request data
+        op = json_data['op']
+        msg = json_data['msg']
+        solicit_response = json_data['solicit-response']
+        correl = json_data['correl']
+        encoding = json_data['encoding']
+
+        # Extract 'my' service id - reject if not for me
+        for responder in json_data['request-response']:
+            for platform in known_platforms:
+	        if platform in responder: 
+                    request_response = responder
+                    vehicle_id = platform
+                else:
+                    request_response = None
+                    vehicle_id = None
+                    # Message not for me
+                    return(None, None)
+
+        type_handlers = {'environment-sensor': getEnvironmentData,
+                         'vehicle-control': queryVehicleControlData,
+                         'camera-control': queryCameraControlData}
+
+        # Separate service type from platform/system path and call function
+        service = request_response.split("/")[2]
+        if service in type_handlers:
+            mqtt_response, sqs_response = type_handlers[service](msg)
+
+        else:
+            mqtt_response = "unknown service"
+            sqs_response = None
+
+        # If MQTT data present - form valid response
+        if mqtt_response != None:
+            # Generate response
+            json_response = {}
+            json_response['op'] = "response"
+            json_response['solicit-response'] = solicit_response
+            json_response['msg'] = mqtt_response
+            json_response['request-response'] = request_response
+            json_response['correl'] = correl
+
+            # Return MQTT amd SQS responses
+            return(json_response, sqs_response, vehicle_id)
+
+        else:
+            return(mqtt_response, sqs_response, vehicle_id)
+
+ 
+   # Handle 'Notification' messages (unused)
+    def notification(json_data):
+        return(None, None, None)
+
+
+    input_handlers = {'request' : request,
+                      'notification' : notification}
+
+    # Select handler function based on 'op' (operation) value, return tuple
+    if "op" in json_data: 
+        if json_data['op'] in input_handlers: 
+            return(input_handlers[str(json_data['op'])](json_data))
+        
+
+    # Do nothing with invalid messages
+    return(None, None, None)
 
 
 def processSQSInput(attributes, message_attributes, body):
@@ -236,30 +405,51 @@ def updatePlatformPosition(mqtt_client, vehicle_id, latitude, longitude, altitud
 
 
 
+def postSQSMessage(client, message, vehicle_id):
+    try:
+        client.send_message(QueueUrl=client.url,
+                           MessageBody=json.dumps(message),
+                           MessageAttributes={'vehicle_id': {'StringValue':vehicle_id, 'DataType':'String'}})
+        return True
+
+    except:
+        return False
+
+
+
 known_platforms = {}
 def main():
-
     #### Connect to AWS resources
     try:
-        session = boto3.session.Session(aws_access_key_id=AWS_KEY_ID, 
-                                        aws_secret_access_key=AWS_KEY, 
-                                        region_name=AWS_DEFAULT_REGION)
+        control_session = boto3.session.Session(aws_access_key_id=AWS_CONTROL_KEY_ID,
+                                                aws_secret_access_key=AWS_CONTROL_KEY,
+                                                region_name=AWS_DEFAULT_REGION)
+
+        collect_session = boto3.session.Session(aws_access_key_id=AWS_COLLECT_KEY_ID,
+                                                aws_secret_access_key=AWS_COLLECT_KEY,
+                                                region_name=AWS_DEFAULT_REGION)
+
         logfile.info("Connected to AWS")
 
     except:
         logfile.error("Error: Could not connect to AWS")
         assert False, "Error: Could not connect to AWS"
 
-    sqs_client = session.client('sqs')
-    queue_url = sqs_client.get_queue_url(QueueName=AWS_DEFAULT_QUEUE_NAME)['QueueUrl']
+    sqs_control_client = control_session.client('sqs')
+    control_queue_url = sqs_control_client.get_queue_url(QueueName=AWS_CONTROL_QUEUE_NAME)['QueueUrl']
 
-    sqs = session.resource('sqs')
-    sqs_queue = sqs.Queue(queue_url)
+    sqs_collect_client = collect_session.client('sqs')
+    collect_queue_url = sqs_collect_client.get_queue_url(QueueName=AWS_COLLECT_QUEUE_NAME)['QueueUrl']
+
+    control_sqs = control_session.resource('sqs')
+    sqs_control_queue = control_sqs.Queue(control_queue_url)
+
+    collect_sqs = collect_session.resource('sqs')
+    sqs_collect_queue = collect_sqs.Queue(collect_queue_url)
 
 
     #### SETUP MQTT CONNECTION
     mqtt_reader_pconn, mqtt_reader_cconn = multiprocessing.Pipe()
-
     mqtt_client = mqtt.mqttClient(host=MQTT_HOST, 
                                   port=MQTT_PORT, 
                                   pipe=mqtt_reader_cconn, 
@@ -289,10 +479,10 @@ def main():
         if sqs_counter == 30:
             sqs_counter = 0
             ## Get messages from SQS
-            received_messages = sqs_queue.receive_messages(QueueUrl=sqs_queue.url, 
-                                                           MessageAttributeNames=['All'], 
-                                                           AttributeNames=['All'],
-                                                           MaxNumberOfMessages=10)
+            received_messages = sqs_collect_queue.receive_messages(QueueUrl=sqs_collect_queue.url, 
+                                                                   MessageAttributeNames=['All'], 
+                                                                   AttributeNames=['All'],
+                                                                   MaxNumberOfMessages=10)
             for message in received_messages:
                 # Process incomming message
                 result = processSQSInput(attributes=message.attributes, 
@@ -319,7 +509,7 @@ def main():
                 message.delete()
 
 
-        # MQTT Subloop - ~4s
+        # MQTT Registration Subloop - ~4s
         if mqtt_counter == 40:
             mqtt_counter = 0
 
@@ -333,17 +523,48 @@ def main():
 
                 # Update existing platforms
                 else:
-                    lat = known_platforms[platform]['data']['latitude']
-                    long = known_platforms[platform]['data']['longitude']
-                    alt = known_platforms[platform]['data']['altitude']
-                      
-                    updatePlatformPosition(mqtt_client=mqtt_client, 
-                                           vehicle_id=platform,
-                                           latitude=lat,
-                                           longitude=long,
-                                           altitude=alt)
 
-      
+                    if 'latitude' in known_platforms[platform]['data'] and 'longitude' in known_platforms[platform]['data'] and 'altitude' in known_platforms[platform]['data']:
+                        lat = known_platforms[platform]['data']['latitude']
+                        long = known_platforms[platform]['data']['longitude']
+                        alt = known_platforms[platform]['data']['altitude']
+                      
+                        updatePlatformPosition(mqtt_client=mqtt_client, 
+                                               vehicle_id=platform,
+                                               latitude=lat,
+                                               longitude=long,
+                                               altitude=alt)
+
+                    elif 'request-response' in known_platforms[platform]['data']:
+                        msg_correl = known_platforms[platform]['data']['correl']
+                        msg_body = known_platforms[platform]['data']['msg']
+                        msg_solicit = known_platforms[platform]['data']['solicit-response']
+                        msg_request = known_platforms[platform]['data']['request-response']
+
+                        mqtt_response = {'op':'response',
+                                         'correl': msg_correl,
+                                         'msg': msg_body,
+                                         'request-response': msg_request,
+                                         'solicit-response': msg_solicit}            
+                                                
+                        writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(mqtt_response))
+
+                    else:
+                        print "HERE ---  " + str(known_platforms[platform]['data'])
+
+
+        # If MQTT pipe has content
+        if mqtt_reader_pconn.poll() == True:
+            logfile.debug("Recieved data from MQTT")
+            mqtt_response, sqs_response, vehicle_id = processMQTTInput(mqtt_reader_pconn.recv())
+            print "MQTT -- " + str(mqtt_response)
+            print "SQS -- " + str(sqs_response)
+
+            if sqs_response != None: postSQSMessage(client=sqs_control_queue, message=sqs_response, vehicle_id=vehicle_id)
+            if mqtt_response != None: writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(mqtt_response))
+
+
+
         mqtt_counter += 1
         sqs_counter += 1
         time.sleep(.1) 

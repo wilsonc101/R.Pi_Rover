@@ -17,10 +17,12 @@ import vehicle.rover as rover
 arg_parser = argparse.ArgumentParser(description='Usage options for aws_init')
 arg_parser.add_argument('-c', '--configfile', help="Optional - configuration file path")
 arg_parser.add_argument('-l', '--logfile', help="Optional - Log file path")
-arg_parser.add_argument('-i', '--keyid', help="AWS access key ID ")
-arg_parser.add_argument('-k', '--key', help="AWS access key")
+arg_parser.add_argument('-i', '--controlkeyid', help="AWS access key ID for control queue")
+arg_parser.add_argument('-k', '--controlkey', help="AWS access key for control queue")
+arg_parser.add_argument('-j', '--collectkeyid', help="AWS access key ID for collect queue")
+arg_parser.add_argument('-m', '--collectkey', help="AWS access key for collect queue")
+arg_parser.add_argument('-s', '--sharedkey', action="store_true", help="Optional - use with -i and -k to use single key for both queues. Value: True")
 arg_parser.add_argument('-v', '--vehicleid', help="Optional - override default vehicle ID")
-
 
 # Process input and generate dict
 args = vars(arg_parser.parse_args())
@@ -59,15 +61,31 @@ except:
 
 
 # Validate input - access creds
-if args['keyid'] is None: 
-    raise SystemExit("Error: No key id provided")
+# Control (primary) key
+if args['controlkeyid'] is None: 
+    raise SystemExit("Error: No control key id provided")
 else:
-    AWS_KEY_ID = args['keyid']
+    AWS_CONTROL_KEY_ID = args['controlkeyid']
 
-if args['key'] is None: 
-    raise SystemExit("Error: No key provided")
+if args['controlkey'] is None: 
+    raise SystemExit("Error: No control key provided")
 else:
-    AWS_KEY = args['key']
+    AWS_CONTROL_KEY = args['controlkey']
+
+# Collect (secondary) key if not shared
+if not args['sharedkey']:
+    if args['collectkeyid'] is None: 
+        raise SystemExit("Error: No collect key id provided")
+    else:
+        AWS_COLLECT_KEY_ID = args['collectkeyid']
+
+    if args['collectkey'] is None: 
+        raise SystemExit("Error: No collect key provided")
+    else:
+        AWS_COLLECT_KEY = args['collectkey']
+else:
+    AWS_COLLECT_KEY_ID = AWS_CONTROL_KEY_ID
+    AWS_COLLECT_KEY = AWS_CONTROL_KEY
 
 
 # Validate input - vehicle id
@@ -80,7 +98,8 @@ else:
 # Validate config
 try:
     AWS_DEFAULT_REGION = config.get('aws_defaults', 'region')
-    AWS_DEFAULT_QUEUE_NAME = config.get('aws_defaults', 'queue_name')
+    AWS_COLLECT_QUEUE_NAME = config.get('aws_defaults', 'collect_queue_name')
+    AWS_CONTROL_QUEUE_NAME = config.get('aws_defaults', 'control_queue_name')
 
     RMQ_HOST_CONTROL = config.get('platform_broker', 'control_server')
     RMQ_PORT_CONTROL = int(config.get('platform_broker', 'control_port'))
@@ -89,7 +108,6 @@ try:
     RMQ_HOST_VEHICLE = config.get('platform_broker', 'vehicle_server')
     RMQ_PORT_VEHICLE = int(config.get('platform_broker', 'vehicle_port'))
     RMQ_EXCHANGE_VEHICLE = config.get('platform_broker', 'vehicle_exchange')
-
 
     logfile.debug("Configuration file loaded")
 
@@ -109,15 +127,16 @@ VEHICLE_DATA = rover.piRoverVehicle()
 CONTROL_DATA = rover.piRoverControls()
 
 def processRMQInput(data):
-# Populate global var from RMQ JSON messages
+# Populate global var from RMQ JSON messages - return tuple of messages (for SQS, for RMQ)
     logfile.debug("Received data from RMQ: " + str(data))
     try:
+      
         json_data = json.loads(data)
 
         # NON RETURNING (ingest only)
         if 'camera' in json_data:
-            if 'tilt' in json_data['camera']: CONTROL_DATA.cameraTiltPosition = json_data['camera']['tilt']
-            if 'pan' in json_data['camera']: CONTROL_DATA.cameraPanPosition = json_data['camera']['pan']
+            if 'tilt' in json_data['camera']: CONTROL_DATA.cameraTiltPosition = int(json_data['camera']['tilt'])
+            if 'pan' in json_data['camera']: CONTROL_DATA.cameraPanPosition = int(json_data['camera']['pan'])
             if 'light' in json_data['camera']: CONTROL_DATA.cameraLightState = json_data['camera']['light']
 
         if 'vehicle' in json_data:
@@ -144,50 +163,117 @@ def processRMQInput(data):
             if 'x' in json_data['accelerometer']: VEHICLE_DATA.accelLR = json_data['accelerometer']['x']
             if 'y' in json_data['accelerometer']: VEHICLE_DATA.accelRF = json_data['accelerometer']['y']
 
-        return(True)
+        # RETURNING (bi-directional)
+        if 'camera' in json_data:
+            print json_data['camera']
+            if 'still' in json_data['camera']: return(_processCameraStill(json_data['camera']['still']), None)
+
+
+        return(None, None)
 
     except:
         return(False)
 
 
-def postSQSMessage(queue):
-# Post data from globals to SQS
+def processSQSInput(messages):
+# Returns tuple of messages (list for SQS, list for RMQ)
+    sqs_messages = []
+    rmq_messages = []
     try:
-        if CONTROL_DATA.throttlePosition is None: throttle_position = 0
-        if CONTROL_DATA.directionPosition is None: direction_position = 0
+        for message in messages:
+            attributes=message.attributes
+            message_attributes=message.message_attributes
+            body=message.body
 
-        post_data = {'latitude': VEHICLE_DATA.gpsLatitude, 
-                     'longitude': VEHICLE_DATA.gpsLongitude,
-                     'altitude': VEHICLE_DATA.gpsAltitude,
-                     'throttle': throttle_position,
-                     'direction': direction_position}
+            if 'vehicle_id' in message_attributes:
+                if message_attributes['vehicle_id']['StringValue'] != RMQ_TOPIC:
+                    # Release message back to queue - not for us
+                    message.change_visibility(VisibilityTimeout=0)
+                else:
+                    message.delete()     # Delete message from queue
+                    rmq_messages.append(json.loads(body))
 
-        queue.send_message(QueueUrl=queue.url, 
-                           MessageBody=json.dumps(post_data), 
+        return sqs_messages, rmq_messages
+
+    except:
+        return False    
+
+
+def postRMQMessage(client, topic, message):
+    try:
+        result = client.publish(topic, json.dumps(message))
+        logfile.debug("Writing data to RMQ: " + str(message))
+        return result
+    except:
+        return False
+
+
+def postSQSMessage(client, message):
+    try:
+        client.send_message(QueueUrl=client.url, 
+                           MessageBody=json.dumps(message), 
                            MessageAttributes={'vehicle_id': {'StringValue':RMQ_TOPIC, 'DataType':'String'}})
-
-        logfile.debug("Posted message to SQS")
         return True
 
     except:
         return False
 
 
+def _GenerateVehicleStatusMessage():
+# Post data from globals to SQS
+    if CONTROL_DATA.throttlePosition is None: throttle_position = 0
+    if CONTROL_DATA.directionPosition is None: direction_position = 0
+
+    post_data = {'latitude': VEHICLE_DATA.gpsLatitude, 
+                 'longitude': VEHICLE_DATA.gpsLongitude,
+                 'altitude': VEHICLE_DATA.gpsAltitude,
+                 'throttle': throttle_position,
+                 'direction': direction_position}
+
+    return post_data
+
+
+def _processCameraStill(msg):
+    for responder in msg['request-response']:
+        if RMQ_TOPIC in responder:
+            request_response = responder
+
+            sqs_response = {'op':'response',
+                            'correl': msg['correl'],
+                            'msg': msg['msg'],
+                            'request-response': request_response,
+                            'solicit-response': msg['solicit-response']}
+
+            return sqs_response
+
 
 def main():
     #### Connect to AWS resources
     try:
-        session = boto3.session.Session(aws_access_key_id=AWS_KEY_ID, aws_secret_access_key=AWS_KEY, region_name=AWS_DEFAULT_REGION)
+        control_session = boto3.session.Session(aws_access_key_id=AWS_CONTROL_KEY_ID, 
+                                                aws_secret_access_key=AWS_CONTROL_KEY, 
+                                                region_name=AWS_DEFAULT_REGION)
+
+        collect_session = boto3.session.Session(aws_access_key_id=AWS_COLLECT_KEY_ID, 
+                                                aws_secret_access_key=AWS_COLLECT_KEY,
+                                                region_name=AWS_DEFAULT_REGION)
+
         logfile.info("Connected to AWS")
 
     except:
         assert False, "Error: Could not connect to AWS"
 
-    sqs_client = session.client('sqs')
-    queue_url = sqs_client.get_queue_url(QueueName=AWS_DEFAULT_QUEUE_NAME)['QueueUrl']
+    sqs_control_client = control_session.client('sqs')
+    control_queue_url = sqs_control_client.get_queue_url(QueueName=AWS_CONTROL_QUEUE_NAME)['QueueUrl']
+    
+    sqs_collect_client = collect_session.client('sqs')
+    collect_queue_url = sqs_collect_client.get_queue_url(QueueName=AWS_COLLECT_QUEUE_NAME)['QueueUrl']
 
-    sqs = session.resource('sqs')
-    sqs_queue = sqs.Queue(queue_url)
+    control_sqs = control_session.resource('sqs')
+    sqs_control_queue = control_sqs.Queue(control_queue_url)
+
+    collect_sqs = collect_session.resource('sqs')
+    sqs_collect_queue = collect_sqs.Queue(collect_queue_url)
 
 
     #### SETUP RABBITMQ CONNECTIONS
@@ -207,6 +293,13 @@ def main():
     rmq_control_thread.daemon = True
     rmq_control_thread.start()
 
+    # Writer
+    result = rmq_client_control_writer = rmq.rmqClientWriter(host=RMQ_HOST_CONTROL, port=RMQ_PORT_CONTROL, log=logfile)
+    assert result, "Error connecting to RMQ broker for writing"
+    result = rmq_client_control_writer.declareExchange(RMQ_EXCHANGE_CONTROL)
+    assert result, "Error declaring RMQ exchange"
+
+
     ## Vehicle
     # Reader
     rmq_vehicle_pconn, rmq_vehicle_cconn = multiprocessing.Pipe()
@@ -225,28 +318,63 @@ def main():
 
 
     # Forever loop
-    counter = 0
+    sqs_pub_counter = 0
+    sqs_sub_counter = 0
     while 1:
  
         # ~10s subloop
-        if counter == 100:
-            counter = 0
-            result = postSQSMessage(queue=sqs_queue)
+        # Publish data to SQS 
+        if sqs_pub_counter == 100:
+            sqs_pub_counter = 0
+            status_message = _GenerateVehicleStatusMessage()            
+            result = postSQSMessage(client=sqs_collect_queue, message=status_message)
             assert result, "Error: Failed posting vehicle data"
           
+ 
+        # ~3s subloop
+        ## Get messages from SQS
+        if sqs_sub_counter == 30:
+            sqs_sub_counter = 0
+            received_messages = sqs_control_queue.receive_messages(QueueUrl=sqs_control_queue.url,
+                                                                   MessageAttributeNames=['All'],
+                                                                   AttributeNames=['All'],
+                                                                   MaxNumberOfMessages=10)
+    
+            result = processSQSInput(received_messages)
+            assert result, "Error: Failed processing SQS message"
+            sqs_responses, rmq_responses = result
+            
+            # Send SQS response
+            for sqs_response in sqs_responses:
+                result = postSQSMessage(client=sqs_collect_queue, message=json.dumps(sqs_response))
+                assert result, "Error: Failed posting SQS response"
+
+            for rmq_response in rmq_responses:
+                result = postRMQMessage(rmq_client_control_writer, RMQ_TOPIC, rmq_response) 
+                assert result, "Error: Failed posting RMQ response"
+
         # Control data
         if rmq_control_pconn.poll() == True: 
             logfile.debug("Recieved data from RMQ - control")
             result = processRMQInput(rmq_control_pconn.recv())
             assert result, "Error: Failed processing RMQ control data"
+            sqs_response, rmq_response = result
+            if rmq_response != None: postRMQMessage(rmq_client_control_writer, RMQ_TOPIC, json.dumps(rmq_response))
+            if sqs_response != None: postSQSMessage(client=sqs_collect_queue, message=sqs_response)
+
             
         # Vehicle data
         if rmq_vehicle_pconn.poll() == True: 
             logfile.debug("Recieved data from RMQ - vehicle")
             result = processRMQInput(rmq_vehicle_pconn.recv())
             assert result, "Error: Failed processing RMQ control data"
+            sqs_response, rmq_response = result
+            if rmq_response != None: postRMQMessage(rmq_client_control_writer, RMQ_TOPIC, json.dumps(rmq_response))
+            if sqs_response != None: postSQSMessage(client=sqs_collect_queue, message=sqs_response)
 
-        counter += 1
+
+        sqs_pub_counter += 1
+        sqs_sub_counter += 1
         time.sleep(.1)
 
 
