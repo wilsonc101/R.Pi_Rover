@@ -557,9 +557,6 @@ def main():
         if mqtt_reader_pconn.poll() == True:
             logfile.debug("Recieved data from MQTT")
             mqtt_response, sqs_response, vehicle_id = processMQTTInput(mqtt_reader_pconn.recv())
-            print "MQTT -- " + str(mqtt_response)
-            print "SQS -- " + str(sqs_response)
-
             if sqs_response != None: postSQSMessage(client=sqs_control_queue, message=sqs_response, vehicle_id=vehicle_id)
             if mqtt_response != None: writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(mqtt_response))
 
