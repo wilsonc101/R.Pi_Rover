@@ -219,8 +219,9 @@ def processMQTTInput(data):
                 else:
                     request_response = None
                     vehicle_id = None
-                    # Message not for me
-                    return(None, None)
+
+        # Message not for me
+        if vehicle_id is None: return(None, None, None)
 
         type_handlers = {'environment-sensor': getEnvironmentData,
                          'vehicle-control': queryVehicleControlData,
@@ -556,7 +557,9 @@ def main():
         # If MQTT pipe has content
         if mqtt_reader_pconn.poll() == True:
             logfile.debug("Recieved data from MQTT")
-            mqtt_response, sqs_response, vehicle_id = processMQTTInput(mqtt_reader_pconn.recv())
+            response = processMQTTInput(mqtt_reader_pconn.recv())
+
+            mqtt_response, sqs_response, vehicle_id = response
             if sqs_response != None: postSQSMessage(client=sqs_control_queue, message=sqs_response, vehicle_id=vehicle_id)
             if mqtt_response != None: writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(mqtt_response))
 
@@ -569,15 +572,15 @@ def main():
 
 
 if __name__ == '__main__':
-    try: 
+#    try: 
         main()
-    except (KeyboardInterrupt, SystemExit) as err:
-        logfile.info("User action - Exiting")
-        print str(err) + " -- Exiting..."
+#    except (KeyboardInterrupt, SystemExit) as err:
+#        logfile.info("User action - Exiting")
+#        print str(err) + " -- Exiting..."
 
-    except AssertionError as err:
-        print str(err)
+#    except AssertionError as err:
+#        print str(err)
 
-    except:
-        print "Error: unknown error 000 - " + str(sys.exc_info()[0])
+#    except:
+#        print "Error: unknown error 000 - " + str(sys.exc_info()[0])
 

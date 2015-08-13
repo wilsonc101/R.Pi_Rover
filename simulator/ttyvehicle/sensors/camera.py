@@ -9,7 +9,7 @@ class camera():
         self.running = True
 
 
-    def captureStill(self, lat, long, heading=0, tilt=0, capturepath="/var/www/html/capture", size=(600,600)):
+    def captureStill(self, lat, long, heading=0, tilt=0, capturepath="~/capture", size=(600,600)):
         buffer = StringIO()
 
 
