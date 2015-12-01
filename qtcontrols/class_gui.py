@@ -456,7 +456,8 @@ class Ui_MainWindow(object):
         left_value = self.bar_left.value()
 
         if left_value == 0:
-            if right_value < 100: self.bar_right.setValue(right_value + 10)
+            if right_value < 100: 
+                self.bar_right.setValue(right_value + 10)
         else:
             self.bar_left.setValue(left_value - 10)
 
@@ -466,7 +467,8 @@ class Ui_MainWindow(object):
         left_value = self.bar_left.value()
 
         if right_value == 0:
-            if left_value < 100: self.bar_left.setValue(left_value + 10)
+            if left_value < 100: 
+                self.bar_left.setValue(left_value + 10)
         else:
             self.bar_right.setValue(right_value - 10)
 
