@@ -49,11 +49,15 @@ except:
 if args['logfile'] is not None:
     logfilepath = args['logfile']
 else:
-    logfilepath = config.get('logging', 'path')    
+    logfilepath = config.get('logging', 'path')
 
 # Setup logging
 try:
-    logfile = log.CreateLogger(toconsole=False, tofile=True, filepath=logfilepath, level=config.get('logging', 'level'))
+    logfile = log.CreateLogger(toconsole=False, 
+                               tofile=True, 
+                               filepath=logfilepath, 
+                               level=config.get('logging', 'level'))
+    
     assert logfile, "Error: Failed to create log outputs"
 
 except:
@@ -120,7 +124,7 @@ def writeMQTTOutput(client, topic, data):
     result = client.publish(topic=topic, payload=data)
     logfile.debug("Writing data to MQTT: " + str(data))
     assert result, "Error publishing MQTT message to " + str(topic)
-    return(result)
+    return result
 
 def processMQTTInput(data):
 # Responds to main thread with a tuple for transmission to queues - (for MQTT, for SQS)
@@ -175,7 +179,7 @@ def processMQTTInput(data):
                     return("value out of range", None)
             else:
                 return("unknown query", None)
-            
+
         def queryCameraControlData(msg):
             # GET Data
             if msg == "getPosition":
@@ -183,11 +187,13 @@ def processMQTTInput(data):
             elif msg == "getCameraLightState":
                 return(CONTROL_DATA.cameraLightState, None)
             elif msg == "getStill":
-                sqs_response = {"camera": {"takestill": {"correl": json_data['correl'], "solicit-response": json_data['solicit-response'], "request-response": json_data['request-response']}}} 
+                sqs_response = {"camera": {"takestill": {"correl": json_data['correl'], 
+                                                         "solicit-response": json_data['solicit-response'], 
+                                                         "request-response": json_data['request-response']}}} 
                 return(None, sqs_response)
             elif ":" not in msg:
                 return("unknown request", None)
- 
+
             # SET Data
             action = str(msg.split(":")[:1][0])
             value = msg.split(":")[1:]
@@ -213,7 +219,7 @@ def processMQTTInput(data):
         # Extract 'my' service id - reject if not for me
         for responder in json_data['request-response']:
             for platform in known_platforms:
-	        if platform in responder: 
+                if platform in responder:
                     request_response = responder
                     vehicle_id = platform
                 else:
@@ -235,7 +241,7 @@ def processMQTTInput(data):
         else:
             mqtt_response = "unknown service"
             sqs_response = None
-
+            
         # If MQTT data present - form valid response
         if mqtt_response != None:
             # Generate response
@@ -252,7 +258,7 @@ def processMQTTInput(data):
         else:
             return(mqtt_response, sqs_response, vehicle_id)
 
- 
+
    # Handle 'Notification' messages (unused)
     def notification(json_data):
         return(None, None, None)
@@ -264,7 +270,7 @@ def processMQTTInput(data):
     # Select handler function based on 'op' (operation) value, return tuple
     if "op" in json_data: 
         if json_data['op'] in input_handlers: 
-            return(input_handlers[str(json_data['op'])](json_data))
+            return input_handlers[str(json_data['op'])](json_data)
         
 
     # Do nothing with invalid messages
@@ -272,7 +278,7 @@ def processMQTTInput(data):
 
 
 def processSQSInput(attributes, message_attributes, body):
-    platform_data = {}    
+    platform_data = {}
 
     # Message Attributes
     # Fail if no vehicle ID present
@@ -284,7 +290,7 @@ def processSQSInput(attributes, message_attributes, body):
     # Attributes
     platform_data['last_message_epoch'] = attributes['SentTimestamp']
     platform_data['sender'] = attributes['SenderId']
-    
+
     # Body
     try:
         body_data = json.loads(body)
@@ -294,7 +300,7 @@ def processSQSInput(attributes, message_attributes, body):
     for field in body_data:
         platform_data[field] = body_data[field]
 
-    return((vehicle_id, platform_data))
+    return(vehicle_id, platform_data)
 
 
 def registerEdgwareTypes(mqtt_client):
@@ -313,12 +319,12 @@ def registerEdgwareTypes(mqtt_client):
             service_type.type = json_data['services'][service]['type']
             service_type.mode = json_data['services'][service]['mode']
             service_type.correl = i
-            
-            message =  json.dumps(service_type.generateJSON())
+
+            message = json.dumps(service_type.generateJSON())
             assert message, "Error generating JSON for service type " + str(json_data['services'][service]['type'])
             logfile.debug("Registering Edgware service type: " + str(json_data['services'][service]['type']))
             writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, message)
-    
+
         i = 1000
         for system in json_data['systems']:
             i += 1
@@ -327,11 +333,11 @@ def registerEdgwareTypes(mqtt_client):
             system_type.services = json_data['systems'][system]['services']
             system_type.correl = i
 
-            message =  json.dumps(system_type.generateJSON())
+            message = json.dumps(system_type.generateJSON())
             assert message, "Error generating JSON for system type " + str(json_data['systems'][system]['type'])
             logfile.debug("Registering Edgware service type: " + str(json_data['systems'][system]['type']))
             writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, message)
-   
+
         i = 2000
         for platform in json_data['platforms']:
             i += 1
@@ -339,16 +345,16 @@ def registerEdgwareTypes(mqtt_client):
             platform_type.type = json_data['platforms'][platform]['type']
             platform_type.correl = i
 
-            message =  json.dumps(platform_type.generateJSON())
+            message = json.dumps(platform_type.generateJSON())
             assert message, "Error generating JSON for platform type " + str(json_data['platforms'][platform]['type'])
             logfile.debug("Registering Edgware service type: " + str(json_data['platforms'][platform]['type']))
             writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, message)
 
-        return(True)
+        return True
 
     except:
         logfile.error("Error: Unknown error caught when registering Edware types")
-        return(False)
+        return False
 
 
 def registerNewPlatform(mqtt_client, vehicle_id):
@@ -360,14 +366,18 @@ def registerNewPlatform(mqtt_client, vehicle_id):
         platform.id = vehicle_id
         platform.correl = 10001
         logfile.info("Edgware - Regsitering platform " + str(platform.id))
-        writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(platform.generateJSON()))
- 
+        writeMQTTOutput(mqtt_client, 
+                        MQTT_TOPIC_IN, 
+                        json.dumps(platform.generateJSON()))
+
         # Systems (+ activate)
         system = edgware.system()
         system.type = "vehicle"
         system.id = platform.id + "/vehicle"
         system.correl = 20001
-        activate_system = json.dumps({"op":"state:system", "id": system.id, "state":"running", "correl":20002})
+        activate_system = json.dumps({"op":"state:system", "id": system.id, 
+                                      "state":"running", "correl":20002})
+        
         logfile.info("Edgware - Regsitering system " + str(system.id))
         writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(system.generateJSON()))
         writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, activate_system)
@@ -376,8 +386,11 @@ def registerNewPlatform(mqtt_client, vehicle_id):
         system.type = "control"
         system.id = platform.id + "/control"
         system.correl = 30001
-        activate_system = json.dumps({"op":"state:system", "id": system.id, "state":"running", "correl":30002})
+        activate_system = json.dumps({"op":"state:system", "id": system.id, 
+                                      "state":"running", "correl":30002})
+        
         logfile.info("Edgware - Regsitering system " + str(system.id))
+        
         writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(system.generateJSON()))
         writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, activate_system)
 
@@ -410,12 +423,12 @@ def postSQSMessage(client, message, vehicle_id):
     try:
         client.send_message(QueueUrl=client.url,
                            MessageBody=json.dumps(message),
-                           MessageAttributes={'vehicle_id': {'StringValue':vehicle_id, 'DataType':'String'}})
+                           MessageAttributes={'vehicle_id': {'StringValue':vehicle_id, 
+                                                             'DataType':'String'}})
         return True
 
     except:
         return False
-
 
 
 known_platforms = {}
@@ -451,10 +464,10 @@ def main():
 
     #### SETUP MQTT CONNECTION
     mqtt_reader_pconn, mqtt_reader_cconn = multiprocessing.Pipe()
-    mqtt_client = mqtt.mqttClient(host=MQTT_HOST, 
-                                  port=MQTT_PORT, 
-                                  pipe=mqtt_reader_cconn, 
-                                  client_id=("sqsadp"), 
+    mqtt_client = mqtt.mqttClient(host=MQTT_HOST,
+                                  port=MQTT_PORT,
+                                  pipe=mqtt_reader_cconn,
+                                  client_id=("sqsadp"),
                                   log=logfile)
     assert mqtt_client.connected, "FATAL: Failed to connect to MQTT broker"
     logfile.info("Connected to MQTT server")
@@ -463,7 +476,7 @@ def main():
     logfile.info("Subscribed to MQTT topic " + MQTT_TOPIC_OUT)
 
     mqtt_client.set_will(MQTT_TOPIC_IN)
-    mqtt_client.client.loop_start()       
+    mqtt_client.client.loop_start()
 
 
     #### CONFIGURE EDGWARE
@@ -480,13 +493,13 @@ def main():
         if sqs_counter == 30:
             sqs_counter = 0
             ## Get messages from SQS
-            received_messages = sqs_collect_queue.receive_messages(QueueUrl=sqs_collect_queue.url, 
-                                                                   MessageAttributeNames=['All'], 
+            received_messages = sqs_collect_queue.receive_messages(QueueUrl=sqs_collect_queue.url,
+                                                                   MessageAttributeNames=['All'],
                                                                    AttributeNames=['All'],
                                                                    MaxNumberOfMessages=10)
             for message in received_messages:
                 # Process incomming message
-                result = processSQSInput(attributes=message.attributes, 
+                result = processSQSInput(attributes=message.attributes,
                                          message_attributes=message.message_attributes,
                                          body=message.body)
 
@@ -498,7 +511,7 @@ def main():
 
                     if vehicle_id not in known_platforms:
                         # Add entry and marked status
-                        logfile.info(vehicle_id + " added to known platforms")                        
+                        logfile.info(vehicle_id + " added to known platforms")
                         known_platforms[vehicle_id] = {}
                         known_platforms[vehicle_id]['data'] = platform_data
                         known_platforms[vehicle_id]['status'] = 'new'
@@ -529,8 +542,8 @@ def main():
                         lat = known_platforms[platform]['data']['latitude']
                         long = known_platforms[platform]['data']['longitude']
                         alt = known_platforms[platform]['data']['altitude']
-                      
-                        updatePlatformPosition(mqtt_client=mqtt_client, 
+
+                        updatePlatformPosition(mqtt_client=mqtt_client,
                                                vehicle_id=platform,
                                                latitude=lat,
                                                longitude=long,
@@ -546,8 +559,8 @@ def main():
                                          'correl': msg_correl,
                                          'msg': msg_body,
                                          'request-response': msg_request,
-                                         'solicit-response': msg_solicit}            
-                                                
+                                         'solicit-response': msg_solicit}
+
                         writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(mqtt_response))
 
                     else:
@@ -560,15 +573,16 @@ def main():
             response = processMQTTInput(mqtt_reader_pconn.recv())
 
             mqtt_response, sqs_response, vehicle_id = response
-            if sqs_response != None: postSQSMessage(client=sqs_control_queue, message=sqs_response, vehicle_id=vehicle_id)
-            if mqtt_response != None: writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(mqtt_response))
+            if sqs_response != None: 
+                postSQSMessage(client=sqs_control_queue, message=sqs_response, vehicle_id=vehicle_id)
+            if mqtt_response != None: 
+                writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(mqtt_response))
 
 
 
         mqtt_counter += 1
         sqs_counter += 1
-        time.sleep(.1) 
-
+        time.sleep(.1)
 
 
 if __name__ == '__main__':
@@ -583,4 +597,3 @@ if __name__ == '__main__':
 
 #    except:
 #        print "Error: unknown error 000 - " + str(sys.exc_info()[0])
-

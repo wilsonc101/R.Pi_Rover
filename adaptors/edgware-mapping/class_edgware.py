@@ -13,19 +13,24 @@ class platformType():
     def generateJSON(self):
         # Type must be set for valid output - return if not set
         if self.type == None:
-            return(False)
+            return False
 
         json = {}
-    
+
         json['op'] = self.op
         json['type'] = self.type
 
         # Optional fields
-        if self.desc != None: json['desc'] = self.desc
-        if self.attr != None: json['attr'] = self.attr
-        if self.correl != None: json['correl'] = self.correl
+        if self.desc != None:
+            json['desc'] = self.desc
 
-        return(json)
+        if self.attr != None:
+            json['attr'] = self.attr
+
+        if self.correl != None:
+            json['correl'] = self.correl
+
+        return json
 
 
 
@@ -43,21 +48,28 @@ class platform():
     def generateJSON(self):
         # Type & ID must be set for valid output - return if not set
         if self.type == None or self.id == None:
-            return(False)
-        
+            return False
+
         json = {}
 
         json['op'] = self.op
         json['id'] = self.id
         json['type'] = self.type
- 
-        # Optional fields
-        if self.loc['lat'] != None and self.loc['long'] != None and self.loc['alt'] != None: json['loc'] = self.loc
-        if self.desc != None: json['desc'] = self.desc
-        if self.attr != None: json['attr'] = self.attr
-        if self.correl != None: json['correl'] = self.correl
 
-        return(json)
+        # Optional fields
+        if self.loc['lat'] != None and self.loc['long'] != None and self.loc['alt'] != None:
+            json['loc'] = self.loc
+
+        if self.desc != None:
+            json['desc'] = self.desc
+
+        if self.attr != None:
+            json['attr'] = self.attr
+
+        if self.correl != None:
+            json['correl'] = self.correl
+
+        return json
 
 
 class systemType():
@@ -74,25 +86,30 @@ class systemType():
     def generateJSON(self):
         # Type must be set for valid output - return if not set
         if self.type == None or len(self.services) < 1:
-            return(False)
+            return False
 
         # Check service is well defined
         for service in self.services:
             if 'type' not in service:
-                return(False)
+                return False
 
         json = {}
 
         json['op'] = self.op
         json['type'] = self.type
         json['services'] = self.services
-            
+
         # Optional fields
-        if self.desc != None: json['desc'] = self.desc
-        if self.attr != None: json['attr'] = self.attr
-        if self.correl != None: json['correl'] = self.correl
-           
-        return(json)
+        if self.desc != None:
+            json['desc'] = self.desc
+
+        if self.attr != None:
+            json['attr'] = self.attr
+
+        if self.correl != None:
+            json['correl'] = self.correl
+
+        return json
 
 
 
@@ -110,28 +127,37 @@ class system():
     def generateJSON(self):
         # Type & ID must be set for valid output - return if not set
         if self.type == None or self.id == None:
-            return(False)
-        
+            return False
+
         json = {}
-    
+
         json['op'] = self.op
         json['id'] = self.id
         json['type'] = self.type
- 
-        # Optional fields
-        if self.user != None: json['user'] = self.desc
-        if self.desc != None: json['desc'] = self.desc
-        if self.attr != None: json['attr'] = self.attr
-        if self.correl != None: json['correl'] = self.correl
 
-        return(json)
+        # Optional fields
+        if self.user != None:
+            json['user'] = self.desc
+
+        if self.desc != None:
+            json['desc'] = self.desc
+
+        if self.attr != None:
+            json['attr'] = self.attr
+
+        if self.correl != None:
+            json['correl'] = self.correl
+
+        return json
 
 
 
 
 class serviceType():
     def __init__(self):
-        self.avaliablemodes = ["input-feed", "output-feed", "notification", "listener", "solicit-response", "request-response"]
+        self.avaliablemodes = ["input-feed", "output-feed", 
+                               "notification", "listener", 
+                               "solicit-response", "request-response"]
         self.op = "register:service-type"
         self.type = None
         self.mode = None
@@ -144,23 +170,28 @@ class serviceType():
     def generateJSON(self):
         # Type & ID must be set for valid output - return if not set
         if self.type == None or self.mode not in self.avaliablemodes:
-            return(False)
+            return False
 
         json = {}
-    
+
         json['op'] = self.op
         json['type'] = self.type
         json['mode'] = self.mode
 
         # Optional fields
-        if self.schema != None: json['schema'] = self.schema
-        if self.desc != None: json['desc'] = self.desc
-        if self.attr != None: json['attr'] = self.attr
-        if self.correl != None: json['correl'] = self.correl
+        if self.schema != None:
+            json['schema'] = self.schema
 
-        return(json)
+        if self.desc != None:
+            json['desc'] = self.desc
 
+        if self.attr != None:
+            json['attr'] = self.attr
 
+        if self.correl != None:
+            json['correl'] = self.correl
+
+        return json
 
 
 class queryGenerator():
@@ -169,23 +200,18 @@ class queryGenerator():
 
     def _systemType(self, correl, type="*"):
         op = "query:system-types"
-        
 
     def _system(self, correl, type="*"):
         op = "query:systems"
 
-
     def _platformType(self, correl, type="*"):
         op = "query:platform-types"
-
 
     def _platform(self, correl, type="*"):
         op = "query:platforms"
 
-
     def _node(self, correl, type="*"):
         op = "query:nodes"
-
 
     def _bearer(self, correl, type="*"):
         op = "query:bearers"

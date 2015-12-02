@@ -25,7 +25,8 @@ def postData(path, headers, payload):
         json_data = json.loads(payload)
 
         for field in required_fields:
-            if field not in json_data: return(500, "Error: Payload invalid, missing " + field)        
+            if field not in json_data: 
+                return(500, "Error: Payload invalid, missing " + field)
 
     except:
         return(500, "Error: Payload failed JSON parsing")
@@ -39,26 +40,31 @@ def postData(path, headers, payload):
 
 
 def getMap(query=None, handler=None):
-    date_from = today = datetime.now().strftime('%Y-%m-%d')
+    date_from = datetime.now().strftime('%Y-%m-%d')
     date_to = date_from
     time_from = "00:00:00"
     time_to = "23:59:59"
-    
+
     # Get params from query string
     if query != None:
         params = query.split("?")
         for param in params:
-            if "=" in param: 
+            if "=" in param:
                 key, value = param.split("=")
-                if key == "vehicle_id": vehicle_id = value
-                if key == "date_from": date_from = value.replace("%20", " ")  
-                if key == "date_to": date_to = value.replace("%20", " ")
-                if key == "time_from": time_from = value.replace("%20", " ")  
-                if key == "time_to": time_to = value.replace("%20", " ")
+                if key == "vehicle_id": 
+                    vehicle_id = value
+                if key == "date_from": 
+                    date_from = value.replace("%20", " ")
+                if key == "date_to": 
+                    date_to = value.replace("%20", " ")
+                if key == "time_from": 
+                    time_from = value.replace("%20", " ")
+                if key == "time_to": 
+                    time_to = value.replace("%20", " ")
 
     else:
         return(500, "Error: Missing query string")
-    
+
     # HTML Start Header
     html_head_start = "<!DOCTYPE html>\n\
 <html>\n\
@@ -73,7 +79,7 @@ def getMap(query=None, handler=None):
     <script type=\"text/javascript\" src=\"http://kozea.github.com/pygal.js/javascripts/svg.jquery.js\"></script>\n\
    <script type=\"text/javascript\" src=\"http://kozea.github.com/pygal.js/javascripts/pygal-tooltips.js\"></script>\n\
     <script>\n\
-	function initialize() {\n\
+    function initialize() {\n\
   var bounds = new google.maps.LatLngBounds();\n\
   var mapOptions = {\n\
     zoom: 12,\n\
@@ -84,7 +90,7 @@ def getMap(query=None, handler=None):
       mapOptions);\n\
   var flightPlanCoordinates = ["
 
-    # HTML End Header 
+    # HTML End Header
     html_head_end = "var flightPath = new google.maps.Polyline({\n\
     path: flightPlanCoordinates,\n\
     geodesic: true,\n\
@@ -100,7 +106,7 @@ google.maps.event.addDomListener(window, 'load', initialize);\n\
 
 
     #HTML Body
-    html_body_start ="  <body>\n\
+    html_body_start = "  <body>\n\
     <div id=\"map-canvas\"></div>\n"
 
     html_body_end = "  </body>\n\
@@ -121,14 +127,14 @@ google.maps.event.addDomListener(window, 'load', initialize);\n\
 
         # Query collection and print
         vehicle_data = _mongo_db[vehicle_id].find({"timestamp" : {"$gte" : isodatetime_from, "$lte" : isodatetime_to}}).sort("timestamp", 1)
-    
+
         for entry in vehicle_data:
             # Only add point if postion data is present
             if 'latitude' in entry['vehicle_data'] and 'longitude' in entry['vehicle_data']:
                 # Build Polgon entries
                 response_section = "new google.maps.LatLng(" + str(entry['vehicle_data']['latitude']) + "," + str(entry['vehicle_data']['longitude']) + "),\n"
                 polygon_cords = polygon_cords + response_section
-    
+
                 # Build marker entries
                 response_section = "var position = new google.maps.LatLng(" + str(entry['vehicle_data']['latitude']) + "," + str(entry['vehicle_data']['longitude']) + ");\n\
                 marker = new google.maps.Marker({position: position,\n\
@@ -137,7 +143,7 @@ google.maps.event.addDomListener(window, 'load', initialize);\n\
                                          icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'});\n\
                 bounds.extend(position)\n"
                 markers = markers + response_section
- 
+
             # Populate local arrys with other vehicle data
             xaxis_labels.append(str(entry['timestamp']))
             if 'throttle' in entry['vehicle_data']:
@@ -163,8 +169,8 @@ google.maps.event.addDomListener(window, 'load', initialize);\n\
 
         if len(direction_positions) > 0:
             direction_graph = _createChart(direction_positions, xaxis_labels)
-            
-        
+
+
 
 
         # Section closures
@@ -188,11 +194,11 @@ google.maps.event.addDomListener(window, 'load', initialize);\n\
 
 
 def _createChart(data, labels):
-    throttle_line_chart = pygal.Line(width=700,height=400,show_legend=False,style=LightStyle,x_label_rotation=20,label_font_size=12)
+    throttle_line_chart = pygal.Line(width=700, height=400, show_legend=False, style=LightStyle, x_label_rotation=20, label_font_size=12)
     throttle_line_chart.title = "Throttle %age"
     throttle_line_chart.x_labels = labels
     throttle_line_chart.add('', data)
-    raw_graph = throttle_line_chart.render()            
+    raw_graph = throttle_line_chart.render()    
     return raw_graph
 
 
@@ -212,11 +218,11 @@ def getPlatforms(query=None, handler=None):
     html_footer = "</body>\n</html>"
 
     # Add to each returned collection
-    link_prefix =  "http://" + str(handler.headers['Host']) + "/action/getmap?vehicle_id="
- 
-    html_body = "Display all data recorded within the last 24hrs:<br>\n<br>\n"    
+    link_prefix = "http://" + str(handler.headers['Host']) + "/action/getmap?vehicle_id="
+
+    html_body = "Display all data recorded within the last 24hrs:<br>\n<br>\n"
     for collection in collection_list:
-         html_body = html_body + "<a href=" + link_prefix + str(collection) + ">" + str(collection) + "</a><br>\n"
+        html_body = html_body + "<a href=" + link_prefix + str(collection) + ">" + str(collection) + "</a><br>\n"
 
     response = html_header + html_body + html_footer
 
