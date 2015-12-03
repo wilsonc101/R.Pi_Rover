@@ -27,19 +27,26 @@ class MQReader(QtCore.QThread):
         self.vehicle_exchange = VEHICLE_EXCHANGE
         self.vehicle_server = VEHICLE_SERVER
 
-        try:   
+        try:
             QtCore.QThread.__init__(self)
             self.signal = QtCore.SIGNAL("signal")
             self.connection = pika.BlockingConnection(pika.ConnectionParameters(VEHICLE_SERVER))
             self.channel = self.connection.channel()
 
             ## EXCHANGE BASED ##
-            self.channel.exchange_declare(exchange=VEHICLE_EXCHANGE, type='topic')
+            self.channel.exchange_declare(exchange=VEHICLE_EXCHANGE, 
+                                          type='topic')
+            
             self.result = self.channel.queue_declare(exclusive=True)
             self.queue_name = self.result.method.queue
 
-            self.channel.queue_bind(exchange=VEHICLE_EXCHANGE, queue=self.queue_name, routing_key=VEHICLE_ID)
-            self.channel.basic_consume(self._poll_queue, queue=self.queue_name, no_ack=True)
+            self.channel.queue_bind(exchange=VEHICLE_EXCHANGE,
+                                    queue=self.queue_name,
+                                    routing_key=VEHICLE_ID)
+            
+            self.channel.basic_consume(self._poll_queue,
+                                       queue=self.queue_name,
+                                       no_ack=True)
 
         except:
             raise SystemExit("Could not connect to queue server")
@@ -49,14 +56,14 @@ class MQReader(QtCore.QThread):
         try:
             self.emit(self.signal, str(body))
         except:
-            return(False)
+            return False
 
     def run(self):
         try:
             self.channel.start_consuming()
 
         except:
-            return(False)
+            return False
 
 
 def MQWriter(qt_window):
@@ -66,10 +73,10 @@ def MQWriter(qt_window):
     right_value = qt_window.bar_right.value()
     left_value = qt_window.bar_left.value()
     brake_value = qt_window.cb_brake.isChecked()
- 
+
     cam_tilt_value = qt_window.slider_cam_tilt.value()
     cam_pan_value = qt_window.dial_cam_pan.value()
- 
+
     veh_light_value = qt_window.cb_veh_light.isChecked()
     cam_light_value = qt_window.cb_cam_light.isChecked()
 
@@ -79,15 +86,15 @@ def MQWriter(qt_window):
     # Invert value for left (left = -100 to 0, right = 0 to 100)
     if left_value > 0:
         direction_value = 0 - left_value
-    else: 
-        direction_value = right_value 
+    else:
+        direction_value = right_value
 
     # Invert value for reverse (reverse = -100 to 0, forward = 0 to 100)
     if reverse_value > 0:
         throttle_value = 0 - reverse_value
-    else: 
-        throttle_value = forward_value 
-       
+    else:
+        throttle_value = forward_value
+
     # Transform 0 to 100 slider/dial values to -100 to 100 range
     cam_tilt_value = (cam_tilt_value*2)-100
     cam_pan_value = (cam_pan_value*2)-100
@@ -95,10 +102,16 @@ def MQWriter(qt_window):
 
     # Create/populate JSON data structure
     data = {}
-    data['vehicle'] = {'direction': direction_value, 'throttle': throttle_value, 'brake': brake_value, 'light': veh_light_value}
-    data['camera'] = {'tilt': cam_tilt_value, 'pan': cam_pan_value, 'light': cam_light_value}
+    data['vehicle'] = {'direction': direction_value, 
+                       'throttle': throttle_value, 
+                       'brake': brake_value, 
+                       'light': veh_light_value}
+    
+    data['camera'] = {'tilt': cam_tilt_value, 
+                      'pan': cam_pan_value, 
+                      'light': cam_light_value}
+    
     data['state'] = {'shutdown': shutdown_vehicle}
-
 
     try:
         # Establish queue for writing
@@ -108,12 +121,14 @@ def MQWriter(qt_window):
         ## EXCHANGE BASED ##
         channel.exchange_declare(exchange=CONTROL_EXCHANGE, type='topic')
         # Write JSON data to queue
-        channel.basic_publish(exchange=CONTROL_EXCHANGE, routing_key=VEHICLE_ID, body=json.dumps(data))
+        channel.basic_publish(exchange=CONTROL_EXCHANGE, 
+                              routing_key=VEHICLE_ID, 
+                              body=json.dumps(data))
 
         connection.close()
 
     except:
-        return(False)
+        return False
 
 
 def GUIUpdate(qt_window, json_data):
@@ -121,7 +136,6 @@ def GUIUpdate(qt_window, json_data):
         if 'wifi' in json_data['vehicle']: qt_window.bar_wifi.setValue(int(json_data['vehicle']['wifi']))
         if 'batteryA' in json_data['vehicle']: qt_window.bar_battery_a.setValue(int(json_data['vehicle']['batteryA']))
         if 'batteryB' in json_data['vehicle']: qt_window.bar_battery_b.setValue(int(json_data['vehicle']['batteryB']))
-  
 
     if 'environment' in json_data:
         if 'temperature' in json_data['environment']: qt_window.tb_temperature.setText(str(json_data['environment']['temperature']))
@@ -135,7 +149,7 @@ def GUIUpdate(qt_window, json_data):
         if 'altitude' in json_data['GPS']: qt_window.tb_gps_altitude.setText(str(json_data['GPS']['altitude']))
 
     if 'accelerometer' in json_data:
-        if 'x' in json_data['accelerometer']: 
+        if 'x' in json_data['accelerometer']:
             x_pos = int(json_data['accelerometer']['x'])
             rear = x_pos / 2
             front = (0 - x_pos) / 2
@@ -143,7 +157,7 @@ def GUIUpdate(qt_window, json_data):
             qt_window.wheel_re.setLine(-40, (rear-10), -40, (rear+10))
             qt_window.wheel_f.setLine(40, (front-10), 40, (front+10))
 
-        if 'y' in json_data['accelerometer']: 
+        if 'y' in json_data['accelerometer']:
             y_pos = int(json_data['accelerometer']['y'])
             left = (0 - y_pos) / 2
             right = y_pos / 2
@@ -155,5 +169,5 @@ def GUIUpdate(qt_window, json_data):
 
 def OpenPlayer():
     cmd = "/bin/nc " + CAMERA_SERVER + " " + CAMERA_PORT + " | /usr/bin/mplayer -fps 60 -cache 2048 -really-quiet -"
-    p = Popen(cmd, shell=True, stdout=PIPE)    
-    return(p)
+    p = Popen(cmd, shell=True, stdout=PIPE)  
+    return p

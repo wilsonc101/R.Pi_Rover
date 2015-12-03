@@ -9,9 +9,12 @@ class camera():
         self.running = True
 
 
-    def captureStill(self, lat, long, heading=0, tilt=0, capturepath="/tmp", size=(600,600)):
+    def captureStill(self, lat, long, 
+                     heading=0, tilt=0, 
+                     capturepath="/tmp", 
+                     size=(600, 600)):
+        
         buffer = StringIO()
-
 
         # Form Google API URL
         url = "https://maps.googleapis.com/maps/api/streetview\
@@ -21,11 +24,10 @@ class camera():
 &heading=" + str(heading) + "\
 &pitch=" + str(tilt)
 
-
-        c = pycurl.Curl()
-        c.setopt(c.URL, url)
-        c.setopt(c.WRITEDATA, buffer)
-        c.perform()
+        url_reader = pycurl.Curl()
+        url_reader.setopt(url_reader.URL, url)
+        url_reader.setopt(url_reader.WRITEDATA, buffer)
+        url_reader.perform()
 
         capture_filename = str(uuid.uuid1()) + ".jpg"
         capture_filepath = capturepath + "/" + capture_filename
@@ -34,7 +36,7 @@ class camera():
             file = open(capture_filepath, "wb")
             file.write(buffer.getvalue())
             file.close()
-            return(capture_filename)        
-           
+            return capture_filename
+
         except:
-            return(False)
+            return False

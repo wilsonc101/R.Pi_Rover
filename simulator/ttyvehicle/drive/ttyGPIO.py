@@ -1,2 +1,2 @@
 def output(self, *args):
-    return(True)
+    return True

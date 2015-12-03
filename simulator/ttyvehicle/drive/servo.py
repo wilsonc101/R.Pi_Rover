@@ -3,7 +3,7 @@ from __future__ import division
 
 
 class StandardServo():
-    def __init__(self,channelid,min,max,neutral,name):
+    def __init__(self, channelid, min, max, neutral, name):
         try:
             self.Channel = int(channelid)
             self.RealMin = int(min)
@@ -14,15 +14,15 @@ class StandardServo():
         except:
             assert False, "Error: Failed to initialise server"
 
-    
+
     def Translate(self, inputper):
         # Translate percentages to interpolated outputs
         # Input is expected to be -100 to 100 (full reverse to full forward)
         try:
             inputper = int(inputper)
-    
+
             output = self.RealNeutral
-    
+
             if inputper >= -100 and inputper <= 100:
                 if inputper < 0:
                     neg_span = abs(self.RealNeutral-self.RealMin)
@@ -34,7 +34,7 @@ class StandardServo():
             return output
 
         except:
-            return(False)
+            return False
 
 
 # Examples:

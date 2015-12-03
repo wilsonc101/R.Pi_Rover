@@ -4,7 +4,8 @@ import logging
 log_format = logging.Formatter('%(asctime)s -- %(message)s')
 
 
-def CreateLogger(toconsole=True, tofile=True, filepath=None, level='WARNING', logID="pi_rover"):
+def CreateLogger(toconsole=True, tofile=True, 
+                 filepath=None, level='WARNING', logID="pi_rover"):
     try:
         if filepath == None:
             filepath = "/tmp/" + logID + ".log"
@@ -15,32 +16,32 @@ def CreateLogger(toconsole=True, tofile=True, filepath=None, level='WARNING', lo
         SetLevel(logger, level)
 
         if toconsole == True:
-                ## Console Output
-                log_out_console = logging.StreamHandler()
+            ## Console Output
+            log_out_console = logging.StreamHandler()
 
-                SetLevel(log_out_console, level)
-                assert SetLevel, "Error: Failed to set console logging level"
+            SetLevel(log_out_console, level)
+            assert SetLevel, "Error: Failed to set console logging level"
 
-                log_out_console.setFormatter(log_format)
-                logger.addHandler(log_out_console)
+            log_out_console.setFormatter(log_format)
+            logger.addHandler(log_out_console)
 
         if tofile == True:
-                ## File output
-                log_out_file = logging.FileHandler(filepath)
+            ## File output
+            log_out_file = logging.FileHandler(filepath)
 
-                SetLevel(log_out_file, level)
-                assert SetLevel, "Error: Failed to set file logging level"
+            SetLevel(log_out_file, level)
+            assert SetLevel, "Error: Failed to set file logging level"
 
-                log_out_file.setFormatter(log_format)
-                logger.addHandler(log_out_file)
+            log_out_file.setFormatter(log_format)
+            logger.addHandler(log_out_file)
 
-        if toconsole == False and tofile == False: 
+        if toconsole == False and tofile == False:
             assert False, "Error: No log output set - must be at least one"
 
-        return(logger)
+        return logger
 
     except:
-        return(False)
+        return False
 
 
 # Set logging level
@@ -59,8 +60,8 @@ def SetLevel(log_output, level):
         else:
             assert False, "Error: Invalid logging level"
 
-        return(True)
-    
+        return True
+
     except:
-        return(False)        
+        return False
 

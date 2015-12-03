@@ -30,7 +30,7 @@ except AttributeError:
 class Ui_MainWindow(object):
     def __init__(self):
         self.MQReadThread = workers.MQReader()
-        self.poweroff=False
+        self.poweroff = False
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
@@ -456,7 +456,7 @@ class Ui_MainWindow(object):
         left_value = self.bar_left.value()
 
         if left_value == 0:
-            if right_value < 100: 
+            if right_value < 100:
                 self.bar_right.setValue(right_value + 10)
         else:
             self.bar_left.setValue(left_value - 10)
@@ -467,7 +467,7 @@ class Ui_MainWindow(object):
         left_value = self.bar_left.value()
 
         if right_value == 0:
-            if left_value < 100: 
+            if left_value < 100:
                 self.bar_left.setValue(left_value + 10)
         else:
             self.bar_right.setValue(right_value - 10)
@@ -519,6 +519,6 @@ class Ui_MainWindow(object):
         workers.MQWriter(self)
 
     def shutdown_vehicle(self):
-        self.poweroff=True
+        self.poweroff = True
         workers.MQWriter(self)
         raise SystemExit("OK: Vehicle Shutdown")

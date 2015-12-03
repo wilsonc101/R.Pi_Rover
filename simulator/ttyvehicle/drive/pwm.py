@@ -1,4 +1,4 @@
-class PWM :
+class PWM:
     def __init__(self, address=None, debug=None):
         try:
             self.address = address
@@ -10,16 +10,15 @@ class PWM :
     def setPWMFreq(self, freq):
         try:
             self.freq = freq
-            return(True)
+            return True
 
         except:
-            return(False)
+            return False
 
 
     def setPWM(self, channel, start, end):
         try:
-            return(True)
+            return True
 
         except:
-            return(False)
- 
+            return False
