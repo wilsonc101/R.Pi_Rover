@@ -6,15 +6,15 @@ import sensors.Adafruit_BMP085 as BMP085
 import sensors.Adafruit_LSM303 as LSM303
 
 
-try:
+#try:
     # Setup encironment sensor
-    ENV_SENSOR = BMP085.BMP085()
+ENV_SENSOR = BMP085.BMP085()
 
     # vehicle movement sensor
-    MOVEMENT_SENSOR = LSM303.LSM303()
+MOVEMENT_SENSOR = LSM303.Adafruit_LSM303(hires="false")
     
-except:
-    assert False, "Error: Failed to init sensors"
+#except:
+#    assert False, "Error: Failed to init sensors"
 
 ## Get data from vehicle components
 def getBatteryA():

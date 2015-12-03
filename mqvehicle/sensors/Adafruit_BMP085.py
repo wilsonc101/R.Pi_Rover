@@ -2,7 +2,7 @@
 
 import time
 
-from Adafruit_I2C import Adafruit_I2C
+from core.Adafruit_I2C import Adafruit_I2C
 
 
 # ===========================================================================

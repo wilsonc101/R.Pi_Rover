@@ -14,13 +14,13 @@ from subprocess import *
 #from Adafruit_PWM_Servo_Driver import PWM
 import messaging.rabbitmq as mq
 
-import sensors.gps as gpsreader
+import sensors.Rover_GPS as gpsreader
 import sensors.camera as camera
 import sensors.query_sensors as sensors
 
-import drive.pwm as PWM
+import drive.Adafruit_PWM_Servo_Driver as PWM
 import drive.servo as servo
-import drive.ttyGPIO as GPIO
+import RPi.GPIO as GPIO
 
 import core.logger as log
 
@@ -49,7 +49,7 @@ try:
     config = ConfigParser.ConfigParser()
     config.read(configfilepath)
 except:
-    raise SystemExit("FATAL: Unknown error - " + str(sys.exc_info()[0]))
+    raise SystemExit("FATAL: Unknown error while loading config - " + str(sys.exc_info()[0]))
 
 
 # Validate input - Log file
@@ -64,7 +64,7 @@ try:
     assert logfile, "Error: Failed to create log outputs"
 
 except:
-    raise SystemExit("FATAL: Unknown error - " + str(sys.exc_info()[0]))
+    raise SystemExit("FATAL: Unknown error while creating logs - " + str(sys.exc_info()[0]))
 
 
 # Validate input - Vehicle ID
@@ -161,12 +161,12 @@ PENDING_IMAGE_REQUESTS = {}
 
 
 # Configure GPIO pins
-#try:
-#    GPIO.setmode(GPIO.BCM)
-#    GPIO.setup(LIGHTS_CAMERA_GPIO, GPIO.OUT)
-#    GPIO.setup(LIGHTS_VEHICLE_GPIO, GPIO.OUT)
-#except:
-#    raise SystemExit("FATAL: Could not configure GPIO")
+try:
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(LIGHTS_CAMERA_GPIO, GPIO.OUT)
+    GPIO.setup(LIGHTS_VEHICLE_GPIO, GPIO.OUT)
+except:
+    raise SystemExit("FATAL: Could not configure GPIO")
 
 def SendPWM(channel,start,end):
     # PWM output requires channel, start and end. Start and end refer to the start point and length of the pulse.
@@ -196,12 +196,9 @@ def _run_cmd(cmd):
 
 
 def _shutdownVehicle():
-    raise SystemExit()
-
-#    shutdown_cmd = "poweroff"
-
-#    cmd_result = _run_cmd(shutdown_cmd)
-#    assert cmd_result, "Error: Failed to execute shutdown command"
+    shutdown_cmd = "poweroff"
+    cmd_result = _run_cmd(shutdown_cmd)
+    assert cmd_result, "Error: Failed to execute shutdown command"
 
 
 def _vehicleControl(data):
@@ -331,7 +328,8 @@ def main():
         gps_poller.start()
 
         # Setup vehicle camera
-        vehicle_camera = camera.camera(log=logfile)
+        vehicle_camera = camera.camera(VEHICLE_CAMERA_BIND_ADDRESS, VEHICLE_CAMERA_PORT, VEHICLE_CAMERA_RESOLUTION_X, VEHICLE_CAMERA_RESOLUTION_Y, VEHICLE_CAMERA_NAME, logfile)
+        vehicle_camera.start()
 
         # Set control queue reader and start in new thread
         control_reader = mq.rmqClientReader(host=CONTROL_HOST, port=CONTROL_PORT, log=logfile)
@@ -452,15 +450,15 @@ def main():
 
 
 if __name__ == '__main__':
-    try:
+#    try:
         main()     
 
-    except (KeyboardInterrupt, SystemExit) as err:
-        print str(err) + " -- Exiting..."
+#    except (KeyboardInterrupt, SystemExit) as err:
+#        print str(err) + " -- Exiting..."
 
-    except AssertionError as err:
-        print str(err)
+#    except AssertionError as err:
+#        print str(err)
 
-    except:
-        print "Error: unknown error - " + str(sys.exc_info()[0])
+#    except:
+#        print "Error: unknown error - " + str(sys.exc_info()[0])
 
