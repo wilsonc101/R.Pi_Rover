@@ -1,0 +1,577 @@
+#!/usr/bin/python -B
+
+import json
+import time
+import multiprocessing
+import ConfigParser
+import argparse
+import sys
+import os.path
+
+import messaging.mqtt as mqtt
+import messaging.rmq as rmq
+import messaging.edgware as edgware
+import vehicle.rover as rover
+import core.logger as log
+
+
+# Setup input arguments
+arg_parser = argparse.ArgumentParser(description='Usage options for edgware adaptor')
+arg_parser.add_argument('-c', '--configfile', help="Optional - configuration file path")
+arg_parser.add_argument('-l', '--logfile', help="Optional - Log file path")
+# Process input and generate dict
+args = vars(arg_parser.parse_args())
+
+
+# Validate input - Config file
+if args['configfile'] != None:
+    configfilepath = args['configfile']
+else:
+    configfilepath = 'config/edgware_adaptor.cfg'
+
+if not os.path.isfile(configfilepath): 
+   raise SystemExit("ERROR: File not found - " + str(configfilepath))
+
+# Get config
+try:
+    config = ConfigParser.ConfigParser()
+    config.read(configfilepath)
+except:
+    raise SystemExit("FATAL: Unknown error - " + str(sys.exc_info()[0]))
+
+# Validate input - Log file
+if args['logfile'] != None:
+    logfilepath = args['logfile']
+else:
+    logfilepath = config.get('logging', 'path')
+
+# Setup logging
+try:
+    logfile = log.CreateLogger(toconsole=False, tofile=True, filepath=logfilepath, level=config.get('logging', 'level'))
+    assert logfile, "Error: Failed to create log outputs"
+
+except:
+    raise SystemExit(" 1 FATAL: Unknown error - " + str(sys.exc_info()[0]))
+
+
+# Parse config data, convert to vars
+try:
+    # RabbitMQ connection details
+    RMQ_TOPIC = config.get('platform_broker', 'unit_id')
+
+    RMQ_HOST_CONTROL = config.get('platform_broker', 'control_server')
+    RMQ_PORT_CONTROL = int(config.get('platform_broker', 'control_port'))
+    RMQ_EXCHANGE_CONTROL = config.get('platform_broker', 'control_exchange')
+
+    RMQ_HOST_VEHICLE = config.get('platform_broker', 'vehicle_server')
+    RMQ_PORT_VEHICLE = int(config.get('platform_broker', 'vehicle_port'))
+    RMQ_EXCHANGE_VEHICLE = config.get('platform_broker', 'vehicle_exchange')
+
+    # Mosquitto connection details
+    MQTT_HOST = config.get('edgware_broker', 'server')
+    MQTT_PORT = int(config.get('edgware_broker', 'port'))
+    MQTT_TOPIC_IN = config.get('edgware_broker', 'input_topic')
+    MQTT_TOPIC_OUT = config.get('edgware_broker', 'output_topic')
+
+    # Edgware connection details
+    EDGWARE_NODE = config.get('edgware', 'node_id')
+
+except ConfigParser.NoSectionError as err:
+    raise SystemExit("Error: " + str(err))
+
+except ConfigParser.NoOptionError as err:
+    raise SystemExit("Error: " + str(err))
+
+except:
+    raise SystemExit("FATAL: Unknown error - " + str(sys.exc_info()[0]))
+
+# Global vars
+VEHICLE_DATA = rover.piRoverVehicle()
+CONTROL_DATA = rover.piRoverControls()
+
+
+def writeMQTTOutput(client, topic, data):
+    result = client.publish(topic=topic, payload=data)
+    logfile.debug("Writing data to MQTT: " + str(data))
+    assert result, "Error publishing MQTT message to " + str(topic)
+    return(result)
+
+def writeRMQOutput(client, topic, data):
+    result = client.publish(topic, data)
+    logfile.debug("Writing data to RMQ: " + str(data))
+    assert result, "Error publishing RMQ message to " + str(topic)
+    return(result)
+
+def processMQTTInput(data):
+# Responds to main thread with a tuple for transmission to queues - (for MQTT, for RMQ)
+    json_data = json.loads(data)
+    logfile.debug("Receieved data from MQTT: " + str(data))
+
+    print json_data
+
+    # Handle 'Request' messages
+    def request(json_data):
+
+        # Service types
+        def getEnvironmentData(msg):
+            if msg == "getTemperature":
+                return(VEHICLE_DATA.environmentTemperature, None)
+            elif msg == "getPressure":
+                return(VEHICLE_DATA.environmentPressure, None)
+            elif msg == "getHumidity":
+                return(VEHICLE_DATA.environmentHumidity, None)
+            else:
+                return("unknown request", None)
+
+        def getGPSData(msg):
+            if msg == "getPosition":
+                return((VEHICLE_DATA.gpsLatitude, VEHICLE_DATA.gpsLongitude), None)
+            elif msg == "getSpeed":
+                return(VEHICLE_DATA.gpsSpeed, None)
+            elif msg == "getAltitude":
+                return(VEHICLE_DATA.gpsAltitude, None)
+            else:
+                return("unknown request", None)
+
+        def getAccelerometerData(msg):
+            if msg == "getAttitude":
+                return((VEHICLE_DATA.accelLR, VEHICLE_DATA.accelFR), None)
+            else:
+                return("unknown request", None)
+
+        def getVehicleStatusData(msg):
+            if msg == "getBatteryStatus":
+                return((VEHICLE_DATA.vehicleBatteryA, VEHICLE_DATA.vehicleBatteryB), None)
+            elif msg == "getWifiStatus":
+                return(VEHICLE_DATA.vehicleWifi, None)
+            else:
+                return("unknown request", None)
+
+        def queryVehicleControlData(msg):
+            # GET Data
+            if msg == "getDriveStatus":
+                return((CONTROL_DATA.throttlePosition, CONTROL_DATA.brakeState), None)
+            elif msg == "getDirectionPosition":
+                return(CONTROL_DATA.directionPosition, None)
+            elif msg == "getVehicleLightState":
+                return(CONTROL_DATA.vehicleLightState, None)
+            elif ":" not in msg:
+                return("unknown request", None)
+
+            # SET Data
+            action = str(msg.split(":")[:1][0])
+            value = msg.split(":")[1:]
+            if action == "setVehicleStop":
+                if value == True:
+                    ###### GO DO SOMETHING
+                    return("OK", None)
+                else:
+                    return("value out of range", None)
+
+            elif action == "setVehicleLightState":
+                if value == True:
+                    ##### Do something
+                    return("OK", None)
+                elif value == False:
+                    ##### Do something
+                    return("OK", None)
+                else:
+                    return("value out of range", None)
+            else:
+                return("unknown query", None)
+            
+
+        def queryCameraControlData(msg):
+            # GET Data
+            if msg == "getPosition":
+                return((CONTROL_DATA.cameraPanPosition, CONTROL_DATA.cameraTiltPosition), None)
+            elif msg == "getCameraLightState":
+                return(CONTROL_DATA.cameraLightState, None)
+            elif msg == "getStill":
+                rmq_response = {"camera": {"takestill": {"correl": json_data['correl'], "solicit-response": json_data['solicit-response'], "request-response": json_data['request-response']}}} 
+                return(None, rmq_response)
+            elif ":" not in msg:
+                return("unknown request", None)
+ 
+            # SET Data
+            action = str(msg.split(":")[:1][0])
+            value = msg.split(":")[1:]
+            if action == "setPosition":
+                # Position expects a tuple - (pan,tilt)
+                if len(value[0][1:-1].split(",")) == 2:
+                    pan, tilt = value[0][1:-1].split(",")
+                    rmq_response = {"camera": {"pan": int(pan), "tilt":int(tilt)}} 
+                    return("OK", rmq_response)
+                else:
+                    return("value out of range", None)
+            else:
+                return("unknown query", None)
+
+
+        type_handlers = {'environment-sensor': getEnvironmentData,
+                         'gps': getGPSData,
+                         'accelerometer': getAccelerometerData,
+                         'vehicle-status': getVehicleStatusData,
+                         'vehicle-control': queryVehicleControlData,
+                         'camera-control': queryCameraControlData}
+
+        # Extract request data
+        op = json_data['op']
+        msg = json_data['msg']
+        solicit_response = json_data['solicit-response']
+        correl = json_data['correl']
+        encoding = json_data['encoding']
+
+        # Extract 'my' service id
+        for responder in json_data['request-response']:
+            if RMQ_TOPIC in responder: 
+                request_response = responder
+            else:
+                # Message not for me
+                return(None, None)
+
+        # Seperate service type from platform/system path and call function
+        service = request_response.split("/")[2]
+        if service in type_handlers:
+            mqtt_response, rmq_response = type_handlers[service](msg)
+
+        else:
+            mqtt_response = "unknown service"
+            rmq_response = None
+
+        # If MQTT data present - form valid response
+        if mqtt_response != None:
+            # Generate response
+            json_response = {}
+            json_response['op'] = "response"
+            json_response['solicit-response'] = solicit_response
+            json_response['msg'] = mqtt_response
+            json_response['request-response'] = request_response
+            json_response['correl'] = correl
+
+            # Return MQTT amd RMQ responses
+            return(json_response, rmq_response)
+
+        else:
+            return(mqtt_response, rmq_response)
+
+ 
+   # Handle 'Notification' messages (unused)
+    def notification(json_data):
+        return(None, None)
+
+
+    input_handlers = {'request' : request,
+                      'notification' : notification}
+
+    # Select handler function based on 'op' (operation) value, return tuple
+    if "op" in json_data: 
+        if json_data['op'] in input_handlers: return(input_handlers[str(json_data['op'])](json_data))
+        
+
+    # Do nothing with invalid messages
+    return(None, None)
+
+
+def processRMQInput(data):
+# Populate global var from RMQ JSON messages - return tuple of messages (for MQTT, for RMQ)
+    logfile.debug("Received data from RMQ: " + str(data))
+    try:
+        json_data = json.loads(data)
+
+        # NON RETURNING (ingest only)
+        if 'camera' in json_data:
+            if 'tilt' in json_data['camera']: CONTROL_DATA.cameraTiltPosition = json_data['camera']['tilt']
+            if 'pan' in json_data['camera']: CONTROL_DATA.cameraPanPosition = json_data['camera']['pan']
+            if 'light' in json_data['camera']: CONTROL_DATA.cameraLightState = json_data['camera']['light']
+
+        if 'vehicle' in json_data:
+            if 'throttle' in json_data['vehicle']: CONTROL_DATA.throttlePosition = json_data['vehicle']['throttle']
+            if 'direction' in json_data['vehicle']: CONTROL_DATA.directionPosition = json_data['vehicle']['direction']
+            if 'brake' in json_data['vehicle']: CONTROL_DATA.brakeState = json_data['vehicle']['brake']
+            if 'light' in json_data['vehicle']: CONTROL_DATA.vehicleLightState = json_data['vehicle']['light']
+            if 'wifi' in json_data['vehicle']: VEHICLE_DATA.vehicleWifi = json_data['vehicle']['wifi']
+            if 'batteryA' in json_data['vehicle']: VEHICLE_DATA.vehicleBatteryA = json_data['vehicle']['batteryA']
+            if 'batteryB' in json_data['vehicle']: VEHICLE_DATA.vehicleBatteryB = json_data['vehicle']['batteryB']
+
+        if 'environment' in json_data:
+            if 'temperature' in json_data['environment']: VEHICLE_DATA.environmentTemperature = json_data['environment']['temperature']
+            if 'humidity' in json_data['environment']: VEHICLE_DATA.environmentHumidity = json_data['environment']['humidity']
+            if 'pressure' in json_data['environment']: VEHICLE_DATA.environmentPressure = json_data['environment']['pressure']
+
+        if 'GPS' in json_data:
+            if 'latitude' in json_data['GPS']: VEHICLE_DATA.gpsLatitude = json_data['GPS']['latitude']
+            if 'longitude' in json_data['GPS']: VEHICLE_DATA.gpsLongitude = json_data['GPS']['longitude']
+            if 'speed' in json_data['GPS']: VEHICLE_DATA.gpsSpeed = json_data['GPS']['speed']
+            if 'altitude' in json_data['GPS']: VEHICLE_DATA.gpsAltitude = json_data['GPS']['altitude']
+
+        if 'accelerometer' in json_data:
+            if 'x' in json_data['accelerometer']: VEHICLE_DATA.accelLR = json_data['accelerometer']['x']
+            if 'y' in json_data['accelerometer']: VEHICLE_DATA.accelRF = json_data['accelerometer']['y']
+
+        # RETURNING (bi-directional)
+        if 'camera' in json_data:
+            if 'still' in json_data['camera']: return(_processCameraStill(json_data['camera']['still']), None)
+
+        return(None, None)
+
+    except:
+        assert False, "Error: Failed processing RMQ control data"
+
+
+def _processCameraStill(msg):
+    for responder in msg['request-response']:
+        if RMQ_TOPIC in responder:
+            request_response = responder
+
+    mqtt_response = {'op':'response',
+                     'correl': msg['correl'],
+                     'msg': msg['msg'],
+                     'request-response': request_response,
+                     'solicit-response': msg['solicit-response']}    
+
+    return(mqtt_response)
+
+
+
+
+def registerEdgwareTypes(mqtt_client):
+    # Services
+    services = {}
+    services['environment-sensor'] = {"type":"environment-sensor",
+                                      "mode":"request-response"}
+
+    services['gps'] = {"type":"gps",
+                       "mode":"request-response"}
+
+    services['accelerometer'] = {"type":"accelerometer",
+                                 "mode":"request-response"}
+
+    services['vehicle-status'] = {"type":"vehicle-status",
+                                 "mode":"request-response"}
+
+    services['vehicle-control'] = {"type":"vehicle-control",
+                                   "mode":"request-response"}
+
+    services['camera-control'] = {"type":"camera-control",
+                                   "mode":"request-response"}
+
+    # Systems (collections of services)
+    systems = {}
+    systems['vehicle'] = {"type":"vehicle",
+                          "services":[{"type":services['environment-sensor']['type']},
+                                      {"type":services['accelerometer']['type']},
+                                      {"type":services['vehicle-status']['type']},
+                                      {"type":services['gps']['type']}]}
+
+    systems['control'] = {"type":"control",
+                          "services":[{"type":services['vehicle-control']['type']},
+                                      {"type":services['camera-control']['type']}]}
+
+    # Platforms (collections of systems)
+    platforms = {}
+    platforms['simulation-platform'] = {"type":"simulation-platform"}
+
+    # Loop through dictionaries and populate Edgware
+    try:
+        i = 100
+        for service in services:
+            i += 1
+            service_type = edgware.serviceType()
+            service_type.type = services[service]['type']
+            service_type.mode = services[service]['mode']
+            service_type.correl = i
+            
+            message =  json.dumps(service_type.generateJSON())
+            assert message, "Error generating JSON for service type " + str(services[service]['type'])
+            logfile.debug("Registering Edgware service type: " + str(services[service]['type']))
+            writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, message)
+    
+        i = 1000
+        for system in systems:
+            i += 1
+            system_type = edgware.systemType()
+            system_type.type = systems[system]['type']
+            system_type.services = systems[system]['services']
+            system_type.correl = i
+
+            message =  json.dumps(system_type.generateJSON())
+            assert message, "Error generating JSON for system type " + str(systems[system]['type'])
+            logfile.debug("Registering Edgware service type: " + str(systems[system]['type']))
+            writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, message)
+   
+        i = 2000
+        for platform in platforms:
+            i += 1
+            platform_type = edgware.platformType()
+            platform_type.type = platforms[platform]['type']
+            platform_type.correl = i
+
+            message =  json.dumps(platform_type.generateJSON())
+            assert message, "Error generating JSON for platform type " + str(platforms[platform]['type'])
+            logfile.debug("Registering Edgware service type: " + str(platforms[platform]['type']))
+            writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, message)
+
+        return(True)
+
+    except:
+        logfile.error("Error: Unknown error caught when registering Edware types")
+        return(False)
+
+
+def main():
+    #### SETUP MQTT CONNECTION
+    mqtt_reader_pconn, mqtt_reader_cconn = multiprocessing.Pipe()
+    mqtt_client = mqtt.mqttClient(host=MQTT_HOST, port=MQTT_PORT, pipe=mqtt_reader_cconn, client_id=("adp" + str(RMQ_TOPIC)), log=logfile)
+
+    if mqtt_client.connected != True:
+        raise SystemExit("FATAL: Failed to connect to MQTT broker")
+
+    logfile.info("Connected to MQTT server")
+
+    mqtt_client.subscribe(topic=MQTT_TOPIC_OUT)
+    logfile.info("Subscribed to MQTT topic " + MQTT_TOPIC_OUT)
+
+    mqtt_client.set_will(MQTT_TOPIC_IN)
+    mqtt_client.client.loop_start()       
+
+    #### SETUP RABBITMQ CONNECTIONS
+    ## Control
+    # Reader
+    rmq_control_pconn, rmq_control_cconn = multiprocessing.Pipe()
+    rmq_control_reader = rmq.rmqClientReader(host=RMQ_HOST_CONTROL, port=RMQ_PORT_CONTROL, log=logfile)
+
+    if rmq_control_reader.connected == False:
+        raise SystemExit("FATAL: Failed to connect to RQM broker")
+    logfile.info("Connected to RMQ server - control")
+
+    rmq_control_reader.subscribe(RMQ_EXCHANGE_CONTROL, RMQ_TOPIC)
+    logfile.info("Subscribed to RMQ control topic " + RMQ_TOPIC)
+
+    rmq_control_thread = multiprocessing.Process(target=rmq_control_reader.run, args=(rmq_control_cconn,))
+    rmq_control_thread.daemon = True
+    rmq_control_thread.start()
+
+    # Writer
+    result = rmq_client_control_writer = rmq.rmqClientWriter(host=RMQ_HOST_CONTROL, port=RMQ_PORT_CONTROL, log=logfile)
+    assert result, "Error connecting to RMQ broker for writing"
+    result = rmq_client_control_writer.declareExchange(RMQ_EXCHANGE_CONTROL)
+    assert result, "Error declaring RMQ exchange"
+
+    ## Vehicle
+    # Reader
+    rmq_vehicle_pconn, rmq_vehicle_cconn = multiprocessing.Pipe()
+    rmq_vehicle_reader = rmq.rmqClientReader(host=RMQ_HOST_VEHICLE, port=RMQ_PORT_VEHICLE)
+
+    if rmq_vehicle_reader.connected == False:
+        raise SystemExit("FATAL: Failed to connect to RQM broker")
+    logfile.info("Connected to RMQ server - vehicle")
+ 
+    rmq_vehicle_reader.subscribe(RMQ_EXCHANGE_VEHICLE, RMQ_TOPIC)
+    logfile.info("Subscribed to RMQ vehicle topic " + RMQ_TOPIC)
+
+    rmq_vehicle_thread = multiprocessing.Process(target=rmq_vehicle_reader.run, args=(rmq_vehicle_cconn,))
+    rmq_vehicle_thread.daemon = True
+    rmq_vehicle_thread.start()
+
+
+    #### CONFIGURE EDGWARE
+    # Register edgware types
+    result = registerEdgwareTypes(mqtt_client)
+    assert result, "Error registering Edgware component types"
+
+    ## Define elements
+    # Platforms
+    platform = edgware.platform()
+    platform.type = "simulation-platform"
+    platform.id = RMQ_TOPIC
+    platform.correl = 10001
+    logfile.info("Edgware - Regsitering platform " + str(platform.id))
+    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(platform.generateJSON()))
+
+    # Systems (+ activate)
+    system = edgware.system()
+    system.type = "vehicle"
+    system.id = platform.id + "/vehicle"
+    system.correl = 20001
+    activate_system = json.dumps({"op":"state:system", "id": system.id, "state":"running", "correl":20002})
+    logfile.info("Edgware - Regsitering system " + str(system.id))
+    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(system.generateJSON()))
+    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, activate_system)
+
+    system = edgware.system()
+    system.type = "control"
+    system.id = platform.id + "/control"
+    system.correl = 30001
+    activate_system = json.dumps({"op":"state:system", "id": system.id, "state":"running", "correl":30002})
+    logfile.info("Edgware - Regsitering system " + str(system.id))
+    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(system.generateJSON()))
+    writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, activate_system)
+
+    time.sleep(2)
+
+    # Forever loop
+    location_counter = 0
+    while 1:
+
+        # Populate platform location fields if present
+        if location_counter == 15:    
+            location_counter = 0
+            if VEHICLE_DATA.gpsLatitude != None and VEHICLE_DATA.gpsLongitude != None: 
+                platform.loc['lat'] = VEHICLE_DATA.gpsLatitude
+                platform.loc['long'] = VEHICLE_DATA.gpsLongitude
+  
+                if VEHICLE_DATA.gpsAltitude != None:
+                    platform.loc['alt'] = VEHICLE_DATA.gpsAltitude
+                else:
+                    platform.loc['alt'] = 0
+
+                # Update platform
+                logfile.debug("Updating platform position")
+                writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(platform.generateJSON()))
+
+
+        # If MQTT pipe has content
+        if mqtt_reader_pconn.poll() == True: 
+            logfile.debug("Recieved data from MQTT")
+            mqtt_response, rmq_response = processMQTTInput(mqtt_reader_pconn.recv())
+            if rmq_response != None: writeRMQOutput(rmq_client_control_writer, RMQ_TOPIC, json.dumps(rmq_response))
+            if mqtt_response != None: writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(mqtt_response))
+ 
+        # If RMQ pipes have content
+        if rmq_control_pconn.poll() == True: 
+            logfile.debug("Recieved data from RMQ - control")
+            mqtt_response, rmq_response = processRMQInput(rmq_control_pconn.recv())
+            if rmq_response != None: writeRMQOutput(rmq_client_control_writer, RMQ_TOPIC, json.dumps(rmq_response))
+            if mqtt_response != None: writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(mqtt_response))
+            
+
+        if rmq_vehicle_pconn.poll() == True: 
+            logfile.debug("Recieved data from RMQ - vehicle")
+            mqtt_response, rmq_response = processRMQInput(rmq_vehicle_pconn.recv())
+            if rmq_response != None: writeRMQOutput(rmq_client_control_writer, RMQ_TOPIC, json.dumps(rmq_response))
+            if mqtt_response != None: writeMQTTOutput(mqtt_client, MQTT_TOPIC_IN, json.dumps(mqtt_response))
+
+
+        location_counter += 1
+        time.sleep(.2)
+
+    # Clean-up
+    mqtt_client.client.loop_stop()
+    rmq_control_thread.join()
+
+
+
+if __name__ == '__main__':
+    try: 
+        main()
+    except (KeyboardInterrupt, SystemExit) as err:
+        logfile.info("User action - Exiting")
+        print str(err) + " -- Exiting..."
+
+    except AssertionError as err:
+        print str(err)
+
+    except:
+        print "Error: unknown error - " + str(sys.exc_info()[0])
+

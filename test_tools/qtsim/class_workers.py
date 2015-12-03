@@ -32,8 +32,8 @@ class MQReader(QtCore.QThread):
             self.channel.queue_bind(exchange=CONTROL_EXCHANGE, 
                                     queue=self.queue_name, 
                                     routing_key=VEHICLE_ID)
-            self.channel.basic_consume(self._poll_queue, q
-                                       ueue=self.queue_name, 
+            self.channel.basic_consume(self._poll_queue, 
+                                       queue=self.queue_name, 
                                        no_ack=True)
 
         except:
