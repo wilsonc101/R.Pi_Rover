@@ -1,0 +1,2151 @@
+************* Module class_servo
+mqvehicle/class_servo.py:1:Missing module docstring
+mqvehicle/class_servo.py:9:Invalid attribute name "RealMax"
+mqvehicle/class_servo.py:10:Invalid attribute name "RealNeutral"
+mqvehicle/class_servo.py:11:Invalid attribute name "Name"
+mqvehicle/class_servo.py:7:Invalid attribute name "Channel"
+mqvehicle/class_servo.py:8:Invalid attribute name "RealMin"
+mqvehicle/class_servo.py:5:Missing class docstring
+mqvehicle/class_servo.py:5:Old-style class defined.
+mqvehicle/class_servo.py:6:Redefining built-in 'min'
+mqvehicle/class_servo.py:6:Redefining built-in 'max'
+mqvehicle/class_servo.py:6:Too many arguments (6/5)
+mqvehicle/class_servo.py:13:Invalid method name "Translate"
+mqvehicle/class_servo.py:13:Missing method docstring
+mqvehicle/class_servo.py:5:Too few public methods (1/2)
+************* Module class_mq
+mqvehicle/class_mq.py:10:Trailing whitespace
+mqvehicle/class_mq.py:10:Line too long (96/80)
+mqvehicle/class_mq.py:11:Trailing whitespace
+mqvehicle/class_mq.py:11:Line too long (96/80)
+mqvehicle/class_mq.py:12:Line too long (104/80)
+mqvehicle/class_mq.py:13:Line too long (95/80)
+mqvehicle/class_mq.py:19:Trailing whitespace
+mqvehicle/class_mq.py:20:Line too long (82/80)
+mqvehicle/class_mq.py:21:Line too long (92/80)
+mqvehicle/class_mq.py:23:Trailing whitespace
+mqvehicle/class_mq.py:27:Trailing whitespace
+mqvehicle/class_mq.py:36:Line too long (93/80)
+mqvehicle/class_mq.py:38:Line too long (90/80)
+mqvehicle/class_mq.py:48:Line too long (126/80)
+mqvehicle/class_mq.py:52:Trailing whitespace
+mqvehicle/class_mq.py:56:Trailing whitespace
+mqvehicle/class_mq.py:58:Trailing whitespace
+mqvehicle/class_mq.py:65:Line too long (98/80)
+mqvehicle/class_mq.py:70:Line too long (94/80)
+mqvehicle/class_mq.py:72:Line too long (82/80)
+mqvehicle/class_mq.py:1:Missing module docstring
+mqvehicle/class_mq.py:5:Invalid class name "mqReader"
+mqvehicle/class_mq.py:5:Missing class docstring
+mqvehicle/class_mq.py:5:Old-style class defined.
+mqvehicle/class_mq.py:6:Too many arguments (6/5)
+mqvehicle/class_mq.py:26:No exception type(s) specified
+mqvehicle/class_mq.py:31:Missing method docstring
+mqvehicle/class_mq.py:34:No exception type(s) specified
+mqvehicle/class_mq.py:5:Too few public methods (1/2)
+mqvehicle/class_mq.py:41:Invalid class name "mqWriter"
+mqvehicle/class_mq.py:41:Missing class docstring
+mqvehicle/class_mq.py:41:Old-style class defined.
+mqvehicle/class_mq.py:55:No exception type(s) specified
+mqvehicle/class_mq.py:62:Missing method docstring
+mqvehicle/class_mq.py:68:No exception type(s) specified
+mqvehicle/class_mq.py:66:More than one statement on a single line
+mqvehicle/class_mq.py:41:Too few public methods (1/2)
+************* Module Adafruit_I2C
+mqvehicle/Adafruit_I2C.py:12:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_I2C.py:13:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_I2C.py:14:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:15:Line too long (94/80)
+mqvehicle/Adafruit_I2C.py:16:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:17:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:18:Bad indentation. Found 8 spaces, expected 16
+mqvehicle/Adafruit_I2C.py:20:Line too long (81/80)
+mqvehicle/Adafruit_I2C.py:21:Bad indentation. Found 10 spaces, expected 20
+mqvehicle/Adafruit_I2C.py:22:Bad indentation. Found 10 spaces, expected 20
+mqvehicle/Adafruit_I2C.py:24:Bad indentation. Found 12 spaces, expected 24
+mqvehicle/Adafruit_I2C.py:25:Bad indentation. Found 10 spaces, expected 20
+mqvehicle/Adafruit_I2C.py:27:Bad indentation. Found 12 spaces, expected 24
+mqvehicle/Adafruit_I2C.py:28:Line too long (90/80)
+mqvehicle/Adafruit_I2C.py:29:Bad indentation. Found 8 spaces, expected 16
+mqvehicle/Adafruit_I2C.py:30:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:31:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:33:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_I2C.py:34:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_I2C.py:36:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:38:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_I2C.py:39:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:44:Line too long (87/80)
+mqvehicle/Adafruit_I2C.py:44:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:45:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:47:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_I2C.py:48:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:50:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:50:Exactly one space required after comma
+    byteCount = len(hex(data)[2:].replace('L','')[::2])
+                                             ^
+mqvehicle/Adafruit_I2C.py:51:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:51:Exactly one space required before assignment
+    val       = 0
+              ^
+mqvehicle/Adafruit_I2C.py:52:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:53:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:53:Exactly one space required before assignment
+      val    = (val << 8) | (data & 0xff)
+             ^
+mqvehicle/Adafruit_I2C.py:54:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:55:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:57:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_I2C.py:58:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:59:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:61:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_I2C.py:62:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:63:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:64:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:65:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:66:Bad indentation. Found 8 spaces, expected 16
+mqvehicle/Adafruit_I2C.py:67:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:68:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:70:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_I2C.py:71:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:72:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:73:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:74:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:75:Bad indentation. Found 8 spaces, expected 16
+mqvehicle/Adafruit_I2C.py:77:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:78:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:80:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_I2C.py:81:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:82:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:83:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:84:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:85:Bad indentation. Found 8 spaces, expected 16
+mqvehicle/Adafruit_I2C.py:86:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:87:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:89:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_I2C.py:90:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:91:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:92:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:93:Bad indentation. Found 8 spaces, expected 16
+mqvehicle/Adafruit_I2C.py:94:Bad indentation. Found 8 spaces, expected 16
+mqvehicle/Adafruit_I2C.py:95:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:96:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:97:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:99:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_I2C.py:100:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:101:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:102:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:103:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:104:Bad indentation. Found 8 spaces, expected 16
+mqvehicle/Adafruit_I2C.py:106:Bad indentation. Found 8 spaces, expected 16
+mqvehicle/Adafruit_I2C.py:107:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:108:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:109:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:111:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_I2C.py:112:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:113:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:114:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:115:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:116:Bad indentation. Found 8 spaces, expected 16
+mqvehicle/Adafruit_I2C.py:118:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:119:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:120:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:122:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_I2C.py:123:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:124:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:125:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:126:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:127:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:128:Bad indentation. Found 8 spaces, expected 16
+mqvehicle/Adafruit_I2C.py:130:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:131:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:132:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:134:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_I2C.py:135:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:136:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:137:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:137:Exactly one space required after comma
+      result = self.bus.read_word_data(self.address,reg)
+                                                   ^
+mqvehicle/Adafruit_I2C.py:138:Trailing whitespace
+mqvehicle/Adafruit_I2C.py:140:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:141:Bad indentation. Found 8 spaces, expected 16
+mqvehicle/Adafruit_I2C.py:142:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:142:Unnecessary parens after 'if' keyword
+mqvehicle/Adafruit_I2C.py:143:Bad indentation. Found 8 spaces, expected 16
+mqvehicle/Adafruit_I2C.py:143:Line too long (105/80)
+mqvehicle/Adafruit_I2C.py:144:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:145:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:146:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:148:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_I2C.py:149:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:150:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:151:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:151:Exactly one space required after comma
+      result = self.readU16(reg,little_endian)
+                               ^
+mqvehicle/Adafruit_I2C.py:152:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:153:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:154:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:155:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_I2C.py:158:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_I2C.py:159:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:160:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:161:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_I2C.py:162:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_I2C.py:21:Anomalous backslash in string: '\s'. String constant might be missing an r prefix.
+mqvehicle/Adafruit_I2C.py:21:Anomalous backslash in string: '\s'. String constant might be missing an r prefix.
+mqvehicle/Adafruit_I2C.py:21:Anomalous backslash in string: '\w'. String constant might be missing an r prefix.
+mqvehicle/Adafruit_I2C.py:1:Invalid module name "Adafruit_I2C"
+mqvehicle/Adafruit_I2C.py:1:Missing module docstring
+mqvehicle/Adafruit_I2C.py:4:Unable to import 'smbus'
+mqvehicle/Adafruit_I2C.py:10:Invalid class name "Adafruit_I2C"
+mqvehicle/Adafruit_I2C.py:10:Missing class docstring
+mqvehicle/Adafruit_I2C.py:13:Invalid method name "getPiRevision"
+mqvehicle/Adafruit_I2C.py:30:No exception type(s) specified
+mqvehicle/Adafruit_I2C.py:34:Invalid method name "getPiI2CBusNumber"
+mqvehicle/Adafruit_I2C.py:34:Missing method docstring
+mqvehicle/Adafruit_I2C.py:47:Invalid method name "reverseByteOrder"
+mqvehicle/Adafruit_I2C.py:50:Invalid variable name "byteCount"
+mqvehicle/Adafruit_I2C.py:52:Unused variable 'i'
+mqvehicle/Adafruit_I2C.py:47:Method could be a function
+mqvehicle/Adafruit_I2C.py:57:Invalid method name "errMsg"
+mqvehicle/Adafruit_I2C.py:57:Missing method docstring
+mqvehicle/Adafruit_I2C.py:67:Unused variable 'err'
+mqvehicle/Adafruit_I2C.py:77:Unused variable 'err'
+mqvehicle/Adafruit_I2C.py:80:Invalid method name "writeRaw8"
+mqvehicle/Adafruit_I2C.py:86:Unused variable 'err'
+mqvehicle/Adafruit_I2C.py:89:Redefining built-in 'list'
+mqvehicle/Adafruit_I2C.py:89:Invalid method name "writeList"
+mqvehicle/Adafruit_I2C.py:96:Unused variable 'err'
+mqvehicle/Adafruit_I2C.py:99:Invalid method name "readList"
+mqvehicle/Adafruit_I2C.py:108:Unused variable 'err'
+mqvehicle/Adafruit_I2C.py:111:Invalid method name "readU8"
+mqvehicle/Adafruit_I2C.py:119:Unused variable 'err'
+mqvehicle/Adafruit_I2C.py:122:Invalid method name "readS8"
+mqvehicle/Adafruit_I2C.py:126:More than one statement on a single line
+mqvehicle/Adafruit_I2C.py:131:Unused variable 'err'
+mqvehicle/Adafruit_I2C.py:134:Invalid method name "readU16"
+mqvehicle/Adafruit_I2C.py:145:Unused variable 'err'
+mqvehicle/Adafruit_I2C.py:148:Invalid method name "readS16"
+mqvehicle/Adafruit_I2C.py:152:More than one statement on a single line
+mqvehicle/Adafruit_I2C.py:154:Unused variable 'err'
+mqvehicle/Adafruit_I2C.py:161:No exception type(s) specified
+mqvehicle/Adafruit_I2C.py:159:Invalid constant name "bus"
+************* Module Adafruit_BMP085
+mqvehicle/Adafruit_BMP085.py:11:No space allowed before :
+class BMP085 :
+             ^
+mqvehicle/Adafruit_BMP085.py:12:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:15:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:15:Exactly one space required before assignment
+  __BMP085_ULTRALOWPOWER     = 0
+                             ^
+mqvehicle/Adafruit_BMP085.py:16:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:16:Exactly one space required before assignment
+  __BMP085_STANDARD          = 1
+                             ^
+mqvehicle/Adafruit_BMP085.py:17:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:17:Exactly one space required before assignment
+  __BMP085_HIGHRES           = 2
+                             ^
+mqvehicle/Adafruit_BMP085.py:18:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:18:Exactly one space required before assignment
+  __BMP085_ULTRAHIGHRES      = 3
+                             ^
+mqvehicle/Adafruit_BMP085.py:21:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:21:Exactly one space required before assignment
+  __BMP085_CAL_AC1           = 0xAA  # R   Calibration data (16 bits)
+                             ^
+mqvehicle/Adafruit_BMP085.py:22:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:22:Exactly one space required before assignment
+  __BMP085_CAL_AC2           = 0xAC  # R   Calibration data (16 bits)
+                             ^
+mqvehicle/Adafruit_BMP085.py:23:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:23:Exactly one space required before assignment
+  __BMP085_CAL_AC3           = 0xAE  # R   Calibration data (16 bits)
+                             ^
+mqvehicle/Adafruit_BMP085.py:24:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:24:Exactly one space required before assignment
+  __BMP085_CAL_AC4           = 0xB0  # R   Calibration data (16 bits)
+                             ^
+mqvehicle/Adafruit_BMP085.py:25:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:25:Exactly one space required before assignment
+  __BMP085_CAL_AC5           = 0xB2  # R   Calibration data (16 bits)
+                             ^
+mqvehicle/Adafruit_BMP085.py:26:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:26:Exactly one space required before assignment
+  __BMP085_CAL_AC6           = 0xB4  # R   Calibration data (16 bits)
+                             ^
+mqvehicle/Adafruit_BMP085.py:27:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:27:Exactly one space required before assignment
+  __BMP085_CAL_B1            = 0xB6  # R   Calibration data (16 bits)
+                             ^
+mqvehicle/Adafruit_BMP085.py:28:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:28:Exactly one space required before assignment
+  __BMP085_CAL_B2            = 0xB8  # R   Calibration data (16 bits)
+                             ^
+mqvehicle/Adafruit_BMP085.py:29:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:29:Exactly one space required before assignment
+  __BMP085_CAL_MB            = 0xBA  # R   Calibration data (16 bits)
+                             ^
+mqvehicle/Adafruit_BMP085.py:30:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:30:Exactly one space required before assignment
+  __BMP085_CAL_MC            = 0xBC  # R   Calibration data (16 bits)
+                             ^
+mqvehicle/Adafruit_BMP085.py:31:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:31:Exactly one space required before assignment
+  __BMP085_CAL_MD            = 0xBE  # R   Calibration data (16 bits)
+                             ^
+mqvehicle/Adafruit_BMP085.py:32:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:32:Exactly one space required before assignment
+  __BMP085_CONTROL           = 0xF4
+                             ^
+mqvehicle/Adafruit_BMP085.py:33:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:33:Exactly one space required before assignment
+  __BMP085_TEMPDATA          = 0xF6
+                             ^
+mqvehicle/Adafruit_BMP085.py:34:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:34:Exactly one space required before assignment
+  __BMP085_PRESSUREDATA      = 0xF6
+                             ^
+mqvehicle/Adafruit_BMP085.py:35:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:35:Exactly one space required before assignment
+  __BMP085_READTEMPCMD       = 0x2E
+                             ^
+mqvehicle/Adafruit_BMP085.py:36:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:36:Exactly one space required before assignment
+  __BMP085_READPRESSURECMD   = 0x34
+                             ^
+mqvehicle/Adafruit_BMP085.py:39:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:40:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:41:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:42:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:43:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:44:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:45:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:46:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:47:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:48:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:49:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:52:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:53:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:55:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:56:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:58:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:58:Unnecessary parens after 'if' keyword
+mqvehicle/Adafruit_BMP085.py:59:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:59:Unnecessary parens after 'if' keyword
+mqvehicle/Adafruit_BMP085.py:60:Bad indentation. Found 8 spaces, expected 16
+mqvehicle/Adafruit_BMP085.py:61:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:62:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:63:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:65:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:67:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:68:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:69:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:70:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:71:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:73:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:74:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:75:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:76:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:77:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:79:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:80:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:81:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:82:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:83:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:84:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:85:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:86:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:87:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:88:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:89:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:90:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:91:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:92:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:92:Unnecessary parens after 'if' keyword
+mqvehicle/Adafruit_BMP085.py:93:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:95:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:96:Bad indentation. Found 6 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:97:Bad indentation. Found 6 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:98:Bad indentation. Found 6 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:99:Bad indentation. Found 6 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:100:Bad indentation. Found 6 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:101:Bad indentation. Found 6 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:102:Bad indentation. Found 6 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:103:Bad indentation. Found 6 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:104:Bad indentation. Found 6 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:105:Bad indentation. Found 6 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:106:Bad indentation. Found 6 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:107:Bad indentation. Found 6 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:109:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:110:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:111:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:112:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:113:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:114:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:114:Unnecessary parens after 'if' keyword
+mqvehicle/Adafruit_BMP085.py:115:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:116:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:118:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:119:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:120:Line too long (92/80)
+mqvehicle/Adafruit_BMP085.py:120:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:121:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:121:Unnecessary parens after 'if' keyword
+mqvehicle/Adafruit_BMP085.py:122:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:123:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:123:Unnecessary parens after 'elif' keyword
+mqvehicle/Adafruit_BMP085.py:124:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:125:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:125:Unnecessary parens after 'elif' keyword
+mqvehicle/Adafruit_BMP085.py:126:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:127:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:128:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:129:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:130:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:131:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:132:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:133:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:133:Unnecessary parens after 'if' keyword
+mqvehicle/Adafruit_BMP085.py:134:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:135:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:137:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:138:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:139:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:140:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:141:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:142:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:143:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:146:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:147:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:148:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:149:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:150:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:151:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:151:Unnecessary parens after 'if' keyword
+mqvehicle/Adafruit_BMP085.py:152:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:153:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:155:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:156:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:157:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:158:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:159:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:160:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:161:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:162:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:163:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:164:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:165:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:166:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:167:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:169:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:170:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:174:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:176:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:176:Unnecessary parens after 'if' keyword
+mqvehicle/Adafruit_BMP085.py:177:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:178:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:179:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:180:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:181:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:181:Unnecessary semicolon
+mqvehicle/Adafruit_BMP085.py:182:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:183:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:184:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:185:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:186:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:187:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:188:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:189:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:190:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:191:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:191:Unnecessary parens after 'if' keyword
+mqvehicle/Adafruit_BMP085.py:192:Bad indentation. Found 8 spaces, expected 16
+mqvehicle/Adafruit_BMP085.py:195:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:196:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:197:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:198:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:198:Unnecessary parens after 'if' keyword
+mqvehicle/Adafruit_BMP085.py:199:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:200:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:201:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:202:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:205:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:206:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:207:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:208:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:209:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:210:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:210:Unnecessary parens after 'if' keyword
+mqvehicle/Adafruit_BMP085.py:211:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:212:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:213:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:214:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:215:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:217:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:218:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:219:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:220:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:221:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:222:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:222:Unnecessary parens after 'if' keyword
+mqvehicle/Adafruit_BMP085.py:223:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:224:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:225:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:226:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:227:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:229:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:229:Unnecessary parens after 'if' keyword
+mqvehicle/Adafruit_BMP085.py:230:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:231:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:232:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:234:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:234:Unnecessary parens after 'if' keyword
+mqvehicle/Adafruit_BMP085.py:235:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:236:Trailing whitespace
+mqvehicle/Adafruit_BMP085.py:237:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:238:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:239:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:240:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:240:Unnecessary parens after 'if' keyword
+mqvehicle/Adafruit_BMP085.py:241:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:242:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:243:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:245:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:246:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:246:Unnecessary parens after 'if' keyword
+mqvehicle/Adafruit_BMP085.py:247:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:249:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:251:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_BMP085.py:252:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:253:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:254:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:255:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:256:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:256:Unnecessary parens after 'if' keyword
+mqvehicle/Adafruit_BMP085.py:257:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_BMP085.py:258:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:260:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_BMP085.py:1:Invalid module name "Adafruit_BMP085"
+mqvehicle/Adafruit_BMP085.py:1:Missing module docstring
+mqvehicle/Adafruit_BMP085.py:81:Invalid attribute name "_cal_AC1"
+mqvehicle/Adafruit_BMP085.py:82:Invalid attribute name "_cal_AC2"
+mqvehicle/Adafruit_BMP085.py:83:Invalid attribute name "_cal_AC3"
+mqvehicle/Adafruit_BMP085.py:84:Invalid attribute name "_cal_AC4"
+mqvehicle/Adafruit_BMP085.py:85:Invalid attribute name "_cal_AC5"
+mqvehicle/Adafruit_BMP085.py:86:Invalid attribute name "_cal_AC6"
+mqvehicle/Adafruit_BMP085.py:88:Invalid attribute name "_cal_B2"
+mqvehicle/Adafruit_BMP085.py:91:Invalid attribute name "_cal_MD"
+mqvehicle/Adafruit_BMP085.py:87:Invalid attribute name "_cal_B1"
+mqvehicle/Adafruit_BMP085.py:89:Invalid attribute name "_cal_MB"
+mqvehicle/Adafruit_BMP085.py:90:Invalid attribute name "_cal_MC"
+mqvehicle/Adafruit_BMP085.py:11:Missing class docstring
+mqvehicle/Adafruit_BMP085.py:11:Too many instance attributes (15/7)
+mqvehicle/Adafruit_BMP085.py:11:Old-style class defined.
+mqvehicle/Adafruit_BMP085.py:67:Invalid method name "readS16"
+mqvehicle/Adafruit_BMP085.py:69:Invalid variable name "hi"
+mqvehicle/Adafruit_BMP085.py:70:Invalid variable name "lo"
+mqvehicle/Adafruit_BMP085.py:73:Invalid method name "readU16"
+mqvehicle/Adafruit_BMP085.py:75:Invalid variable name "hi"
+mqvehicle/Adafruit_BMP085.py:76:Invalid variable name "lo"
+mqvehicle/Adafruit_BMP085.py:79:Invalid method name "readCalibrationData"
+mqvehicle/Adafruit_BMP085.py:95:Invalid method name "showCalibrationData"
+mqvehicle/Adafruit_BMP085.py:109:Invalid method name "readRawTemp"
+mqvehicle/Adafruit_BMP085.py:118:Invalid method name "readRawPressure"
+mqvehicle/Adafruit_BMP085.py:137:Invalid method name "readTemperature"
+mqvehicle/Adafruit_BMP085.py:139:Invalid variable name "UT"
+mqvehicle/Adafruit_BMP085.py:140:Invalid variable name "X1"
+mqvehicle/Adafruit_BMP085.py:141:Invalid variable name "X2"
+mqvehicle/Adafruit_BMP085.py:142:Invalid variable name "B5"
+mqvehicle/Adafruit_BMP085.py:146:Invalid variable name "UT"
+mqvehicle/Adafruit_BMP085.py:147:Invalid variable name "X1"
+mqvehicle/Adafruit_BMP085.py:148:Invalid variable name "X2"
+mqvehicle/Adafruit_BMP085.py:149:Invalid variable name "B5"
+mqvehicle/Adafruit_BMP085.py:155:Invalid method name "readPressure"
+mqvehicle/Adafruit_BMP085.py:157:Invalid variable name "UT"
+mqvehicle/Adafruit_BMP085.py:158:Invalid variable name "UP"
+mqvehicle/Adafruit_BMP085.py:159:Invalid variable name "B3"
+mqvehicle/Adafruit_BMP085.py:160:Invalid variable name "B5"
+mqvehicle/Adafruit_BMP085.py:161:Invalid variable name "B6"
+mqvehicle/Adafruit_BMP085.py:162:Invalid variable name "X1"
+mqvehicle/Adafruit_BMP085.py:163:Invalid variable name "X2"
+mqvehicle/Adafruit_BMP085.py:164:Invalid variable name "X3"
+mqvehicle/Adafruit_BMP085.py:165:Invalid variable name "p"
+mqvehicle/Adafruit_BMP085.py:166:Invalid variable name "B4"
+mqvehicle/Adafruit_BMP085.py:167:Invalid variable name "B7"
+mqvehicle/Adafruit_BMP085.py:169:Invalid variable name "UT"
+mqvehicle/Adafruit_BMP085.py:170:Invalid variable name "UP"
+mqvehicle/Adafruit_BMP085.py:174:Invalid variable name "dsValues"
+mqvehicle/Adafruit_BMP085.py:177:Invalid variable name "UT"
+mqvehicle/Adafruit_BMP085.py:178:Invalid variable name "UP"
+mqvehicle/Adafruit_BMP085.py:195:Invalid variable name "X1"
+mqvehicle/Adafruit_BMP085.py:196:Invalid variable name "X2"
+mqvehicle/Adafruit_BMP085.py:197:Invalid variable name "B5"
+mqvehicle/Adafruit_BMP085.py:205:Invalid variable name "B6"
+mqvehicle/Adafruit_BMP085.py:206:Invalid variable name "X1"
+mqvehicle/Adafruit_BMP085.py:207:Invalid variable name "X2"
+mqvehicle/Adafruit_BMP085.py:208:Invalid variable name "X3"
+mqvehicle/Adafruit_BMP085.py:209:Invalid variable name "B3"
+mqvehicle/Adafruit_BMP085.py:217:Invalid variable name "X1"
+mqvehicle/Adafruit_BMP085.py:218:Invalid variable name "X2"
+mqvehicle/Adafruit_BMP085.py:219:Invalid variable name "X3"
+mqvehicle/Adafruit_BMP085.py:220:Invalid variable name "B4"
+mqvehicle/Adafruit_BMP085.py:221:Invalid variable name "B7"
+mqvehicle/Adafruit_BMP085.py:230:Invalid variable name "p"
+mqvehicle/Adafruit_BMP085.py:232:Invalid variable name "p"
+mqvehicle/Adafruit_BMP085.py:237:Invalid variable name "X1"
+mqvehicle/Adafruit_BMP085.py:238:Invalid variable name "X1"
+mqvehicle/Adafruit_BMP085.py:239:Invalid variable name "X2"
+mqvehicle/Adafruit_BMP085.py:245:Invalid variable name "p"
+mqvehicle/Adafruit_BMP085.py:155:Too many statements (78/50)
+mqvehicle/Adafruit_BMP085.py:251:Invalid method name "readAltitude"
+mqvehicle/Adafruit_BMP085.py:251:Invalid argument name "seaLevelPressure"
+mqvehicle/Adafruit_BMP085.py:260:Unreachable code
+************* Module class_camera
+mqvehicle/class_camera.py:52:Exactly one space required around assignment
+                    self.camera.vflip=True
+                                     ^
+mqvehicle/class_camera.py:53:Exactly one space required around assignment
+                    self.camera.hflip=True
+                                     ^
+mqvehicle/class_camera.py:56:Trailing whitespace
+mqvehicle/class_camera.py:61:Trailing whitespace
+mqvehicle/class_camera.py:63:Trailing whitespace
+mqvehicle/class_camera.py:71:Trailing whitespace
+mqvehicle/class_camera.py:1:Missing module docstring
+mqvehicle/class_camera.py:4:Unable to import 'picamera'
+mqvehicle/class_camera.py:7:Invalid class name "camera"
+mqvehicle/class_camera.py:7:Missing class docstring
+mqvehicle/class_camera.py:8:Too many arguments (7/5)
+mqvehicle/class_camera.py:27:No exception type(s) specified
+mqvehicle/class_camera.py:23:More than one statement on a single line
+mqvehicle/class_camera.py:69:No exception type(s) specified
+mqvehicle/class_camera.py:46:Attribute 'connection' defined outside __init__
+mqvehicle/class_camera.py:55:Attribute 'recording' defined outside __init__
+************* Module class_gps
+mqvehicle/class_gps.py:17:Trailing whitespace
+mqvehicle/class_gps.py:18:Trailing whitespace
+mqvehicle/class_gps.py:47:Trailing whitespace
+mqvehicle/class_gps.py:1:Missing module docstring
+mqvehicle/class_gps.py:4:Unable to import 'gps'
+mqvehicle/class_gps.py:7:Invalid class name "gpsPoller"
+mqvehicle/class_gps.py:7:Missing class docstring
+mqvehicle/class_gps.py:10:Undefined variable 'gps'
+mqvehicle/class_gps.py:10:Undefined variable 'WATCH_ENABLE'
+mqvehicle/class_gps.py:39:Invalid constant name "gpsp"
+************* Module func_sensors
+mqvehicle/func_sensors.py:1:Missing module docstring
+mqvehicle/func_sensors.py:3:Wildcard import subprocess
+mqvehicle/func_sensors.py:16:Invalid function name "getBatteryA"
+mqvehicle/func_sensors.py:16:Missing function docstring
+mqvehicle/func_sensors.py:19:Invalid function name "getBatteryB"
+mqvehicle/func_sensors.py:19:Missing function docstring
+mqvehicle/func_sensors.py:22:Invalid function name "getWifi"
+mqvehicle/func_sensors.py:22:Missing function docstring
+mqvehicle/func_sensors.py:30:No exception type(s) specified
+mqvehicle/func_sensors.py:35:Invalid function name "getEnvironment_temperature"
+mqvehicle/func_sensors.py:35:Missing function docstring
+mqvehicle/func_sensors.py:39:Invalid function name "getEnvironment_humidity"
+mqvehicle/func_sensors.py:39:Missing function docstring
+mqvehicle/func_sensors.py:42:Invalid function name "getEnvironment_pressure"
+mqvehicle/func_sensors.py:42:Missing function docstring
+mqvehicle/func_sensors.py:49:Invalid function name "getGPS_lat"
+mqvehicle/func_sensors.py:49:Missing function docstring
+mqvehicle/func_sensors.py:55:Invalid function name "getGPS_long"
+mqvehicle/func_sensors.py:55:Missing function docstring
+mqvehicle/func_sensors.py:61:Invalid function name "getGPS_speed"
+mqvehicle/func_sensors.py:61:Missing function docstring
+mqvehicle/func_sensors.py:67:Invalid function name "getGPS_altitude"
+mqvehicle/func_sensors.py:67:Missing function docstring
+mqvehicle/func_sensors.py:78:Redefining built-in 'ord'
+mqvehicle/func_sensors.py:75:Invalid function name "getMovement_Accelerometer"
+mqvehicle/func_sensors.py:75:Missing function docstring
+mqvehicle/func_sensors.py:76:Possible unbalanced tuple unpacking with sequence defined at line 94 of Adafruit_LSM303: left side has 2 label(s), right side has 1 value(s)
+mqvehicle/func_sensors.py:77:Unused variable 'acc_z'
+mqvehicle/func_sensors.py:78:Unused variable 'ord'
+mqvehicle/func_sensors.py:78:Unused variable 'mag_y'
+mqvehicle/func_sensors.py:78:Unused variable 'mag_x'
+mqvehicle/func_sensors.py:78:Unused variable 'mag_z'
+mqvehicle/func_sensors.py:83:Missing function docstring
+mqvehicle/func_sensors.py:3:Unused import STDOUT from wildcard import
+mqvehicle/func_sensors.py:3:Unused import check_call from wildcard import
+mqvehicle/func_sensors.py:3:Unused import CalledProcessError from wildcard import
+mqvehicle/func_sensors.py:3:Unused import check_output from wildcard import
+mqvehicle/func_sensors.py:3:Unused import call from wildcard import
+************* Module func_logging
+mqvehicle/func_logging.py:15:Bad indentation. Found 12 spaces, expected 8
+mqvehicle/func_logging.py:16:Bad indentation. Found 12 spaces, expected 8
+mqvehicle/func_logging.py:17:Bad indentation. Found 12 spaces, expected 8
+mqvehicle/func_logging.py:18:Bad indentation. Found 12 spaces, expected 8
+mqvehicle/func_logging.py:23:Bad indentation. Found 12 spaces, expected 8
+mqvehicle/func_logging.py:24:Bad indentation. Found 12 spaces, expected 8
+mqvehicle/func_logging.py:25:Bad indentation. Found 12 spaces, expected 8
+mqvehicle/func_logging.py:26:Bad indentation. Found 12 spaces, expected 8
+mqvehicle/func_logging.py:33:Bad indentation. Found 12 spaces, expected 8
+mqvehicle/func_logging.py:35:Bad indentation. Found 12 spaces, expected 8
+mqvehicle/func_logging.py:37:Bad indentation. Found 12 spaces, expected 8
+mqvehicle/func_logging.py:39:Bad indentation. Found 12 spaces, expected 8
+mqvehicle/func_logging.py:41:Bad indentation. Found 12 spaces, expected 8
+mqvehicle/func_logging.py:41:Final newline missing
+mqvehicle/func_logging.py:1:Missing module docstring
+mqvehicle/func_logging.py:7:Invalid function name "CreateLogger"
+mqvehicle/func_logging.py:7:Missing function docstring
+mqvehicle/func_logging.py:31:Invalid function name "SetLevel"
+mqvehicle/func_logging.py:31:Missing function docstring
+************* Module Adafruit_LSM303
+mqvehicle/Adafruit_LSM303.py:36:Exactly one space required before assignment
+    LSM303_ADDRESS_MAG   = (0x3C >> 1)  # 0011110x
+                         ^
+mqvehicle/Adafruit_LSM303.py:40:Exactly one space required before assignment
+    LSM303_REGISTER_ACCEL_OUT_X_L_A   = 0x28
+                                      ^
+mqvehicle/Adafruit_LSM303.py:41:Exactly one space required before assignment
+    LSM303_REGISTER_MAG_CRB_REG_M     = 0x01
+                                      ^
+mqvehicle/Adafruit_LSM303.py:42:Exactly one space required before assignment
+    LSM303_REGISTER_MAG_MR_REG_M      = 0x02
+                                      ^
+mqvehicle/Adafruit_LSM303.py:43:Exactly one space required before assignment
+    LSM303_REGISTER_MAG_OUT_X_H_M     = 0x03
+                                      ^
+mqvehicle/Adafruit_LSM303.py:60:Exactly one space required before assignment
+        self.mag   = Adafruit_I2C(self.LSM303_ADDRESS_MAG  , busnum, debug)
+                   ^
+mqvehicle/Adafruit_LSM303.py:60:No space allowed before comma
+        self.mag   = Adafruit_I2C(self.LSM303_ADDRESS_MAG  , busnum, debug)
+                                                           ^
+mqvehicle/Adafruit_LSM303.py:72:Trailing whitespace
+mqvehicle/Adafruit_LSM303.py:94:No space allowed after bracket
+        res = [( self.accel12(list, 0),
+               ^
+mqvehicle/Adafruit_LSM303.py:96:No space allowed before bracket
+                 self.accel12(list, 4) )]
+                                       ^
+mqvehicle/Adafruit_LSM303.py:103:No space allowed before bracket
+                    0.0 )) # ToDo: Calculate orientation
+                        ^
+mqvehicle/Adafruit_LSM303.py:109:No space allowed after bracket
+        self.mag.write8( LSM303_REGISTER_MAG_CRB_REG_M, gain)
+                       ^
+mqvehicle/Adafruit_LSM303.py:1:Invalid module name "Adafruit_LSM303"
+mqvehicle/Adafruit_LSM303.py:1:Missing module docstring
+mqvehicle/Adafruit_LSM303.py:32:Invalid class name "Adafruit_LSM303"
+mqvehicle/Adafruit_LSM303.py:32:Missing class docstring
+mqvehicle/Adafruit_LSM303.py:38:Invalid class attribute name "LSM303_REGISTER_ACCEL_CTRL_REG1_A"
+mqvehicle/Adafruit_LSM303.py:39:Invalid class attribute name "LSM303_REGISTER_ACCEL_CTRL_REG4_A"
+mqvehicle/Adafruit_LSM303.py:55:__init__ method from base class 'Adafruit_I2C' is not called
+mqvehicle/Adafruit_LSM303.py:78:Redefining built-in 'list'
+mqvehicle/Adafruit_LSM303.py:78:Missing method docstring
+mqvehicle/Adafruit_LSM303.py:79:Invalid variable name "n"
+mqvehicle/Adafruit_LSM303.py:80:More than one statement on a single line
+mqvehicle/Adafruit_LSM303.py:80:Invalid variable name "n"
+mqvehicle/Adafruit_LSM303.py:78:Method could be a function
+mqvehicle/Adafruit_LSM303.py:85:Redefining built-in 'list'
+mqvehicle/Adafruit_LSM303.py:85:Missing method docstring
+mqvehicle/Adafruit_LSM303.py:86:Invalid variable name "n"
+mqvehicle/Adafruit_LSM303.py:85:Method could be a function
+mqvehicle/Adafruit_LSM303.py:92:Redefining built-in 'list'
+mqvehicle/Adafruit_LSM303.py:90:Missing method docstring
+mqvehicle/Adafruit_LSM303.py:108:Invalid method name "setMagGain"
+mqvehicle/Adafruit_LSM303.py:108:Missing method docstring
+mqvehicle/Adafruit_LSM303.py:108:Method should have "self" as first argument
+mqvehicle/Adafruit_LSM303.py:109:Undefined variable 'self'
+mqvehicle/Adafruit_LSM303.py:109:Undefined variable 'LSM303_REGISTER_MAG_CRB_REG_M'
+mqvehicle/Adafruit_LSM303.py:117:Invalid constant name "lsm"
+************* Module Adafruit_PWM_Servo_Driver
+mqvehicle/Adafruit_PWM_Servo_Driver.py:12:No space allowed before :
+class PWM :
+          ^
+mqvehicle/Adafruit_PWM_Servo_Driver.py:13:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_PWM_Servo_Driver.py:16:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_PWM_Servo_Driver.py:16:Exactly one space required before assignment
+  __SUBADR1            = 0x02
+                       ^
+mqvehicle/Adafruit_PWM_Servo_Driver.py:17:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_PWM_Servo_Driver.py:17:Exactly one space required before assignment
+  __SUBADR2            = 0x03
+                       ^
+mqvehicle/Adafruit_PWM_Servo_Driver.py:18:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_PWM_Servo_Driver.py:18:Exactly one space required before assignment
+  __SUBADR3            = 0x04
+                       ^
+mqvehicle/Adafruit_PWM_Servo_Driver.py:19:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_PWM_Servo_Driver.py:19:Exactly one space required before assignment
+  __MODE1              = 0x00
+                       ^
+mqvehicle/Adafruit_PWM_Servo_Driver.py:20:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_PWM_Servo_Driver.py:20:Exactly one space required before assignment
+  __PRESCALE           = 0xFE
+                       ^
+mqvehicle/Adafruit_PWM_Servo_Driver.py:21:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_PWM_Servo_Driver.py:21:Exactly one space required before assignment
+  __LED0_ON_L          = 0x06
+                       ^
+mqvehicle/Adafruit_PWM_Servo_Driver.py:22:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_PWM_Servo_Driver.py:22:Exactly one space required before assignment
+  __LED0_ON_H          = 0x07
+                       ^
+mqvehicle/Adafruit_PWM_Servo_Driver.py:23:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_PWM_Servo_Driver.py:23:Exactly one space required before assignment
+  __LED0_OFF_L         = 0x08
+                       ^
+mqvehicle/Adafruit_PWM_Servo_Driver.py:24:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_PWM_Servo_Driver.py:24:Exactly one space required before assignment
+  __LED0_OFF_H         = 0x09
+                       ^
+mqvehicle/Adafruit_PWM_Servo_Driver.py:25:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_PWM_Servo_Driver.py:25:Exactly one space required before assignment
+  __ALLLED_ON_L        = 0xFA
+                       ^
+mqvehicle/Adafruit_PWM_Servo_Driver.py:26:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_PWM_Servo_Driver.py:26:Exactly one space required before assignment
+  __ALLLED_ON_H        = 0xFB
+                       ^
+mqvehicle/Adafruit_PWM_Servo_Driver.py:27:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_PWM_Servo_Driver.py:27:Exactly one space required before assignment
+  __ALLLED_OFF_L       = 0xFC
+                       ^
+mqvehicle/Adafruit_PWM_Servo_Driver.py:28:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_PWM_Servo_Driver.py:28:Exactly one space required before assignment
+  __ALLLED_OFF_H       = 0xFD
+                       ^
+mqvehicle/Adafruit_PWM_Servo_Driver.py:30:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_PWM_Servo_Driver.py:31:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:32:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:33:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:34:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:34:Unnecessary parens after 'if' keyword
+mqvehicle/Adafruit_PWM_Servo_Driver.py:35:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_PWM_Servo_Driver.py:36:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:38:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_PWM_Servo_Driver.py:39:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:40:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:41:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:42:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:43:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:44:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:44:Unnecessary parens after 'if' keyword
+mqvehicle/Adafruit_PWM_Servo_Driver.py:45:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_PWM_Servo_Driver.py:46:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_PWM_Servo_Driver.py:47:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:48:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:48:Unnecessary parens after 'if' keyword
+mqvehicle/Adafruit_PWM_Servo_Driver.py:49:Bad indentation. Found 6 spaces, expected 12
+mqvehicle/Adafruit_PWM_Servo_Driver.py:51:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:51:Unnecessary semicolon
+mqvehicle/Adafruit_PWM_Servo_Driver.py:52:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:53:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:54:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:55:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:56:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:57:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:59:Bad indentation. Found 2 spaces, expected 4
+mqvehicle/Adafruit_PWM_Servo_Driver.py:60:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:61:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:62:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:63:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:64:Bad indentation. Found 4 spaces, expected 8
+mqvehicle/Adafruit_PWM_Servo_Driver.py:1:Invalid module name "Adafruit_PWM_Servo_Driver"
+mqvehicle/Adafruit_PWM_Servo_Driver.py:1:Missing module docstring
+mqvehicle/Adafruit_PWM_Servo_Driver.py:12:Missing class docstring
+mqvehicle/Adafruit_PWM_Servo_Driver.py:12:Old-style class defined.
+mqvehicle/Adafruit_PWM_Servo_Driver.py:38:Invalid method name "setPWMFreq"
+mqvehicle/Adafruit_PWM_Servo_Driver.py:59:Invalid method name "setPWM"
+mqvehicle/Adafruit_PWM_Servo_Driver.py:59:Invalid argument name "on"
+************* Module class_workers
+test_tools/qtsim/class_workers.py:36:invalid syntax
+************* Module class_gui
+test_tools/qtsim/class_gui.py:221:Trailing whitespace
+test_tools/qtsim/class_gui.py:222:Trailing whitespace
+test_tools/qtsim/class_gui.py:224:Trailing whitespace
+test_tools/qtsim/class_gui.py:225:Trailing whitespace
+test_tools/qtsim/class_gui.py:226:Trailing whitespace
+test_tools/qtsim/class_gui.py:228:Trailing whitespace
+test_tools/qtsim/class_gui.py:229:Trailing whitespace
+test_tools/qtsim/class_gui.py:230:Trailing whitespace
+test_tools/qtsim/class_gui.py:232:Trailing whitespace
+test_tools/qtsim/class_gui.py:233:Trailing whitespace
+test_tools/qtsim/class_gui.py:234:Trailing whitespace
+test_tools/qtsim/class_gui.py:236:Trailing whitespace
+test_tools/qtsim/class_gui.py:237:Trailing whitespace
+test_tools/qtsim/class_gui.py:238:Trailing whitespace
+test_tools/qtsim/class_gui.py:240:Trailing whitespace
+test_tools/qtsim/class_gui.py:241:Trailing whitespace
+test_tools/qtsim/class_gui.py:242:Trailing whitespace
+test_tools/qtsim/class_gui.py:244:Trailing whitespace
+test_tools/qtsim/class_gui.py:245:Trailing whitespace
+test_tools/qtsim/class_gui.py:246:Trailing whitespace
+test_tools/qtsim/class_gui.py:248:Trailing whitespace
+test_tools/qtsim/class_gui.py:249:Trailing whitespace
+test_tools/qtsim/class_gui.py:250:Trailing whitespace
+test_tools/qtsim/class_gui.py:252:Trailing whitespace
+test_tools/qtsim/class_gui.py:253:Trailing whitespace
+test_tools/qtsim/class_gui.py:254:Trailing whitespace
+test_tools/qtsim/class_gui.py:256:Trailing whitespace
+test_tools/qtsim/class_gui.py:257:Trailing whitespace
+test_tools/qtsim/class_gui.py:258:Trailing whitespace
+test_tools/qtsim/class_gui.py:260:Trailing whitespace
+test_tools/qtsim/class_gui.py:280:Line too long (83/80)
+test_tools/qtsim/class_gui.py:281:Line too long (83/80)
+test_tools/qtsim/class_gui.py:293:Line too long (96/80)
+test_tools/qtsim/class_gui.py:1:Missing module docstring
+test_tools/qtsim/class_gui.py:13:Unable to import 'class_workers' (invalid syntax (<string>, line 36))
+test_tools/qtsim/class_gui.py:17:Invalid constant name "_fromUtf8"
+test_tools/qtsim/class_gui.py:19:Invalid function name "_fromUtf8"
+test_tools/qtsim/class_gui.py:19:Invalid argument name "s"
+test_tools/qtsim/class_gui.py:19:Missing function docstring
+test_tools/qtsim/class_gui.py:23:Invalid constant name "_encoding"
+test_tools/qtsim/class_gui.py:24:Missing function docstring
+test_tools/qtsim/class_gui.py:27:Missing function docstring
+test_tools/qtsim/class_gui.py:30:Invalid class name "Ui_MainWindow"
+test_tools/qtsim/class_gui.py:292:Invalid attribute name "MQReadThread"
+test_tools/qtsim/class_gui.py:30:Missing class docstring
+test_tools/qtsim/class_gui.py:30:Too many instance attributes (46/7)
+test_tools/qtsim/class_gui.py:31:Invalid method name "setupUi"
+test_tools/qtsim/class_gui.py:31:Invalid argument name "MainWindow"
+test_tools/qtsim/class_gui.py:31:Missing method docstring
+test_tools/qtsim/class_gui.py:31:Too many statements (200/50)
+test_tools/qtsim/class_gui.py:263:Invalid method name "retranslateUi"
+test_tools/qtsim/class_gui.py:263:Invalid argument name "MainWindow"
+test_tools/qtsim/class_gui.py:263:Missing method docstring
+test_tools/qtsim/class_gui.py:302:Invalid method name "translateQueueData"
+test_tools/qtsim/class_gui.py:302:Missing method docstring
+test_tools/qtsim/class_gui.py:307:Missing method docstring
+test_tools/qtsim/class_gui.py:56:Attribute 'label_right' defined outside __init__
+test_tools/qtsim/class_gui.py:103:Attribute 'sb_speed' defined outside __init__
+test_tools/qtsim/class_gui.py:173:Attribute 'lbl_batt_a' defined outside __init__
+test_tools/qtsim/class_gui.py:196:Attribute 'dial_cam_pan' defined outside __init__
+test_tools/qtsim/class_gui.py:59:Attribute 'lbl_control' defined outside __init__
+test_tools/qtsim/class_gui.py:159:Attribute 'lbl_wifi' defined outside __init__
+test_tools/qtsim/class_gui.py:185:Attribute 'frame_camera' defined outside __init__
+test_tools/qtsim/class_gui.py:86:Attribute 'frame_gps' defined outside __init__
+test_tools/qtsim/class_gui.py:47:Attribute 'label_2' defined outside __init__
+test_tools/qtsim/class_gui.py:109:Attribute 'sb_north' defined outside __init__
+test_tools/qtsim/class_gui.py:123:Attribute 'frame_environment' defined outside __init__
+test_tools/qtsim/class_gui.py:134:Attribute 'lbl_humidity' defined outside __init__
+test_tools/qtsim/class_gui.py:97:Attribute 'sb_altitude' defined outside __init__
+test_tools/qtsim/class_gui.py:83:Attribute 'rb_brake' defined outside __init__
+test_tools/qtsim/class_gui.py:201:Attribute 'label_tilt' defined outside __init__
+test_tools/qtsim/class_gui.py:182:Attribute 'sb_batt_b' defined outside __init__
+test_tools/qtsim/class_gui.py:204:Attribute 'label_pan' defined outside __init__
+test_tools/qtsim/class_gui.py:137:Attribute 'sb_pressure' defined outside __init__
+test_tools/qtsim/class_gui.py:44:Attribute 'label' defined outside __init__
+test_tools/qtsim/class_gui.py:154:Attribute 'frame_vehicle' defined outside __init__
+test_tools/qtsim/class_gui.py:36:Attribute 'frame_controls' defined outside __init__
+test_tools/qtsim/class_gui.py:91:Attribute 'lbl_altitude' defined outside __init__
+test_tools/qtsim/class_gui.py:128:Attribute 'lbl_pressure' defined outside __init__
+test_tools/qtsim/class_gui.py:292:Attribute 'MQReadThread' defined outside __init__
+test_tools/qtsim/class_gui.py:75:Attribute 'slider_direction' defined outside __init__
+test_tools/qtsim/class_gui.py:112:Attribute 'lbl_north' defined outside __init__
+test_tools/qtsim/class_gui.py:53:Attribute 'label_left' defined outside __init__
+test_tools/qtsim/class_gui.py:100:Attribute 'lbl_east' defined outside __init__
+test_tools/qtsim/class_gui.py:34:Attribute 'centralwidget' defined outside __init__
+test_tools/qtsim/class_gui.py:190:Attribute 'slider_cam_tilt' defined outside __init__
+test_tools/qtsim/class_gui.py:146:Attribute 'lbl_environment' defined outside __init__
+test_tools/qtsim/class_gui.py:140:Attribute 'sb_temperature' defined outside __init__
+test_tools/qtsim/class_gui.py:50:Attribute 'label_forward' defined outside __init__
+test_tools/qtsim/class_gui.py:94:Attribute 'sb_east' defined outside __init__
+test_tools/qtsim/class_gui.py:67:Attribute 'slider_throttle' defined outside __init__
+test_tools/qtsim/class_gui.py:162:Attribute 'sb_wifi' defined outside __init__
+test_tools/qtsim/class_gui.py:165:Attribute 'lbl_vehicle' defined outside __init__
+test_tools/qtsim/class_gui.py:131:Attribute 'sb_humidity' defined outside __init__
+test_tools/qtsim/class_gui.py:216:Attribute 'statusbar' defined outside __init__
+test_tools/qtsim/class_gui.py:115:Attribute 'lbl_gps' defined outside __init__
+test_tools/qtsim/class_gui.py:179:Attribute 'lbl_batt_b' defined outside __init__
+test_tools/qtsim/class_gui.py:143:Attribute 'lbl_temperature' defined outside __init__
+test_tools/qtsim/class_gui.py:106:Attribute 'lbl_speed' defined outside __init__
+test_tools/qtsim/class_gui.py:207:Attribute 'lbl_camera' defined outside __init__
+test_tools/qtsim/class_gui.py:176:Attribute 'sb_batt_a' defined outside __init__
+test_tools/qtsim/class_gui.py:41:Attribute 'label_rev' defined outside __init__
+************* Module sim_gui
+test_tools/qtsim/sim_gui.py:1:Missing module docstring
+test_tools/qtsim/sim_gui.py:18:Catching too general exception Exception
+test_tools/qtsim/sim_gui.py:11:Invalid constant name "gui_app"
+test_tools/qtsim/sim_gui.py:12:Invalid constant name "gui_mainwindow"
+test_tools/qtsim/sim_gui.py:13:Invalid constant name "gui"
+test_tools/qtsim/sim_gui.py:18:Invalid variable name "e"
+test_tools/qtsim/sim_gui.py:3:Unused import QtCore
+************* Module class_edgware
+adaptors/edgware-mapping/class_edgware.py:60:Line too long (92/80)
+adaptors/edgware-mapping/class_edgware.py:158:Trailing whitespace
+adaptors/edgware-mapping/class_edgware.py:159:Trailing whitespace
+adaptors/edgware-mapping/class_edgware.py:1:Missing module docstring
+adaptors/edgware-mapping/class_edgware.py:4:Invalid class name "platformType"
+adaptors/edgware-mapping/class_edgware.py:6:Invalid attribute name "op"
+adaptors/edgware-mapping/class_edgware.py:4:Missing class docstring
+adaptors/edgware-mapping/class_edgware.py:4:Old-style class defined.
+adaptors/edgware-mapping/class_edgware.py:18:Redefining name 'json' from outer scope (line 1)
+adaptors/edgware-mapping/class_edgware.py:13:Invalid method name "generateJSON"
+adaptors/edgware-mapping/class_edgware.py:13:Missing method docstring
+adaptors/edgware-mapping/class_edgware.py:4:Too few public methods (1/2)
+adaptors/edgware-mapping/class_edgware.py:37:Invalid class name "platform"
+adaptors/edgware-mapping/class_edgware.py:39:Invalid attribute name "op"
+adaptors/edgware-mapping/class_edgware.py:40:Invalid attribute name "id"
+adaptors/edgware-mapping/class_edgware.py:37:Missing class docstring
+adaptors/edgware-mapping/class_edgware.py:37:Old-style class defined.
+adaptors/edgware-mapping/class_edgware.py:53:Redefining name 'json' from outer scope (line 1)
+adaptors/edgware-mapping/class_edgware.py:48:Invalid method name "generateJSON"
+adaptors/edgware-mapping/class_edgware.py:48:Missing method docstring
+adaptors/edgware-mapping/class_edgware.py:37:Too few public methods (1/2)
+adaptors/edgware-mapping/class_edgware.py:75:Invalid class name "systemType"
+adaptors/edgware-mapping/class_edgware.py:77:Invalid attribute name "op"
+adaptors/edgware-mapping/class_edgware.py:75:Missing class docstring
+adaptors/edgware-mapping/class_edgware.py:75:Old-style class defined.
+adaptors/edgware-mapping/class_edgware.py:96:Redefining name 'json' from outer scope (line 1)
+adaptors/edgware-mapping/class_edgware.py:86:Invalid method name "generateJSON"
+adaptors/edgware-mapping/class_edgware.py:86:Missing method docstring
+adaptors/edgware-mapping/class_edgware.py:75:Too few public methods (1/2)
+adaptors/edgware-mapping/class_edgware.py:116:Invalid class name "system"
+adaptors/edgware-mapping/class_edgware.py:118:Invalid attribute name "op"
+adaptors/edgware-mapping/class_edgware.py:119:Invalid attribute name "id"
+adaptors/edgware-mapping/class_edgware.py:116:Missing class docstring
+adaptors/edgware-mapping/class_edgware.py:116:Old-style class defined.
+adaptors/edgware-mapping/class_edgware.py:132:Redefining name 'json' from outer scope (line 1)
+adaptors/edgware-mapping/class_edgware.py:127:Invalid method name "generateJSON"
+adaptors/edgware-mapping/class_edgware.py:127:Missing method docstring
+adaptors/edgware-mapping/class_edgware.py:116:Too few public methods (1/2)
+adaptors/edgware-mapping/class_edgware.py:156:Invalid class name "serviceType"
+adaptors/edgware-mapping/class_edgware.py:161:Invalid attribute name "op"
+adaptors/edgware-mapping/class_edgware.py:156:Missing class docstring
+adaptors/edgware-mapping/class_edgware.py:156:Too many instance attributes (8/7)
+adaptors/edgware-mapping/class_edgware.py:156:Old-style class defined.
+adaptors/edgware-mapping/class_edgware.py:175:Redefining name 'json' from outer scope (line 1)
+adaptors/edgware-mapping/class_edgware.py:170:Invalid method name "generateJSON"
+adaptors/edgware-mapping/class_edgware.py:170:Missing method docstring
+adaptors/edgware-mapping/class_edgware.py:156:Too few public methods (1/2)
+adaptors/edgware-mapping/class_edgware.py:197:Invalid class name "queryGenerator"
+adaptors/edgware-mapping/class_edgware.py:197:Missing class docstring
+adaptors/edgware-mapping/class_edgware.py:197:Class has no __init__ method
+adaptors/edgware-mapping/class_edgware.py:197:Old-style class defined.
+adaptors/edgware-mapping/class_edgware.py:198:Redefining built-in 'type'
+adaptors/edgware-mapping/class_edgware.py:198:Missing method docstring
+adaptors/edgware-mapping/class_edgware.py:199:Invalid variable name "op"
+adaptors/edgware-mapping/class_edgware.py:198:Unused argument 'correl'
+adaptors/edgware-mapping/class_edgware.py:198:Unused argument 'type'
+adaptors/edgware-mapping/class_edgware.py:199:Unused variable 'op'
+adaptors/edgware-mapping/class_edgware.py:198:Method could be a function
+adaptors/edgware-mapping/class_edgware.py:201:Redefining built-in 'type'
+adaptors/edgware-mapping/class_edgware.py:201:Invalid method name "_systemType"
+adaptors/edgware-mapping/class_edgware.py:201:Missing method docstring
+adaptors/edgware-mapping/class_edgware.py:202:Invalid variable name "op"
+adaptors/edgware-mapping/class_edgware.py:201:Unused argument 'correl'
+adaptors/edgware-mapping/class_edgware.py:201:Unused argument 'type'
+adaptors/edgware-mapping/class_edgware.py:202:Unused variable 'op'
+adaptors/edgware-mapping/class_edgware.py:201:Method could be a function
+adaptors/edgware-mapping/class_edgware.py:204:Redefining built-in 'type'
+adaptors/edgware-mapping/class_edgware.py:204:Missing method docstring
+adaptors/edgware-mapping/class_edgware.py:205:Invalid variable name "op"
+adaptors/edgware-mapping/class_edgware.py:204:Unused argument 'correl'
+adaptors/edgware-mapping/class_edgware.py:204:Unused argument 'type'
+adaptors/edgware-mapping/class_edgware.py:205:Unused variable 'op'
+adaptors/edgware-mapping/class_edgware.py:204:Method could be a function
+adaptors/edgware-mapping/class_edgware.py:207:Redefining built-in 'type'
+adaptors/edgware-mapping/class_edgware.py:207:Invalid method name "_platformType"
+adaptors/edgware-mapping/class_edgware.py:207:Missing method docstring
+adaptors/edgware-mapping/class_edgware.py:208:Invalid variable name "op"
+adaptors/edgware-mapping/class_edgware.py:207:Unused argument 'correl'
+adaptors/edgware-mapping/class_edgware.py:207:Unused argument 'type'
+adaptors/edgware-mapping/class_edgware.py:208:Unused variable 'op'
+adaptors/edgware-mapping/class_edgware.py:207:Method could be a function
+adaptors/edgware-mapping/class_edgware.py:210:Redefining built-in 'type'
+adaptors/edgware-mapping/class_edgware.py:210:Missing method docstring
+adaptors/edgware-mapping/class_edgware.py:211:Invalid variable name "op"
+adaptors/edgware-mapping/class_edgware.py:210:Unused argument 'correl'
+adaptors/edgware-mapping/class_edgware.py:210:Unused argument 'type'
+adaptors/edgware-mapping/class_edgware.py:211:Unused variable 'op'
+adaptors/edgware-mapping/class_edgware.py:210:Method could be a function
+adaptors/edgware-mapping/class_edgware.py:213:Redefining built-in 'type'
+adaptors/edgware-mapping/class_edgware.py:213:Missing method docstring
+adaptors/edgware-mapping/class_edgware.py:214:Invalid variable name "op"
+adaptors/edgware-mapping/class_edgware.py:213:Unused argument 'correl'
+adaptors/edgware-mapping/class_edgware.py:213:Unused argument 'type'
+adaptors/edgware-mapping/class_edgware.py:214:Unused variable 'op'
+adaptors/edgware-mapping/class_edgware.py:213:Method could be a function
+adaptors/edgware-mapping/class_edgware.py:216:Redefining built-in 'type'
+adaptors/edgware-mapping/class_edgware.py:216:Missing method docstring
+adaptors/edgware-mapping/class_edgware.py:217:Invalid variable name "op"
+adaptors/edgware-mapping/class_edgware.py:216:Unused argument 'correl'
+adaptors/edgware-mapping/class_edgware.py:216:Unused argument 'type'
+adaptors/edgware-mapping/class_edgware.py:217:Unused variable 'op'
+adaptors/edgware-mapping/class_edgware.py:216:Method could be a function
+adaptors/edgware-mapping/class_edgware.py:197:Too few public methods (0/2)
+adaptors/edgware-mapping/class_edgware.py:1:Unused import json
+************* Module class_mqtt
+adaptors/edgware-mapping/class_mqtt.py:5:Trailing whitespace
+adaptors/edgware-mapping/class_mqtt.py:6:Trailing whitespace
+adaptors/edgware-mapping/class_mqtt.py:7:Trailing whitespace
+adaptors/edgware-mapping/class_mqtt.py:9:Trailing whitespace
+adaptors/edgware-mapping/class_mqtt.py:28:Trailing whitespace
+adaptors/edgware-mapping/class_mqtt.py:30:Trailing whitespace
+adaptors/edgware-mapping/class_mqtt.py:38:Trailing whitespace
+adaptors/edgware-mapping/class_mqtt.py:43:Trailing whitespace
+adaptors/edgware-mapping/class_mqtt.py:51:Trailing whitespace
+adaptors/edgware-mapping/class_mqtt.py:56:Trailing whitespace
+adaptors/edgware-mapping/class_mqtt.py:64:Trailing whitespace
+adaptors/edgware-mapping/class_mqtt.py:69:Trailing whitespace
+adaptors/edgware-mapping/class_mqtt.py:84:Bad indentation. Found 13 spaces, expected 12
+adaptors/edgware-mapping/class_mqtt.py:84:Trailing whitespace
+adaptors/edgware-mapping/class_mqtt.py:85:Bad indentation. Found 17 spaces, expected 16
+adaptors/edgware-mapping/class_mqtt.py:1:Missing module docstring
+adaptors/edgware-mapping/class_mqtt.py:4:Invalid class name "mqttClient"
+adaptors/edgware-mapping/class_mqtt.py:12:Invalid attribute name "id"
+adaptors/edgware-mapping/class_mqtt.py:4:Missing class docstring
+adaptors/edgware-mapping/class_mqtt.py:4:Old-style class defined.
+adaptors/edgware-mapping/class_mqtt.py:5:Too many arguments (7/5)
+adaptors/edgware-mapping/class_mqtt.py:24:No exception type(s) specified
+adaptors/edgware-mapping/class_mqtt.py:27:Invalid argument name "rc"
+adaptors/edgware-mapping/class_mqtt.py:27:Missing method docstring
+adaptors/edgware-mapping/class_mqtt.py:29:Undefined variable 'st'
+adaptors/edgware-mapping/class_mqtt.py:27:Unused argument 'userdata'
+adaptors/edgware-mapping/class_mqtt.py:27:Unused argument 'client'
+adaptors/edgware-mapping/class_mqtt.py:27:Unused argument 'flags'
+adaptors/edgware-mapping/class_mqtt.py:31:Missing method docstring
+adaptors/edgware-mapping/class_mqtt.py:31:Unused argument 'userdata'
+adaptors/edgware-mapping/class_mqtt.py:31:Unused argument 'client'
+adaptors/edgware-mapping/class_mqtt.py:35:Missing method docstring
+adaptors/edgware-mapping/class_mqtt.py:42:No exception type(s) specified
+adaptors/edgware-mapping/class_mqtt.py:48:Missing method docstring
+adaptors/edgware-mapping/class_mqtt.py:55:No exception type(s) specified
+adaptors/edgware-mapping/class_mqtt.py:61:Missing method docstring
+adaptors/edgware-mapping/class_mqtt.py:68:No exception type(s) specified
+adaptors/edgware-mapping/class_mqtt.py:74:Missing method docstring
+adaptors/edgware-mapping/class_mqtt.py:79:Missing method docstring
+adaptors/edgware-mapping/class_mqtt.py:83:No exception type(s) specified
+************* Module class_handlers
+adaptors/data-collector/class_handlers.py:44:Trailing whitespace
+adaptors/data-collector/class_handlers.py:45:Trailing whitespace
+adaptors/data-collector/class_handlers.py:51:Final newline missing
+adaptors/data-collector/class_handlers.py:1:Missing module docstring
+adaptors/data-collector/class_handlers.py:7:Invalid class name "http_handler"
+adaptors/data-collector/class_handlers.py:7:Missing class docstring
+adaptors/data-collector/class_handlers.py:13:Invalid method name "do_GET"
+adaptors/data-collector/class_handlers.py:13:Missing method docstring
+adaptors/data-collector/class_handlers.py:39:Invalid method name "do_POST"
+adaptors/data-collector/class_handlers.py:39:Missing method docstring
+adaptors/data-collector/class_handlers.py:11:Attribute 'log' defined outside __init__
+adaptors/data-collector/class_handlers.py:2:Unused import ConfigParser
+adaptors/data-collector/class_handlers.py:1:Unused import HTTPServer
+adaptors/data-collector/class_handlers.py:3:Unused import time
+************* Module func_actions
+adaptors/data-collector/func_actions.py:28:Trailing whitespace
+adaptors/data-collector/func_actions.py:36:Line too long (104/80)
+adaptors/data-collector/func_actions.py:54:Trailing whitespace
+adaptors/data-collector/func_actions.py:56:Trailing whitespace
+adaptors/data-collector/func_actions.py:58:Trailing whitespace
+adaptors/data-collector/func_actions.py:60:Trailing whitespace
+adaptors/data-collector/func_actions.py:62:Trailing whitespace
+adaptors/data-collector/func_actions.py:118:Line too long (94/80)
+adaptors/data-collector/func_actions.py:119:Line too long (88/80)
+adaptors/data-collector/func_actions.py:129:Line too long (140/80)
+adaptors/data-collector/func_actions.py:133:Line too long (92/80)
+adaptors/data-collector/func_actions.py:135:Line too long (158/80)
+adaptors/data-collector/func_actions.py:139:Line too long (173/80)
+adaptors/data-collector/func_actions.py:142:Line too long (84/80)
+adaptors/data-collector/func_actions.py:157:Line too long (82/80)
+adaptors/data-collector/func_actions.py:166:Line too long (88/80)
+adaptors/data-collector/func_actions.py:181:Line too long (127/80)
+adaptors/data-collector/func_actions.py:197:Line too long (137/80)
+adaptors/data-collector/func_actions.py:201:Trailing whitespace
+adaptors/data-collector/func_actions.py:207:Line too long (82/80)
+adaptors/data-collector/func_actions.py:221:Line too long (89/80)
+adaptors/data-collector/func_actions.py:225:Line too long (113/80)
+adaptors/data-collector/func_actions.py:240:Line too long (81/80)
+adaptors/data-collector/func_actions.py:1:Missing module docstring
+adaptors/data-collector/func_actions.py:4:Unable to import 'isodate'
+adaptors/data-collector/func_actions.py:18:Invalid function name "postData"
+adaptors/data-collector/func_actions.py:18:Missing function docstring
+adaptors/data-collector/func_actions.py:31:No exception type(s) specified
+adaptors/data-collector/func_actions.py:38:No exception type(s) specified
+adaptors/data-collector/func_actions.py:18:Unused argument 'headers'
+adaptors/data-collector/func_actions.py:18:Unused argument 'path'
+adaptors/data-collector/func_actions.py:42:Invalid function name "getMap"
+adaptors/data-collector/func_actions.py:42:Missing function docstring
+adaptors/data-collector/func_actions.py:42:Too many local variables (29/15)
+adaptors/data-collector/func_actions.py:184:Invalid variable name "e"
+adaptors/data-collector/func_actions.py:186:Invalid variable name "e"
+adaptors/data-collector/func_actions.py:171:Unused variable 'direction_graph'
+adaptors/data-collector/func_actions.py:42:Unused argument 'handler'
+adaptors/data-collector/func_actions.py:42:Too many branches (23/12)
+adaptors/data-collector/func_actions.py:42:Too many statements (67/50)
+adaptors/data-collector/func_actions.py:196:Invalid function name "_createChart"
+adaptors/data-collector/func_actions.py:196:Missing function docstring
+adaptors/data-collector/func_actions.py:197:Module 'pygal' has no 'Line' member
+adaptors/data-collector/func_actions.py:205:Invalid function name "getPlatforms"
+adaptors/data-collector/func_actions.py:205:Missing function docstring
+adaptors/data-collector/func_actions.py:205:Unused argument 'query'
+adaptors/data-collector/func_actions.py:233:Invalid function name "_mongoConnect"
+adaptors/data-collector/func_actions.py:233:Missing function docstring
+adaptors/data-collector/func_actions.py:239:No exception type(s) specified
+adaptors/data-collector/func_actions.py:242:Invalid constant name "_mongo_client"
+adaptors/data-collector/func_actions.py:242:Invalid constant name "_mongo_db"
+adaptors/data-collector/func_actions.py:4:Unused import isodate
+************* Module sqs_edgware
+adaptors/sqs-to-edgware/sqs_edgware.py:18:Line too long (88/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:20:Line too long (91/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:21:Line too long (86/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:22:Line too long (91/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:23:Line too long (86/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:24:Line too long (150/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:56:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:57:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:58:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:60:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:130:Line too long (87/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:153:Line too long (86/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:186:Line too long (95/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:190:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:190:Line too long (87/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:191:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:191:Line too long (107/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:192:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:192:Line too long (109/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:204:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:204:Line too long (82/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:244:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:271:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:272:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:274:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:324:Line too long (115/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:325:Line too long (109/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:337:Line too long (112/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:338:Line too long (107/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:349:Line too long (118/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:350:Line too long (111/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:356:Line too long (82/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:369:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:370:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:378:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:380:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:382:Line too long (86/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:389:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:391:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:393:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:394:Line too long (86/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:404:Line too long (83/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:414:Line too long (88/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:426:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:426:Line too long (86/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:427:Line too long (83/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:438:Line too long (85/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:439:Line too long (86/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:442:Line too long (85/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:443:Line too long (86/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:453:Line too long (102/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:456:Line too long (102/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:496:Line too long (98/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:497:Line too long (97/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:498:Line too long (90/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:499:Line too long (90/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:503:Line too long (87/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:506:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:533:Line too long (94/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:534:Line too long (87/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:541:Line too long (176/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:552:Line too long (81/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:555:Line too long (91/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:556:Line too long (91/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:564:Line too long (94/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:567:Line too long (83/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:576:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:577:Line too long (101/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:578:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:579:Line too long (86/80)
+adaptors/sqs-to-edgware/sqs_edgware.py:589:Trailing whitespace
+adaptors/sqs-to-edgware/sqs_edgware.py:590:Bad indentation. Found 8 spaces, expected 4
+adaptors/sqs-to-edgware/sqs_edgware.py:1:Missing module docstring
+adaptors/sqs-to-edgware/sqs_edgware.py:17:Invalid constant name "arg_parser"
+adaptors/sqs-to-edgware/sqs_edgware.py:28:Invalid constant name "args"
+adaptors/sqs-to-edgware/sqs_edgware.py:33:Invalid constant name "configfilepath"
+adaptors/sqs-to-edgware/sqs_edgware.py:35:Invalid constant name "local_path"
+adaptors/sqs-to-edgware/sqs_edgware.py:36:Invalid constant name "configfilepath"
+adaptors/sqs-to-edgware/sqs_edgware.py:42:Invalid constant name "config"
+adaptors/sqs-to-edgware/sqs_edgware.py:50:Invalid constant name "logfilepath"
+adaptors/sqs-to-edgware/sqs_edgware.py:52:Invalid constant name "logfilepath"
+adaptors/sqs-to-edgware/sqs_edgware.py:56:Invalid constant name "logfile"
+adaptors/sqs-to-edgware/sqs_edgware.py:123:Invalid function name "writeMQTTOutput"
+adaptors/sqs-to-edgware/sqs_edgware.py:123:Missing function docstring
+adaptors/sqs-to-edgware/sqs_edgware.py:129:Invalid function name "processMQTTInput"
+adaptors/sqs-to-edgware/sqs_edgware.py:129:Missing function docstring
+adaptors/sqs-to-edgware/sqs_edgware.py:137:Missing function docstring
+adaptors/sqs-to-edgware/sqs_edgware.py:137:Too many local variables (18/15)
+adaptors/sqs-to-edgware/sqs_edgware.py:139:Invalid function name "getEnvironmentData"
+adaptors/sqs-to-edgware/sqs_edgware.py:139:Missing function docstring
+adaptors/sqs-to-edgware/sqs_edgware.py:144:Undefined variable 'VEHICLE_DATA'
+adaptors/sqs-to-edgware/sqs_edgware.py:146:Undefined variable 'VEHICLE_DATA'
+adaptors/sqs-to-edgware/sqs_edgware.py:150:Invalid function name "queryVehicleControlData"
+adaptors/sqs-to-edgware/sqs_edgware.py:150:Missing function docstring
+adaptors/sqs-to-edgware/sqs_edgware.py:153:Undefined variable 'CONTROL_DATA'
+adaptors/sqs-to-edgware/sqs_edgware.py:153:Undefined variable 'CONTROL_DATA'
+adaptors/sqs-to-edgware/sqs_edgware.py:155:Undefined variable 'CONTROL_DATA'
+adaptors/sqs-to-edgware/sqs_edgware.py:157:Undefined variable 'CONTROL_DATA'
+adaptors/sqs-to-edgware/sqs_edgware.py:150:Too many return statements (10/6)
+adaptors/sqs-to-edgware/sqs_edgware.py:183:Invalid function name "queryCameraControlData"
+adaptors/sqs-to-edgware/sqs_edgware.py:183:Missing function docstring
+adaptors/sqs-to-edgware/sqs_edgware.py:186:Undefined variable 'CONTROL_DATA'
+adaptors/sqs-to-edgware/sqs_edgware.py:186:Undefined variable 'CONTROL_DATA'
+adaptors/sqs-to-edgware/sqs_edgware.py:188:Undefined variable 'CONTROL_DATA'
+adaptors/sqs-to-edgware/sqs_edgware.py:183:Too many return statements (7/6)
+adaptors/sqs-to-edgware/sqs_edgware.py:213:Invalid variable name "op"
+adaptors/sqs-to-edgware/sqs_edgware.py:230:More than one statement on a single line
+adaptors/sqs-to-edgware/sqs_edgware.py:217:Unused variable 'encoding'
+adaptors/sqs-to-edgware/sqs_edgware.py:213:Unused variable 'op'
+adaptors/sqs-to-edgware/sqs_edgware.py:137:Too many branches (36/12)
+adaptors/sqs-to-edgware/sqs_edgware.py:263:Missing function docstring
+adaptors/sqs-to-edgware/sqs_edgware.py:263:Unused argument 'json_data'
+adaptors/sqs-to-edgware/sqs_edgware.py:129:Too many branches (40/12)
+adaptors/sqs-to-edgware/sqs_edgware.py:280:Invalid function name "processSQSInput"
+adaptors/sqs-to-edgware/sqs_edgware.py:280:Missing function docstring
+adaptors/sqs-to-edgware/sqs_edgware.py:297:No exception type(s) specified
+adaptors/sqs-to-edgware/sqs_edgware.py:306:Invalid function name "registerEdgwareTypes"
+adaptors/sqs-to-edgware/sqs_edgware.py:306:Missing function docstring
+adaptors/sqs-to-edgware/sqs_edgware.py:310:No exception type(s) specified
+adaptors/sqs-to-edgware/sqs_edgware.py:355:No exception type(s) specified
+adaptors/sqs-to-edgware/sqs_edgware.py:360:Invalid function name "registerNewPlatform"
+adaptors/sqs-to-edgware/sqs_edgware.py:360:Missing function docstring
+adaptors/sqs-to-edgware/sqs_edgware.py:399:No exception type(s) specified
+adaptors/sqs-to-edgware/sqs_edgware.py:404:Invalid function name "updatePlatformPosition"
+adaptors/sqs-to-edgware/sqs_edgware.py:404:Missing function docstring
+adaptors/sqs-to-edgware/sqs_edgware.py:417:No exception type(s) specified
+adaptors/sqs-to-edgware/sqs_edgware.py:422:Invalid function name "postSQSMessage"
+adaptors/sqs-to-edgware/sqs_edgware.py:422:Missing function docstring
+adaptors/sqs-to-edgware/sqs_edgware.py:430:No exception type(s) specified
+adaptors/sqs-to-edgware/sqs_edgware.py:434:Invalid constant name "known_platforms"
+adaptors/sqs-to-edgware/sqs_edgware.py:543:Redefining built-in 'long'
+adaptors/sqs-to-edgware/sqs_edgware.py:435:Missing function docstring
+adaptors/sqs-to-edgware/sqs_edgware.py:435:Too many local variables (31/15)
+adaptors/sqs-to-edgware/sqs_edgware.py:448:No exception type(s) specified
+adaptors/sqs-to-edgware/sqs_edgware.py:510:Attempting to unpack a non-sequence defined at line 353
+adaptors/sqs-to-edgware/sqs_edgware.py:510:Attempting to unpack a non-sequence defined at line 357
+adaptors/sqs-to-edgware/sqs_edgware.py:510:Attempting to unpack a non-sequence defined at line 288
+adaptors/sqs-to-edgware/sqs_edgware.py:510:Attempting to unpack a non-sequence defined at line 298
+adaptors/sqs-to-edgware/sqs_edgware.py:435:Too many branches (17/12)
+adaptors/sqs-to-edgware/sqs_edgware.py:435:Too many statements (75/50)
+************* Module core
+adaptors/sqs-to-edgware/core/__init__.py:1:Missing module docstring
+************* Module core.logger
+adaptors/sqs-to-edgware/core/logger.py:7:Trailing whitespace
+adaptors/sqs-to-edgware/core/logger.py:66:Trailing whitespace
+adaptors/sqs-to-edgware/core/logger.py:1:Missing module docstring
+adaptors/sqs-to-edgware/core/logger.py:4:Invalid constant name "log_format"
+adaptors/sqs-to-edgware/core/logger.py:7:Invalid function name "CreateLogger"
+adaptors/sqs-to-edgware/core/logger.py:7:Invalid argument name "logID"
+adaptors/sqs-to-edgware/core/logger.py:7:Missing function docstring
+adaptors/sqs-to-edgware/core/logger.py:43:No exception type(s) specified
+adaptors/sqs-to-edgware/core/logger.py:48:Invalid function name "SetLevel"
+adaptors/sqs-to-edgware/core/logger.py:48:Missing function docstring
+adaptors/sqs-to-edgware/core/logger.py:65:No exception type(s) specified
+************* Module messaging.edgware
+adaptors/sqs-to-edgware/messaging/edgware.py:21:Trailing whitespace
+adaptors/sqs-to-edgware/messaging/edgware.py:23:Trailing whitespace
+adaptors/sqs-to-edgware/messaging/edgware.py:25:Trailing whitespace
+adaptors/sqs-to-edgware/messaging/edgware.py:55:Line too long (92/80)
+adaptors/sqs-to-edgware/messaging/edgware.py:143:Trailing whitespace
+adaptors/sqs-to-edgware/messaging/edgware.py:144:Line too long (82/80)
+adaptors/sqs-to-edgware/messaging/edgware.py:1:Missing module docstring
+adaptors/sqs-to-edgware/messaging/edgware.py:1:Invalid class name "platformType"
+adaptors/sqs-to-edgware/messaging/edgware.py:3:Invalid attribute name "op"
+adaptors/sqs-to-edgware/messaging/edgware.py:1:Missing class docstring
+adaptors/sqs-to-edgware/messaging/edgware.py:1:Old-style class defined.
+adaptors/sqs-to-edgware/messaging/edgware.py:10:Invalid method name "generateJSON"
+adaptors/sqs-to-edgware/messaging/edgware.py:10:Missing method docstring
+adaptors/sqs-to-edgware/messaging/edgware.py:1:Too few public methods (1/2)
+adaptors/sqs-to-edgware/messaging/edgware.py:32:Invalid class name "platform"
+adaptors/sqs-to-edgware/messaging/edgware.py:34:Invalid attribute name "op"
+adaptors/sqs-to-edgware/messaging/edgware.py:35:Invalid attribute name "id"
+adaptors/sqs-to-edgware/messaging/edgware.py:32:Missing class docstring
+adaptors/sqs-to-edgware/messaging/edgware.py:32:Old-style class defined.
+adaptors/sqs-to-edgware/messaging/edgware.py:43:Invalid method name "generateJSON"
+adaptors/sqs-to-edgware/messaging/edgware.py:43:Missing method docstring
+adaptors/sqs-to-edgware/messaging/edgware.py:32:Too few public methods (1/2)
+adaptors/sqs-to-edgware/messaging/edgware.py:67:Invalid class name "systemType"
+adaptors/sqs-to-edgware/messaging/edgware.py:69:Invalid attribute name "op"
+adaptors/sqs-to-edgware/messaging/edgware.py:67:Missing class docstring
+adaptors/sqs-to-edgware/messaging/edgware.py:67:Old-style class defined.
+adaptors/sqs-to-edgware/messaging/edgware.py:78:Invalid method name "generateJSON"
+adaptors/sqs-to-edgware/messaging/edgware.py:78:Missing method docstring
+adaptors/sqs-to-edgware/messaging/edgware.py:67:Too few public methods (1/2)
+adaptors/sqs-to-edgware/messaging/edgware.py:106:Invalid class name "system"
+adaptors/sqs-to-edgware/messaging/edgware.py:108:Invalid attribute name "op"
+adaptors/sqs-to-edgware/messaging/edgware.py:109:Invalid attribute name "id"
+adaptors/sqs-to-edgware/messaging/edgware.py:106:Missing class docstring
+adaptors/sqs-to-edgware/messaging/edgware.py:106:Old-style class defined.
+adaptors/sqs-to-edgware/messaging/edgware.py:117:Invalid method name "generateJSON"
+adaptors/sqs-to-edgware/messaging/edgware.py:117:Missing method docstring
+adaptors/sqs-to-edgware/messaging/edgware.py:106:Too few public methods (1/2)
+adaptors/sqs-to-edgware/messaging/edgware.py:141:Invalid class name "serviceType"
+adaptors/sqs-to-edgware/messaging/edgware.py:145:Invalid attribute name "op"
+adaptors/sqs-to-edgware/messaging/edgware.py:141:Missing class docstring
+adaptors/sqs-to-edgware/messaging/edgware.py:141:Too many instance attributes (8/7)
+adaptors/sqs-to-edgware/messaging/edgware.py:141:Old-style class defined.
+adaptors/sqs-to-edgware/messaging/edgware.py:154:Invalid method name "generateJSON"
+adaptors/sqs-to-edgware/messaging/edgware.py:154:Missing method docstring
+adaptors/sqs-to-edgware/messaging/edgware.py:141:Too few public methods (1/2)
+************* Module messaging
+adaptors/sqs-to-edgware/messaging/__init__.py:1:Missing module docstring
+************* Module messaging.mqtt
+adaptors/sqs-to-edgware/messaging/mqtt.py:5:Line too long (83/80)
+adaptors/sqs-to-edgware/messaging/mqtt.py:24:Trailing whitespace
+adaptors/sqs-to-edgware/messaging/mqtt.py:34:Trailing whitespace
+adaptors/sqs-to-edgware/messaging/mqtt.py:39:Trailing whitespace
+adaptors/sqs-to-edgware/messaging/mqtt.py:47:Trailing whitespace
+adaptors/sqs-to-edgware/messaging/mqtt.py:52:Trailing whitespace
+adaptors/sqs-to-edgware/messaging/mqtt.py:60:Trailing whitespace
+adaptors/sqs-to-edgware/messaging/mqtt.py:65:Trailing whitespace
+adaptors/sqs-to-edgware/messaging/mqtt.py:80:Trailing whitespace
+adaptors/sqs-to-edgware/messaging/mqtt.py:1:Missing module docstring
+adaptors/sqs-to-edgware/messaging/mqtt.py:4:Invalid class name "mqttClient"
+adaptors/sqs-to-edgware/messaging/mqtt.py:8:Invalid attribute name "id"
+adaptors/sqs-to-edgware/messaging/mqtt.py:4:Missing class docstring
+adaptors/sqs-to-edgware/messaging/mqtt.py:4:Old-style class defined.
+adaptors/sqs-to-edgware/messaging/mqtt.py:5:Too many arguments (7/5)
+adaptors/sqs-to-edgware/messaging/mqtt.py:20:No exception type(s) specified
+adaptors/sqs-to-edgware/messaging/mqtt.py:23:Invalid argument name "rc"
+adaptors/sqs-to-edgware/messaging/mqtt.py:23:Missing method docstring
+adaptors/sqs-to-edgware/messaging/mqtt.py:23:Unused argument 'userdata'
+adaptors/sqs-to-edgware/messaging/mqtt.py:23:Unused argument 'client'
+adaptors/sqs-to-edgware/messaging/mqtt.py:23:Unused argument 'flags'
+adaptors/sqs-to-edgware/messaging/mqtt.py:27:Missing method docstring
+adaptors/sqs-to-edgware/messaging/mqtt.py:27:Unused argument 'userdata'
+adaptors/sqs-to-edgware/messaging/mqtt.py:27:Unused argument 'client'
+adaptors/sqs-to-edgware/messaging/mqtt.py:31:Missing method docstring
+adaptors/sqs-to-edgware/messaging/mqtt.py:38:No exception type(s) specified
+adaptors/sqs-to-edgware/messaging/mqtt.py:44:Missing method docstring
+adaptors/sqs-to-edgware/messaging/mqtt.py:51:No exception type(s) specified
+adaptors/sqs-to-edgware/messaging/mqtt.py:57:Missing method docstring
+adaptors/sqs-to-edgware/messaging/mqtt.py:64:No exception type(s) specified
+adaptors/sqs-to-edgware/messaging/mqtt.py:70:Missing method docstring
+adaptors/sqs-to-edgware/messaging/mqtt.py:75:Missing method docstring
+adaptors/sqs-to-edgware/messaging/mqtt.py:79:No exception type(s) specified
+************* Module core
+simulator/ttyvehicle/core/__init__.py:1:Missing module docstring
+************* Module core.logger
+simulator/ttyvehicle/core/logger.py:7:Trailing whitespace
+simulator/ttyvehicle/core/logger.py:66:Trailing whitespace
+simulator/ttyvehicle/core/logger.py:1:Missing module docstring
+simulator/ttyvehicle/core/logger.py:4:Invalid constant name "log_format"
+simulator/ttyvehicle/core/logger.py:7:Invalid function name "CreateLogger"
+simulator/ttyvehicle/core/logger.py:7:Invalid argument name "logID"
+simulator/ttyvehicle/core/logger.py:7:Missing function docstring
+simulator/ttyvehicle/core/logger.py:43:No exception type(s) specified
+simulator/ttyvehicle/core/logger.py:48:Invalid function name "SetLevel"
+simulator/ttyvehicle/core/logger.py:48:Missing function docstring
+simulator/ttyvehicle/core/logger.py:65:No exception type(s) specified
+************* Module drive.ttyGPIO
+simulator/ttyvehicle/drive/ttyGPIO.py:1:Invalid module name "ttyGPIO"
+simulator/ttyvehicle/drive/ttyGPIO.py:1:Missing module docstring
+simulator/ttyvehicle/drive/ttyGPIO.py:1:Missing function docstring
+simulator/ttyvehicle/drive/ttyGPIO.py:1:Unused argument 'self'
+simulator/ttyvehicle/drive/ttyGPIO.py:1:Unused argument 'args'
+************* Module drive.pwm
+simulator/ttyvehicle/drive/pwm.py:24:Final newline missing
+simulator/ttyvehicle/drive/pwm.py:1:Missing module docstring
+simulator/ttyvehicle/drive/pwm.py:1:Missing class docstring
+simulator/ttyvehicle/drive/pwm.py:1:Old-style class defined.
+simulator/ttyvehicle/drive/pwm.py:6:No exception type(s) specified
+simulator/ttyvehicle/drive/pwm.py:10:Invalid method name "setPWMFreq"
+simulator/ttyvehicle/drive/pwm.py:10:Missing method docstring
+simulator/ttyvehicle/drive/pwm.py:15:No exception type(s) specified
+simulator/ttyvehicle/drive/pwm.py:19:Invalid method name "setPWM"
+simulator/ttyvehicle/drive/pwm.py:19:Missing method docstring
+simulator/ttyvehicle/drive/pwm.py:23:No exception type(s) specified
+simulator/ttyvehicle/drive/pwm.py:19:Unused argument 'start'
+simulator/ttyvehicle/drive/pwm.py:19:Unused argument 'end'
+simulator/ttyvehicle/drive/pwm.py:19:Unused argument 'channel'
+simulator/ttyvehicle/drive/pwm.py:19:Method could be a function
+simulator/ttyvehicle/drive/pwm.py:12:Attribute 'freq' defined outside __init__
+************* Module drive.servo
+simulator/ttyvehicle/drive/servo.py:1:Missing module docstring
+simulator/ttyvehicle/drive/servo.py:10:Invalid attribute name "RealMax"
+simulator/ttyvehicle/drive/servo.py:11:Invalid attribute name "RealNeutral"
+simulator/ttyvehicle/drive/servo.py:12:Invalid attribute name "Name"
+simulator/ttyvehicle/drive/servo.py:8:Invalid attribute name "Channel"
+simulator/ttyvehicle/drive/servo.py:9:Invalid attribute name "RealMin"
+simulator/ttyvehicle/drive/servo.py:5:Missing class docstring
+simulator/ttyvehicle/drive/servo.py:5:Old-style class defined.
+simulator/ttyvehicle/drive/servo.py:6:Redefining built-in 'min'
+simulator/ttyvehicle/drive/servo.py:6:Redefining built-in 'max'
+simulator/ttyvehicle/drive/servo.py:6:Too many arguments (6/5)
+simulator/ttyvehicle/drive/servo.py:14:No exception type(s) specified
+simulator/ttyvehicle/drive/servo.py:18:Invalid method name "Translate"
+simulator/ttyvehicle/drive/servo.py:18:Missing method docstring
+simulator/ttyvehicle/drive/servo.py:36:No exception type(s) specified
+simulator/ttyvehicle/drive/servo.py:5:Too few public methods (1/2)
+************* Module drive
+simulator/ttyvehicle/drive/__init__.py:1:Missing module docstring
+************* Module class_rover
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:1:Missing module docstring
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:1:Invalid class name "piRoverControls"
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:6:Invalid attribute name "vehicleLightState"
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:4:Invalid attribute name "directionPosition"
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:5:Invalid attribute name "brakeState"
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:9:Invalid attribute name "cameraLightState"
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:7:Invalid attribute name "cameraPanPosition"
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:8:Invalid attribute name "cameraTiltPosition"
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:3:Invalid attribute name "throttlePosition"
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:1:Missing class docstring
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:1:Old-style class defined.
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:1:Too few public methods (0/2)
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:12:Invalid class name "piRoverVehicle"
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:19:Invalid attribute name "environmentHumidity"
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:24:Invalid attribute name "accelLR"
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:21:Invalid attribute name "gpsLongitude"
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:17:Invalid attribute name "environmentTemperature"
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:16:Invalid attribute name "vehicleBatteryB"
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:18:Invalid attribute name "environmentPressure"
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:15:Invalid attribute name "vehicleBatteryA"
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:14:Invalid attribute name "vehicleWifi"
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:22:Invalid attribute name "gpsAltitude"
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:20:Invalid attribute name "gpsLatitude"
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:23:Invalid attribute name "gpsSpeed"
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:25:Invalid attribute name "accelRF"
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:12:Missing class docstring
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:12:Too many instance attributes (12/7)
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:12:Old-style class defined.
+simulator/ttyvehicle/adaptors/http-post/class_rover.py:12:Too few public methods (0/2)
+************* Module class_rmq
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:10:Line too long (101/80)
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:11:Line too long (94/80)
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:26:Line too long (95/80)
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:74:Line too long (92/80)
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:108:Line too long (81/80)
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:1:Missing module docstring
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:4:Invalid class name "rmqClientReader"
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:4:Missing class docstring
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:4:Old-style class defined.
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:18:No exception type(s) specified
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:24:Missing method docstring
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:42:No exception type(s) specified
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:48:Invalid argument name "ch"
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:48:Missing method docstring
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:48:Unused argument 'ch'
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:48:Unused argument 'method'
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:48:Unused argument 'properties'
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:53:Missing method docstring
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:59:No exception type(s) specified
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:61:Unreachable code
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:30:Attribute 'result' defined outside __init__
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:31:Attribute 'dynamic_queue_name' defined outside __init__
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:68:Invalid class name "rmqClientWriter"
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:68:Missing class docstring
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:68:Old-style class defined.
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:81:No exception type(s) specified
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:87:Invalid method name "declareExchange"
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:87:Missing method docstring
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:93:No exception type(s) specified
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:97:Missing method docstring
+simulator/ttyvehicle/adaptors/http-post/class_rmq.py:106:No exception type(s) specified
+************* Module func_logging
+simulator/ttyvehicle/adaptors/http-post/func_logging.py:7:Trailing whitespace
+simulator/ttyvehicle/adaptors/http-post/func_logging.py:1:Missing module docstring
+simulator/ttyvehicle/adaptors/http-post/func_logging.py:4:Invalid constant name "log_format"
+simulator/ttyvehicle/adaptors/http-post/func_logging.py:7:Invalid function name "CreateLogger"
+simulator/ttyvehicle/adaptors/http-post/func_logging.py:7:Invalid argument name "logID"
+simulator/ttyvehicle/adaptors/http-post/func_logging.py:7:Missing function docstring
+simulator/ttyvehicle/adaptors/http-post/func_logging.py:43:No exception type(s) specified
+simulator/ttyvehicle/adaptors/http-post/func_logging.py:48:Invalid function name "SetLevel"
+simulator/ttyvehicle/adaptors/http-post/func_logging.py:48:Missing function docstring
+simulator/ttyvehicle/adaptors/http-post/func_logging.py:65:No exception type(s) specified
+************* Module core
+simulator/ttyvehicle/adaptors/edgware/core/__init__.py:1:Missing module docstring
+************* Module core.logger
+simulator/ttyvehicle/adaptors/edgware/core/logger.py:7:Trailing whitespace
+simulator/ttyvehicle/adaptors/edgware/core/logger.py:1:Missing module docstring
+simulator/ttyvehicle/adaptors/edgware/core/logger.py:4:Invalid constant name "log_format"
+simulator/ttyvehicle/adaptors/edgware/core/logger.py:7:Invalid function name "CreateLogger"
+simulator/ttyvehicle/adaptors/edgware/core/logger.py:7:Invalid argument name "logID"
+simulator/ttyvehicle/adaptors/edgware/core/logger.py:7:Missing function docstring
+simulator/ttyvehicle/adaptors/edgware/core/logger.py:43:No exception type(s) specified
+simulator/ttyvehicle/adaptors/edgware/core/logger.py:48:Invalid function name "SetLevel"
+simulator/ttyvehicle/adaptors/edgware/core/logger.py:48:Missing function docstring
+simulator/ttyvehicle/adaptors/edgware/core/logger.py:65:No exception type(s) specified
+************* Module messaging.edgware
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:53:Trailing whitespace
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:55:Line too long (92/80)
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:142:Trailing whitespace
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:143:Trailing whitespace
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:145:Trailing whitespace
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:1:Missing module docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:1:Invalid class name "platformType"
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:3:Invalid attribute name "op"
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:1:Missing class docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:1:Old-style class defined.
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:10:Invalid method name "generateJSON"
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:10:Missing method docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:1:Too few public methods (1/2)
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:32:Invalid class name "platform"
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:34:Invalid attribute name "op"
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:35:Invalid attribute name "id"
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:32:Missing class docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:32:Old-style class defined.
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:43:Invalid method name "generateJSON"
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:43:Missing method docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:32:Too few public methods (1/2)
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:67:Invalid class name "systemType"
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:69:Invalid attribute name "op"
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:67:Missing class docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:67:Old-style class defined.
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:78:Invalid method name "generateJSON"
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:78:Missing method docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:67:Too few public methods (1/2)
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:105:Invalid class name "system"
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:107:Invalid attribute name "op"
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:108:Invalid attribute name "id"
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:105:Missing class docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:105:Old-style class defined.
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:116:Invalid method name "generateJSON"
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:116:Missing method docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:105:Too few public methods (1/2)
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:140:Invalid class name "serviceType"
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:146:Invalid attribute name "op"
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:140:Missing class docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:140:Too many instance attributes (8/7)
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:140:Old-style class defined.
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:155:Invalid method name "generateJSON"
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:155:Missing method docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/edgware.py:140:Too few public methods (1/2)
+************* Module messaging
+simulator/ttyvehicle/adaptors/edgware/messaging/__init__.py:1:Missing module docstring
+************* Module messaging.mqtt
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:5:Line too long (83/80)
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:9:Trailing whitespace
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:26:Trailing whitespace
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:1:Missing module docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:4:Invalid class name "mqttClient"
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:8:Invalid attribute name "id"
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:4:Missing class docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:4:Old-style class defined.
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:5:Too many arguments (7/5)
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:20:No exception type(s) specified
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:23:Invalid argument name "rc"
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:23:Missing method docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:23:Unused argument 'userdata'
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:23:Unused argument 'client'
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:23:Unused argument 'flags'
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:27:Missing method docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:27:Unused argument 'userdata'
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:27:Unused argument 'client'
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:31:Missing method docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:38:No exception type(s) specified
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:44:Missing method docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:51:No exception type(s) specified
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:57:Missing method docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:64:No exception type(s) specified
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:70:Missing method docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:75:Missing method docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/mqtt.py:79:No exception type(s) specified
+************* Module messaging.rmq
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:10:Line too long (101/80)
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:11:Line too long (94/80)
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:26:Line too long (95/80)
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:32:Line too long (104/80)
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:34:Line too long (99/80)
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:55:Unnecessary parens after 'return' keyword
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:69:Line too long (92/80)
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:89:Unnecessary parens after 'return' keyword
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:94:Line too long (92/80)
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:101:Line too long (81/80)
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:1:Missing module docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:4:Invalid class name "rmqClientReader"
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:4:Missing class docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:4:Old-style class defined.
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:18:No exception type(s) specified
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:24:Missing method docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:37:No exception type(s) specified
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:43:Invalid argument name "ch"
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:43:Missing method docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:43:Unused argument 'ch'
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:43:Unused argument 'method'
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:43:Unused argument 'properties'
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:48:Missing method docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:54:No exception type(s) specified
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:56:Unreachable code
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:29:Attribute 'result' defined outside __init__
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:30:Attribute 'dynamic_queue_name' defined outside __init__
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:63:Invalid class name "rmqClientWriter"
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:63:Missing class docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:63:Old-style class defined.
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:76:No exception type(s) specified
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:82:Invalid method name "declareExchange"
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:82:Missing method docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:88:No exception type(s) specified
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:92:Missing method docstring
+simulator/ttyvehicle/adaptors/edgware/messaging/rmq.py:99:No exception type(s) specified
+************* Module vehicle.rover
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:1:Missing module docstring
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:1:Invalid class name "piRoverControls"
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:6:Invalid attribute name "vehicleLightState"
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:4:Invalid attribute name "directionPosition"
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:5:Invalid attribute name "brakeState"
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:9:Invalid attribute name "cameraLightState"
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:7:Invalid attribute name "cameraPanPosition"
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:8:Invalid attribute name "cameraTiltPosition"
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:3:Invalid attribute name "throttlePosition"
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:1:Missing class docstring
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:1:Old-style class defined.
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:1:Too few public methods (0/2)
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:12:Invalid class name "piRoverVehicle"
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:19:Invalid attribute name "environmentHumidity"
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:24:Invalid attribute name "accelLR"
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:21:Invalid attribute name "gpsLongitude"
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:17:Invalid attribute name "environmentTemperature"
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:16:Invalid attribute name "vehicleBatteryB"
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:18:Invalid attribute name "environmentPressure"
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:15:Invalid attribute name "vehicleBatteryA"
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:14:Invalid attribute name "vehicleWifi"
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:22:Invalid attribute name "gpsAltitude"
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:20:Invalid attribute name "gpsLatitude"
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:23:Invalid attribute name "gpsSpeed"
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:25:Invalid attribute name "accelRF"
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:12:Missing class docstring
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:12:Too many instance attributes (12/7)
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:12:Old-style class defined.
+simulator/ttyvehicle/adaptors/edgware/vehicle/rover.py:12:Too few public methods (0/2)
+************* Module vehicle
+simulator/ttyvehicle/adaptors/edgware/vehicle/__init__.py:1:Missing module docstring
+************* Module core
+simulator/ttyvehicle/adaptors/aws_sqs/core/__init__.py:1:Missing module docstring
+************* Module core.logger
+simulator/ttyvehicle/adaptors/aws_sqs/core/logger.py:7:Trailing whitespace
+simulator/ttyvehicle/adaptors/aws_sqs/core/logger.py:1:Missing module docstring
+simulator/ttyvehicle/adaptors/aws_sqs/core/logger.py:4:Invalid constant name "log_format"
+simulator/ttyvehicle/adaptors/aws_sqs/core/logger.py:7:Invalid function name "CreateLogger"
+simulator/ttyvehicle/adaptors/aws_sqs/core/logger.py:7:Invalid argument name "logID"
+simulator/ttyvehicle/adaptors/aws_sqs/core/logger.py:7:Missing function docstring
+simulator/ttyvehicle/adaptors/aws_sqs/core/logger.py:43:No exception type(s) specified
+simulator/ttyvehicle/adaptors/aws_sqs/core/logger.py:48:Invalid function name "SetLevel"
+simulator/ttyvehicle/adaptors/aws_sqs/core/logger.py:48:Missing function docstring
+simulator/ttyvehicle/adaptors/aws_sqs/core/logger.py:65:No exception type(s) specified
+************* Module messaging
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/__init__.py:1:Missing module docstring
+************* Module messaging.rmq
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:10:Line too long (101/80)
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:11:Line too long (94/80)
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:26:Line too long (95/80)
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:32:Line too long (104/80)
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:34:Line too long (99/80)
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:55:Unnecessary parens after 'return' keyword
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:69:Line too long (92/80)
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:89:Unnecessary parens after 'return' keyword
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:94:Line too long (92/80)
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:101:Line too long (81/80)
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:1:Missing module docstring
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:4:Invalid class name "rmqClientReader"
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:4:Missing class docstring
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:4:Old-style class defined.
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:18:No exception type(s) specified
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:24:Missing method docstring
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:37:No exception type(s) specified
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:43:Invalid argument name "ch"
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:43:Missing method docstring
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:43:Unused argument 'ch'
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:43:Unused argument 'method'
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:43:Unused argument 'properties'
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:48:Missing method docstring
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:54:No exception type(s) specified
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:56:Unreachable code
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:29:Attribute 'result' defined outside __init__
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:30:Attribute 'dynamic_queue_name' defined outside __init__
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:63:Invalid class name "rmqClientWriter"
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:63:Missing class docstring
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:63:Old-style class defined.
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:76:No exception type(s) specified
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:82:Invalid method name "declareExchange"
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:82:Missing method docstring
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:88:No exception type(s) specified
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:92:Missing method docstring
+simulator/ttyvehicle/adaptors/aws_sqs/messaging/rmq.py:99:No exception type(s) specified
+************* Module vehicle.rover
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:1:Missing module docstring
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:1:Invalid class name "piRoverControls"
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:6:Invalid attribute name "vehicleLightState"
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:4:Invalid attribute name "directionPosition"
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:5:Invalid attribute name "brakeState"
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:9:Invalid attribute name "cameraLightState"
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:7:Invalid attribute name "cameraPanPosition"
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:8:Invalid attribute name "cameraTiltPosition"
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:3:Invalid attribute name "throttlePosition"
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:1:Missing class docstring
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:1:Old-style class defined.
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:1:Too few public methods (0/2)
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:12:Invalid class name "piRoverVehicle"
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:19:Invalid attribute name "environmentHumidity"
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:24:Invalid attribute name "accelLR"
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:21:Invalid attribute name "gpsLongitude"
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:17:Invalid attribute name "environmentTemperature"
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:16:Invalid attribute name "vehicleBatteryB"
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:18:Invalid attribute name "environmentPressure"
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:15:Invalid attribute name "vehicleBatteryA"
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:14:Invalid attribute name "vehicleWifi"
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:22:Invalid attribute name "gpsAltitude"
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:20:Invalid attribute name "gpsLatitude"
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:23:Invalid attribute name "gpsSpeed"
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:25:Invalid attribute name "accelRF"
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:12:Missing class docstring
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:12:Too many instance attributes (12/7)
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:12:Old-style class defined.
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/rover.py:12:Too few public methods (0/2)
+************* Module vehicle
+simulator/ttyvehicle/adaptors/aws_sqs/vehicle/__init__.py:1:Missing module docstring
+************* Module sensors.query_sensors
+simulator/ttyvehicle/sensors/query_sensors.py:15:Trailing whitespace
+simulator/ttyvehicle/sensors/query_sensors.py:31:Trailing whitespace
+simulator/ttyvehicle/sensors/query_sensors.py:54:Trailing whitespace
+simulator/ttyvehicle/sensors/query_sensors.py:89:Bad indentation. Found 12 spaces, expected 8
+simulator/ttyvehicle/sensors/query_sensors.py:102:Trailing whitespace
+simulator/ttyvehicle/sensors/query_sensors.py:1:Missing module docstring
+simulator/ttyvehicle/sensors/query_sensors.py:3:Wildcard import subprocess
+simulator/ttyvehicle/sensors/query_sensors.py:16:No exception type(s) specified
+simulator/ttyvehicle/sensors/query_sensors.py:20:Invalid function name "getBatteryA"
+simulator/ttyvehicle/sensors/query_sensors.py:20:Missing function docstring
+simulator/ttyvehicle/sensors/query_sensors.py:23:No exception type(s) specified
+simulator/ttyvehicle/sensors/query_sensors.py:26:Invalid function name "getBatteryB"
+simulator/ttyvehicle/sensors/query_sensors.py:26:Missing function docstring
+simulator/ttyvehicle/sensors/query_sensors.py:29:No exception type(s) specified
+simulator/ttyvehicle/sensors/query_sensors.py:32:Invalid function name "getWifi"
+simulator/ttyvehicle/sensors/query_sensors.py:32:Missing function docstring
+simulator/ttyvehicle/sensors/query_sensors.py:39:No exception type(s) specified
+simulator/ttyvehicle/sensors/query_sensors.py:43:Invalid function name "getEnvironment_temperature"
+simulator/ttyvehicle/sensors/query_sensors.py:43:Missing function docstring
+simulator/ttyvehicle/sensors/query_sensors.py:47:No exception type(s) specified
+simulator/ttyvehicle/sensors/query_sensors.py:50:Invalid function name "getEnvironment_humidity"
+simulator/ttyvehicle/sensors/query_sensors.py:50:Missing function docstring
+simulator/ttyvehicle/sensors/query_sensors.py:53:No exception type(s) specified
+simulator/ttyvehicle/sensors/query_sensors.py:56:Invalid function name "getEnvironment_pressure"
+simulator/ttyvehicle/sensors/query_sensors.py:56:Missing function docstring
+simulator/ttyvehicle/sensors/query_sensors.py:60:No exception type(s) specified
+simulator/ttyvehicle/sensors/query_sensors.py:64:Invalid function name "getGPS_lat"
+simulator/ttyvehicle/sensors/query_sensors.py:64:Missing function docstring
+simulator/ttyvehicle/sensors/query_sensors.py:70:No exception type(s) specified
+simulator/ttyvehicle/sensors/query_sensors.py:73:Invalid function name "getGPS_long"
+simulator/ttyvehicle/sensors/query_sensors.py:73:Missing function docstring
+simulator/ttyvehicle/sensors/query_sensors.py:79:No exception type(s) specified
+simulator/ttyvehicle/sensors/query_sensors.py:82:Invalid function name "getGPS_speed"
+simulator/ttyvehicle/sensors/query_sensors.py:82:Missing function docstring
+simulator/ttyvehicle/sensors/query_sensors.py:88:No exception type(s) specified
+simulator/ttyvehicle/sensors/query_sensors.py:91:Invalid function name "getGPS_altitude"
+simulator/ttyvehicle/sensors/query_sensors.py:91:Missing function docstring
+simulator/ttyvehicle/sensors/query_sensors.py:97:No exception type(s) specified
+simulator/ttyvehicle/sensors/query_sensors.py:105:Redefining built-in 'ord'
+simulator/ttyvehicle/sensors/query_sensors.py:101:Invalid function name "getMovement_Accelerometer"
+simulator/ttyvehicle/sensors/query_sensors.py:101:Missing function docstring
+simulator/ttyvehicle/sensors/query_sensors.py:109:No exception type(s) specified
+simulator/ttyvehicle/sensors/query_sensors.py:103:Attempting to unpack a non-sequence defined at line 34 of sensors.ttyLSM303
+simulator/ttyvehicle/sensors/query_sensors.py:104:Unused variable 'acc_z'
+simulator/ttyvehicle/sensors/query_sensors.py:105:Unused variable 'ord'
+simulator/ttyvehicle/sensors/query_sensors.py:105:Unused variable 'mag_y'
+simulator/ttyvehicle/sensors/query_sensors.py:105:Unused variable 'mag_x'
+simulator/ttyvehicle/sensors/query_sensors.py:105:Unused variable 'mag_z'
+simulator/ttyvehicle/sensors/query_sensors.py:114:Missing function docstring
+simulator/ttyvehicle/sensors/query_sensors.py:120:No exception type(s) specified
+simulator/ttyvehicle/sensors/query_sensors.py:3:Unused import STDOUT from wildcard import
+simulator/ttyvehicle/sensors/query_sensors.py:3:Unused import check_call from wildcard import
+simulator/ttyvehicle/sensors/query_sensors.py:3:Unused import CalledProcessError from wildcard import
+simulator/ttyvehicle/sensors/query_sensors.py:3:Unused import check_output from wildcard import
+simulator/ttyvehicle/sensors/query_sensors.py:3:Unused import call from wildcard import
+************* Module sensors.gps
+simulator/ttyvehicle/sensors/gps.py:41:Trailing whitespace
+simulator/ttyvehicle/sensors/gps.py:66:Trailing whitespace
+simulator/ttyvehicle/sensors/gps.py:1:Missing module docstring
+simulator/ttyvehicle/sensors/gps.py:4:Unable to import 'sim_data'
+simulator/ttyvehicle/sensors/gps.py:7:Invalid class name "gpsPoller"
+simulator/ttyvehicle/sensors/gps.py:7:Missing class docstring
+simulator/ttyvehicle/sensors/gps.py:19:No exception type(s) specified
+simulator/ttyvehicle/sensors/gps.py:23:Invalid method name "setFixMode"
+simulator/ttyvehicle/sensors/gps.py:23:Missing method docstring
+simulator/ttyvehicle/sensors/gps.py:29:No exception type(s) specified
+simulator/ttyvehicle/sensors/gps.py:66:No exception type(s) specified
+************* Module sensors.camera
+simulator/ttyvehicle/sensors/camera.py:12:Trailing whitespace
+simulator/ttyvehicle/sensors/camera.py:13:Trailing whitespace
+simulator/ttyvehicle/sensors/camera.py:14:Trailing whitespace
+simulator/ttyvehicle/sensors/camera.py:16:Trailing whitespace
+simulator/ttyvehicle/sensors/camera.py:1:Missing module docstring
+simulator/ttyvehicle/sensors/camera.py:6:Invalid class name "camera"
+simulator/ttyvehicle/sensors/camera.py:6:Missing class docstring
+simulator/ttyvehicle/sensors/camera.py:6:Old-style class defined.
+simulator/ttyvehicle/sensors/camera.py:36:Redefining built-in 'file'
+simulator/ttyvehicle/sensors/camera.py:17:Redefining built-in 'buffer'
+simulator/ttyvehicle/sensors/camera.py:12:Redefining built-in 'long'
+simulator/ttyvehicle/sensors/camera.py:12:Invalid method name "captureStill"
+simulator/ttyvehicle/sensors/camera.py:12:Missing method docstring
+simulator/ttyvehicle/sensors/camera.py:12:Too many arguments (7/5)
+simulator/ttyvehicle/sensors/camera.py:41:No exception type(s) specified
+simulator/ttyvehicle/sensors/camera.py:12:Method could be a function
+simulator/ttyvehicle/sensors/camera.py:6:Too few public methods (1/2)
+************* Module sensors.ttyBMP085
+simulator/ttyvehicle/sensors/ttyBMP085.py:1:Invalid module name "ttyBMP085"
+simulator/ttyvehicle/sensors/ttyBMP085.py:1:Missing module docstring
+simulator/ttyvehicle/sensors/ttyBMP085.py:1:Missing class docstring
+simulator/ttyvehicle/sensors/ttyBMP085.py:1:Old-style class defined.
+simulator/ttyvehicle/sensors/ttyBMP085.py:8:No exception type(s) specified
+simulator/ttyvehicle/sensors/ttyBMP085.py:12:Invalid method name "readTemperature"
+simulator/ttyvehicle/sensors/ttyBMP085.py:12:Missing method docstring
+simulator/ttyvehicle/sensors/ttyBMP085.py:16:Invalid method name "readPressure"
+simulator/ttyvehicle/sensors/ttyBMP085.py:16:Missing method docstring
+simulator/ttyvehicle/sensors/ttyBMP085.py:20:Invalid method name "readAltitude"
+simulator/ttyvehicle/sensors/ttyBMP085.py:20:Missing method docstring
+************* Module sensors
+simulator/ttyvehicle/sensors/__init__.py:1:Missing module docstring
+************* Module sensors.ttyLSM303
+simulator/ttyvehicle/sensors/ttyLSM303.py:4:No space allowed before :
+class LSM303 :
+             ^
+simulator/ttyvehicle/sensors/ttyLSM303.py:34:Unnecessary parens after 'return' keyword
+simulator/ttyvehicle/sensors/ttyLSM303.py:1:Invalid module name "ttyLSM303"
+simulator/ttyvehicle/sensors/ttyLSM303.py:1:Missing module docstring
+simulator/ttyvehicle/sensors/ttyLSM303.py:4:Missing class docstring
+simulator/ttyvehicle/sensors/ttyLSM303.py:4:Old-style class defined.
+simulator/ttyvehicle/sensors/ttyLSM303.py:19:No exception type(s) specified
+simulator/ttyvehicle/sensors/ttyLSM303.py:23:Missing method docstring
+simulator/ttyvehicle/sensors/ttyLSM303.py:33:No exception type(s) specified
+simulator/ttyvehicle/sensors/ttyLSM303.py:26:Invalid variable name "x"
+simulator/ttyvehicle/sensors/ttyLSM303.py:26:Invalid variable name "y"
+simulator/ttyvehicle/sensors/ttyLSM303.py:26:Invalid variable name "z"
+simulator/ttyvehicle/sensors/ttyLSM303.py:4:Too few public methods (1/2)
+************* Module messaging.rabbitmq
+simulator/ttyvehicle/messaging/rabbitmq.py:10:Line too long (101/80)
+simulator/ttyvehicle/messaging/rabbitmq.py:11:Line too long (94/80)
+simulator/ttyvehicle/messaging/rabbitmq.py:26:Line too long (95/80)
+simulator/ttyvehicle/messaging/rabbitmq.py:32:Line too long (104/80)
+simulator/ttyvehicle/messaging/rabbitmq.py:34:Line too long (99/80)
+simulator/ttyvehicle/messaging/rabbitmq.py:69:Line too long (92/80)
+simulator/ttyvehicle/messaging/rabbitmq.py:94:Line too long (92/80)
+simulator/ttyvehicle/messaging/rabbitmq.py:101:Line too long (81/80)
+simulator/ttyvehicle/messaging/rabbitmq.py:103:Unnecessary parens after 'print' keyword
+simulator/ttyvehicle/messaging/rabbitmq.py:1:Missing module docstring
+simulator/ttyvehicle/messaging/rabbitmq.py:4:Invalid class name "rmqClientReader"
+simulator/ttyvehicle/messaging/rabbitmq.py:4:Missing class docstring
+simulator/ttyvehicle/messaging/rabbitmq.py:4:Old-style class defined.
+simulator/ttyvehicle/messaging/rabbitmq.py:18:No exception type(s) specified
+simulator/ttyvehicle/messaging/rabbitmq.py:24:Missing method docstring
+simulator/ttyvehicle/messaging/rabbitmq.py:37:No exception type(s) specified
+simulator/ttyvehicle/messaging/rabbitmq.py:43:Invalid argument name "ch"
+simulator/ttyvehicle/messaging/rabbitmq.py:43:Missing method docstring
+simulator/ttyvehicle/messaging/rabbitmq.py:43:Unused argument 'ch'
+simulator/ttyvehicle/messaging/rabbitmq.py:43:Unused argument 'method'
+simulator/ttyvehicle/messaging/rabbitmq.py:43:Unused argument 'properties'
+simulator/ttyvehicle/messaging/rabbitmq.py:48:Missing method docstring
+simulator/ttyvehicle/messaging/rabbitmq.py:54:No exception type(s) specified
+simulator/ttyvehicle/messaging/rabbitmq.py:56:Unreachable code
+simulator/ttyvehicle/messaging/rabbitmq.py:29:Attribute 'result' defined outside __init__
+simulator/ttyvehicle/messaging/rabbitmq.py:30:Attribute 'dynamic_queue_name' defined outside __init__
+simulator/ttyvehicle/messaging/rabbitmq.py:63:Invalid class name "rmqClientWriter"
+simulator/ttyvehicle/messaging/rabbitmq.py:63:Missing class docstring
+simulator/ttyvehicle/messaging/rabbitmq.py:63:Old-style class defined.
+simulator/ttyvehicle/messaging/rabbitmq.py:76:No exception type(s) specified
+simulator/ttyvehicle/messaging/rabbitmq.py:82:Invalid method name "declareExchange"
+simulator/ttyvehicle/messaging/rabbitmq.py:82:Missing method docstring
+simulator/ttyvehicle/messaging/rabbitmq.py:88:No exception type(s) specified
+simulator/ttyvehicle/messaging/rabbitmq.py:92:Missing method docstring
+simulator/ttyvehicle/messaging/rabbitmq.py:99:No exception type(s) specified
+************* Module messaging
+simulator/ttyvehicle/messaging/__init__.py:1:Missing module docstring
+************* Module class_workers
+qtcontrols/class_workers.py:33:Line too long (96/80)
+qtcontrols/class_workers.py:37:Trailing whitespace
+qtcontrols/class_workers.py:39:Trailing whitespace
+qtcontrols/class_workers.py:46:Trailing whitespace
+qtcontrols/class_workers.py:105:Trailing whitespace
+qtcontrols/class_workers.py:106:Trailing whitespace
+qtcontrols/class_workers.py:107:Trailing whitespace
+qtcontrols/class_workers.py:109:Trailing whitespace
+qtcontrols/class_workers.py:110:Trailing whitespace
+qtcontrols/class_workers.py:111:Trailing whitespace
+qtcontrols/class_workers.py:113:Trailing whitespace
+qtcontrols/class_workers.py:118:Line too long (87/80)
+qtcontrols/class_workers.py:124:Trailing whitespace
+qtcontrols/class_workers.py:125:Trailing whitespace
+qtcontrols/class_workers.py:136:Line too long (105/80)
+qtcontrols/class_workers.py:137:Line too long (118/80)
+qtcontrols/class_workers.py:138:Line too long (118/80)
+qtcontrols/class_workers.py:141:Line too long (132/80)
+qtcontrols/class_workers.py:142:Line too long (123/80)
+qtcontrols/class_workers.py:143:Line too long (123/80)
+qtcontrols/class_workers.py:146:Line too long (106/80)
+qtcontrols/class_workers.py:147:Line too long (109/80)
+qtcontrols/class_workers.py:148:Line too long (102/80)
+qtcontrols/class_workers.py:149:Line too long (111/80)
+qtcontrols/class_workers.py:171:Line too long (116/80)
+qtcontrols/class_workers.py:172:Trailing whitespace
+qtcontrols/class_workers.py:1:Missing module docstring
+qtcontrols/class_workers.py:5:Wildcard import subprocess
+qtcontrols/class_workers.py:8:Invalid constant name "config"
+qtcontrols/class_workers.py:22:Missing class docstring
+qtcontrols/class_workers.py:22:Too many instance attributes (10/7)
+qtcontrols/class_workers.py:55:Invalid argument name "ch"
+qtcontrols/class_workers.py:55:Missing method docstring
+qtcontrols/class_workers.py:58:No exception type(s) specified
+qtcontrols/class_workers.py:55:Unused argument 'ch'
+qtcontrols/class_workers.py:55:Unused argument 'method'
+qtcontrols/class_workers.py:55:Unused argument 'properties'
+qtcontrols/class_workers.py:61:Missing method docstring
+qtcontrols/class_workers.py:65:No exception type(s) specified
+qtcontrols/class_workers.py:69:Invalid function name "MQWriter"
+qtcontrols/class_workers.py:69:Missing function docstring
+qtcontrols/class_workers.py:69:Too many local variables (16/15)
+qtcontrols/class_workers.py:130:No exception type(s) specified
+qtcontrols/class_workers.py:134:Invalid function name "GUIUpdate"
+qtcontrols/class_workers.py:134:Missing function docstring
+qtcontrols/class_workers.py:136:More than one statement on a single line
+qtcontrols/class_workers.py:137:More than one statement on a single line
+qtcontrols/class_workers.py:138:More than one statement on a single line
+qtcontrols/class_workers.py:141:More than one statement on a single line
+qtcontrols/class_workers.py:142:More than one statement on a single line
+qtcontrols/class_workers.py:143:More than one statement on a single line
+qtcontrols/class_workers.py:146:More than one statement on a single line
+qtcontrols/class_workers.py:147:More than one statement on a single line
+qtcontrols/class_workers.py:148:More than one statement on a single line
+qtcontrols/class_workers.py:149:More than one statement on a single line
+qtcontrols/class_workers.py:134:Too many branches (16/12)
+qtcontrols/class_workers.py:170:Invalid function name "OpenPlayer"
+qtcontrols/class_workers.py:170:Missing function docstring
+qtcontrols/class_workers.py:172:Invalid variable name "p"
+qtcontrols/class_workers.py:5:Unused import check_call from wildcard import
+qtcontrols/class_workers.py:5:Unused import CalledProcessError from wildcard import
+qtcontrols/class_workers.py:5:Unused import check_output from wildcard import
+qtcontrols/class_workers.py:5:Unused import STDOUT from wildcard import
+qtcontrols/class_workers.py:5:Unused import call from wildcard import
+************* Module class_gui
+qtcontrols/class_gui.py:312:Line too long (86/80)
+qtcontrols/class_gui.py:313:Line too long (84/80)
+qtcontrols/class_gui.py:320:Line too long (87/80)
+qtcontrols/class_gui.py:321:Line too long (84/80)
+qtcontrols/class_gui.py:328:Line too long (112/80)
+qtcontrols/class_gui.py:329:Line too long (112/80)
+qtcontrols/class_gui.py:330:Line too long (99/80)
+qtcontrols/class_gui.py:331:Line too long (110/80)
+qtcontrols/class_gui.py:332:Line too long (111/80)
+qtcontrols/class_gui.py:333:Line too long (114/80)
+qtcontrols/class_gui.py:334:Line too long (115/80)
+qtcontrols/class_gui.py:335:Line too long (108/80)
+qtcontrols/class_gui.py:336:Line too long (109/80)
+qtcontrols/class_gui.py:337:Line too long (116/80)
+qtcontrols/class_gui.py:338:Line too long (112/80)
+qtcontrols/class_gui.py:339:Line too long (117/80)
+qtcontrols/class_gui.py:340:Line too long (113/80)
+qtcontrols/class_gui.py:341:Line too long (100/80)
+qtcontrols/class_gui.py:342:Line too long (108/80)
+qtcontrols/class_gui.py:343:Line too long (108/80)
+qtcontrols/class_gui.py:344:Line too long (111/80)
+qtcontrols/class_gui.py:359:Line too long (84/80)
+qtcontrols/class_gui.py:360:Line too long (82/80)
+qtcontrols/class_gui.py:363:Line too long (130/80)
+qtcontrols/class_gui.py:367:Line too long (81/80)
+qtcontrols/class_gui.py:368:Line too long (114/80)
+qtcontrols/class_gui.py:369:Line too long (122/80)
+qtcontrols/class_gui.py:370:Line too long (81/80)
+qtcontrols/class_gui.py:371:Line too long (81/80)
+qtcontrols/class_gui.py:372:Line too long (118/80)
+qtcontrols/class_gui.py:373:Line too long (83/80)
+qtcontrols/class_gui.py:374:Line too long (81/80)
+qtcontrols/class_gui.py:383:Line too long (83/80)
+qtcontrols/class_gui.py:384:Line too long (83/80)
+qtcontrols/class_gui.py:388:Line too long (96/80)
+qtcontrols/class_gui.py:391:Line too long (81/80)
+qtcontrols/class_gui.py:432:Line too long (87/80)
+qtcontrols/class_gui.py:1:Missing module docstring
+qtcontrols/class_gui.py:17:Invalid constant name "_fromUtf8"
+qtcontrols/class_gui.py:19:Invalid function name "_fromUtf8"
+qtcontrols/class_gui.py:19:Invalid argument name "s"
+qtcontrols/class_gui.py:19:Missing function docstring
+qtcontrols/class_gui.py:23:Invalid constant name "_encoding"
+qtcontrols/class_gui.py:24:Missing function docstring
+qtcontrols/class_gui.py:27:Missing function docstring
+qtcontrols/class_gui.py:30:Invalid class name "Ui_MainWindow"
+qtcontrols/class_gui.py:32:Invalid attribute name "MQReadThread"
+qtcontrols/class_gui.py:30:Missing class docstring
+qtcontrols/class_gui.py:30:Too many instance attributes (69/7)
+qtcontrols/class_gui.py:35:Invalid method name "setupUi"
+qtcontrols/class_gui.py:35:Invalid argument name "MainWindow"
+qtcontrols/class_gui.py:35:Missing method docstring
+qtcontrols/class_gui.py:35:Too many statements (304/50)
+qtcontrols/class_gui.py:347:Invalid method name "retranslateUi"
+qtcontrols/class_gui.py:347:Invalid argument name "MainWindow"
+qtcontrols/class_gui.py:347:Missing method docstring
+qtcontrols/class_gui.py:394:Invalid method name "translateQueueData"
+qtcontrols/class_gui.py:394:Missing method docstring
+qtcontrols/class_gui.py:398:Missing method docstring
+qtcontrols/class_gui.py:411:Missing method docstring
+qtcontrols/class_gui.py:425:Missing method docstring
+qtcontrols/class_gui.py:444:Missing method docstring
+qtcontrols/class_gui.py:454:Missing method docstring
+qtcontrols/class_gui.py:465:Missing method docstring
+qtcontrols/class_gui.py:478:Missing method docstring
+qtcontrols/class_gui.py:489:Missing method docstring
+qtcontrols/class_gui.py:499:Missing method docstring
+qtcontrols/class_gui.py:505:Missing method docstring
+qtcontrols/class_gui.py:508:Missing method docstring
+qtcontrols/class_gui.py:511:Missing method docstring
+qtcontrols/class_gui.py:511:Method could be a function
+qtcontrols/class_gui.py:515:Missing method docstring
+qtcontrols/class_gui.py:518:Missing method docstring
+qtcontrols/class_gui.py:521:Missing method docstring
+qtcontrols/class_gui.py:312:Attribute 'wheel_l' defined outside __init__
+qtcontrols/class_gui.py:96:Attribute 'btn_left_full' defined outside __init__
+qtcontrols/class_gui.py:104:Attribute 'btn_right_full' defined outside __init__
+qtcontrols/class_gui.py:45:Attribute 'bar_right' defined outside __init__
+qtcontrols/class_gui.py:269:Attribute 'lbl_cam_dial' defined outside __init__
+qtcontrols/class_gui.py:277:Attribute 'lbl_cam_tilt' defined outside __init__
+qtcontrols/class_gui.py:250:Attribute 'dial_cam_pan' defined outside __init__
+qtcontrols/class_gui.py:167:Attribute 'tb_gps_lat' defined outside __init__
+qtcontrols/class_gui.py:180:Attribute 'lbl_gps_east' defined outside __init__
+qtcontrols/class_gui.py:232:Attribute 'lbl_wifi' defined outside __init__
+qtcontrols/class_gui.py:321:Attribute 'wheel_f' defined outside __init__
+qtcontrols/class_gui.py:319:Attribute 'center_line_rf' defined outside __init__
+qtcontrols/class_gui.py:194:Attribute 'tb_gps_altitude' defined outside __init__
+qtcontrols/class_gui.py:130:Attribute 'frame_data' defined outside __init__
+qtcontrols/class_gui.py:61:Attribute 'bar_forward' defined outside __init__
+qtcontrols/class_gui.py:245:Attribute 'frame_camera' defined outside __init__
+qtcontrols/class_gui.py:151:Attribute 'tb_humidity' defined outside __init__
+qtcontrols/class_gui.py:258:Attribute 'slider_cam_tilt' defined outside __init__
+qtcontrols/class_gui.py:68:Attribute 'bar_left' defined outside __init__
+qtcontrols/class_gui.py:148:Attribute 'lbl_humidity' defined outside __init__
+qtcontrols/class_gui.py:165:Attribute 'tab_gps' defined outside __init__
+qtcontrols/class_gui.py:205:Attribute 'gv_accel_lr' defined outside __init__
+qtcontrols/class_gui.py:320:Attribute 'wheel_re' defined outside __init__
+qtcontrols/class_gui.py:112:Attribute 'lbl_veh_light' defined outside __init__
+qtcontrols/class_gui.py:235:Attribute 'bar_wifi' defined outside __init__
+qtcontrols/class_gui.py:183:Attribute 'tb_gps_speed' defined outside __init__
+qtcontrols/class_gui.py:58:Attribute 'btn_forward' defined outside __init__
+qtcontrols/class_gui.py:145:Attribute 'lbl_temperature' defined outside __init__
+qtcontrols/class_gui.py:161:Attribute 'lbl_pressure' defined outside __init__
+qtcontrols/class_gui.py:156:Attribute 'tb_pressure' defined outside __init__
+qtcontrols/class_gui.py:55:Attribute 'btn_stop' defined outside __init__
+qtcontrols/class_gui.py:283:Attribute 'btn_cam_reset' defined outside __init__
+qtcontrols/class_gui.py:311:Attribute 'center_line_lr' defined outside __init__
+qtcontrols/class_gui.py:286:Attribute 'btn_open_player' defined outside __init__
+qtcontrols/class_gui.py:40:Attribute 'frame_controls' defined outside __init__
+qtcontrols/class_gui.py:38:Attribute 'centralwidget' defined outside __init__
+qtcontrols/class_gui.py:75:Attribute 'btn_left' defined outside __init__
+qtcontrols/class_gui.py:229:Attribute 'lbl_battery_a' defined outside __init__
+qtcontrols/class_gui.py:310:Attribute 'scene_lr' defined outside __init__
+qtcontrols/class_gui.py:138:Attribute 'tab_environment' defined outside __init__
+qtcontrols/class_gui.py:280:Attribute 'lbl_cam_pan' defined outside __init__
+qtcontrols/class_gui.py:126:Attribute 'cb_veh_light' defined outside __init__
+qtcontrols/class_gui.py:140:Attribute 'tb_temperature' defined outside __init__
+qtcontrols/class_gui.py:318:Attribute 'scene_rf' defined outside __init__
+qtcontrols/class_gui.py:81:Attribute 'bar_reverse' defined outside __init__
+qtcontrols/class_gui.py:211:Attribute 'lbl_accel_lr' defined outside __init__
+qtcontrols/class_gui.py:78:Attribute 'btn_right' defined outside __init__
+qtcontrols/class_gui.py:88:Attribute 'lbl_brake' defined outside __init__
+qtcontrols/class_gui.py:218:Attribute 'lbl_battery_a_2' defined outside __init__
+qtcontrols/class_gui.py:203:Attribute 'tab_accel' defined outside __init__
+qtcontrols/class_gui.py:221:Attribute 'bar_battery_a' defined outside __init__
+qtcontrols/class_gui.py:239:Attribute 'btn_shutdown' defined outside __init__
+qtcontrols/class_gui.py:172:Attribute 'lbl_gps_lat' defined outside __init__
+qtcontrols/class_gui.py:191:Attribute 'lbl_gps_altitude' defined outside __init__
+qtcontrols/class_gui.py:289:Attribute 'lbl_cam_light' defined outside __init__
+qtcontrols/class_gui.py:225:Attribute 'bar_battery_b' defined outside __init__
+qtcontrols/class_gui.py:313:Attribute 'wheel_r' defined outside __init__
+qtcontrols/class_gui.py:188:Attribute 'lbl_gps_speed' defined outside __init__
+qtcontrols/class_gui.py:208:Attribute 'gv_accel_rf' defined outside __init__
+qtcontrols/class_gui.py:304:Attribute 'statusbar' defined outside __init__
+qtcontrols/class_gui.py:135:Attribute 'tab_sensors' defined outside __init__
+qtcontrols/class_gui.py:299:Attribute 'cb_cam_light' defined outside __init__
+qtcontrols/class_gui.py:214:Attribute 'lbl_accel_rf' defined outside __init__
+qtcontrols/class_gui.py:200:Attribute 'tab_compass' defined outside __init__
+qtcontrols/class_gui.py:52:Attribute 'btn_reverse' defined outside __init__
+qtcontrols/class_gui.py:175:Attribute 'tb_gps_long' defined outside __init__
+qtcontrols/class_gui.py:122:Attribute 'cb_brake' defined outside __init__
