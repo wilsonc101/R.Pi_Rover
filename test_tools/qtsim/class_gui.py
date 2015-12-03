@@ -218,46 +218,16 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        QtCore.QObject.connect(self.sb_wifi, 
-                               QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), 
-                               self.vehicle_change)
-        
-        QtCore.QObject.connect(self.sb_batt_a, 
-                               QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), 
-                               self.vehicle_change)
-        
-        QtCore.QObject.connect(self.sb_batt_b, 
-                               QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), 
-                               self.vehicle_change)
-        
-        QtCore.QObject.connect(self.sb_temperature, 
-                               QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), 
-                               self.vehicle_change)
-        
-        QtCore.QObject.connect(self.sb_humidity, 
-                               QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), 
-                               self.vehicle_change)
-        
-        QtCore.QObject.connect(self.sb_pressure, 
-                               QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), 
-                               self.vehicle_change)
-        
-        QtCore.QObject.connect(self.sb_north, 
-                               QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), 
-                               self.vehicle_change)
-        
-        QtCore.QObject.connect(self.sb_east, 
-                               QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), 
-                               self.vehicle_change)
-        
-        QtCore.QObject.connect(self.sb_speed, 
-                               QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), 
-                               self.vehicle_change)
-        
-        QtCore.QObject.connect(self.sb_altitude, 
-                               QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), 
-                               self.vehicle_change)
-        
+        QtCore.QObject.connect(self.sb_wifi, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), self.vehicle_change)
+        QtCore.QObject.connect(self.sb_batt_a, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), self.vehicle_change)
+        QtCore.QObject.connect(self.sb_batt_b, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), self.vehicle_change)
+        QtCore.QObject.connect(self.sb_temperature, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), self.vehicle_change)
+        QtCore.QObject.connect(self.sb_humidity, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), self.vehicle_change)
+        QtCore.QObject.connect(self.sb_pressure, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), self.vehicle_change)
+        QtCore.QObject.connect(self.sb_north, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), self.vehicle_change)
+        QtCore.QObject.connect(self.sb_east, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), self.vehicle_change)
+        QtCore.QObject.connect(self.sb_speed, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), self.vehicle_change)
+        QtCore.QObject.connect(self.sb_altitude, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), self.vehicle_change)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

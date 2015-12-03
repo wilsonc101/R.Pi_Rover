@@ -14,8 +14,8 @@ class gpsPoller(threading.Thread):
     def run(self):
         self.running = True
         while self.running:
-            self.gpsd.next() 
-            # This will continue to loop and grab EACH 
+            self.gpsd.next()
+            # This will continue to loop and grab EACH
             # set of gpsd info to clear the buffer
             if self.gpsd.fix.mode > 1:
                 self.gpsdata['status'] = "FIX"
@@ -44,7 +44,7 @@ if __name__ == '__main__':
                 print json.dumps(gpsp.gpsdata)
             else:
                 print gpsp.gpsdata['status']
- 
+
     except (KeyboardInterrupt, SystemExit):
         gpsp.running = False
         gpsp.join() # wait for the thread to finish what it's doing

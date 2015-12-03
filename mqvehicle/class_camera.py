@@ -49,16 +49,16 @@ class camera(threading.Thread):
                     self.camera.start_recording(self.connection,
                                                 format='h264',
                                                 bitrate=4000000)
-                    self.camera.vflip=True
-                    self.camera.hflip=True
+                    self.camera.vflip = True
+                    self.camera.hflip = True
                     self.camera.wait_recording(6000000)
                     self.recording = True
-                    if self.log != None: 
+                    if self.log != None:
                         self.log.info("Camera - recording started.")
 
 
                 finally:
-                    if self.log != None: 
+                    if self.log != None:
                         self.log.info("Camera - recording stopped.")
     
                     self.camera.stop_recording()
@@ -68,7 +68,7 @@ class camera(threading.Thread):
 
             except:
 
-                if self.log != None: 
+                if self.log != None:
                     self.log.error("Camera - connection dropped")
                 else:
                     print "Camera - connection dropped"
