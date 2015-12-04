@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Leaflet</title>
+  <link rel="stylesheet" type="text/css" href="leaflet-0.7.2/leaflet.css">
+  <link rel="stylesheet" type="text/css" href="leafdraw/leaflet.draw.css">
+  <script type='text/javascript' src="leaflet-0.7.2/leaflet.js"></script>
+  <script type='text/javascript' src="jquery/jquery.min.js"></script>
+  <script type='text/javascript' src="leafdraw/leaflet.draw.js"></script>
+      
+  <style type='text/css'>
+    html, body, #map {
+    width:100%;
+    height:96%;
+    margin:0;
+    padding:0;}
+
+   .get-markers {
+     width:100%;
+     margin:10px 0;}
+  </style>
+  
+
+<script type='text/javascript'>//<![CDATA[
+window.onload=function(){
+
+// We’ll add a OSM tile layer to our map
+var osmUrl = 'data/{id}/{z}/{x}/{y}.{ex}',
+    osmAttrib = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+
+
+// Custom icon using local source
+var myIcon = L.icon({
+    iconUrl: 'images/marker-icon.png',
+    iconRetinaUrl: 'my-icon@2x.png',
+    iconSize: [25, 41],
+    iconAnchor: [21, 41],
+    popupAnchor: [-8, -44],
+    shadowUrl: 'images/marker-shadow.png',
+    shadowRetinaUrl: 'my-icon-shadow@2x.png',
+    shadowSize: [41, 41],
+    shadowAnchor: [21, 41]
+});
+
+
+// initialize map and set default layer and location
+var sat = L.tileLayer(osmUrl, {id: 'mapquest-open-aerial', ex: 'jpg', attribution: osmAttrib}),
+    streets = L.tileLayer(osmUrl, {id: 'openstreetmap',   ex: 'png', attribution: osmAttrib});
+
+var map = L.map('map', {center: [51.44667890937984, -2.1424198150634766], 
+                        zoom: 16}).addLayer(streets);
+
+// Create layer menu and assign to map
+var baseLayers = {"Sattelite": sat,
+                  "Streets": streets};
+
+L.control.layers(baseLayers).addTo(map);
+
+
+
+// Initialise the FeatureGroup to store editable layers
+var drawnItems = new L.FeatureGroup();
+map.addLayer(drawnItems);
+
+// Initialise the draw control and pass it the FeatureGroup of editable layers
+var drawControl = new L.Control.Draw({
+    edit: {
+        featureGroup: drawnItems
+    }
+});
+map.addControl(drawControl);
+
+
+		map.on('draw:created', function (e) {
+			var type = e.layerType,
+				layer = e.layer;
+
+			if (type === 'marker') {
+				layer.bindPopup('A popup!');
+			}
+
+			drawnItems.addLayer(layer);
+		});
+
+}//]]> 
+
+
+</script>
+
+</head>
+<body>
+  <div id="map" data-mode="">
+    <input type="hidden" data-map-markers="" value="" name="map-geojson-data" />
+</div>
+<div>
+    <input class="get-markers" type="button" value="Get all the Markers" />
+</div>
+  
+</body>
+
+</html>
+
+
