@@ -1,5 +1,6 @@
 import socket
 import threading
+import uuid
 
 import picamera
 
@@ -74,3 +75,18 @@ class camera(threading.Thread):
                     print "Camera - connection dropped"
 
 
+    def captureStill(self, capturepath="/tmp", 
+                     size=(600, 600)):
+
+        try:
+            capture_filename = str(uuid.uuid1()) + ".jpg"
+            capture_filepath = capturepath + "/" + capture_filename
+
+            self.camera.vflip = True
+            self.camera.hflip = True
+            self.camera.capture(capture_filepath, resize=size, use_video_port=True)
+
+            return capture_filename
+
+        except:
+            return False
