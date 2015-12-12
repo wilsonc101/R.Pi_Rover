@@ -884,11 +884,30 @@ Vehicle</string>
       <string/>
      </property>
     </widget>
+    <widget class="QToolButton" name="btn_cam_still">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>200</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Capture Still</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>icon-camera-128.png</normaloff>icon-camera-128.png</iconset>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="camera_icon.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>btn_forward</sender>
