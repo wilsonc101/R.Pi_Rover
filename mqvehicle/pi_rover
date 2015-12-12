@@ -10,8 +10,6 @@ import os
 
 from subprocess import *
 
-
-#from Adafruit_PWM_Servo_Driver import PWM
 import messaging.rabbitmq as mq
 
 import sensors.Rover_GPS as gpsreader
@@ -167,6 +165,7 @@ try:
     GPIO.setup(LIGHTS_VEHICLE_GPIO, GPIO.OUT)
 except:
     raise SystemExit("FATAL: Could not configure GPIO")
+
 
 def SendPWM(channel,start,end):
     # PWM output requires channel, start and end. Start and end refer to the start point and length of the pulse.
@@ -331,6 +330,10 @@ def main():
         vehicle_camera = camera.camera(VEHICLE_CAMERA_BIND_ADDRESS, VEHICLE_CAMERA_PORT, VEHICLE_CAMERA_RESOLUTION_X, VEHICLE_CAMERA_RESOLUTION_Y, VEHICLE_CAMERA_NAME, logfile)
         vehicle_camera.start()
 
+        time.sleep(2)
+
+        print vehicle_camera.captureStill()
+
         # Set control queue reader and start in new thread
         control_reader = mq.rmqClientReader(host=CONTROL_HOST, port=CONTROL_PORT, log=logfile)
 
@@ -435,9 +438,9 @@ def main():
                 time.sleep(1)
 
             # Annotate video stream
-            #vehicle_camera.camera.annotate_text = ("Wifi: " + str(vehicle_data['vehicle']['wifi']) + "% - "\
-            #                                       "Battery A: " + str(vehicle_data['vehicle']['batteryA']) + "% - "\
-            #                                       "Battery B: " + str(vehicle_data['vehicle']['batteryB']) + "%")
+            vehicle_camera.camera.annotate_text = ("Wifi: " + str(vehicle_data['vehicle']['wifi']) + "% - "\
+                                                   "Battery A: " + str(vehicle_data['vehicle']['batteryA']) + "% - "\
+                                                   "Battery B: " + str(vehicle_data['vehicle']['batteryB']) + "%")
 
 
             counter += 1
