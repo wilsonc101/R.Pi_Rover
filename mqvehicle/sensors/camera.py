@@ -52,6 +52,8 @@ class camera(threading.Thread):
                                                 bitrate=4000000)
                     self.camera.vflip = True
                     self.camera.hflip = True
+                    self.camera.video_stabilization = True
+
                     self.camera.wait_recording(6000000)
                     self.recording = True
                     if self.log != None:

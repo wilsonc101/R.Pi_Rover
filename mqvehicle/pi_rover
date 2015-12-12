@@ -330,9 +330,7 @@ def main():
         vehicle_camera = camera.camera(VEHICLE_CAMERA_BIND_ADDRESS, VEHICLE_CAMERA_PORT, VEHICLE_CAMERA_RESOLUTION_X, VEHICLE_CAMERA_RESOLUTION_Y, VEHICLE_CAMERA_NAME, logfile)
         vehicle_camera.start()
 
-        time.sleep(2)
-
-        print vehicle_camera.captureStill()
+        time.sleep(2) # Wait for camera to wake up
 
         # Set control queue reader and start in new thread
         control_reader = mq.rmqClientReader(host=CONTROL_HOST, port=CONTROL_PORT, log=logfile)
@@ -453,15 +451,15 @@ def main():
 
 
 if __name__ == '__main__':
-#    try:
+    try:
         main()     
 
-#    except (KeyboardInterrupt, SystemExit) as err:
-#        print str(err) + " -- Exiting..."
+    except (KeyboardInterrupt, SystemExit) as err:
+        print str(err) + " -- Exiting..."
 
-#    except AssertionError as err:
-#        print str(err)
+    except AssertionError as err:
+        print str(err)
 
-#    except:
-#        print "Error: unknown error - " + str(sys.exc_info()[0])
+    except:
+        print "Error: unknown error - " + str(sys.exc_info()[0])
 
