@@ -54,7 +54,7 @@ class MQReader(QtCore.QThread):
             return False
 
 
-def MQWriter(qt_window):
+def sendControl(qt_window):
     # Enviroment
     temperature_value = qt_window.sb_temperature.value()
     humidity_value = qt_window.sb_humidity.value()

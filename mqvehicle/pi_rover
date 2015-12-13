@@ -130,8 +130,7 @@ try:
     VEHICLE_CAMERA_PORT = config.get('camera', 'port')
     VEHICLE_CAMERA_RESOLUTION_X = config.get('camera', 'resolution_x')
     VEHICLE_CAMERA_RESOLUTION_Y = config.get('camera', 'resolution_y')
-
-    VEHICLE_CAMERA_STILLS_URL = config.get('camera', 'stills_url')
+    VEHICLE_CAMERA_STILLS_PATH = config.get('camera','stills_path')
 
     LIGHTS_CAMERA_GPIO = int(config.get('lights', 'camera_gpio_pin'))
     LIGHTS_VEHICLE_GPIO = int(config.get('lights', 'vehicle_gpio_pin'))
@@ -201,7 +200,7 @@ def _shutdownVehicle():
 
 
 def _vehicleControl(data):
-## Process recieved control data
+## Process received control data
     try:
         json_data = json.loads(data)
         print str(json_data)
@@ -278,13 +277,13 @@ def _vehicleControl(data):
                 if str(json_data['state']['shutdown']) == "True":
                     _shutdownVehicle()
 
-        return(True)
+        return True
 
     except SystemExit:
         raise SystemExit("OK: Vehicle shutdown request processed")
 
     except:
-        return(False)
+        return False
         logfile.warning("Could not process control data")
 
 
@@ -311,10 +310,10 @@ def _vehicleSensors(gps_poller=None):
         data['accelerometer'] = {'x': accelerometer_x,
                                  'y': accelerometer_y}
       
-        return(data)
+        return data
 
     except:
-        return(False)
+        return False
 
 
 def main():
@@ -327,7 +326,12 @@ def main():
         gps_poller.start()
 
         # Setup vehicle camera
-        vehicle_camera = camera.camera(VEHICLE_CAMERA_BIND_ADDRESS, VEHICLE_CAMERA_PORT, VEHICLE_CAMERA_RESOLUTION_X, VEHICLE_CAMERA_RESOLUTION_Y, VEHICLE_CAMERA_NAME, logfile)
+        vehicle_camera = camera.camera(VEHICLE_CAMERA_BIND_ADDRESS, 
+                                       VEHICLE_CAMERA_PORT, 
+                                       VEHICLE_CAMERA_RESOLUTION_X, 
+                                       VEHICLE_CAMERA_RESOLUTION_Y, 
+                                       VEHICLE_CAMERA_NAME, 
+                                       logfile)
         vehicle_camera.start()
 
         time.sleep(2) # Wait for camera to wake up
@@ -396,27 +400,25 @@ def main():
                     # Process pending requests
                     if PENDING_IMAGE_REQUESTS[request]['status'] == 'pending':
                         # Only attempt if GPS data is present
-                        if 'GPS' in vehicle_data and 'latitude' in vehicle_data['GPS'] and 'longitude' in vehicle_data['GPS']:
-                            try:
-                                # Form message content and trigger capture
-                                message = {'camera': {'still': ""}}
-                                image_path = vehicle_camera.captureStill(lat=vehicle_data['GPS']['latitude'], 
-                                                                         long=vehicle_data['GPS']['longitude'])
+                        try:
+                            # Form message content and trigger capture
+                            message = {'camera': {'still': ""}}
+                            image_id = vehicle_camera.captureStill()
 
-                                # Only complete if capture was successful
-                                if image_path != False:
-                                    PENDING_IMAGE_REQUESTS[request]['msg'] = VEHICLE_CAMERA_STILLS_URL + image_path
-                                    message['camera']['still'] = PENDING_IMAGE_REQUESTS[request]
-                                    PENDING_IMAGE_REQUESTS[request]['status'] = 'sent'
+                            # Only complete if capture was successful
+                            if image_id != False:
+                                PENDING_IMAGE_REQUESTS[request]['msg'] = image_id
+                                message['camera']['still'] = PENDING_IMAGE_REQUESTS[request]
+                                PENDING_IMAGE_REQUESTS[request]['status'] = 'sent'
+                            
+                                # Write to RMQ
+                                sensor_writer.publish(topic=VEHICLE_ID, data=json.dumps(message))
 
-                                    # Write to RMQ
-                                    sensor_writer.publish(topic=VEHICLE_ID, data=json.dumps(message))
+                            else:
+                                logfile.error("Error: No image file generated")
 
-                                else:
-                                    logfile.error("Error: No image file generated")
-
-                            except:
-                                logfile.error("Error: Failed to send image message")
+                        except:
+                            logfile.error("Error: Failed to send image message")
 
                 # Emergency stop 
                 if int(vehicle_data['vehicle']['wifi']) < 10:

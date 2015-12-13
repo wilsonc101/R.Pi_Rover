@@ -2,13 +2,12 @@
 
 # Form implementation generated from reading ui file 'pirover_controls.ui'
 #
-# Created: Wed Apr 29 22:18:54 2015
+# Created: Sat Dec 12 18:35:01 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-
 import json
 
 import gui.actions as actions
@@ -301,6 +300,12 @@ class Ui_MainWindow(object):
         self.cb_cam_light.setGeometry(QtCore.QRect(10, 11, 21, 21))
         self.cb_cam_light.setText(_fromUtf8(""))
         self.cb_cam_light.setObjectName(_fromUtf8("cb_cam_light"))
+        self.btn_cam_still = QtGui.QToolButton(self.frame_camera)
+        self.btn_cam_still.setGeometry(QtCore.QRect(10, 200, 31, 31))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8("gui/icons/icon-camera-128.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_cam_still.setIcon(icon)
+        self.btn_cam_still.setObjectName(_fromUtf8("btn_cam_still"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
@@ -343,7 +348,10 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.cb_veh_light, QtCore.SIGNAL(_fromUtf8("clicked()")), self.set_veh_light)
         QtCore.QObject.connect(self.cb_cam_light, QtCore.SIGNAL(_fromUtf8("clicked()")), self.set_cam_light)
         QtCore.QObject.connect(self.btn_shutdown, QtCore.SIGNAL(_fromUtf8("clicked()")), self.shutdown_vehicle)
+        QtCore.QObject.connect(self.btn_cam_still, QtCore.SIGNAL(_fromUtf8("clicked()")), self.capture_still)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        
+        
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "Pi Rover", None))
@@ -383,6 +391,8 @@ class Ui_MainWindow(object):
         self.btn_cam_reset.setText(_translate("MainWindow", "RESET", None))
         self.btn_open_player.setText(_translate("MainWindow", "Open Player", None))
         self.lbl_cam_light.setText(_translate("MainWindow", "camera lights", None))
+        self.btn_cam_still.setText(_translate("MainWindow", "Capture Still", None))
+
 
         # Create QThreads for MQ transactions
         # MQ Reader
@@ -407,7 +417,7 @@ class Ui_MainWindow(object):
         else:
             self.bar_reverse.setValue(reverse_value - 10)
 
-        mq.MQWriter(self)
+        mq.sendControl(self)
 
     def decrement_throttle(self):
         forward_value = self.bar_forward.value()
@@ -420,7 +430,7 @@ class Ui_MainWindow(object):
         else:
             self.bar_forward.setValue(forward_value - 10)
 
-        mq.MQWriter(self)
+        mq.sendControl(self)
 
 
     def all_stop(self):
@@ -439,7 +449,7 @@ class Ui_MainWindow(object):
         else:
             self.cb_brake.toggle()
 
-        mq.MQWriter(self)
+        mq.sendControl(self)
 
 
     def set_brake(self):
@@ -449,7 +459,7 @@ class Ui_MainWindow(object):
             self.bar_forward.setValue(0)
             self.bar_reverse.setValue(0)
 
-        mq.MQWriter(self)
+        mq.sendControl(self)
 
 
     def increment_direction(self):
@@ -462,7 +472,7 @@ class Ui_MainWindow(object):
         else:
             self.bar_left.setValue(left_value - 10)
 
-        mq.MQWriter(self)
+        mq.sendControl(self)
         
         
     def decrement_direction(self):
@@ -475,7 +485,7 @@ class Ui_MainWindow(object):
         else:
             self.bar_right.setValue(right_value - 10)
 
-        mq.MQWriter(self)
+        mq.sendControl(self)
 
 
     def set_full_direction(self):
@@ -487,7 +497,7 @@ class Ui_MainWindow(object):
         else:
             self.bar_right.setValue(0)
 
-        mq.MQWriter(self)
+        mq.sendControl(self)
 
 
     def set_zero_direction(self):
@@ -499,31 +509,35 @@ class Ui_MainWindow(object):
         else:
             self.bar_left.setValue(0)
 
-        mq.MQWriter(self)
+        mq.sendControl(self)
         
         
     def reset_camera(self):
         self.dial_cam_pan.setValue(50)
         self.slider_cam_tilt.setValue(50)
-        mq.MQWriter(self)
+        mq.sendControl(self)
 
 
     def tilt_camera(self):
-        mq.MQWriter(self)
+        mq.sendControl(self)
 
     def pan_camera(self):
-        mq.MQWriter(self)
+        mq.sendControl(self)
 
     def open_player(self):
         actions.OpenPlayer()
 
     def set_cam_light(self):
-        mq.MQWriter(self)
+        mq.sendControl(self)
 
     def set_veh_light(self):
-        mq.MQWriter(self)
+        mq.sendControl(self)
+
+    def capture_still(self):
+        mq.sendStillRequest(self)
 
     def shutdown_vehicle(self):
         self.poweroff = True
-        mq.MQWriter(self)
+        mq.sendControl(self)
         raise SystemExit("OK: Vehicle Shutdown")
+

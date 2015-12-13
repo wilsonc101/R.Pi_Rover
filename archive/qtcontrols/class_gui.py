@@ -406,7 +406,7 @@ class Ui_MainWindow(object):
         else:
             self.bar_reverse.setValue(reverse_value - 10)
 
-        workers.MQWriter(self)
+        workers.sendControl(self)
 
     def decrement_throttle(self):
         forward_value = self.bar_forward.value()
@@ -419,7 +419,7 @@ class Ui_MainWindow(object):
         else:
             self.bar_forward.setValue(forward_value - 10)
 
-        workers.MQWriter(self)
+        workers.sendControl(self)
 
 
     def all_stop(self):
@@ -438,7 +438,7 @@ class Ui_MainWindow(object):
         else:
             self.cb_brake.toggle()
 
-        workers.MQWriter(self)
+        workers.sendControl(self)
 
 
     def set_brake(self):
@@ -448,7 +448,7 @@ class Ui_MainWindow(object):
             self.bar_forward.setValue(0)
             self.bar_reverse.setValue(0)
 
-        workers.MQWriter(self)
+        workers.sendControl(self)
 
 
     def increment_direction(self):
@@ -461,7 +461,7 @@ class Ui_MainWindow(object):
         else:
             self.bar_left.setValue(left_value - 10)
 
-        workers.MQWriter(self)
+        workers.sendControl(self)
     def decrement_direction(self):
         right_value = self.bar_right.value()
         left_value = self.bar_left.value()
@@ -472,7 +472,7 @@ class Ui_MainWindow(object):
         else:
             self.bar_right.setValue(right_value - 10)
 
-        workers.MQWriter(self)
+        workers.sendControl(self)
 
 
     def set_full_direction(self):
@@ -484,7 +484,7 @@ class Ui_MainWindow(object):
         else:
             self.bar_right.setValue(0)
 
-        workers.MQWriter(self)
+        workers.sendControl(self)
 
     def set_zero_direction(self):
         left_value = self.bar_left.value()
@@ -495,30 +495,30 @@ class Ui_MainWindow(object):
         else:
             self.bar_left.setValue(0)
 
-        workers.MQWriter(self)
+        workers.sendControl(self)
     def reset_camera(self):
         self.dial_cam_pan.setValue(50)
         self.slider_cam_tilt.setValue(50)
-        workers.MQWriter(self)
+        workers.sendControl(self)
 
 
     def tilt_camera(self):
-        workers.MQWriter(self)
+        workers.sendControl(self)
 
     def pan_camera(self):
-        workers.MQWriter(self)
+        workers.sendControl(self)
 
     def open_player(self):
         workers.OpenPlayer()
 
 
     def set_cam_light(self):
-        workers.MQWriter(self)
+        workers.sendControl(self)
 
     def set_veh_light(self):
-        workers.MQWriter(self)
+        workers.sendControl(self)
 
     def shutdown_vehicle(self):
         self.poweroff = True
-        workers.MQWriter(self)
+        workers.sendControl(self)
         raise SystemExit("OK: Vehicle Shutdown")

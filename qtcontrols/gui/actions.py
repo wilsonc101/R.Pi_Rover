@@ -43,6 +43,11 @@ def GUIUpdate(qt_window, json_data):
             qt_window.center_line_lr.setLine(-40, left, 40, right)
             qt_window.wheel_l.setLine(-40, (left-10), -40, (left+10))
             qt_window.wheel_r.setLine(40, (right-10), 40, (right+10))
+    
+    if 'camera' in json_data:
+        if 'still' in json_data['camera']:
+            print json_data['camera']['still']
+         
 
 
 

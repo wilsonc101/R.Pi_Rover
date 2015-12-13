@@ -2,6 +2,7 @@ import ConfigParser
 from PyQt4 import QtCore
 import json
 import pika
+import random
 
 
 config = ConfigParser.ConfigParser()
@@ -65,7 +66,7 @@ class MQReader(QtCore.QThread):
             return False
 
 
-def MQWriter(qt_window):
+def sendControl(qt_window):
 
     forward_value = qt_window.bar_forward.value()
     reverse_value = qt_window.bar_reverse.value()
@@ -112,6 +113,20 @@ def MQWriter(qt_window):
     
     data['state'] = {'shutdown': shutdown_vehicle}
 
+    
+    return _sendMessage(data)
+
+
+def sendStillRequest(qt_window):
+    correl = random.randint(5000, 5999)
+    
+    data = {}
+    data['camera'] = {'takestill': {'correl': correl}}
+    
+    return _sendMessage(data)
+
+
+def _sendMessage(data):
     try:
         # Establish queue for writing
         connection = pika.BlockingConnection(pika.ConnectionParameters(CONTROL_SERVER))
@@ -125,6 +140,9 @@ def MQWriter(qt_window):
                               body=json.dumps(data))
 
         connection.close()
+        
+        return True
 
     except:
         return False
+    

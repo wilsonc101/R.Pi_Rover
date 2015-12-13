@@ -265,7 +265,7 @@ class Ui_MainWindow(object):
         self.MQReadThread.start()
 
         # Send initial veicle values
-        workers.MQWriter(self)
+        workers.sendControl(self)
 
 
 
@@ -275,4 +275,4 @@ class Ui_MainWindow(object):
 
 
     def vehicle_change(self):
-        workers.MQWriter(self)
+        workers.sendControl(self)

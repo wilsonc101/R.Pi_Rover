@@ -66,7 +66,7 @@ class MQReader(QtCore.QThread):
             return False
 
 
-def MQWriter(qt_window):
+def sendControl(qt_window):
 
     forward_value = qt_window.bar_forward.value()
     reverse_value = qt_window.bar_reverse.value()
