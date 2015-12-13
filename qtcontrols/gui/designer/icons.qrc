@@ -1,5 +1,0 @@
-<RCC>
-  <qresource prefix="capture">
-    <file>../icons/icon-camera-128.png</file>
-  </qresource>
-</RCC>
