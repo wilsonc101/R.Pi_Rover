@@ -2,18 +2,16 @@
 
 # Form implementation generated from reading ui file 'pirover_controls.ui'
 #
-# Created: Sun Dec 13 01:01:36 2015
+# Created: Sat Dec 12 18:35:01 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-
 import json
 
 import gui.actions as actions
 import messaging.rabbitmq as mq
-
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -33,7 +31,7 @@ class Ui_MainWindow(object):
     def __init__(self):
         self.MQReadThread = mq.MQReader()
         self.poweroff = False
-        
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(578, 465)
@@ -135,7 +133,7 @@ class Ui_MainWindow(object):
         self.frame_data.setFrameShadow(QtGui.QFrame.Raised)
         self.frame_data.setObjectName(_fromUtf8("frame_data"))
         self.tab_sensors = QtGui.QTabWidget(self.frame_data)
-        self.tab_sensors.setGeometry(QtCore.QRect(287, 10, 281, 171))
+        self.tab_sensors.setGeometry(QtCore.QRect(295, 10, 273, 171))
         self.tab_sensors.setObjectName(_fromUtf8("tab_sensors"))
         self.tab_environment = QtGui.QWidget()
         self.tab_environment.setObjectName(_fromUtf8("tab_environment"))
@@ -217,12 +215,6 @@ class Ui_MainWindow(object):
         self.lbl_accel_rf.setGeometry(QtCore.QRect(161, 3, 82, 17))
         self.lbl_accel_rf.setObjectName(_fromUtf8("lbl_accel_rf"))
         self.tab_sensors.addTab(self.tab_accel, _fromUtf8(""))
-        self.tab = QtGui.QWidget()
-        self.tab.setObjectName(_fromUtf8("tab"))
-        self.listView = QtGui.QListView(self.tab)
-        self.listView.setGeometry(QtCore.QRect(0, 0, 277, 140))
-        self.listView.setObjectName(_fromUtf8("listView"))
-        self.tab_sensors.addTab(self.tab, _fromUtf8(""))
         self.lbl_battery_a_2 = QtGui.QLabel(self.frame_data)
         self.lbl_battery_a_2.setGeometry(QtCore.QRect(160, 100, 71, 21))
         self.lbl_battery_a_2.setObjectName(_fromUtf8("lbl_battery_a_2"))
@@ -309,28 +301,11 @@ class Ui_MainWindow(object):
         self.cb_cam_light.setText(_fromUtf8(""))
         self.cb_cam_light.setObjectName(_fromUtf8("cb_cam_light"))
         self.btn_cam_still = QtGui.QToolButton(self.frame_camera)
-        self.btn_cam_still.setGeometry(QtCore.QRect(10, 202, 31, 31))
+        self.btn_cam_still.setGeometry(QtCore.QRect(10, 200, 31, 31))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8("gui/icons/icon-camera-128.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btn_cam_still.setIcon(icon)
         self.btn_cam_still.setObjectName(_fromUtf8("btn_cam_still"))
-        self.label = QtGui.QLabel(self.frame_camera)
-        self.label.setGeometry(QtCore.QRect(44, 203, 61, 16))
-        font = QtGui.QFont()
-        font.setPointSize(7)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label.setFont(font)
-        self.label.setObjectName(_fromUtf8("label"))
-        self.lbl_cam_correl = QtGui.QLabel(self.frame_camera)
-        self.lbl_cam_correl.setGeometry(QtCore.QRect(44, 217, 61, 16))
-        font = QtGui.QFont()
-        font.setPointSize(7)
-        font.setBold(True)
-        font.setWeight(75)
-        self.lbl_cam_correl.setFont(font)
-        self.lbl_cam_correl.setText(_fromUtf8(""))
-        self.lbl_cam_correl.setObjectName(_fromUtf8("lbl_cam_correl"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
@@ -376,30 +351,7 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.btn_cam_still, QtCore.SIGNAL(_fromUtf8("clicked()")), self.capture_still)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         
-        MainWindow.setTabOrder(self.btn_stop, self.btn_forward)
-        MainWindow.setTabOrder(self.btn_forward, self.btn_reverse)
-        MainWindow.setTabOrder(self.btn_reverse, self.btn_left)
-        MainWindow.setTabOrder(self.btn_left, self.btn_right)
-        MainWindow.setTabOrder(self.btn_right, self.btn_left_full)
-        MainWindow.setTabOrder(self.btn_left_full, self.btn_right_full)
-        MainWindow.setTabOrder(self.btn_right_full, self.cb_brake)
-        MainWindow.setTabOrder(self.cb_brake, self.slider_cam_tilt)
-        MainWindow.setTabOrder(self.slider_cam_tilt, self.dial_cam_pan)
-        MainWindow.setTabOrder(self.dial_cam_pan, self.btn_cam_reset)
-        MainWindow.setTabOrder(self.btn_cam_reset, self.cb_cam_light)
-        MainWindow.setTabOrder(self.cb_cam_light, self.cb_veh_light)
-        MainWindow.setTabOrder(self.cb_veh_light, self.btn_open_player)
-        MainWindow.setTabOrder(self.btn_open_player, self.tab_sensors)
-        MainWindow.setTabOrder(self.tab_sensors, self.btn_shutdown)
-        MainWindow.setTabOrder(self.btn_shutdown, self.tb_temperature)
-        MainWindow.setTabOrder(self.tb_temperature, self.gv_accel_rf)
-        MainWindow.setTabOrder(self.gv_accel_rf, self.tb_gps_altitude)
-        MainWindow.setTabOrder(self.tb_gps_altitude, self.tb_gps_speed)
-        MainWindow.setTabOrder(self.tb_gps_speed, self.tb_pressure)
-        MainWindow.setTabOrder(self.tb_pressure, self.gv_accel_lr)
-        MainWindow.setTabOrder(self.gv_accel_lr, self.tb_gps_long)
-        MainWindow.setTabOrder(self.tb_gps_long, self.tb_humidity)
-        MainWindow.setTabOrder(self.tb_humidity, self.tb_gps_lat)
+        
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "Pi Rover", None))
@@ -408,8 +360,8 @@ class Ui_MainWindow(object):
         self.btn_stop.setText(_translate("MainWindow", "STOP", None))
         self.btn_forward.setText(_translate("MainWindow", "FWD", None))
         self.bar_forward.setFormat(_translate("MainWindow", "%p%", None))
-        self.btn_left.setText(_translate("MainWindow", "<", None))
-        self.btn_right.setText(_translate("MainWindow", ">", None))
+        self.btn_left.setText(_translate("MainWindow", "LEFT", None))
+        self.btn_right.setText(_translate("MainWindow", "RGHT", None))
         self.lbl_brake.setText(_translate("MainWindow", "brake", None))
         self.btn_left_full.setText(_translate("MainWindow", "full", None))
         self.btn_right_full.setText(_translate("MainWindow", "full", None))
@@ -427,7 +379,6 @@ class Ui_MainWindow(object):
         self.lbl_accel_lr.setText(_translate("MainWindow", "Left - Right", None))
         self.lbl_accel_rf.setText(_translate("MainWindow", "Rear - Front", None))
         self.tab_sensors.setTabText(self.tab_sensors.indexOf(self.tab_accel), _translate("MainWindow", "Accel", None))
-        self.tab_sensors.setTabText(self.tab_sensors.indexOf(self.tab), _translate("MainWindow", "Stills", None))
         self.lbl_battery_a_2.setText(_translate("MainWindow", "Battery - B", None))
         self.lbl_battery_a.setText(_translate("MainWindow", "Battery - A", None))
         self.lbl_wifi.setText(_translate("MainWindow", "Wifi", None))
@@ -440,9 +391,7 @@ class Ui_MainWindow(object):
         self.btn_cam_reset.setText(_translate("MainWindow", "RESET", None))
         self.btn_open_player.setText(_translate("MainWindow", "Open Player", None))
         self.lbl_cam_light.setText(_translate("MainWindow", "camera lights", None))
-        self.btn_cam_still.setText(_translate("MainWindow", "...", None))
-        self.label.setText(_translate("MainWindow", "Last correl:", None))
-
+        self.btn_cam_still.setText(_translate("MainWindow", "Capture Still", None))
 
 
         # Create QThreads for MQ transactions

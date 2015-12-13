@@ -46,9 +46,7 @@ def GUIUpdate(qt_window, json_data):
     
     if 'camera' in json_data:
         if 'still' in json_data['camera']:
-            print json_data['camera']['still']
-         
-
+            qt_window.lbl_cam_correl.setText(str(json_data['camera']['still']['correl']))
 
 
 def OpenPlayer():

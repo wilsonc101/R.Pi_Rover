@@ -150,7 +150,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>&lt;</string>
+      <string>LEFT</string>
      </property>
     </widget>
     <widget class="QPushButton" name="btn_right">
@@ -163,7 +163,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>&gt;</string>
+      <string>RGHT</string>
      </property>
     </widget>
     <widget class="QProgressBar" name="bar_reverse">
@@ -319,9 +319,9 @@
     <widget class="QTabWidget" name="tab_sensors">
      <property name="geometry">
       <rect>
-       <x>287</x>
+       <x>295</x>
        <y>10</y>
-       <width>281</width>
+       <width>273</width>
        <height>171</height>
       </rect>
      </property>
@@ -594,21 +594,6 @@
        </property>
        <property name="text">
         <string>Rear - Front</string>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QWidget" name="tab">
-      <attribute name="title">
-       <string>Stills</string>
-      </attribute>
-      <widget class="QListView" name="listView">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>277</width>
-         <height>140</height>
-        </rect>
        </property>
       </widget>
      </widget>
@@ -903,90 +888,23 @@ Vehicle</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>202</y>
+       <y>200</y>
        <width>31</width>
        <height>31</height>
       </rect>
      </property>
      <property name="text">
-      <string>...</string>
+      <string>Capture Still</string>
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>:/capture/icon-camera-128.png</normaloff>:/capture/icon-camera-128.png</iconset>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label">
-     <property name="geometry">
-      <rect>
-       <x>44</x>
-       <y>203</y>
-       <width>61</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>7</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Last correl:</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_cam_correl">
-     <property name="geometry">
-      <rect>
-       <x>44</x>
-       <y>217</y>
-       <width>61</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>7</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string/>
+       <normaloff>icon-camera-128.png</normaloff>icon-camera-128.png</iconset>
      </property>
     </widget>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <tabstops>
-  <tabstop>btn_stop</tabstop>
-  <tabstop>btn_forward</tabstop>
-  <tabstop>btn_reverse</tabstop>
-  <tabstop>btn_left</tabstop>
-  <tabstop>btn_right</tabstop>
-  <tabstop>btn_left_full</tabstop>
-  <tabstop>btn_right_full</tabstop>
-  <tabstop>cb_brake</tabstop>
-  <tabstop>slider_cam_tilt</tabstop>
-  <tabstop>dial_cam_pan</tabstop>
-  <tabstop>btn_cam_reset</tabstop>
-  <tabstop>cb_cam_light</tabstop>
-  <tabstop>cb_veh_light</tabstop>
-  <tabstop>btn_open_player</tabstop>
-  <tabstop>tab_sensors</tabstop>
-  <tabstop>btn_shutdown</tabstop>
-  <tabstop>tb_temperature</tabstop>
-  <tabstop>gv_accel_rf</tabstop>
-  <tabstop>tb_gps_altitude</tabstop>
-  <tabstop>tb_gps_speed</tabstop>
-  <tabstop>tb_pressure</tabstop>
-  <tabstop>gv_accel_lr</tabstop>
-  <tabstop>tb_gps_long</tabstop>
-  <tabstop>tb_humidity</tabstop>
-  <tabstop>tb_gps_lat</tabstop>
- </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -1229,22 +1147,6 @@ Vehicle</string>
     </hint>
    </hints>
   </connection>
-  <connection>
-   <sender>btn_cam_still</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>capture_still()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>303</x>
-     <y>217</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>281</x>
-     <y>246</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
  <slots>
   <slot>increment_throttle()</slot>
@@ -1262,6 +1164,5 @@ Vehicle</string>
   <slot>set_cam_light()</slot>
   <slot>set_veh_light()</slot>
   <slot>shutdown_vehicle()</slot>
-  <slot>capture_still()</slot>
  </slots>
 </ui>
