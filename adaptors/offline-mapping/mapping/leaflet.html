@@ -3,6 +3,7 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <title>Leaflet</title>
+  
   <link rel="stylesheet" type="text/css" href="leaflet-0.7.2/leaflet.css">
   <link rel="stylesheet" type="text/css" href="leafdraw/leaflet.draw.css">
   <script type='text/javascript' src="leaflet-0.7.2/leaflet.js"></script>
@@ -12,7 +13,7 @@
   <style type='text/css'>
     html, body, #map {
     width:100%;
-    height:96%;
+    height:100%;
     margin:0;
     padding:0;}
 
@@ -25,23 +26,29 @@
 <script type='text/javascript'>//<![CDATA[
 window.onload=function(){
 
-// We’ll add a OSM tile layer to our map
+
+var postURL = "http://localhost:8080";
+
+function generateUUID(){
+    var d = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (d + Math.random()*16)%16 | 0;
+        d = Math.floor(d/16);
+        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+}
+
+function httpPOST(action, type, id, data){
+    post_data = '{"action":"' + action + '", "type":"' + type + '", "id":"' + id + '", "data":' + data + '}';
+    xhttp = new XMLHttpRequest();
+    xhttp.open("POST", postURL, true);
+    xhttp.send(post_data);
+}
+
+// Add OSM tile layer (attrib)
 var osmUrl = 'data/{id}/{z}/{x}/{y}.{ex}',
     osmAttrib = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
-
-
-// Custom icon using local source
-var myIcon = L.icon({
-    iconUrl: 'images/marker-icon.png',
-    iconRetinaUrl: 'my-icon@2x.png',
-    iconSize: [25, 41],
-    iconAnchor: [21, 41],
-    popupAnchor: [-8, -44],
-    shadowUrl: 'images/marker-shadow.png',
-    shadowRetinaUrl: 'my-icon-shadow@2x.png',
-    shadowSize: [41, 41],
-    shadowAnchor: [21, 41]
-});
 
 
 // initialize map and set default layer and location
@@ -52,10 +59,13 @@ var map = L.map('map', {center: [51.44667890937984, -2.1424198150634766],
                         zoom: 16}).addLayer(streets);
 
 // Create layer menu and assign to map
-var baseLayers = {"Sattelite": sat,
+var baseLayers = {"Satellite": sat,
                   "Streets": streets};
 
 L.control.layers(baseLayers).addTo(map);
+
+
+
 
 
 
@@ -71,17 +81,29 @@ var drawControl = new L.Control.Draw({
 });
 map.addControl(drawControl);
 
+var test1 = L.marker([51.44598349055138,-2.1436643600463867]);
+drawnItems.addLayer(test1);
 
-		map.on('draw:created', function (e) {
-			var type = e.layerType,
-				layer = e.layer;
+map.on('draw:created', function (e) {
+    var type = e.layerType,
+        layer = e.layer;
 
-			if (type === 'marker') {
-				layer.bindPopup('A popup!');
-			}
+    layer._leaflet_id = generateUUID();
+    httpPOST("create", type, layer._leaflet_id, JSON.stringify(layer.toGeoJSON()));
 
-			drawnItems.addLayer(layer);
-		});
+    drawnItems.addLayer(layer);
+});
+
+map.on('draw:deleted', function (e) {
+    var layergroup = e.layers;
+
+    layergroup.eachLayer(function (layer) {
+        var type = layer.type;
+        httpPOST("delete", "None", layer._leaflet_id, JSON.stringify(layer.toGeoJSON()));
+    });   
+
+});
+
 
 }//]]> 
 
@@ -90,12 +112,10 @@ map.addControl(drawControl);
 
 </head>
 <body>
-  <div id="map" data-mode="">
+<div id="map" data-mode="">
     <input type="hidden" data-map-markers="" value="" name="map-geojson-data" />
 </div>
-<div>
-    <input class="get-markers" type="button" value="Get all the Markers" />
-</div>
+
   
 </body>
 
