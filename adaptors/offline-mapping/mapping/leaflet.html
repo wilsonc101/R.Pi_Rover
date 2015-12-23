@@ -65,10 +65,6 @@ var baseLayers = {"Satellite": sat,
 L.control.layers(baseLayers).addTo(map);
 
 
-
-
-
-
 // Initialise the FeatureGroup to store editable layers
 var drawnItems = new L.FeatureGroup();
 map.addLayer(drawnItems);
@@ -98,7 +94,6 @@ map.on('draw:deleted', function (e) {
     var layergroup = e.layers;
 
     layergroup.eachLayer(function (layer) {
-        var type = layer.type;
         httpPOST("delete", "None", layer._leaflet_id, JSON.stringify(layer.toGeoJSON()));
     });   
 
