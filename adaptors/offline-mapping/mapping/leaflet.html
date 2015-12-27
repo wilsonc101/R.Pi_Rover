@@ -27,7 +27,7 @@
 window.onload=function(){
 
 
-var postURL = "http://localhost:8080";
+var postURL = "http://localhost/mapping/";
 
 function generateUUID(){
     var d = new Date().getTime();
@@ -40,10 +40,12 @@ function generateUUID(){
 }
 
 function httpPOST(action, type, id, data){
-    post_data = '{"action":"' + action + '", "type":"' + type + '", "id":"' + id + '", "data":' + data + '}';
+    //post_data = '{"action":"' + action + '", "type":"' + type + '", "id":"' + id + '", "data":' + data + '}';
     xhttp = new XMLHttpRequest();
     xhttp.open("POST", postURL, true);
-    xhttp.send(post_data);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    //xhttp.send(post_data);
+    xhttp.send("id=" + id + "&action=" + action + "&type=" + type + "&data=" + data);
 }
 
 // Add OSM tile layer (attrib)
@@ -77,8 +79,10 @@ var drawControl = new L.Control.Draw({
 });
 map.addControl(drawControl);
 
-var test1 = L.marker([51.44598349055138,-2.1436643600463867]);
-drawnItems.addLayer(test1);
+
+// TEST MARKER
+// var test1 = L.marker([51.44598349055138,-2.1436643600463867]);
+// drawnItems.addLayer(test1);
 
 map.on('draw:created', function (e) {
     var type = e.layerType,
