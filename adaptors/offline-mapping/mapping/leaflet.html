@@ -40,11 +40,9 @@ function generateUUID(){
 }
 
 function httpPOST(action, type, id, data){
-    //post_data = '{"action":"' + action + '", "type":"' + type + '", "id":"' + id + '", "data":' + data + '}';
     xhttp = new XMLHttpRequest();
     xhttp.open("POST", postURL, true);
     xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    //xhttp.send(post_data);
     xhttp.send("id=" + id + "&action=" + action + "&type=" + type + "&data=" + data);
 }
 
@@ -99,6 +97,15 @@ map.on('draw:deleted', function (e) {
 
     layergroup.eachLayer(function (layer) {
         httpPOST("delete", "None", layer._leaflet_id, JSON.stringify(layer.toGeoJSON()));
+    });   
+
+});
+
+map.on('draw:edited', function (e) {
+    var layergroup = e.layers;
+
+    layergroup.eachLayer(function (layer) {
+        httpPOST("edit", "None", layer._leaflet_id, JSON.stringify(layer.toGeoJSON()));
     });   
 
 });
