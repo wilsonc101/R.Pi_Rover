@@ -69,8 +69,15 @@ function HTTPListener () {
 
         // Circle
         } else if (obj_type == "circle") {
-            alert(response[object]['coordinates']);
+            var obj_lon = response[object]['coordinates'][0],
+                obj_lat = response[object]['coordinates'][1],
+                obj_radius = response[object]['radius'];
         
+            var circle = L.circle([obj_lat,obj_lon], obj_radius);
+            circle._leaflet_id = obj_id;
+            drawnItems.addLayer(circle);
+            
+       
         // Rectangle
         } else if (obj_type == "rectangle") {
             var coordinates = response[object]['coordinates'][0],
@@ -169,11 +176,18 @@ var timer = setInterval(httpGET, 5000);
 
 map.on('draw:created', function (e) {
     var type = e.layerType,
-        layer = e.layer;
+        layer = e.layer,
+        geo_data = layer.toGeoJSON();
 
     layer._leaflet_id = generateUUID();
-    httpPOST("create", type, layer._leaflet_id, JSON.stringify(layer.toGeoJSON()));
-
+    
+    
+    if (type == "circle") {
+        geo_data['radius'] = layer.getRadius();    
+    };
+   
+    httpPOST("create", type, layer._leaflet_id, JSON.stringify(geo_data));
+    
     drawnItems.addLayer(layer);
 });
 

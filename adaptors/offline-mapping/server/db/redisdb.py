@@ -24,6 +24,9 @@ def createObject(id, type, data):
     object_data['type'] = str(type)
     object_data['coordinates'] = json_data['geometry']['coordinates']
     
+    if object_data['type'] == "circle":
+        object_data['radius'] = json_data['radius']
+    
     REDIS_CONNECTION.set(id,object_data)
     
     return True
