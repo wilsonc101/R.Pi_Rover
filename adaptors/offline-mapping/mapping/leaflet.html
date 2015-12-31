@@ -27,7 +27,8 @@
 window.onload=function(){
 
 
-var postURL = "http://localhost/mapping/";
+var postURL = "http://localhost/mapping/server/";
+var getURL = "http://localhost/mapping/server/";
 
 function generateUUID(){
     var d = new Date().getTime();
@@ -40,11 +41,31 @@ function generateUUID(){
 }
 
 function httpPOST(action, type, id, data){
-    xhttp = new XMLHttpRequest();
+    var xhttp = new XMLHttpRequest();
     xhttp.open("POST", postURL, true);
     xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhttp.send("id=" + id + "&action=" + action + "&type=" + type + "&data=" + data);
 }
+
+function HTTPListener () {
+    var raw_response = this.responseText;
+    var response = JSON.parse(raw_response);
+    //alert(JSON.stringify(response));
+
+    for (var prop in response) {
+        alert("Key:" + prop);
+        alert("Value:" + response[prop]['type']);
+    };
+}
+
+function httpGET(){
+    var xhttp = new XMLHttpRequest();
+    xhttp.addEventListener("load", HTTPListener);
+    xhttp.open("GET", getURL);
+    xhttp.send();
+}
+
+httpGET();
 
 // Add OSM tile layer (attrib)
 var osmUrl = 'data/{id}/{z}/{x}/{y}.{ex}',
