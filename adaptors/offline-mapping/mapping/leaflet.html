@@ -50,12 +50,77 @@ function httpPOST(action, type, id, data){
 function HTTPListener () {
     var raw_response = this.responseText;
     var response = JSON.parse(raw_response);
-    //alert(JSON.stringify(response));
 
-    for (var prop in response) {
-        alert("Key:" + prop);
-        alert("Value:" + response[prop]['type']);
+    drawnItems.clearLayers();
+
+    for (var object in response) {
+        var obj_id = object,
+            obj_type = response[object]['type'];
+
+        // Re-add objects to map
+        // Marker
+        if (obj_type == "marker") {
+            var obj_lon = response[object]['coordinates'][0],
+                obj_lat = response[object]['coordinates'][1];
+        
+            var marker = L.marker([obj_lat,obj_lon]);
+            marker._leaflet_id = obj_id;
+            drawnItems.addLayer(marker);
+
+        // Circle
+        } else if (obj_type == "circle") {
+            alert(response[object]['coordinates']);
+        
+        // Rectangle
+        } else if (obj_type == "rectangle") {
+            var coordinates = response[object]['coordinates'][0],
+                corrected_coordinates = [];
+                
+            for (var latlng in coordinates) {
+                var lon = coordinates[latlng][0],
+                    lat = coordinates[latlng][1];
+                    
+                corrected_coordinates.push([lat, lon]);
+            };  
+
+            var rectangle = L.rectangle(corrected_coordinates);
+            rectangle._leaflet_id = obj_id;
+            drawnItems.addLayer(rectangle); 
+                   
+        // Polyline
+        } else if (obj_type == "polyline") {
+            var coordinates = response[object]['coordinates'],
+                corrected_coordinates = [];
+
+            for (var latlng in coordinates) {
+                var lon = coordinates[latlng][0],
+                    lat = coordinates[latlng][1];
+                    
+                corrected_coordinates.push([lat, lon]);
+            };  
+                
+            var polyline = L.polyline(corrected_coordinates);
+            polyline._leaflet_id = obj_id;
+            drawnItems.addLayer(polyline);
+            
+        // Polygon
+        } else if (obj_type == "polygon") {
+            var coordinates = response[object]['coordinates'][0],
+                corrected_coordinates = [];
+                
+            for (var latlng in coordinates) {
+                var lon = coordinates[latlng][0],
+                    lat = coordinates[latlng][1];
+                    
+                corrected_coordinates.push([lat, lon]);
+            };  
+
+            var polygon = L.polygon(corrected_coordinates);
+            polygon._leaflet_id = obj_id;
+            drawnItems.addLayer(polygon);
+       }; 
     };
+    
 }
 
 function httpGET(){
@@ -65,7 +130,6 @@ function httpGET(){
     xhttp.send();
 }
 
-httpGET();
 
 // Add OSM tile layer (attrib)
 var osmUrl = 'data/{id}/{z}/{x}/{y}.{ex}',
@@ -99,9 +163,9 @@ var drawControl = new L.Control.Draw({
 map.addControl(drawControl);
 
 
-// TEST MARKER
-// var test1 = L.marker([51.44598349055138,-2.1436643600463867]);
-// drawnItems.addLayer(test1);
+// Timed get - 5s
+var timer = setInterval(httpGET, 5000);
+
 
 map.on('draw:created', function (e) {
     var type = e.layerType,
@@ -130,6 +194,35 @@ map.on('draw:edited', function (e) {
     });   
 
 });
+
+
+// Pause/resume timer during interaction
+map.on('draw:drawstart', function (e) {
+    clearTimeout(timer);
+});
+
+map.on('draw:drawstop', function (e) {
+    timer = setInterval(httpGET, 5000);
+});
+
+
+map.on('draw:editstart', function (e) {
+    clearTimeout(timer);
+});
+
+map.on('draw:editstop', function (e) {
+    timer = setInterval(httpGET, 5000);
+});
+
+
+map.on('draw:deletestart', function (e) {
+    clearTimeout(timer);
+});
+
+map.on('draw:deletestop', function (e) {
+    timer = setInterval(httpGET, 5000);
+});
+
 
 
 }//]]> 
