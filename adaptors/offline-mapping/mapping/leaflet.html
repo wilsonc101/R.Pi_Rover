@@ -27,8 +27,8 @@
 	window.onload=function(){
 	
 	
-	var postURL = "http://localhost/mapping/server/",
-	    getURL = "http://localhost/mapping/server/";
+	var postURL = "http://10.224.36.130/mapping/server/",
+	    getURL = "http://10.224.36.130/mapping/server/";
 	
 	function generateUUID(){
 	    var d = new Date().getTime();
@@ -65,6 +65,7 @@
 	        
 	            var marker = L.marker([obj_lat,obj_lon]);
 	            marker._leaflet_id = obj_id;
+	            marker._draw_type = obj_type;
 	            drawnItems.addLayer(marker);
 	
 	        // Circle
@@ -75,6 +76,7 @@
 	        
 	            var circle = L.circle([obj_lat,obj_lon], obj_radius);
 	            circle._leaflet_id = obj_id;
+	            circle._draw_type = obj_type;
 	            drawnItems.addLayer(circle);
 	            
 	       
@@ -92,6 +94,7 @@
 	
 	            var rectangle = L.rectangle(corrected_coordinates);
 	            rectangle._leaflet_id = obj_id;
+	            rectangle._draw_type = obj_type;
 	            drawnItems.addLayer(rectangle); 
 	                   
 	        // Polyline
@@ -108,6 +111,7 @@
 	                
 	            var polyline = L.polyline(corrected_coordinates);
 	            polyline._leaflet_id = obj_id;
+	            polyline._draw_type = obj_type;
 	            drawnItems.addLayer(polyline);
 	            
 	        // Polygon
@@ -124,6 +128,7 @@
 	
 	            var polygon = L.polygon(corrected_coordinates);
 	            polygon._leaflet_id = obj_id;
+	            polygon._draw_type = obj_type;
 	            drawnItems.addLayer(polygon);
 	       }; 
 	    };
@@ -179,7 +184,7 @@
 	        geo_data = layer.toGeoJSON();
 	
 	    layer._leaflet_id = generateUUID();
-	    
+	    layer._draw_type = type;
 	    
 	    if (type == "circle") {
 	        geo_data['radius'] = layer.getRadius();    
@@ -203,7 +208,14 @@
 	    var layergroup = e.layers;
 	
 	    layergroup.eachLayer(function (layer) {
-	        httpPOST("edit", "None", layer._leaflet_id, JSON.stringify(layer.toGeoJSON()));
+	        var geo_data = layer.toGeoJSON(),
+	            type = layer._draw_type;
+           
+	        if (type == "circle") {
+	            geo_data['radius'] = layer._mRadius;
+	        };
+
+	        httpPOST("edit", type, layer._leaflet_id, JSON.stringify(geo_data));
 	    });   
 	
 	});

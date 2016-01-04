@@ -36,12 +36,15 @@ def updateObject(id, type, data):
     json_data = json.loads(data)
 
     # Get type property from original object
-    original_object = REDIS_CONNECTION.get(id)
-    type = dict(ast.literal_eval(original_object))['type']
+    #original_object = REDIS_CONNECTION.get(id)
+    #type = dict(ast.literal_eval(original_object))['type']
 
     object_data = {}
-    object_data['type'] = type
+    object_data['type'] = str(type)
     object_data['coordinates'] = json_data['geometry']['coordinates']
+    
+    if object_data['type'] == "circle":
+        object_data['radius'] = json_data['radius']
     
     REDIS_CONNECTION.set(id,object_data)
     
