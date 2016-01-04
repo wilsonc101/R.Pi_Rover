@@ -1,0 +1,7 @@
+{"create_global_sqs_users":"True",
+ "regions":[{"region":"eu-central-1",
+             "queues":[{"name":"sim-collector",
+                        "retention_period":600}]}]}
+            
+ 
+

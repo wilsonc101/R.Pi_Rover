@@ -1,0 +1,9 @@
+{"global_supernet":"10.0.0.0/8",
+ "regions":[{"region":"eu-west-1",
+             "region_cidr_block":"10.20.0.0/16",
+             "allow_internet_access":"True",
+             "enable_default_access_rules":"True",
+             "subnets":[{"cidr_block":"10.20.2.0/24", "availability_zone":"eu-west-1b"},
+                        {"cidr_block":"10.20.3.0/24", "availability_zone":"eu-west-1c"}],
+             "vehicles":[{"location":"eu-west-1b", "count":1, "image":"ami-47a23a30"},
+                         {"location":"eu-west-1c", "count":1, "image":"ami-47a23a30"}]}]}

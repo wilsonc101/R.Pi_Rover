@@ -57,27 +57,3 @@ def getObjects():
         geoobjects[id] = geoobject
         
     return json.dumps(geoobjects)
-
-
-def _correctcoords(data):
-    if data['type'] == "marker":
-        coordinates = str(data['data']['geometry']['coordinates'])
-    
-    elif data['type'] == "polyline":
-        coordinates =  str(data['data']['geometry']['coordinates'])
-
-    elif data['type'] == "polygon":
-        coordinates =  str(data['data']['geometry']['coordinates'][0])
-    
-    elif data['type'] == "rectangle":
-        coordinates =  str(data['data']['geometry']['coordinates'][0])
-
-    elif data['type'] == "circle": 
-        coordinates =  str(data['data']['geometry']['coordinates'])
-    
-    return 
-    
-#{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-2.14583158493042,51.44720046655099]}}
-#{"type":"Feature","properties":{},"geometry":{"type":"LineString","coordinates":[[-2.1425271034240723,51.448083088192334],
-#                                                                                 [-2.1448874473571777,51.44694637534],
-#                                                                                 [-2.1454238891601562,51.44564915080628]]}}
