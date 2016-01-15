@@ -1,14 +1,13 @@
-Deploys AWS infrastructure based on JSON formatted configuration file and deploy instances of 'ttyvehicle'.
+Build AWS infrastructure based on JSON formatted configuration file into which instances of 'ttyvehicle' can be deployed.
 
 To use:
 
 1) Add PEM formatted key pair to security folder and adjust config/aws.cfg to match
-2) Adjust tenancy.py so inbound rules containing <MY_IP_HERE> to match your source address or range
+2) Adjust tenancy.py so inbound rules containing <MY_IP_HERE> match your source address or range
 3) Add SQS key id and key to any 'init' scripts ingested by instances (if SQS is to be used)
 
 
-The following example demonstrate the instantiation of the the 'ttyvehicle' simulator within multiple regions and the creation of the required SQS queues. 
-
+The following example demonstrates the instantiation of 'ttyvehicle' simulators within multiple regions and the creation of the required SQS queues. 
 
 Examples:
 
