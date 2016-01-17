@@ -1,3 +1,5 @@
+#!/usr/bin/python -B
+
 import redis
 import json
 
